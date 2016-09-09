@@ -21,11 +21,11 @@ Template.task.onCreated(function() {
 
  Template.task.helpers({
 
-//   tasks:function() {
-// console.log("BDD: "+Tasks.find({}).fetch()[0]);
-//     return Tasks.find({}).fetch();
+  tasks:function() {
+console.log("BDD: "+Tasks.find({}).fetch()[0]);
+    return Tasks.find({}).fetch();
 
-//   },
+  },
 
 });
 

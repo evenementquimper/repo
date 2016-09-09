@@ -11,7 +11,9 @@ import './nav.html';
 import './app.html';
 import './leftnavuser.html';
 import './profilesection.html';
-import './basicsform';
+import './basicsform.html';
+import './userlayout.html';
+import './managelisting.html';
 import './managelisting.js';
 
 
@@ -23,11 +25,11 @@ Template.body.onCreated(function bodyOnCreated() {
 
 Template.body.helpers({
 
-  tasks: function() {
+  // tasks: function() {
 
-    return Tasks.find({});
+  //   return Tasks.find({});
 
-  },
+  // },
 
 });
 

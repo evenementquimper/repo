@@ -1,6 +1,7 @@
 
 
 
+<template name="mainLayout">
 <body>
   
   <div id="app">
@@ -11,15 +12,15 @@
       
     
     </div>
-    {{> nav}}
+    {{> Template.dynamic template=nav}}
     <div class="app">
-     {{> app}}
+     {{> Template.dynamic template=app}}
 
     </div>
   
   </div>
 </div>
 </body>
-
+</template>
 
 
