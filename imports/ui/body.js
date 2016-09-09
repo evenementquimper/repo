@@ -13,8 +13,15 @@ import './leftnavuser.html';
 import './profilesection.html';
 import './basicsform.html';
 import './userlayout.html';
+import './mylistingLayout.html';
+import './topnavmylisting.html';
 import './managelisting.html';
 import './managelisting.js';
+import './mlsectionright.html';
+import './mlsectioncontent.html';
+import './mlsectionbuttons.html';
+import './mlsectioncontentbasics.html';
+import './mlsectioncontentdetails.html';
 
 
 Template.body.onCreated(function bodyOnCreated() {

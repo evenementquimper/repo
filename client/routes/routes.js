@@ -26,7 +26,26 @@ FlowRouter.route('/manage', {
 FlowRouter.route('/user', {
 	name:'user',
   action: function() {
-    BlazeLayout.render("userLayout");
+    BlazeLayout.render("userLayout",{profilesection:"profilesection"});
+
+  }
+});
+
+FlowRouter.route('/mylistings/basics', {
+	name:'userbasics',
+  action: function() {
+    BlazeLayout.render("mylistingLayout"
+    	,{content:"mlsectioncontentbasics"}
+    	);
+
+  }
+});
+FlowRouter.route('/mylistings/details', {
+	name:'userdetails',
+  action: function() {
+    BlazeLayout.render("mylistingLayout"
+    	,{content:"mlsectioncontentdetails"}
+    	);
 
   }
 });

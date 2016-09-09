@@ -1,7 +1,7 @@
 
 
 
-<template name="userLayout">
+<template name="mylistingLayout">
 <body>
   
   <div id="app">
@@ -12,16 +12,23 @@
       
     
     </div>
-    {{> nav}}
+     {{> nav}}
     <div class="app">
          <div class="left-nav left-nav-medium">
-        {{> leftnavuser}}
+{{> leftnavuser}}
     </div>
 
     <div class="app-container">
       <div class="app-container-view">
-   
-        {{> profilesection}}
+   <div class="manage-listing">
+        <div class="ml-section-left">
+{{> topnavmylisting}}
+{{> Template.dynamic template=content}}
+{{> mlsectioncontentbasics}}
+{{> mlsectionbuttons}}
+	</div>
+{{> mlsectionright}}
+	</div>
       </div>
       
     </div>
