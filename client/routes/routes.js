@@ -31,7 +31,7 @@ FlowRouter.route('/user', {
   }
 });
 
-FlowRouter.route('/mylistings/basics', {
+FlowRouter.route('/mylistings/basics/:id', {
 	name:'userbasics',
   action: function() {
     BlazeLayout.render("mylistingLayout"
@@ -45,6 +45,15 @@ FlowRouter.route('/mylistings/details', {
   action: function() {
     BlazeLayout.render("mylistingLayout"
     	,{content:"mlsectioncontentdetails"}
+    	);
+
+  }
+});
+FlowRouter.route('/mylistings/availability', {
+	name:'useravailability',
+  action: function() {
+    BlazeLayout.render("mylistingLayout"
+    	,{content:"mlsectioncontentavailability"}
     	);
 
   }
