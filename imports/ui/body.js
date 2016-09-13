@@ -15,6 +15,9 @@ import './basicsform.html';
 import './userlayout.html';
 
 import './mylistingLayout.js';
+import './listingsLayout.js';
+
+
 import './topnavmylisting.html';
 import './managelisting.html';
 import './managelisting.js';
@@ -26,6 +29,8 @@ import './mlsectionbuttons.html';
 import './mlsectioncontentbasics.js';
 import './mlsectioncontentdetails.html';
 import './mlsectioncontentavailability.html';
+
+import './listing';
 
 
 Template.body.onCreated(function bodyOnCreated() {

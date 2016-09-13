@@ -6,9 +6,11 @@ import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
  
 
-import './mlsectioncontentbasics.html';
+import './listing.html';
+import './sectionavailability.html';
+import './sectionbooking.html';
  
- Template.mlsectioncontentbasics.onCreated(function() {
+ Template.listing.onCreated(function() {
 
   //CampingCars.insert({name:"peugeot", description:"un super camping car de la mort qui tue", maxguests:4, bedsnumb: 4});
   //this.getListId = () => FlowRouter.getParam('_id');
@@ -18,7 +20,7 @@ import './mlsectioncontentbasics.html';
   //});
 });
 
- Template.mlsectioncontentbasics.helpers({
+ Template.listing.helpers({
 todoArgs(todo){
 
 
@@ -72,7 +74,7 @@ return CampingCars.find({}).fetch();;
 
     // },
 });
-  Template.mlsectioncontentbasics.events({
+  Template.listing.events({
 
   //   'click #valid': function(event, template) {
   //     // Prevent default browser 

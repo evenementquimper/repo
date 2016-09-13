@@ -6,20 +6,23 @@ import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
  
 
-import './mylistingLayout.html';
+import './listingsLayout.html';
  
- Template.mylistingLayout.onCreated(function() {
-  
-
+ Template.listingsLayout.onCreated(function(template) {
   //this.getListId = () => FlowRouter.getParam('_id');
 //souscription a la base de donnée
+      //var ResId = template.find('section.section');
+      //ResId.style.display = "none";
   this.autorun(() => {
     this.subscribe('tasks');
     this.subscribe('campingcars');
   });
+      //   BlazeLayout.render("listingsLayout"
+      // ,{listing:"mlsectioncontentavailability"}
+      // );
 });
 
- Template.mylistingLayout.helpers({
+ Template.listingsLayout.helpers({
   //task: function() {
 
     //var category = FlowRouter.getParam("id");
@@ -62,7 +65,7 @@ import './mylistingLayout.html';
 
     // },
 });
-  Template.mylistingLayout.events({
+  Template.listingsLayout.events({
 
   //   'click #valid': function(event, template) {
   //     // Prevent default browser 
@@ -81,5 +84,64 @@ import './mylistingLayout.html';
   //     Session.set("BookingEmail", email);
   // }
   // },
+      'click button#about': function(event, template) {
+
+    // Prevent default browser
+      event.preventDefault();
+
+
+      var Resdetails = template.find('.listingdetails');
+      var Resabout = template.find('.listingabout');
+      var Resaddons = template.find('.listingaddons');
+
+
+      Resdetails.style.display = "none";
+      Resabout.style.display = "inherit";
+     Resaddons.style.display = "none";
+
+  },
+
+        'click button#details': function(event, template) {
+
+    // Prevent default browser
+      event.preventDefault();
+
+
+      var Resdetails = template.find('.listingdetails');
+      var Resabout = template.find('.listingabout');
+      var Resaddons = template.find('.listingaddons');
+
+      Resdetails.style.display = "inherit";
+      Resabout.style.display = "none";
+     Resaddons.style.display = "none";
+
+  },
+
+          'click button#addons': function(event, template) {
+
+    // Prevent default browser
+      event.preventDefault();
+
+
+      var Resdetails = template.find('.listingdetails');
+      var Resabout = template.find('.listingabout');
+      var Resaddons = template.find('.listingaddons');
+
+
+      Resdetails.style.display = "none";
+      Resabout.style.display = "none";
+     Resaddons.style.display = "inherit";
+
+  },
+
+//   'click #PushGateIp': function(event, template){
+
+// // Prevent default browser
+//       event.preventDefault();
+//       var Gate = template.find('#GateIp');
+//       var gate_ip = $(Gate).val();
+//       Meteor.call('Set_gate_ip', gate_ip);
+    
+//   },
 
    });

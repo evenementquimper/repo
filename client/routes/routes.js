@@ -58,3 +58,12 @@ FlowRouter.route('/mylistings/availability', {
 
   }
 });
+FlowRouter.route('/listings', {
+	name:'listing',
+  action: function() {
+    BlazeLayout.render("listingsLayout"
+    	,{listing:"listing"}
+    	);
+
+  }
+});
