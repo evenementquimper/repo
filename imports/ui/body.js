@@ -27,7 +27,7 @@ import './mlsectionbuttons.html';
 
 //import './mlsectioncontentbasics.html';
 import './mlsectioncontentbasics.js';
-import './mlsectioncontentdetails.html';
+import './mlsectioncontentdetails.js';
 import './mlsectioncontentavailability.html';
 
 import './listing';

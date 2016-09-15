@@ -9,7 +9,7 @@ import { CampingCars } from '../api/campingcars.js';
 import './listingsLayout.html';
  
  Template.listingsLayout.onCreated(function(template) {
-  //this.getListId = () => FlowRouter.getParam('_id');
+  this.getListId = () => FlowRouter.getParam('_id');
 //souscription a la base de donnée
       //var ResId = template.find('section.section');
       //ResId.style.display = "none";

@@ -6,10 +6,10 @@ import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
  
 
-import './mlsectioncontentbasics.html';
+import './mlsectioncontentdetails.html';
  
- Template.mlsectioncontentbasics.onCreated(function() {
-
+ Template.mlsectioncontentdetails.onCreated(function() {
+console.log("Star detail.js");
   //CampingCars.insert({name:"peugeot", description:"un super camping car de la mort qui tue", maxguests:4, bedsnumb: 4});
   //this.getListId = () => FlowRouter.getParam('_id');
 //souscription a la base de donnée
@@ -18,7 +18,7 @@ import './mlsectioncontentbasics.html';
   //});
 });
 
- Template.mlsectioncontentbasics.helpers({
+ Template.mlsectioncontentdetails.helpers({
 todoArgs(todo){
 
 
@@ -72,7 +72,7 @@ return CampingCars.find({}).fetch();;
 
     // },
 });
-  Template.mlsectioncontentbasics.events({
+  Template.mlsectioncontentdetails.events({
 
 'submit .basics.description': function (event, template){
   //event.preventDefault();
@@ -110,8 +110,28 @@ return CampingCars.find({}).fetch();;
 
   },
 
-  'click .basics.name':function(event, template){
-console.log("blur basics name: "+event.currentTarget.innerHTML);
+  'click input':function(event, template){
+console.log("click input: "+event.currentTarget.innerHTML);
+
+//style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
+    
+  },
+    'blur input':function(event, template){
+      console.log("blur input name: "+event.target.name);
+console.log("blur input: "+event.target.value);
+console.log("route param: "+FlowRouter.getParam('_id'));
+var key = event.target.name;
+var val = event.target.value;
+var dat = '{"'+key+'":"'+val+'"}';
+console.log("avant json: "+dat);
+var js = JSON.parse(dat);
+        CampingCars.update({
+            _id: FlowRouter.getParam('_id')
+        }, {
+            $set: js
+        }, {
+            upsert: true
+        });
 
 //style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
     

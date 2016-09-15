@@ -63,7 +63,16 @@ import './mylistingLayout.html';
     // },
 });
   Template.mylistingLayout.events({
+'submit .details.make': function (event){
+  //event.preventDefault();
 
+      // Get value from form element
+    console.log("detail make: ");
+    const target = event.target;
+
+    const text = target.text.value;
+    console.log("text value: "+text);
+}
   //   'click #valid': function(event, template) {
   //     // Prevent default browser 
   //     event.preventDefault();
