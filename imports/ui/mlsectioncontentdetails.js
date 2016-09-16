@@ -10,6 +10,7 @@ import './mlsectioncontentdetails.html';
  
  Template.mlsectioncontentdetails.onCreated(function() {
 console.log("Star detail.js");
+console.log("route id : "+FlowRouter.getParam("id"));
   //CampingCars.insert({name:"peugeot", description:"un super camping car de la mort qui tue", maxguests:4, bedsnumb: 4});
   //this.getListId = () => FlowRouter.getParam('_id');
 //souscription a la base de donnée
@@ -38,10 +39,10 @@ todoArgs(todo){
     return bdd;
   },
 
-  campingcars: function(){
+    campingcars: function(){
     //const instance = Template.instance();
-    //console.log("instantence: "+EJSON.stringify(instance));
-return CampingCars.find({}).fetch();;
+    console.log("route id : "+FlowRouter.getParam("_id"));
+return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
   }
 // ways:function(){
 // return Way_Coll.find({}).fetch();
@@ -110,9 +111,11 @@ return CampingCars.find({}).fetch();;
 
   },
 
-  'click input':function(event, template){
-console.log("click input: "+event.currentTarget.innerHTML);
-
+  'click .flex-grid-item':function(event, template){
+//console.log("click input: "+event.currentTarget.innerHTML);
+    //console.log("event target : "+event.target);
+    console.log("event current target child : "+event.currentTarget.children.item(0).children.item(1).children.item(1).children.item(0).children.item(0).style);
+    //console.log("event current target child : "+event.currentTarget.children.item(6).children.item(0).style);
 //style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
     
   },
@@ -125,13 +128,13 @@ var val = event.target.value;
 var dat = '{"'+key+'":"'+val+'"}';
 console.log("avant json: "+dat);
 var js = JSON.parse(dat);
-        CampingCars.update({
-            _id: FlowRouter.getParam('_id')
-        }, {
-            $set: js
-        }, {
-            upsert: true
-        });
+        // CampingCars.update({
+        //     _id: FlowRouter.getParam('_id')
+        // }, {
+        //     $set: js
+        // }, {
+        //     upsert: true
+        // });
 
 //style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
     

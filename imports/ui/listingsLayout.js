@@ -9,6 +9,7 @@ import { CampingCars } from '../api/campingcars.js';
 import './listingsLayout.html';
  
  Template.listingsLayout.onCreated(function(template) {
+  console.log("route id layout: "+FlowRouter.getParam("id"));
   this.getListId = () => FlowRouter.getParam('_id');
 //souscription a la base de donnée
       //var ResId = template.find('section.section');
@@ -23,6 +24,8 @@ import './listingsLayout.html';
 });
 
  Template.listingsLayout.helpers({
+
+
   //task: function() {
 
     //var category = FlowRouter.getParam("id");

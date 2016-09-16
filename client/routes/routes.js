@@ -43,6 +43,7 @@ FlowRouter.route('/mylistings/basics', {
 FlowRouter.route('/mylistings/details/:_id', {
 	name:'userdetails',
   action: function(params) {
+  	//console.log("Yeah! We are on the post:", params._id;
     BlazeLayout.render("mylistingLayout"
     	,{content:"mlsectioncontentdetails"}
     	);
@@ -58,7 +59,7 @@ FlowRouter.route('/mylistings/availability', {
 
   }
 });
-FlowRouter.route('/listings', {
+FlowRouter.route('/listings/:_id', {
 	name:'listing',
   action: function() {
     BlazeLayout.render("listingsLayout"

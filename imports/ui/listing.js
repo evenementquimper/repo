@@ -40,10 +40,10 @@ todoArgs(todo){
     return bdd;
   },
 
-  campingcars: function(){
-    const instance = Template.instance();
-    console.log("instantence: "+EJSON.stringify(instance));
-return CampingCars.find({}).fetch();;
+    campingcars: function(){
+    //const instance = Template.instance();
+    console.log("route id : "+FlowRouter.getParam("_id"));
+return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
   }
 // ways:function(){
 // return Way_Coll.find({}).fetch();
