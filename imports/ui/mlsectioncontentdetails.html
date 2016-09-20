@@ -1,5 +1,7 @@
 <template name="mlsectioncontentdetails">
-
+  <div class="map-container" style="width:500px;max-width:100%;height:250px;">
+    {{> googleMap name="exampleMap" options=exampleMapOptions}}
+  </div>
 <div class="ml-section-content">
 <form data-reactid=".0.1.1.3.0.$main.0.1.0">
 
@@ -130,23 +132,19 @@
 					<div style="transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;float:left;position:relative;display:block;width:24px;margin-right:16px;margin-left:0;height:24px;">
 
 						<div>
-
-							<svg style="display:inline-block;height:24px;width:24px;user-select:none;transition:all 2s cubic-bezier(0.23, 1, 0.32, 1) 200ms;position:absolute;opacity:1;fill:rgba(86, 90, 92, 0.87);" viewBox="0 0 24 24">
+{{#if campingcars.vacuum}}
+	<svg name="truecheckox" style="display:inline-block;height:24px;width:24px;user-select:none;transition:opacity 0ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, transform 800ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;position:absolute;opacity:1;transform:scale(1);transition-origin:50% 50%;fill:#246182;" viewBox="0 0 24 24" data-reactid=".0.0.1.3.0.$main.0.1.0.2.0.0.1:$0.1.0.$amenities=1vacuum/=1$amenities=01vacuum.$amenities=1vacuum.1.1:0.0.1">
+<path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+	{{else}}	
+							<svg name="falsecheckox" style="display:inline-block;height:24px;width:24px;user-select:none;transition:all 2s cubic-bezier(0.23, 1, 0.32, 1) 200ms;position:absolute;opacity:1;fill:rgba(86, 90, 92, 0.87);" viewBox="0 0 24 24">
 
 							<path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
 
 							</svg>
-						
-<!-- 							<svg style="display:inline-block;height:24px;width:24px;user-select:none;transition:opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, transform 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms;position:absolute;opacity:0;transform:scale(0);transition-origin:50% 50%;fill:#246182;" viewBox="0 0 24 24">
 
-							<path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-							</svg> -->
-<!-- 							<svg style="display: inline-block; height: 24px; width: 24px; transition: all 100ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; position: absolute; opacity: 1; fill: rgb(36, 97, 130);" viewBox="0 0 24 24" data-reactid=".0.0.1.3.0.$main.0.1.0.2.0.0.1:$0.1.0.$amenities=1vacuum/=1$amenities=01vacuum.$amenities=1vacuum.1.1:0.0.0"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" data-reactid=".0.0.1.3.0.$main.0.1.0.2.0.0.1:$0.1.0.$amenities=1vacuum/=1$amenities=01vacuum.$amenities=1vacuum.1.1:0.0.0.0"></path></svg>
 
-							<svg style="display: inline-block; height: 24px; width: 24px; transition: all 2s cubic-bezier(0.23, 1, 0.32, 1) 200ms; position: absolute; opacity: 1; fill: rgba(86, 90, 92, 0.87);" viewBox="0 0 24 24" data-reactid=".0.0.1.3.0.$main.0.1.0.2.0.0.1:$0.1.0.$amenities=1vacuum/=1$amenities=01vacuum.$amenities=1vacuum.1.1:0.0.0"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" data-reactid=".0.0.1.3.0.$main.0.1.0.2.0.0.1:$0.1.0.$amenities=1vacuum/=1$amenities=01vacuum.$amenities=1vacuum.1.1:0.0.0.0"></path></svg> -->
 
-<!-- <svg style="display:inline-block;height:24px;width:24px;user-select:none;transition:opacity 0ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, transform 800ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;position:absolute;opacity:1;transform:scale(1);transition-origin:50% 50%;fill:#246182;" viewBox="0 0 24 24" data-reactid=".0.0.1.3.0.$main.0.1.0.2.0.0.1:$0.1.0.$amenities=1vacuum/=1$amenities=01vacuum.$amenities=1vacuum.1.1:0.0.1">
-<path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg> -->
+{{/if}}
 
 						</div>
 						
