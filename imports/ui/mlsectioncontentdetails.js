@@ -8,16 +8,126 @@ import { CampingCars } from '../api/campingcars.js';
 
 import './mlsectioncontentdetails.html';
  
+Markers = new Mongo.Collection('markers');  
+
  Template.mlsectioncontentdetails.onCreated(function() {
 console.log("Star detail.js");
-console.log("route id : "+FlowRouter.getParam("id"));
+console.log("on create route id : "+FlowRouter.getParam("_id"));
+
+var bddcampingcar = CampingCars.find({_id:FlowRouter.getParam("_id")});
+if(CampingCars.find({_id:FlowRouter.getParam("_id")})!=null)
+{
+//console.log("campingcar find! nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
+}
+else
+{
+  //console.log("campingcar not find!: ");
+}
+  
   //CampingCars.insert({name:"peugeot", description:"un super camping car de la mort qui tue", maxguests:4, bedsnumb: 4});
   //this.getListId = () => FlowRouter.getParam('_id');
 //souscription a la base de donnée
   //this.autorun(() => {
     //this.subscribe('tasks');
   //});
-GoogleMaps.ready('exampleMap', function(map){
+
+ GoogleMaps.ready('exampleMap', function(map){
+console.log("Debut map ready: mongo: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].name)
+
+var data = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+
+
+
+google.maps.event.addListener(map.instance, 'click',function(event){
+//console.log("map event: "+event.latLng);
+ CampingCars.insert({lat: event.latLng.lat(),lng: event.latLng.lng()}); 
+});
+
+
+var markers = {};
+
+Markers.find().observe({  
+  added: function(document) {
+    // Create a marker for this document
+    var marker = new google.maps.Marker({
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      position: new google.maps.LatLng(document.lat, document.lng),
+      map: map.instance,
+      // We store the document _id on the marker in order 
+      // to update the document within the 'dragend' event below.
+      id: document._id
+    });
+
+    // This listener lets us drag markers on the map and update their corresponding document.
+    google.maps.event.addListener(marker, 'dragend', function(event) {
+      Markers.update(marker.id, { $set: { lat: event.latLng.lat(), lng: event.latLng.lng() }});
+    });
+
+    // Store this marker instance within the markers object.
+    markers[document._id] = marker;
+  },
+  changed: function(newDocument, oldDocument) {
+    markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
+  },
+  removed: function(oldDocument) {
+    // Remove the marker from the map
+    markers[oldDocument._id].setMap(null);
+
+    // Clear the event listener
+    google.maps.event.clearInstanceListeners(
+      markers[oldDocument._id]);
+
+    // Remove the reference to this marker instance
+    delete markers[oldDocument._id];
+  }
+});
+
+    var locations = [
+      ['Bondi Beach', -33.890542, 151.274856, 4],
+      ['Coogee Beach', -33.923036, 151.259052, 5],
+      ['Cronulla Beach', -34.028249, 151.157507, 3],
+      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+      ['Maroubra Beach', -33.950198, 151.259302, 1]
+    ];
+
+var n = 10;
+var dataall = CampingCars.find({}).fetch();
+
+  //console.log("id des data: "+dataall[i]._id);
+var tab= new Array();
+
+var contentview = '<div class="listing-map-popover">'+
+'<div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),'+
+         '0 1px 4px rgba(0,0,0,0.12);border-radius:2px;overflow:hidden;z-index:1;">'+
+         '<div style="padding-bottom:0;">'+
+         '<div style="position:relative;">'+
+         '<div style="width:250px;height:156px;">'+
+         '<img src="" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;" alt="rien" itemprop="image"></div>'+
+         '<div style="position:absolute;top:0;bottom:0;right:0;left:0;">'+
+         '<div style="height:100%;position:relative;"'+
+         '<div style="position:absolute;bottom:0;right:0;left:0;padding-top:8px;background:rgba(0, 0, 0, 0.54);"'+
+         '<div style="padding:0 20px 10px;position:relative;" title="Vehicle price from:"">'+
+         '<span style="font-size:16px;color:rgba(255, 255, 255, 0.87);display:block;line-height:26px;font-weight:300;">Vehicle price from:</span>'+
+         '<span style="font-size:14px;color:rgba(255, 255, 255, 0.54);display:block;">$100 per day...'+
+         '</span></div></div></div></div></div>'+
+         '<div title="The Wilderness" size="45" style="height:72px;padding:16px;font-weight:500;box-sizing:border-box;position:relative;">'+
+         '<div style="display:inline-block;vertical-align:top;max-width:218px;">'+
+         '<span style="color:rgba(0, 0, 0, 0.87);display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">The Wilderness '+data._id+
+         '</span>'+
+         '<span style="color:rgba(0, 0, 0, 0.54);display:block;font-size:14px;">Sleeps 4</span></div></div>'+
+         '<div style="padding:16px;font-size:14px;color:rgba(0, 0, 0, 0.87);padding-top:0;margin-bottom:36px;">This is a great tidy time capsule, remember the 80s!! well this will take you back. ...'+
+         '</div>'+
+         '<div style="padding:8px;position:absolute;bottom:8px;left:0;right:0;height:52px;">'+
+         '<div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),'+
+         '0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;margin-right:8px;width:100%;">'+
+         '<button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;background-color:#ef4136;" tabindex="0" type="button" data-reactid=".10.0.0.$=14.$/=10.0">'+
+         '<div data-reactid=".10.0.0.$=14.$/=10.0.0">'+
+         '<div style="transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; top: 0px;">'+
+         '<span style="position:relative;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;" data-reactid=".10.0.0.$=14.$/=10.0.0.1.0">View Listing'+
+         '</span></div></div></button></div></div></div></div></div>';
+
+
   var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
       '</div>'+
@@ -51,11 +161,13 @@ GoogleMaps.ready('exampleMap', function(map){
 
 
   var infowindow = new google.maps.InfoWindow({
-    content: contentString
+    content: contentview
   });
-var uluru = {lat: -25.363, lng: 131.044};
-  var marker = new google.maps.Marker({
-    position: uluru,
+  
+  var uluru = {lat: -25.363, lng: 131.044};
+for (var i = 0; i<locations.length ; i++) {
+  marker = new google.maps.Marker({
+    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
     icon: goldStar,
     draggable: true,
     map: map.instance,
@@ -64,6 +176,9 @@ var uluru = {lat: -25.363, lng: 131.044};
   marker.addListener('click', function() {
     infowindow.open(map, marker);
   });
+//tab.push(marker);
+}
+
 });
 
 
@@ -71,12 +186,16 @@ var uluru = {lat: -25.363, lng: 131.044};
 
  Template.mlsectioncontentdetails.onRendered(function(){
 
+  GoogleMaps.load({key:"AIzaSyCFo3iJe21DtIo3wkHNXrTOBmT9DQz_6C0"});
 
-
-GoogleMaps.load({key:"AIzaSyCFo3iJe21DtIo3wkHNXrTOBmT9DQz_6C0"});
  });
 
  Template.mlsectioncontentdetails.helpers({
+
+// function(){
+//   GoogleMaps.load({key:"AIzaSyCFo3iJe21DtIo3wkHNXrTOBmT9DQz_6C0"});
+// },
+
 todoArgs(todo){
 
 
@@ -98,7 +217,8 @@ todoArgs(todo){
 
     campingcars: function(){
     //const instance = Template.instance();
-    console.log("route id : "+FlowRouter.getParam("_id"));
+    //console.log("helper route id : "+FlowRouter.getParam("_id"));
+    //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
   },
 
@@ -107,11 +227,18 @@ return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
 
 
 
-    if (GoogleMaps.loaded()) {
+    if (GoogleMaps.loaded() && CampingCars.find({_id:FlowRouter.getParam("_id")}).count()!=0) {
+        // var chicago = new google.maps.LatLng(41.850, -87.650);
+
+        // var map2 = new google.maps.Map(document.getElementById('exampleMap'), {
+        //   center: chicago,
+        //   zoom: 3
+        // });
 
 
       // Map initialization options
       return {
+        //map: new google.maps.Map(),
         center: new google.maps.LatLng(-25.363, 131.044),
         zoom: 8
       };
