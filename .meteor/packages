@@ -23,3 +23,9 @@ reactive-dict
 kadira:flow-router
 kadira:blaze-layout
 dburles:google-maps
+accounts-ui
+accounts-password
+accounts-facebook
+service-configuration
+patrickml:braintree
+alanning:roles

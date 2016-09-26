@@ -1,9 +1,28 @@
 
 FlowRouter.route('/', {
 	name:'index',
-	//template: 'mainLayout'
   action() {
-    BlazeLayout.render("mainLayout", {nav:"nav",app:"app"});
+    BlazeLayout.render("mainLayout", {nav:"nav",app:"login"});
+ }
+});
+
+FlowRouter.route('/dashboard_one', {
+  name: 'dashboard2',
+  // triggersEnter: [AccountsTemplates.ensureSignedIn],
+  //   subscriptions: function(params) {
+  //       console.log("subscribe and register this subscription as 'myItems'");
+  //       this.register('myItems', Meteor.subscribe('items'));
+  //   },
+    action: function(params) {
+        console.log("Yeah! We are on the dashboard");
+        BlazeLayout.render("appLayout", {area: "dashboard"});
+    }
+});
+
+FlowRouter.route('/dashboard', {
+  name:'dashboard',
+  action() {
+    BlazeLayout.render("dashboard");
  }
 });
 
