@@ -353,20 +353,28 @@ return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
   },
 
   'click .flex-grid-item':function(event, template){
+    event.preventDefault();
 console.log("click input nameœ: "+event.target.name);
 console.log("click input value: "+event.target.value);
-var key = event.target.name;
+console.log("click tag name: "+event.target.tagName);
 
+//console.log("click current nameœ: "+event.currentTarget.name);
+//console.log("click current value: "+event.currentTarget.value);
+//console.log("click current tag name: "+event.currentTarget.tagName);
+
+var key = event.target.name;
+ var tar = event.target;
 //var req = Json.parse('{_id:"'+FlowRouter.getParam('_id')'",'+key+':null}');
 var routeid = FlowRouter.getParam('_id');
 var dig = '{_id:"'+routeid+'",'+key+':"on"}';
 console.log("av parser: "+dig);
-console.log("fetch key: "+CampingCars.find(dig).fetch());
+console.log("fetch key: "+CampingCars.find({_id:FlowRouter.getParam('_id')}).fetch()[0]);
 if (event.target.value=="on")
 {
- event.target.value="off"; 
-console.log("bdd on: ");
-var dig0 = '{"'+key+'":null}';
+
+ //tar.value="off"; 
+console.log("bdd on: "+tar.value);
+var dig0 = '{"'+key+'":false  }';
 
 var js = JSON.parse(dig0);
         CampingCars.update({
@@ -380,8 +388,9 @@ var js = JSON.parse(dig0);
 }
 else
 {
-console.log("bdd null: ");
+console.log("else value : ");
 var dig2 = '{"'+key+'":"on"}';
+console.log("dig2 : "+dig2);
 var js2 = JSON.parse(dig2);
         CampingCars.update({
             _id: FlowRouter.getParam('_id')
@@ -411,7 +420,79 @@ var val = null;
 //style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
     
   },
-    'blur input':function(event, template){
+
+'click #mui-id-transmission':function(event, template){
+    event.preventDefault();
+    console.log("click mui-id-transmission: ");
+    console.log("click target id: "+event.target.id);
+console.log("click target nameœ: "+event.target.name);
+console.log("click target value: "+event.target.value);
+console.log("click tag name: "+event.target.tagName);
+
+//console.log("click current nameœ: "+event.currentTarget.name);
+//console.log("click current value: "+event.currentTarget.value);
+//console.log("click current tag name: "+event.currentTarget.tagName);
+
+// var key = event.target.name;
+//  var tar = event.target;
+// //var req = Json.parse('{_id:"'+FlowRouter.getParam('_id')'",'+key+':null}');
+// var routeid = FlowRouter.getParam('_id');
+// var dig = '{_id:"'+routeid+'",'+key+':"on"}';
+// console.log("av parser: "+dig);
+// console.log("fetch key: "+CampingCars.find({_id:FlowRouter.getParam('_id')}).fetch()[0]);
+// if (event.target.value=="on")
+// {
+
+//  //tar.value="off"; 
+// console.log("bdd on: "+tar.value);
+// var dig0 = '{"'+key+'":false  }';
+
+// var js = JSON.parse(dig0);
+//         CampingCars.update({
+//             _id: FlowRouter.getParam('_id')
+//         }, {
+//             $set: js
+//         }, {
+//           upsert: true
+//         });
+
+// }
+// else
+// {
+// console.log("else value : ");
+// var dig2 = '{"'+key+'":"on"}';
+// console.log("dig2 : "+dig2);
+// var js2 = JSON.parse(dig2);
+//         CampingCars.update({
+//             _id: FlowRouter.getParam('_id')
+//         }, {
+//             $set: js2
+//         }, {
+//           upsert: true
+//         });
+
+// }
+//var bdd = CampingCars.find({_id: FlowRouter.getParam('_id')});
+
+//var val = null;
+//var dat = '{"'+key+'":'+val+'}';
+//console.log("avant json: "+dat);
+//var js = JSON.parse(dat);
+  //      CampingCars.update({
+    //        _id: FlowRouter.getParam('_id')
+      //  }, {
+        //    $set: js
+        //}, {
+          //  upsert: true
+        //});
+    //console.log("event target : "+event.target);
+    //console.log("event current target child : "+event.currentTarget.children.item(0).children.item(1).children.item(1).children.item(0).children.item(0).style);
+    //console.log("event current target child : "+event.currentTarget.children.item(6).children.item(0).style);
+//style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
+    
+  },
+
+  'blur input':function(event, template){
       //console.log("blur input name: "+event.target.name);
 //console.log("blur input: "+event.target.value);
 //console.log("route param: "+FlowRouter.getParam('_id'));
