@@ -33,6 +33,7 @@ import './mlsectionbuttons.html';
 //import './mlsectioncontentbasics.html';
 import './mlsectioncontentbasics.js';
 import './mlsectioncontentdetails.js';
+import './mlsectioncontentimages.js';
 import './mlsectioncontentavailability.html';
 
 import './listing';

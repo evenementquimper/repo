@@ -50,7 +50,7 @@ FlowRouter.route('/user', {
   }
 });
 
-FlowRouter.route('/mylistings/basics', {
+FlowRouter.route('/mylistings/basics/:_id', {
 	name:'userbasics',
   action: function() {
     BlazeLayout.render("mylistingLayout"
@@ -69,6 +69,18 @@ FlowRouter.route('/mylistings/details/:_id', {
 
   }
 });
+
+FlowRouter.route('/mylistings/images/:_id', {
+  name:'userdetails',
+  action: function(params) {
+    //console.log("Yeah! We are on the post:", params._id;
+    BlazeLayout.render("mylistingLayout"
+      ,{content:"mlsectioncontentimages"}
+      );
+
+  }
+});
+
 FlowRouter.route('/mylistings/availability', {
 	name:'useravailability',
   action: function() {

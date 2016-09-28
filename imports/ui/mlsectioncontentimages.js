@@ -4,16 +4,14 @@ import { EJSON } from 'meteor/ejson';
 
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
- 
+import { FilesCollection } from 'meteor/ostrio:files';
 
-import './mlsectioncontentdetails.html';
+import './mlsectioncontentimages.html';
  
 //Markers = new Mongo.Collection('markers');  
 
- Template.mlsectioncontentdetails.onCreated(function() {
-console.log("Star detail.js");
-console.log("on create route id : "+FlowRouter.getParam("_id"));
-
+ Template.mlsectioncontentimages.onCreated(function() {
+  this.currentUpload = new ReactiveVar(false);
 var bddcampingcar = CampingCars.find({_id:FlowRouter.getParam("_id")});
 if(CampingCars.find({_id:FlowRouter.getParam("_id")})!=null)
 {
@@ -252,11 +250,11 @@ else
 });
 
 
- Template.mlsectioncontentdetails.helpers({
+ Template.mlsectioncontentimages.helpers({
 
-// function(){
-//   GoogleMaps.load({key:"AIzaSyCFo3iJe21DtIo3wkHNXrTOBmT9DQz_6C0"});
-// },
+  currentUpload: function () {
+    return Template.instance().currentUpload.get();
+  },
 
 todoArgs(todo){
 
@@ -314,18 +312,35 @@ return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
 
     // },
 });
-  Template.mlsectioncontentdetails.events({
+  Template.mlsectioncontentimages.events({
 
-'submit .basics.description': function (event, template){
-  //event.preventDefault();
+  'change #fileInput': function (e, template) {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case 
+      // multiple files were selected
+      var upload = Images.insert({
+        file: e.currentTarget.files[0],
+        streams: 'dynamic',
+        chunkSize: 'dynamic'
+      }, false);
 
-      // Get value from form element
-    console.log("basic descrip: ");
-    const target = event.target;
+      upload.on('start', function () {
+        template.currentUpload.set(this);
+      });
 
-    const text = target.text.value;
-    console.log("text value: "+text);
-},
+      upload.on('end', function (error, fileObj) {
+        if (error) {
+          alert('Error during upload: ' + error);
+        } else {
+          alert('File "' + fileObj.name + '" successfully uploaded');
+        }
+        template.currentUpload.set(false);
+      });
+
+      upload.start();
+    }
+  },
+
   'keyup .new-task': function(event, template) {
     //console.log("event "+event);
     // Prevent default browser form submit
