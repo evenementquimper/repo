@@ -30,6 +30,6 @@ service-configuration
 patrickml:braintree
 alanning:roles
 tap:i18n
-cfs:standard-packages
-cfs:gridfs
 ostrio:files
+aldeed:collection2
+aldeed:simple-schema

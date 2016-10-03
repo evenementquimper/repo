@@ -1,5 +1,15 @@
 <template name="mlsectioncontentimages">
-<div class="ml-section-content" data-reactid=".0.0.1.3.0.$main.0.1"><div class="ml-page" data-reactid=".0.0.1.3.0.$main.0.1.0"><h2 data-reactid=".0.0.1.3.0.$main.0.1.0.0">Images</h2><div class="ml-panel" data-reactid=".0.0.1.3.0.$main.0.1.0.1"><div data-reactid=".0.0.1.3.0.$main.0.1.0.1.0"></div></div>
+<div class="ml-section-content" data-reactid=".0.0.1.3.0.$main.0.1">
+
+<div class="ml-page" data-reactid=".0.0.1.3.0.$main.0.1.0">
+
+<h2 data-reactid=".0.0.1.3.0.$main.0.1.0.0">Images</h2>
+
+	<div class="ml-panel" data-reactid=".0.0.1.3.0.$main.0.1.0.1">
+
+		<div data-reactid=".0.0.1.3.0.$main.0.1.0.1.0"></div>
+
+	</div>
 
 <button style="border: 10px none; background: transparent none repeat scroll 0% 0%; box-sizing: border-box; display: inline-block; font-style: inherit; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgb(239, 65, 54); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 14px; letter-spacing: 0px; text-transform: uppercase; font-weight: 500; border-radius: 2px; position: relative; overflow: hidden; line-height: 36px; min-width: 88px; padding: 0px; margin: 0px;" tabindex="0" type="button">
 
@@ -9,12 +19,39 @@
 
 </div>
 </button>
+  {{#if uploadedFiles.count}}
+    <ul>
+      {{#each file in uploadedFiles.each}}
+        <li>
+          <a href="{{file.link}}?download=true" download="{{file.name}}">{{file.name}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <div>No files uploaded, yet</div>
+{{/if}}
 
-<input multiple="" style="display:none;" accept="image/*" data-reactid=".0.0.1.3.0.$main.0.1.0.3" type="file"><div class="images-errors" data-reactid=".0.0.1.3.0.$main.0.1.0.4"></div></div></div>
+<span style="position:relative;padding-left:16px;padding-right:16px;" data-reactid=".0.0.1.3.0.$main.0.1.0.2.0.1">Choose an Image</span>
   {{#with currentUpload}}
     Uploading <b>{{file.name}}</b>: 
     <span id="progress">{{progress.get}}%</span>
   {{else}}
-    <input id="fileInput" type="file" />
+<input id="fileInput2" multiple="" style="border: 10px none; background: transparent none repeat scroll 0% 0%; box-sizing: border-box; display: inline-block; font-style: inherit; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgb(239, 65, 54); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 14px; letter-spacing: 0px; text-transform: uppercase; font-weight: 500; border-radius: 2px; position: relative; overflow: hidden; line-height: 36px;" accept="image/*" type="file">
   {{/with}}
+<div class="images-errors"></div></div></div>
+
+
+<!--     {{#each images}}
+      <div>
+      <p>images._id</p>
+        <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" /></a>
+      </div>
+    {{/each}} -->
+
+<!--   {{#with currentUpload}}
+    Uploading <b>{{file.name}}</b>: 
+    <span id="progress">{{progress.get}}%</span>
+  {{else}}
+    <input id="fileInput" type="file" />
+  {{/with}} -->
 </template>

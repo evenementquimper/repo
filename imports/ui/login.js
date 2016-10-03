@@ -238,7 +238,7 @@ else
 
 
 
-GoogleMaps.load({key:"AIzaSyCFo3iJe21DtIo3wkHNXrTOBmT9DQz_6C0"});
+GoogleMaps.load({key: Meteor.settings.public.G_MAP_KEY});
 });
 
 

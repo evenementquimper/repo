@@ -50,6 +50,14 @@ FlowRouter.route('/user', {
   }
 });
 
+FlowRouter.route('/mylisting', {
+  name:'userlisting',
+  action: function() {
+    BlazeLayout.render("userlisting");
+
+  }
+});
+
 FlowRouter.route('/mylistings/basics/:_id', {
 	name:'userbasics',
   action: function() {
