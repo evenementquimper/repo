@@ -1,29 +1,32 @@
 <template name="leftnavuser">
 <div class="left-nav-user" data-reactid=".0.1.1.$sidenav.0">
 <img src="https://res.cloudinary.com/mighway/image/upload/w_80,h_80,c_thumb,g_face/avatars/YqNq9nAEsHzAs3dmt/logo_AR_303-1470063217233" data-reactid=".0.1.1.$sidenav.0.0">
-
-<div class="left-nav-user-name" data-reactid=".0.1.1.$sidenav.0.1">Antoine Donniou
+{{#if currentUser}}
+<div class="left-nav-user-name" data-reactid=".0.1.1.$sidenav.0.1">{{currentUser.emails.[0].address}}
 </div>
+{{else}}
+<p>Pas de user</p>
+{{/if}}
 
 </div>
 
 <div class="left-nav--menu" data-reactid=".0.1.1.$sidenav.1">
 
-<div data-reactid=".0.1.1.$sidenav.1.0">
+<div>
 
-<div data-reactid=".0.1.1.$sidenav.1.0.0">
+<div>
 
-<div data-reactid=".0.1.1.$sidenav.1.0.0.0">
+<div>
 
-<div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Details/=1$My Details">
+<div>
 
-<div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Details/=1$My Details.0">
-<div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Details/=1$My Details.0.$primaryText">My Details
+<div>
+<div class="mydetails">My Details
 </div>
 </div>
 </div>
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Rent a Motorhome/=1$Rent a Motorhome">
-<span tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Rent a Motorhome/=1$Rent a Motorhome.0">
+<span class="rentmotorhome" tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Rent a Motorhome/=1$Rent a Motorhome.0">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Rent a Motorhome/=1$Rent a Motorhome.0.0">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Rent a Motorhome/=1$Rent a Motorhome.0.0.1">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Rent a Motorhome/=1$Rent a Motorhome.0.0.1.$primaryText">Rent a Motorhome
@@ -33,7 +36,7 @@
 </span>
 </div>
 <div style="opacity: 1;" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Bookings/=1$My Bookings">
-<span tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Bookings/=1$My Bookings.0">
+<span class="mybooking" tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Bookings/=1$My Bookings.0">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Bookings/=1$My Bookings.0.0">
 <div>	
 </div>
@@ -43,7 +46,7 @@
 </span>
 </div>
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Listings/=1$My Listings">
-<span tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Listings/=1$My Listings.0">
+<span class="mylisting" tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Listings/=1$My Listings.0">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Listings/=1$My Listings.0.0">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Listings/=1$My Listings.0.0.1">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Listings/=1$My Listings.0.0.1.$primaryText">My Listings
@@ -54,12 +57,12 @@
 </div>
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Settings/=1$Settings">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Settings/=1$Settings.0">
-<div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Settings/=1$Settings.0.$primaryText">Settings
+<div class="settings" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Settings/=1$Settings.0.$primaryText">Settings
 </div>
 </div>
 </div>
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Account/=1$My Account">
-<span tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Account/=1$My Account.0">
+<span class="myaccount" tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Account/=1$My Account.0">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Account/=1$My Account.0.0">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Account/=1$My Account.0.0.1">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$My Account/=1$My Account.0.0.1.$primaryText">My Account
@@ -69,10 +72,10 @@
 </span>
 </div>
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Sign Out/=1$Sign Out">
-<span tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Sign Out/=1$Sign Out.0">
+<span class="logout" tabindex="0" type="button" data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Sign Out/=1$Sign Out.0">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Sign Out/=1$Sign Out.0.0">
 <div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Sign Out/=1$Sign Out.0.0.1">
-<div data-reactid=".0.1.1.$sidenav.1.0.0.0.1:$Sign Out/=1$Sign Out.0.0.1.$primaryText">Sign Out
+<div >Sign Out
 </div>
 </div>
 </div>

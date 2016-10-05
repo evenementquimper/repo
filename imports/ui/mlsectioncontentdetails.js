@@ -280,7 +280,7 @@ todoArgs(todo){
     campingcars: function(){
     //const instance = Template.instance();
     //console.log("helper route id : "+FlowRouter.getParam("_id"));
-    //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
+    console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
   },
 

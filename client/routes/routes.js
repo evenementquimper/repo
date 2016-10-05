@@ -45,9 +45,9 @@ FlowRouter.route('/manage', {
 FlowRouter.route('/user', {
 	name:'user',
   action: function() {
-    BlazeLayout.render("userLayout",{profilesection:"profilesection"});
-
-  }
+   BlazeLayout.render("userLayout",{profilesection:"profilesection"});
+   //BlazeLayout.render("userlisting",{listingsect:"profilesection"});
+}
 });
 
 FlowRouter.route('/mylisting', {
@@ -78,8 +78,18 @@ FlowRouter.route('/mylistings/details/:_id', {
   }
 });
 
+FlowRouter.route('/mylistings/location/:_id', {
+  name:'userlocation',
+  action: function(params) {
+    BlazeLayout.render("mylistingLayout"
+      ,{content:"mlsectioncontentlocation"}
+      );
+
+  }
+});
+
 FlowRouter.route('/mylistings/images/:_id', {
-  name:'userdetails',
+  name:'userimages',
   action: function(params) {
     //console.log("Yeah! We are on the post:", params._id;
     BlazeLayout.render("mylistingLayout"
@@ -89,7 +99,7 @@ FlowRouter.route('/mylistings/images/:_id', {
   }
 });
 
-FlowRouter.route('/mylistings/availability', {
+FlowRouter.route('/mylistings/availability/:_id', {
 	name:'useravailability',
   action: function() {
     BlazeLayout.render("mylistingLayout"

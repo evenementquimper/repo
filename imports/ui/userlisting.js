@@ -7,76 +7,28 @@ import { CampingCars } from '../api/campingcars.js';
  
 
 import './userlisting.html';
- 
-//Markers = new Mongo.Collection('markers');  
 
  Template.userlisting.onCreated(function() {
+console.log("Star userlisting.js");
 
+  this.autorun(() => {
+    this.subscribe('tasks');
+    this.subscribe('campingcars');
+  });
 
 });
 
 
  Template.userlisting.helpers({
 
-// function(){
-//   GoogleMaps.load({key:"AIzaSyCFo3iJe21DtIo3wkHNXrTOBmT9DQz_6C0"});
-// },
 
-todoArgs(todo){
-
-
-},
-  tasks: function() {
-
-    var category = FlowRouter.getParam("id");
-    console.log("Parametre: "+category);
-    //var o_id = new ObjectID(id);  _id:category
-//db.test.find({_id:o_id}) _id: 'category'
-
-    console.log("BDD: "+Tasks.find({}).fetch()[0]);
-    var bdd = Tasks.find({}).fetch();
-    //console.log("BDD: "+Tasks.find({}).fetch());
-    
-    //return Tasks.find({}).fetch()[0];
-    return bdd;
-  },
-
-    campingcars: function(){
+ campingcars(){
     //const instance = Template.instance();
-    //console.log("helper route id : "+FlowRouter.getParam("_id"));
-    //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
-//return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+    //console.log("helper route id : "+FlowRouter.getParam("_id")); "userid": Meteor.userId()
+    //console.log("campingcar find! vue nombre: "+CampingCars.find({}).count());
+return CampingCars.find({"userid": Meteor.userId()});
   },
 
-
-// ways:function(){
-// return Way_Coll.find({}).fetch();
-// },
-
-// errors:function(){
-// return Errors_Coll.find({}).fetch();
-// },
-    // gates:function(){
-    //        return Gate_Coll.find({}).fetch();
-    // },
-    // interval:function(){
-    //   console.log("Interval: "+gateState.get(rr));
-    //         return gateState.get(rr);
-    // },
-    // car:function(){
-    //   return Gate2_Coll.find({}).fetch();
-    //   console.log("Barrière info: "+bdd[0].datavalues.input1state);
-
-    //   if(bdd[0].datavalues.input1state==1)
-    //   {
-    //     return true;
-    //   }
-    //   else
-    //   {
-    //     return false;
-    //   }
-
-    // },
 });
   Template.userlisting.events({
 

@@ -7,31 +7,19 @@ import { CampingCars } from '../api/campingcars.js';
 //import { ImagesCar } from '../api/imagescar.js';
 import { FilesCollection } from 'meteor/ostrio:files';
 
-import './mlsectioncontentimages.html';
- //Collection
-this.Images = new Meteor.Files({  collectionName: 'Images'
-//   allowClientCode: false, // Disallow remove files from Client
-//   //public: true,
-//   storagePath: '../../../../../public/images/'+FlowRouter.getParam("_id"),
-//   onBeforeUpload: function (file) {
-//     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
-//     if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.extension)) {
-//       return true;
-//     } else {
-//       return 'Please upload image, with size equal or less than 10MB';
-//     }
-//   }
- });
-//Markers = new Mongo.Collection('markers');  
+import './profilesection.html';
 
- Template.mlsectioncontentimages.onCreated(function() {
+ Template.profilesection.onCreated(function() {
+    this.autorun(() => {
+    this.subscribe('Images');
+  });
   this.currentUpload = new ReactiveVar(false);
 
 
 });
 
 
- Template.mlsectioncontentimages.helpers({
+ Template.profilesection.helpers({
 
   currentUpload: function () {
     return Template.instance().currentUpload.get();
@@ -52,15 +40,24 @@ this.Images = new Meteor.Files({  collectionName: 'Images'
 
 
 });
-  Template.mlsectioncontentimages.events({
+  Template.profilesection.events({
 
-'click button': function(e, template){
-//console.log("click button");
+'click .avatar-upload': function (e, template){
+console.log("click avatar upload");
   e.preventDefault();
-  var inp = template.find('#fileInput');
+  var inp = template.find('#avatarImage');
+  inp.click();
+  //var email = $(ResId).val();
+},
+
+'click .license-uploader-button': function(e, template){
+console.log("click license-uploader-button");
+  e.preventDefault();
+  var inp = template.find('#licenseImage');
   inp.click();
 },
-  'change #fileInput': function (e, template) {
+  'change #avatarImage': function (e, template) {
+    console.log("click upload button");
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case 
       // multiple files were selected
@@ -85,6 +82,43 @@ this.Images = new Meteor.Files({  collectionName: 'Images'
       });
 
       upload.start();
+    }
+    else
+    {
+      console.log("ELSE");
+    }
+  },
+
+    'change #licenseImage': function (e, template) {
+    console.log("click upload button");
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case 
+      // multiple files were selected
+      var upload = Images.insert({
+        //campingcarid: FlowRouter.getParam("_id"),
+        file: e.currentTarget.files[0],
+        streams: 'dynamic',
+        chunkSize: 'dynamic'
+      }, false);
+
+      upload.on('start', function () {
+        template.currentUpload.set(this);
+      });
+
+      upload.on('end', function (error, fileObj) {
+        if (error) {
+          alert('Error during upload: ' + error);
+        } else {
+          alert('File "' + fileObj.name + '" successfully uploaded');
+        }
+        template.currentUpload.set(false);
+      });
+
+      upload.start();
+    }
+    else
+    {
+      console.log("ELSE");
     }
   }
 

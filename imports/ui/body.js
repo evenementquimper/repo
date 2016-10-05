@@ -12,8 +12,9 @@ import './nav.html';
 import './app.html';
 
 
-import './leftnavuser.html';
-import './profilesection.html';
+import './leftnavuser.js';
+
+import './profilesection.js';
 import './basicsform.html';
 import './userlayout.html';
 
@@ -24,7 +25,8 @@ import './login.js';
 import './dashboard.js';
 import './dashboard.html';
 
-import './topnavmylisting.html';
+import './topnavmylisting.js';
+
 import './managelisting.html';
 import './managelisting.js';
 import './mlsectionright.html';
