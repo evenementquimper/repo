@@ -1,0 +1,96 @@
+
+
+
+
+<template name="mlsectioncontentloc">
+   
+
+			
+			<div class="ml-section-content">
+			
+			<form>
+			
+			<div class="ml-panel">
+			
+			<div class="ml-panel-intro">
+			
+			<h1 class="ml-panel-intro-title">Location
+			</h1>
+			<h2 class="ml-panel-intro-subtitle">Indiquer l'adresse ou votre camping-car est stationner le plus souvent dans l'année
+			</h2>
+			
+			</div>
+
+			
+			<div class="ml-panel-column">
+			
+
+			<div style="width: 50%;">
+
+<div class="text-item" style="font-size:16px;line-height:24px;width:256px;height:76px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;margin:auto;">
+
+{{#if campingcars.street}}
+<label style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">Street</label>
+{{else}}
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);">Street</label>
+{{/if}}
+<input class="data-item" name="street" value="{{campingcars.street}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:80%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;" type="text">
+
+
+
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+</div>
+</div>
+
+			<div style="width: 50%;">
+
+<div class="text-item" style="font-size:16px;line-height:24px;width:256px;height:76px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;margin:auto;">
+
+{{#if campingcars.city}}
+<label style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">City</label>
+{{else}}
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);">City</label>
+{{/if}}
+<input class="data-item" name="city" value="{{campingcars.city}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:80%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;" type="text">
+
+
+
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+</div>
+</div>
+
+			<div style="width: 50%;">
+
+<div class="text-item" style="font-size:16px;line-height:24px;width:256px;height:76px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;margin:auto;">
+
+{{#if campingcars.postcode}}
+<label style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">Post Code</label>
+{{else}}
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);">Post Code</label>
+{{/if}}
+<input class="data-item" name="postcode" value="{{campingcars.postcode}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:80%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;" type="text">
+
+
+
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+</div>
+</div>
+
+			<div>
+			</div>
+
+
+
+
+			</div>
+			</div>
+			</form>
+			
+			</div>
+
+</template>
+
+

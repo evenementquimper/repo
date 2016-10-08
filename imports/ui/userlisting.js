@@ -38,10 +38,6 @@ return CampingCars.find({"userid": Meteor.userId()});
 //console.log("click input value: "+event.target.value);
 //console.log("click tag name: "+event.target.tagName);
 
-console.log("click user id : "+Meteor.userId());
-console.log("click current value: "+event.currentTarget.value);
-console.log("click current tag name: "+event.currentTarget.tagName);
-
 var key = event.target.name;
  var tar = event.target;
 
@@ -57,6 +53,13 @@ var key = event.target.name;
   //   console.log ( result ); //the _id of new object if successful
   });
   
+  },
+  'click .user-listing-item':function(event, template){
+
+//console.log("click user id : "+Meteor.userId());
+console.log("click current value: "+event.currentTarget.value);
+console.log("click current tag id: "+event.currentTarget.id);
+ FlowRouter.go('userbasics', { _id: event.currentTarget.id });
   }
 
    });

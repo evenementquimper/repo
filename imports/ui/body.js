@@ -33,7 +33,7 @@ import './mlsectionright.html';
 import './mlsectioncontent.html';
 import './mlsectionbuttons.html';
 
-//import './mlsectioncontentbasics.html';
+import './mlsectioncontentloc.js';
 import './mlsectioncontentbasics.js';
 import './mlsectioncontentdetails.js';
 import './mlsectioncontentimages.js';

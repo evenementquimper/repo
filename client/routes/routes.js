@@ -82,7 +82,7 @@ FlowRouter.route('/mylistings/location/:_id', {
   name:'userlocation',
   action: function(params) {
     BlazeLayout.render("mylistingLayout"
-      ,{content:"mlsectioncontentlocation"}
+      ,{content:"mlsectioncontentloc"}
       );
 
   }
