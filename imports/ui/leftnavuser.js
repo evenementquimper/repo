@@ -37,7 +37,7 @@ return CampingCars.find({"userid": Meteor.userId()});
 
   'click .mydetails':function(event, template){
     event.preventDefault();
-    FlowRouter.go("userbasics",{_id:FlowRouter.getParam("_id")});
+    FlowRouter.go("user");
   },
     'click .rentmotorhome':function(event, template){
     event.preventDefault();

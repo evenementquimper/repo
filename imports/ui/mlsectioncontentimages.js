@@ -21,7 +21,9 @@ this.Images = new Meteor.Files({  collectionName: 'Images'
 //       return 'Please upload image, with size equal or less than 10MB';
 //     }
 //   }
- });
+});
+
+
 //Markers = new Mongo.Collection('markers');  
 
  Template.mlsectioncontentimages.onCreated(function() {
@@ -37,6 +39,13 @@ this.Images = new Meteor.Files({  collectionName: 'Images'
     return Template.instance().currentUpload.get();
   },
 
+      campingcars: function(){
+        console.log("Collection find: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0]);
+        //var imgId = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+
+return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+  },
+
   images: function(){
     //return Images.find({ filename: 'chat.jpg' });
     console.log("Collection find: "+Images.find().cursor);
@@ -44,8 +53,12 @@ this.Images = new Meteor.Files({  collectionName: 'Images'
     return Images.collection.find({}).fetch();
   },
     uploadedFiles: function () {
-      // console.log("Collection find count: "+Images.find().count);
-    return Images.find();
+      var filesCursor = Images.find();
+      //console.log("filecursor fetch: "+Images.find());
+      //console.log("filecursor fetch: "+filesCursor.fetch());
+      //console.log("filecursor get: "+filesCursor.get());
+      console.log("Collection find: "+JSON.stringify(Images.find({}).cursor));
+    return Images.find({}).cursor;
 }
 
 
@@ -79,7 +92,22 @@ this.Images = new Meteor.Files({  collectionName: 'Images'
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-          alert('File "' + fileObj.name + '" successfully uploaded');
+          alert('File name:"' + fileObj.name + '" & file id:"' + fileObj._id + '" successfully uploaded');
+//sauvegarde de id de l'image ds la bdd du camping car
+              var routeid = FlowRouter.getParam('_id');
+//var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value+'"}';
+var dig = '{"images":"'+fileObj._id+'"}';
+console.log("DIG: "+dig);
+
+var js = JSON.parse(dig);
+        CampingCars.update({
+            _id: FlowRouter.getParam('_id')
+        }, {
+            $addToSet: js
+        }, {
+          upsert: true
+        });
+
         }
         template.currentUpload.set(false);
       });

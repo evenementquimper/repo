@@ -19,11 +19,38 @@
 
 </div>
 </button>
-  {{#if uploadedFiles.count}}
+<p>Image test</p>
+ <img class="booking-img" src="assets/app/uploads/Images/{{this}}.jpg" alt="image" itemprop="image">
+{{#if campingcars.images}}
+{{#each campingcars.images}}
+<p>{{this}}</p>
+         <img class="booking-img" src="/images/{{this}}.jpg" alt="image" itemprop="image">
+         <button class="sup" id="{{this}}">Supprimer</button>
+{{/each}}
+{{else}}
+<p>pas de campingcars images</p>
+{{/if}}
+
+
+  {{#if uploadedFiles}}
+  <p>upload files</p>
+
+    <ul>
+      {{#each uploadedFiles.file}}
+        <li>
+        <p>one file</p>
+          <a href="{{file.link}}?download=true" download="{{file.name}}">File name {{file.name}}</a>
+          <img class="booking-img" src="{{file.link}}" alt="image" itemprop="image">
+        </li>
+      {{/each}}
+    </ul>
+
+
     <ul>
       {{#each file in uploadedFiles.each}}
         <li>
-          <a href="{{file.link}}?download=true" download="{{file.name}}">{{file.name}}</a>
+        <p>one file</p>
+          <a href="{{file.link}}?download=true" download="{{file.name}}">File name {{file.name}}</a>
         </li>
       {{/each}}
     </ul>
@@ -42,10 +69,12 @@
       </div>
     {{/each}} -->
 
-<!--   {{#with currentUpload}}
-    Uploading <b>{{file.name}}</b>: 
+  {{#with currentUpload}}
+    <b>Uploading file name: {{file.name}}</b>
+    <b>Uploading file id: {{file._id}}</b> 
+    <a href="{{file.link}}?download=true" download="{{file.name}}">File name {{file.name}}</a>
     <span id="progress">{{progress.get}}%</span>
   {{else}}
     <input id="fileInput" type="file" />
-  {{/with}} -->
+  {{/with}}
 </template>

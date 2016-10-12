@@ -112,7 +112,7 @@ FlowRouter.route('/listings/:_id', {
 	name:'listing',
   action: function() {
     BlazeLayout.render("listingsLayout"
-    	,{listing:"listing"}
+    	,{section:"listing"}
     	);
 
   }
