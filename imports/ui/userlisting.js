@@ -34,26 +34,61 @@ return CampingCars.find({"userid": Meteor.userId()});
 
   'click .user-listings-add':function(event, template){
     event.preventDefault();
+    var resId = null;
 //console.log("click input nameœ: "+event.target.name);
 //console.log("click input value: "+event.target.value);
 //console.log("click tag name: "+event.target.tagName);
+//Meteor.call("Planyotest");
+Meteor.call("AddResource", null, "newcampingcarResII", "1", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, function(error, result){
+  if(!error){
+    console.log("CallBack result: "+JSON.stringify(result));
+    if(result.data.data.new_resource_id)
+    {
+    console.log("CallBack data id: "+JSON.stringify(result.data.data.new_resource_id));
+    resId = result.data.data.new_resource_id;
+
+      CampingCars.insert({
+              userid: Meteor.userId(),
+              planyo_resource_id: resId,
+              createdAt: new Date()
+          }, function( error, result) { 
+     if ( error ) console.log ( error ); //info about what went wrong
+     if ( result )
+ {
+  FlowRouter.go('userbasics', { _id: result });
+ }
+});
+
+  }
+  else
+  {
+
+  }
+  }
+  else
+  {
+    console.log("CallBack error: "+JSON.stringify(error));
+    resId = null;
+  }
+});
+
+if(resId!=null)
+{
+
+}
+
+else
+{
+  
+}
+  
+
 
 var key = event.target.name;
  var tar = event.target;
 
-         CampingCars.insert({
-             userid: Meteor.userId(),
-             createdAt: new Date()
-         }, function( error, result) { 
-    if ( error ) console.log ( error ); //info about what went wrong
-    if ( result )
-{
- FlowRouter.go('userbasics', { _id: result });
-}
-  //   console.log ( result ); //the _id of new object if successful
-  });
-  
   },
+
   'click .user-listing-item':function(event, template){
 
 //console.log("click user id : "+Meteor.userId());

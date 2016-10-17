@@ -37,6 +37,7 @@ import './mlsectioncontentloc.js';
 import './mlsectioncontentbasics.js';
 import './mlsectioncontentdetails.js';
 import './mlsectioncontentimages.js';
+import './sectionbooking.js';
 import './mlsectioncontentavailability.html';
 
 import './listing';

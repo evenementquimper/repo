@@ -11,7 +11,7 @@
 
 	</div>
 
-<button style="border: 10px none; background: transparent none repeat scroll 0% 0%; box-sizing: border-box; display: inline-block; font-style: inherit; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgb(239, 65, 54); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 14px; letter-spacing: 0px; text-transform: uppercase; font-weight: 500; border-radius: 2px; position: relative; overflow: hidden; line-height: 36px; min-width: 88px; padding: 0px; margin: 0px;" tabindex="0" type="button">
+<button class="image-upload" style="border: 10px none; background: transparent none repeat scroll 0% 0%; box-sizing: border-box; display: inline-block; font-style: inherit; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgb(239, 65, 54); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 14px; letter-spacing: 0px; text-transform: uppercase; font-weight: 500; border-radius: 2px; position: relative; overflow: hidden; line-height: 36px; min-width: 88px; padding: 0px; margin: 0px;" tabindex="0" type="button">
 
 <div>
 
@@ -19,16 +19,62 @@
 
 </div>
 </button>
-<p>Image test</p>
- <img class="booking-img" src="assets/app/uploads/Images/{{this}}.jpg" alt="image" itemprop="image">
 {{#if campingcars.images}}
 {{#each campingcars.images}}
-<p>{{this}}</p>
-         <img class="booking-img" src="/images/{{this}}.jpg" alt="image" itemprop="image">
-         <button class="sup" id="{{this}}">Supprimer</button>
+
+         <div class="ml-panel">
+         <div>
+         <div class="image-display main" style="background-color: rgb(20, 35, 48); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px;">
+<!--          <button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:absolute;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;padding:12px;width:48px;height:48px;font-size:0;top:0;right:0;" tabindex="0" type="button">
+
+         <div>
+         <div style="position: absolute; font-family: Roboto,sans-serif; font-size: 10px; line-height: 22px; padding: 0px 8px; z-index: 3000; color: rgb(255, 255, 255); overflow: hidden; top: -10000px; border-radius: 2px; opacity: 0; left: -16.5px; transition: top 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box;">
+
+         <div style="position: absolute; left: 50%; top: 0px; transform: translate(-50%, -50%); border-radius: 50%; background-color: transparent; transition: width 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, height 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, backgroundColor 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; width: 0px; height: 0px;">
+           
+         </div><span class="glyphicon glyphicon-arrow-up" style="position:relative;white-space:nowrap;">Remove image</span>
+         </div>
+         <span class="glyphicon glyphicon-arrow-up" style="position:relative;font-size:24px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:#FFF;">clear</span></div>
+         </button> -->
+
+         <button class="image-remove" id="{{this}}" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:absolute;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;padding:12px;width:48px;height:48px;font-size:0;top:0;right:0;" tabindex="0" type="button">
+
+         <div>
+ <!--         <div style="position: absolute; font-family: Roboto,sans-serif; font-size: 10px; line-height: 22px; padding: 0px 8px; z-index: 3000; color: rgb(255, 255, 255); overflow: hidden; top: -10000px; border-radius: 2px; opacity: 0; left: -16.5px; transition: top 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box;">
+
+         <div style="position: absolute; left: 50%; top: 0px; transform: translate(-50%, -50%); border-radius: 50%; background-color: transparent; transition: width 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, height 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, backgroundColor 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; width: 0px; height: 0px;">
+           
+         </div><span class="glyphicon glyphicon-trash" style="position:relative;white-space:nowrap;">Remove image</span>
+         </div> -->
+         <span class="glyphicon glyphicon-trash" style="position:relative;font-size:24px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:#FFF;">clear</span></div>
+
+         </button>
+
+
+         <button class="image-up" id="{{this}}" tabindex="0" type="button">
+         
+         <div>
+         <span class="glyphicon glyphicon-arrow-up">image up</span></div>
+
+         </button>
+
+
+         <img src="{{this}}" alt="image1" itemprop="image">
+
+<!--          <button style="border:10px;background:none;box-sizing:border-box;display:none;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:absolute;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;padding:12px;width:48px;height:48px;font-size:0;bottom:0;right:0;" tabindex="0" type="button">
+         <div>
+         <div style="position:absolute;font-family:Roboto, sans-serif;font-size:10px;line-height:22px;padding:0 8px;z-index:3000;color:#ffffff;overflow:hidden;top:-10000px;border-radius:2px;user-select:none;opacity:0;left:24px;transition:top 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms,transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms,opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;">
+         <div style="position: absolute; left: 50%; top: 0px; transform: translate(-50%, -50%); border-radius: 50%; background-color: transparent; transition: width 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, height 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, backgroundColor 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; width: 0px; height: 0px;">
+           
+         </div>
+         <span class="glyphicon glyphicon-trash" style="position:relative;white-space:nowrap;">Set as a main image</span>
+         </div>
+      <span class="material-icons star-icon" style="position:relative;font-size:24px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:#FFF;">star</span>
+         </div>
+         </button> -->
+         </div></div></div>
 {{/each}}
 {{else}}
-<p>pas de campingcars images</p>
 {{/if}}
 
 
@@ -69,12 +115,12 @@
       </div>
     {{/each}} -->
 
-  {{#with currentUpload}}
+<!--   {{#with currentUpload}}
     <b>Uploading file name: {{file.name}}</b>
     <b>Uploading file id: {{file._id}}</b> 
     <a href="{{file.link}}?download=true" download="{{file.name}}">File name {{file.name}}</a>
     <span id="progress">{{progress.get}}%</span>
   {{else}}
     <input id="fileInput" type="file" />
-  {{/with}}
+  {{/with}} -->
 </template>

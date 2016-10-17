@@ -8,8 +8,8 @@
 <div class="listing-booking" itemscope="" itemtype="http://schema.org/Product" data-reactid=".0.1.1.$page">
 
 <div class="listing-booking-wrapper" data-reactid=".0.1.1.$page.0">
-
-<div class="hero" style="background-image:url(&quot;https://res.cloudinary.com/mighway/image/upload/listings/5XSQtBw6nxGRwRZPD/72b5e45c-d98c-4833-ac0e-66cd802d093f&quot;);" itemprop="image" data-reactid=".0.1.1.$page.0.0">
+         
+<div class="hero" style="background-image:url(&quot;{{campingcars.images.[0]}}&quot;);" itemprop="image" data-reactid=".0.1.1.$page.0.0">
 
 <div class="hero-inner" data-reactid=".0.1.1.$page.0.0.0">
 
@@ -302,24 +302,28 @@
          <div class="section-row" data-reactid=".0.1.1.$page.2.2.0.0.0.0">
          
          <div class="col-12" data-reactid=".0.1.1.$page.2.2.0.0.0.0.0">
-         
-         <img class="booking-img" src="https://res.cloudinary.com/mighway/image/upload/listings/5XSQtBw6nxGRwRZPD/72b5e45c-d98c-4833-ac0e-66cd802d093f" alt="image" itemprop="image" data-reactid=".0.1.1.$page.2.2.0.0.0.0.0.$https=2//res=1cloudinary=1com/mighway/image/upload/listings/5XSQtBw6nxGRwRZPD/72b5e45c-d98c-4833-ac0e-66cd802d093f">
-         
-         </div>
-         
-         </div>
-         
-         <div class="section-row" data-reactid=".0.1.1.$page.2.2.0.0.0.1">
-         
-         <div class="col-12" data-reactid=".0.1.1.$page.2.2.0.0.0.1.0">
-         
-         <div class="flex-grid" data-reactid=".0.1.1.$page.2.2.0.0.0.1.0.0">
+
+
+      </div>
          
          </div>
          
-         </div>
-         
-         </div>
+<div class="section-row" data-reactid=".0.0.1.$page.2.2.0.0.0.1">
+
+<div class="col-12" data-reactid=".0.0.1.$page.2.2.0.0.0.1.0">
+
+<div class="flex-grid" data-reactid=".0.0.1.$page.2.2.0.0.0.1.0.0">
+         {{#if campingcars.images}}
+         {{#each campingcars.images}}
+<div style="width:50%;" class="flex-grid-item">
+
+<img class="booking-img" src="{{this}}" alt="image" itemprop="image">
+
+</div>
+{{/each}}
+{{else}}
+{{/if}}
+</div></div></div>
          
          </div>
          

@@ -17,6 +17,7 @@ import './listingsLayout.html';
   this.autorun(() => {
     this.subscribe('tasks');
     this.subscribe('campingcars');
+    this.subscribe('usersdata');
   });
       //   BlazeLayout.render("listingsLayout"
       // ,{listing:"mlsectioncontentavailability"}

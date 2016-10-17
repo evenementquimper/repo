@@ -33,3 +33,7 @@ tap:i18n
 ostrio:files
 aldeed:collection2
 aldeed:simple-schema
+twbs:bootstrap
+http
+momentjs:moment
+jparker:crypto-md5

@@ -4,36 +4,20 @@ import { EJSON } from 'meteor/ejson';
 
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
-//import { ImagesCar } from '../api/imagescar.js';
-import { FilesCollection } from 'meteor/ostrio:files';
+import { UsersData } from '../api/usersdata.js';
 
-import './mlsectioncontentimages.html';
+import './sectionbooking.html';
  //Collection
-this.Images = new Meteor.Files({  collectionName: 'Images'
-//   allowClientCode: false, // Disallow remove files from Client
-//   //public: true,
-//   storagePath: '../../../../../public/images/'+FlowRouter.getParam("_id"),
-//   onBeforeUpload: function (file) {
-//     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
-//     if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.extension)) {
-//       return true;
-//     } else {
-//       return 'Please upload image, with size equal or less than 10MB';
-//     }
-//   }
-});
 
 
 //Markers = new Mongo.Collection('markers');  
 
- Template.mlsectioncontentimages.onCreated(function() {
-  this.currentUpload = new ReactiveVar(false);
-
+ Template.sectionbooking.onCreated(function() {
 
 });
 
 
- Template.mlsectioncontentimages.helpers({
+ Template.sectionbooking.helpers({
 
   currentUpload: function () {
     return Template.instance().currentUpload.get();
@@ -65,7 +49,14 @@ return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
 
 
 });
-  Template.mlsectioncontentimages.events({
+  Template.sectionbooking.events({
+'click .booking-request': function(e, template){
+var campingcarid = FlowRouter.getParam('_id');
+var us = Meteor.user();
+var userdata = UsersData.find({_id:Meteor.user()}).fetch()[0];
+console.log("Meteor User: "+JSON.stringify(us));
+console.log("User data name: "+JSON.stringify(UsersData.find({_id:Meteor.user()})));
+},
 
 'click .image-remove': function(e, template){
 e.preventDefault();
@@ -107,51 +98,5 @@ console.log("DIG: "+dig);
   e.preventDefault();
   var inp = template.find('#fileInput');
   inp.click();
-},
-  'change #fileInput': function (e, template) {
-    if (e.currentTarget.files && e.currentTarget.files[0]) {
-      // We upload only one file, in case 
-      // multiple files were selected
-      var upload = Images.insert({
-        //campingcarid: FlowRouter.getParam("_id"),
-        file: e.currentTarget.files[0],
-        streams: 'dynamic',
-        chunkSize: 'dynamic'
-      }, false);
-
-      upload.on('start', function () {
-        template.currentUpload.set(this);
-      });
-
-      upload.on('end', function (error, fileObj) {
-        if (error) {
-          alert('Error during upload: ' + error);
-        } else {
-                        var sup = fileObj.path.split('../../../../../public');
-              console.log("Split 1: "+sup[0]);
-              console.log("Split 2: "+sup[1]);
-          alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
-//sauvegarde de id de l'image ds la bdd du camping car
-
-
-var dig = '{"images":"'+sup[1]+'"}';
-console.log("DIG: "+dig);
-
-var js = JSON.parse(dig);
-        CampingCars.update({
-            _id: FlowRouter.getParam('_id')
-        }, {
-            $addToSet: js
-        }, {
-          upsert: true
-        });
-
-         }
-        template.currentUpload.set(false);
-      });
-
-      upload.start();
-    }
-  }
-
+}
    });
