@@ -37,3 +37,4 @@ twbs:bootstrap
 http
 momentjs:moment
 jparker:crypto-md5
+tsega:bootstrap3-datetimepicker

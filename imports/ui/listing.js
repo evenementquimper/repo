@@ -20,6 +20,30 @@ import './sectionbooking.html';
   //});
 });
 
+ Template.listing.onRendered(function() {
+//var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+//console.log("Bdd daysfull: "+JSON.stringify(bdd.daysfull));
+//Meteor.call("get_resource_usage", 67189, 21654, null, null, null, null, null, null);
+
+
+
+
+this.$('.datetimepicker').datetimepicker({
+        //format: 'DD/MM/YYYY',
+        minDate: moment(),
+        keepOpen: true,
+        inline: true,
+        focusOnShow:false,
+        collapse:false,
+        //deactivation des dates ou le parking est completenabledDates()
+        //enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
+        //[moment().add(3, 'days')]            //[
+            //moment().add(7, 'days'),
+            //              ]
+    });
+
+});
+
  Template.listing.helpers({
 todoArgs(todo){
 

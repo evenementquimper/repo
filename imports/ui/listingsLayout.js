@@ -4,6 +4,7 @@ import { Template } from 'meteor/templating';
 
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
+import { Reservations } from '../api/reservations.js';
  
 
 import './listingsLayout.html';
@@ -18,6 +19,7 @@ import './listingsLayout.html';
     this.subscribe('tasks');
     this.subscribe('campingcars');
     this.subscribe('usersdata');
+    this.subscribe('reservations');
   });
       //   BlazeLayout.render("listingsLayout"
       // ,{listing:"mlsectioncontentavailability"}

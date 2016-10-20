@@ -50,6 +50,14 @@ FlowRouter.route('/user', {
 }
 });
 
+FlowRouter.route('/reservationslisting', {
+  name:'reservationslisting',
+  action: function() {
+    BlazeLayout.render("reservationslisting");
+
+  }
+});
+
 FlowRouter.route('/mylisting', {
   name:'userlisting',
   action: function() {

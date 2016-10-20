@@ -1,4 +1,6 @@
-
+//import { CampingCars } from '../api/campingcars.js';
+import { CampingCars } from '../../imports/api/campingcars.js';
+import { Reservations } from '../../imports/api/reservations.js';
 
 Meteor.methods({
 
@@ -89,6 +91,123 @@ console.log('Error :' + error);
                 );
 
     },
+
+
+// get_resource_usage (version 1)
+// Description:
+// This function will return usage/availability information of given resource (or entire site) for specified period of time.
+// Input:
+// resource_id int optional
+// ID of the resource. Pass null if you want info for all resources to be returned. In this case and if using a metasite API key, you'll need to pass the site id in the site_id parameter.
+
+// site_id int optional
+// Required only for metasite API keys and when resource_id is null. Otherwise skip this parameter.
+// start_date DateTime required
+// Start date of the period
+// end_date DateTime required
+// End date of the period
+// separate_units bool optional
+// You can retrieve usage for individual units if you set this to true
+// version float optional
+// you can optionally specify the version of the API that you're using. Use the value of latest or simply skip this parameter to use the latest API version. The latest version is: 1
+// language string optional
+// by specifying a 2-letter (ISO 639-1) language code (all capital letters e.g. EN, DE, FR, ES, IT) you can change the language of the text values returned
+// api_key string required
+// your API key - Click here to get your key. If your API key uses a hash key, you must also include the parameters hash_key and hash_timestamp.
+// Output:
+// usage array
+// Resource usage. This is a multi-dimentional array. The first dimention is the resource ID, then month followed by day number, then for hour-based resources it's the hour and in case of quarter-based resource the last array dimention is the number of minutes (00, 15, 30 or 45). The array value is the number of units available for given time slot (day, hour or quarter). Subtracting this number from the total quantity gives you availability info.
+    get_resource_usage: function(resource_id, site_id, start_date, end_date, separate_units , version, language, planyo_api_key) {
+        
+        //console.log("hash key: "+CryptoJS.MD5(Meteor.settings.private.PLANYO_API_HASHKEY+moment().format("X")+"get_resource_usage"));
+       
+        var start = moment().format("X");
+        console.log("Tme: "+start);
+        var end = moment().add(30, 'days');
+            //  Doc: https://www.planyo.com/api.php?topic=get_resource_usage
+            //var timestamp = Date();
+            return HTTP.call("GET", "https://api.planyo.com/rest/?method=get_resource_usage&resource_id="+resource_id+"&site_id="+site_id+"&start_date="+start+"&end_date="+end+"&separate_units="+separate_units+"&api_key="+Meteor.settings.private.PLANYO_API_KEY+"&hash_timestamp="+moment().format("X")+"&hash_key="+CryptoJS.MD5(Meteor.settings.private.PLANYO_API_HASHKEY+moment().format("X")+"get_resource_usage"),
+function(error, result){
+      if(!error){
+      console.log("CallBack result: "+JSON.stringify(result.data.data.usage));
+    var stg = JSON.stringify(result.data.data.usage);
+
+    var tabresult = [];
+    
+    var keys = Object.keys(result.data.data.usage);
+
+    var numres = Object.keys(result.data.data.usage);
+
+    var val = Object.values(result.data.data.usage);
+
+
+    // console.log("CallBack result: "+keys);
+    // console.log("Values: "+JSON.stringify(Object.values(result.data.data.usage)));
+
+    // console.log("tab val key: "+Object.keys(val[0]));//tab des années
+
+    // console.log("tab val val: "+JSON.stringify(Object.values(val[0])));//les mois
+    
+    var ansclef = Object.keys(val[0]);
+    var ans = Object.values(val[0]);
+
+for (var k= 0; k<val.length; k++){
+  //console.log("Année: "+val[k]);
+
+  var année = Object.keys(val[k]);
+  var ansval = Object.values(val[k]);
+   // console.log("Année keys: "+année);
+   // console.log("année val: "+JSON.stringify(ansval));
+   // console.log("mois keys: "+Object.keys(ansval[k]));
+   var mois = Object.keys(ansval[k]);
+
+   for (var j = 0; j < mois.length; j++){
+
+   //console.log("mois keys: "+mois[j]);
+   var moisid = mois[j];
+    var moisval = Object.values(ansval[k])[j];
+   //var moisval = Object.keys(Object.values(mois[j]));
+   //console.log("mois val: "+JSON.stringify(Object.values(ansval[k])[j]));
+   //console.log("jours keys: "+Object.keys(moisval[j]));
+
+  var days = Object.keys(moisval);
+//     var moisval = Object.values(mois[j]);
+//     console.log("Mois keys: "+JSON.stringify(days));
+     for (var i = 0; i < days.length; i++) {
+//       //var val = Object.values(mois[j]);
+ //console.log("moment itme : "+année+"/"+moisid+"/"+days[i]);
+ var strgmoment = année+'-'+moisid+'-'+days[i];
+//cd mconsole.log("stgmoment : "+JSON.stringify(strgmoment));
+
+      // var mm = moment(strgmoment,"YYYY-MM-DD");
+//console.log("moment : "+mm);
+ tabresult.push(JSON.stringify(strgmoment));
+     }
+   }
+}  
+    //insert dayfull tabresult;
+
+      CampingCars.update({
+              planyo_resource_id: resource_id
+          },{
+            $set:{
+                daysfull: tabresult
+            }
+        }, {
+            upsert: true
+   });
+  }
+  else
+  {
+    //return [];
+    console.log("CallBack error: "+JSON.stringify(error));
+  }
+}
+                );
+
+    },
+
+
 
     // API Planyo-Vérifier un numéro de réservation 
     GetReservationProducts: function(bookingId, planyo_api_key) {
@@ -193,13 +312,15 @@ console.log('Error :' + error);
             //console.log("Resevation:  "+EJSON.stringify(GetReservationProducts_Coll.find({reservation_id:bookingId})))
         }
     },
-    // API Planyo-Création d'une nouvelle réservation
-    MakeReservation: function(resource_id, start_time, end_time, quantity, admin_mode, send_notifications,
+
+    // API Planyo-Récupérer les info d'une réservation 
+    MakeReservation: function(user_id, resource_id, start_time, end_time, quantity, admin_mode, send_notifications,
         force_status, wants_share, rental_prop_xyz, rental_prop_voucher, custom_price, email, first_name, last_name,
         address, city, zip, state, country, phone_prefix, phone_number, mobile_prefix, mobile_number, user_notes, admin_notes,
         cart_id, assignment1, version, language, api_key) {
 
-       return HTTP.call("GET", "http://api.planyo.com/rest/?resource_id=" + resource_id +
+
+       return HTTP.call("GET", "https://api.planyo.com/rest/?resource_id=" + resource_id +
             "&start_time=" + start_time +
             "&end_time=" + end_time +
             "&quantity=" + quantity +
@@ -229,94 +350,45 @@ console.log('Error :' + error);
             "&version=" + version +
             "&language=" + language +
             "&api_key=" + api_key +
-            "&method=make_reservation"
-            // ,
+            "&method=make_reservation" + 
+            "&api_key=" + Meteor.settings.private.PLANYO_API_KEY + 
+            "&hash_timestamp=" + moment().format("X") + 
+            "&hash_key=" + CryptoJS.MD5(Meteor.settings.private.PLANYO_API_HASHKEY+moment().format("X")+"make_reservation")
+                ,
+            
+                function(error, result) {
+                    //Output:
+                    //      regular_product_price float
+                    // Price to be paid for all standard additional products
+                    // regular_products array
+                    // A named array of all standard products reserved for the reservation. The array keys are: id, name, unit_price, tax_rate, customer_reservable, recurring, per_person, quantity, usage_time
+                    // custom_products array
+                    // A named array of all custom products reserved for the reservation. The array keys are: id, name, price, tax_rate
 
+                    if (!error) {
+                        if(result.data.response_code!=0)
+                        {
 
-            // //return HTTP.call ("GET","http://api.planyo.com/rest/?resource_id="+resource_id+"&start_time="+start_time+"&end_time="+end_time+"&quantity="+quantity+"&force_status="+force_status+"&rental_prop_voucher="+rental_prop_voucher+"&custom_price="+custom_price+"&email="+email+"&first_name="+first_name+"&last_name="+last_name+"&address="+address+"&zip="+zip+"&state="+state+"&country="+country+"&phone_prefix="+phone_prefix+"&phone_number="+phone_number+"&mobile_prefix="+mobile_prefix+"&mobile_number="+mobile_number+"&user_notes="+user_notes+"&admin_notes="+admin_notes+"&cart_id="+cart_id+"&assignment1="+assignment1+"&api_key="+api_key+"&method=make_reservation",
-            // function(error, result) {
-            //     //Output:
-            //     //      regular_product_price float
-            //     // Price to be paid for all standard additional products
-            //     // regular_products array
-            //     // A named array of all standard products reserved for the reservation. The array keys are: id, name, unit_price, tax_rate, customer_reservable, recurring, per_person, quantity, usage_time
-            //     // custom_products array
-            //     // A named array of all custom products reserved for the reservation. The array keys are: id, name, price, tax_rate
+                        }
+                        if (result.data.response_code==0)
+                        {
+                         var resid = result.data.data.reservation_id;
+                            Reservations.insert({"userid":user_id,"data":result.data.data});
+                        }
+                        else
+                        {
 
-            //     if (!error) {
-            //         //var codereturn;
-            //         console.log('Result :' + EJSON.stringify(result.data));
-            //         if(result.data.data!=null)
-            //         {
+                        }
+                    console.log("Resevations reponse:  "+JSON.stringify(result.data));
+                        return result.data;
 
-            //         GetReservationProducts_Coll.insert(result.data.data);
-                    
-            //         }
-            //         // GetReservationProducts_Coll.insert({
-            //         //     reservation_id: result.data.data.reservation_id
-            //         // });
-            //         // GetReservationProducts_Coll.update({
-            //         //     reservation_id: result.data.data.reservation_id
-            //         // }, {
-            //         //     $set: {
-            //         //         data: result.data
-            //         //     }
-            //         // }, {
-            //         //     upsert: true
-            //         // });
-
-
-            //         return result.data.response_code;
-            //     } else {
-            //         console.log('Error :' + error);
-            //         // GetReservationProducts_Coll.insert({
-            //         //     reservation_id: result.data.reservation_id
-            //         // });
-            //         // GetReservationProducts_Coll.update({
-            //         //     reservation_id: result.data.reservation_id
-            //         // }, {
-            //         //     $set: {
-            //         //         data: error
-            //         //     }
-            //         // }, {
-            //         //     upsert: true
-            //         // });
-
-            //         return error;
-            //     }
-            // }
-            );
-        // Output:
-        // reservation_id int
-        // Returns the ID of the newly created reservation (if successful).
-        // user_text string
-        // Text to be displayed to the user with the status of their reservation
-        // status ReservationStatus
-        // Status of the new booking
-        // total_price float
-        // Total price for this reservation.
-        // original_price float
-        // Originally quoted price.
-        // currency string
-        // Currency used.
-        // discount float
-        // Discount from vouchers used (if any).
-        // properties array
-        // All custom reservation form items set for this reservation. This is an array whose key is property name.    
-        //           if (!error)
-        //           {
-        //                console.log('Result :'+ EJSON.stringify(result.data));
-        //                console.log('JSON vs EJSON :'+ EJSON.fromJSONValue(result.data));
-        //                  console.log('JSON test :'+ EJSON.stringify(result.data.response_message));
-        //               return result.data;
-        //           }
-        //         else
-        //         {
-        //           console.log(error);
-        //           return error;
-        //         }
-        // });
-
+                    } else {
+     console.log("Resevations reponse:  "+JSON.stringify(error));
+                        return error;
+                    }
+                }
+                );
+    
     },
 
     // API Planyo add-reservation-payment
