@@ -6,140 +6,73 @@ import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
  
 
-import './mlsectioncontentavailability.html';
-import './exampleModal.html';
-import './addonmodal.js';
-        var dayfull = [];//tableau de moment
+import './addonmodal.html';
+ 
+//Markers = new Mongo.Collection('markers');  
 
- Template.mlsectioncontentavailability.onRendered(function() {
-//var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
-//console.log("Bdd daysfull: "+JSON.stringify(bdd.daysfull));
-//Meteor.call("get_resource_usage", 67189, 21654, null, null, null, null, null, null);
+ Template.addonmodal.onCreated(function() {
 
-
-
-
-this.$('.datetimepicker').datetimepicker({
-        //format: 'DD/MM/YYYY',
-        minDate: moment(),
-        keepOpen: true,
-        inline: true,
-        focusOnShow:false,
-        collapse:false,
-        //deactivation des dates ou le parking est completenabledDates()
-        enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
-        //[moment().add(3, 'days')]            //[
-            //moment().add(7, 'days'),
-            //              ]
-    });
 
 });
 
 
-//  Template.mlsectioncontentavailability.rendered = function() {
+ Template.addonmodal.helpers({
 
-// this.$('.datepicker').datepicker();
+// function(){
+//   GoogleMaps.load({key:"AIzaSyCFo3iJe21DtIo3wkHNXrTOBmT9DQz_6C0"});
+// },
 
-// }
- Template.mlsectioncontentavailability.helpers({
+todoArgs(todo){
 
 
+},
+  tasks: function() {
+
+    var category = FlowRouter.getParam("id");
+    console.log("Parametre: "+category);
+    //var o_id = new ObjectID(id);  _id:category
+//db.test.find({_id:o_id}) _id: 'category'
+
+    console.log("BDD: "+Tasks.find({}).fetch()[0]);
+    var bdd = Tasks.find({}).fetch();
+    //console.log("BDD: "+Tasks.find({}).fetch());
+    
+    //return Tasks.find({}).fetch()[0];
+    return bdd;
+  },
 
     campingcars: function(){
     //const instance = Template.instance();
     //console.log("helper route id : "+FlowRouter.getParam("_id"));
-    //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetech()[0].daysfull[0]);
-
-
+    console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
   }
 });
-  Template.mlsectioncontentavailability.events({
+  Template.addonmodal.events({
 
-'bs.click .modal':function(event, template){
-event.preventDefault();
-      console.log("bs show modal");
-},
-
-'dp.change .datetimepicker': function(event, template){
- event.preventDefault();
-      console.log("dp change datepicker");
-       console.log("datetimepick data", $('.datetimepicker').data().date);
-            
-var dday = moment();//.format("DD/MM/YYYY");
-var day = $('.datetimepicker').data().date;
-//day = day.format("X"); 
-console.log("moment select: "+moment(day).format("YYYY-MM-DD"));
-//console.log("moment day select: "+moment(day).date());
-console.log("moment dday: "+dday.format("YYYY-MM-DD"));
-//console.log("moment day dday: "+dday.date());
-
-
-if(moment().format("YYYY-MM-DD")!==moment(day).format("YYYY-MM-DD"))
-{
-
-//console.log("event current target : "+EJSON.stringify(event.target));
-  console.log("datetime css height: "+JSON.stringify($('.datetimepicker').height()));
-//$('.datetimepicker').data("DateTimePicker").destroy();
-var tb = Object.keys($('.datetimepicker').data("DateTimePicker").enabledDates());
-console.log("disabledDates: "+JSON.stringify($('.datetimepicker').data("DateTimePicker").disabledDates()));
-console.log("disabledDates keys tab: "+JSON.stringify(tb));
-var tb2 = [];
-for (var i = 0; i < tb.length; i++) {
-tb2[i] = moment(tb[i]);
-}
-tb2.push(moment(day));
-console.log("disabledDates add: "+JSON.stringify(tb2));
-$('.datetimepicker').data("DateTimePicker").enabledDates(tb2);
-}
-else
-{
-  console.log("Same day: ");
-
-  //var dd = [day];
-
-  //
-  //console.log("dday : "+dday);
-}
-    //$('.datetimepicker').data("DateTimePicker").destroy();
-        //const $checkbox = instance.$('.datetimepicker');
-  //$checkbox.prop('checked', !$checkbox.prop('checked'));
-  
-},
-
-// 'click .datetimepicker': function(event, template){
-//     event.preventDefault();
-//       console.log("click datetimepik");
-//         console.log("datetimepick data", $('.datetimepicker').data().date);
-//         var dd = [$('.datetimepicker').data().date];
-
-//         $('.datetimepicker').data("DateTimePicker").disabledDates(dd);
-  
-// },
-
-    'click button': function(event, template) {
-      event.preventDefault();
-      console.log("click day");
-        console.log("datetimepick data", $('.datetimepicker').data().date);
-        var dd = [$('.datetimepicker').data().date];
-
-        $('.datetimepicker').data("DateTimePicker").disabledDates(dd);
-        // $('.datetimepicker').data("DateTimePicker").destroy();
-       
-    },
-
-  'click .addons-panel': function(event, template) {
+  'keyup .new-task': function(event, template) {
     //console.log("event "+event);
     // Prevent default browser form submit
 //this.preventDefault();
    // 
-    // console.log("event type : "+event.type);
-    // console.log("event target : "+event.target);
-    // console.log("event target text: "+event.target.text.value);
+    console.log("event type : "+event.type);
+    console.log("event target : "+event.target);
+    console.log("event target text: "+event.target.text.value);
     //console.log("event current target : "+EJSON.stringify(event.currentTarget.hr.style));
-setTimeout(function(){
-        Modal.show('exampleModal')
-    }, 500)
+       var Restask = template.find('.new-task');
+
+
+    // Get value from form element
+
+    //const target = event.target;
+
+    const text = Restask.text.value;
+    console.log("text value: "+text);
+ 
+
+    // Clear form #mui-id-98
+
+    Restask.text.value = '';
 
   },
 

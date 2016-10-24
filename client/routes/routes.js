@@ -2,7 +2,7 @@
 FlowRouter.route('/', {
 	name:'index',
   action() {
-    BlazeLayout.render("mainLayout", {nav:"nav",app:"login"});
+    BlazeLayout.render("mainLayout", {nav:"nav",homepage:"homepage"});
  }
 });
 
@@ -37,6 +37,15 @@ FlowRouter.route('/manage', {
 	name:'form01',
   action: function() {
     BlazeLayout.render("mainLayout", {nav:"nav",app: "app"});
+
+  }
+
+});
+
+FlowRouter.route('/authentication', {
+  name:'authentication',
+  action: function() {
+    BlazeLayout.render("authentication");
 
   }
 

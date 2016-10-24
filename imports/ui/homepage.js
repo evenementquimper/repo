@@ -6,32 +6,47 @@ import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
  
 
-import './mlsectioncontentavailability.html';
-import './exampleModal.html';
-import './addonmodal.js';
+import './homepage.html';
         var dayfull = [];//tableau de moment
 
- Template.mlsectioncontentavailability.onRendered(function() {
+ Template.homepage.onCreated(function() {
+console.log("Star userlisting.js");
+
+  this.autorun(() => {
+    this.subscribe('tasks');
+    this.subscribe('campingcars');
+  });
+
+});
+
+ Template.homepage.onRendered(function() {
 //var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
 //console.log("Bdd daysfull: "+JSON.stringify(bdd.daysfull));
 //Meteor.call("get_resource_usage", 67189, 21654, null, null, null, null, null, null);
 
 
+this.$('.owl-carousel').owlCarousel({
+   loop:true,
+    margin:10,
+    nav:false,
+    items:4,
+    autoplay:true,
+    autoplayTimeout:1000,
+});
 
-
-this.$('.datetimepicker').datetimepicker({
-        //format: 'DD/MM/YYYY',
-        minDate: moment(),
-        keepOpen: true,
-        inline: true,
-        focusOnShow:false,
-        collapse:false,
-        //deactivation des dates ou le parking est completenabledDates()
-        enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
-        //[moment().add(3, 'days')]            //[
-            //moment().add(7, 'days'),
-            //              ]
-    });
+// this.$('.datetimepicker').datetimepicker({
+//         //format: 'DD/MM/YYYY',
+//         minDate: moment(),
+//         keepOpen: true,
+//         inline: true,
+//         focusOnShow:false,
+//         collapse:false,
+//         //deactivation des dates ou le parking est completenabledDates()
+//         enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
+//         //[moment().add(3, 'days')]            //[
+//             //moment().add(7, 'days'),
+//             //              ]
+//     });
 
 });
 
@@ -41,20 +56,21 @@ this.$('.datetimepicker').datetimepicker({
 // this.$('.datepicker').datepicker();
 
 // }
- Template.mlsectioncontentavailability.helpers({
+ Template.homepage.helpers({
 
 
 
     campingcars: function(){
+
     //const instance = Template.instance();
-    //console.log("helper route id : "+FlowRouter.getParam("_id"));
+    console.log("camping car find : "+CampingCars.find({}).count());
     //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetech()[0].daysfull[0]);
 
 
-return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+return CampingCars.find({}).fetch();
   }
 });
-  Template.mlsectioncontentavailability.events({
+  Template.homepage.events({
 
 'bs.click .modal':function(event, template){
 event.preventDefault();
@@ -273,24 +289,7 @@ CampingCars.update({_id: FlowRouter.getParam('_id')
   upsert: true
 });
 
-//var bdd = CampingCars.find({_id: FlowRouter.getParam('_id')});
-
-var val = null;
-//var dat = '{"'+key+'":'+val+'}';
-//console.log("avant json: "+dat);
-//var js = JSON.parse(dat);
-  //      CampingCars.update({
-    //        _id: FlowRouter.getParam('_id')
-      //  }, {
-        //    $set: js
-        //}, {
-          //  upsert: true
-        //});
-    //console.log("event target : "+event.target);
-    //console.log("event current target child : "+event.currentTarget.children.item(0).children.item(1).children.item(1).children.item(0).children.item(0).style);
-    //console.log("event current target child : "+event.currentTarget.children.item(6).children.item(0).style);
-//style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
-    
+var val = null; 
   }
 
    });

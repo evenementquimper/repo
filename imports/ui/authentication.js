@@ -4,10 +4,14 @@ import { EJSON } from 'meteor/ejson';
 import { CampingCars } from '../api/campingcars.js';
  
 
-import './leftnavuser.html';
+import './authentication.html';
 
- Template.leftnavuser.onCreated(function() {
-  
+ Template.authentication.onCreated(function() {
+        //   Meteor.loginWithFacebook({}, function(err){
+        //     if (err) {
+        //         throw new Meteor.Error("Facebook login failed");
+        //     }
+        // });
   this.autorun(() => {
     //this.subscribe('users');
     this.subscribe('campingcars');
@@ -16,29 +20,23 @@ import './leftnavuser.html';
 });
 
 
- Template.leftnavuser.helpers({
+ Template.authentication.helpers({
 
 
- campingcars(){
+ //campingcars(){
     //const instance = Template.instance();
     //console.log("helper route id : "+FlowRouter.getParam("_id")); "userid": Meteor.userId()
     //console.log("campingcar find! vue nombre: "+CampingCars.find({}).count());
-return CampingCars.find({"userid": Meteor.userId()});
-  }
+//return CampingCars.find({"userid": Meteor.userId()});
+ // }
 
 });
-  Template.leftnavuser.events({
+  Template.authentication.events({
 
   'click .logout':function(event, template){
     event.preventDefault();
     Meteor.logout();
-        Meteor.loggingIn();
-        //       Meteor.loginWithFacebook({}, function(err){
-        //     if (err) {
-        //         throw new Meteor.Error("Facebook login failed");
-        //     }
-        // });
-    //FlowRouter.go("authentication");
+    FlowRouter.go("authentication");
   },
 
   'click .mydetails':function(event, template){

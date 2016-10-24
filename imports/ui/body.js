@@ -10,7 +10,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import './body.html';
 import './nav.html';
 import './app.html';
-
+import './homepage.js';
 
 import './leftnavuser.js';
 
@@ -42,14 +42,14 @@ import './sectionbooking.js';
 import './mlsectioncontentavailability.js';
 
 import './listing';
-
+import '../accounts/config.js';
 import './appLayout.html';
 import './_header.html';
 import './_header.js';
 import './_footer.html';
 
-
-
+import './override-atPwdFormBtn.js';
+import './authentication.js';
 
 
 Template.body.onCreated(function bodyOnCreated() {
