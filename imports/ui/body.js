@@ -8,9 +8,11 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 //import './task.js';
 //import './indexdash.html';
 import './body.html';
-import './nav.html';
+import './nav.js';
 import './app.html';
 import './homepage.js';
+import './maplistings.js';
+
 
 import './leftnavuser.js';
 

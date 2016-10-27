@@ -1,9 +1,16 @@
     <template name="nav">
-    <nav class="top-nav top-nav-functional">
+    <nav class="top-nav top-nav--functional">
       <ul class="top-nav-menu">
       <li class="top-nav-menu-route">
-      <a class="" href="/user/profile" >My Account</a></li>
-      <li class="top-nav-menu-route" data-reactid=".0.1.0.1.0.$/bookings"><a class="" href="/bookings" data-reactid=".0.1.0.1.0.$/bookings.0">My Bookings</a></li><li class="top-nav-menu-route" data-reactid=".0.1.0.1.0.$/my-listings"><a class="" href="/my-listings" data-reactid=".0.1.0.1.0.$/my-listings.0">My Listings</a></li></ul><div class="logo" data-reactid=".0.1.0.1.1"><a class="" href="/" data-reactid=".0.1.0.1.1.0"><img src="/images/logo-blue.png" alt="Logo Image"></a></div>
+      <a class="nav-my-account" href="/user">My Account</a></li>
+      <li class="top-nav-menu-route">
+      <a class="nav-my-booking" href="/reservationslisting">My Bookings</a>
+      </li>
+      <li class="top-nav-menu-route">
+      <a class="nav-my-listing" href="/mylisting">My Listings</a>
+      </li>
+      </ul>
+      <div class="logo"><a class="" href="/"><img src="/images/logo-blue.png" alt="Logo Image"></a></div>
 
     </nav>
 </template>

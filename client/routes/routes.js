@@ -42,6 +42,15 @@ FlowRouter.route('/manage', {
 
 });
 
+FlowRouter.route('/maplistings', {
+  name:'maplistings',
+  action: function() {
+    BlazeLayout.render("mainLayout", {nav:"nav",homepage: "maplistings"});
+
+  }
+
+});
+
 FlowRouter.route('/authentication', {
   name:'authentication',
   action: function() {
@@ -126,7 +135,7 @@ FlowRouter.route('/mylistings/availability/:_id', {
   }
 });
 FlowRouter.route('/listings/:_id', {
-	name:'listing',
+	name:'listings',
   action: function() {
     BlazeLayout.render("listingsLayout"
     	,{section:"listing"}

@@ -2,19 +2,22 @@ import { Template } from 'meteor/templating';
 import { EJSON } from 'meteor/ejson';
  
 
-import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
  
 
-import './login.html';
+import './maplistings.html';
  
 //Markers = new Mongo.Collection('markers');  
 
- Template.login.onCreated(function() {
+ Template.maplistings.onCreated(function() {
+
+  this.autorun(() => {
+    this.subscribe('campingcars');
+  });
 
 
 
- GoogleMaps.ready('exampleMap', function(map){
+ GoogleMaps.ready('MapListings', function(map){
 
 
 
@@ -22,22 +25,21 @@ import './login.html';
 {
 //console.log("campingcar find! nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
 
+
+
+
+
 console.log("start ready:");
 
 
   var input = /** @type {!HTMLInputElement} */(
-      document.getElementById('pac-input'));
+      document.getElementById('location-input'));
 
   var autocomplete = new google.maps.places.Autocomplete(input);
-//   autocomplete.bindTo('bounds', map);
+  autocomplete.bindTo('bounds', map.instance);
 
-// var infowindow = new google.maps.InfoWindow();
-//   var marker = new google.maps.Marker({
-//     map: map,
-//     anchorPoint: new google.maps.Point(0, -29)
-//   });
 
-  autocomplete.addListener('place_changed', function() {
+autocomplete.addListener('place_changed', function() {
     console.log("listener autocomplete");
     //infowindow.close();
     // marker.setVisible(false);
@@ -50,38 +52,50 @@ console.log("start ready:");
 
     // // If the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
-      //map.setCenter(place.geometry.viewport);
-    } else {
-       //map.setCenter(place.geometry.location);
-       //map.setZoom(17);  // Why 17? Because it looks good.
-     }
+    console.log("geometry viewport");
+    map.instance.fitBounds(place.geometry.viewport);
 
+      }
+    else {
+       map.instance.setCenter(place.geometry.location);
+       map.instance.setZoom(17);  // Why 17? Because it looks good.
+}
+ });
+for (var i = 0;i < CampingCars.find({}).fetch().length; i++) {
+ console.log("boucle for bdd: "+CampingCars.find({}).fetch()[i]._id);
+ if(CampingCars.find({}).fetch()[i].lat && CampingCars.find({}).fetch()[i].lng)
+ {
+
+  new google.maps.Marker({
+    position: new google.maps.LatLng(CampingCars.find({}).fetch()[i].lat, CampingCars.find({}).fetch()[i].lng),
+    map: map.instance,
+  });
+ }
+}
+
+
+google.maps.event.addListener(map.instance, 'click',function(event){
+
+ var dig = '{"lat":"'+event.latLng.lat()+'","lng":"'+event.latLng.lng()+'"}';
+ console.log("dig: "+dig);
+ var js = JSON.parse(dig);
+
+       // CampingCars.update({
+       //      _id: FlowRouter.getParam('_id')
+       //  }, {
+       //      $set: js
+       //  }, {
+       //    upsert: true
+       //  });
+
+         marker = new google.maps.Marker({
+    position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()),
+    icon: goldStar1,
+    draggable: true,
+    map: map.instance,
+    title: 'Uluru (Ayers Rock)'
+  });
 });
-
-
-
-// google.maps.event.addListener(map.instance, 'click',function(event){
-
-//  var dig = '{"lat":"'+event.latLng.lat()+'","lng":"'+event.latLng.lng()+'"}';
-//  console.log("dig: "+dig);
-//  var js = JSON.parse(dig);
-
-//        CampingCars.update({
-//             _id: FlowRouter.getParam('_id')
-//         }, {
-//             $set: js
-//         }, {
-//           upsert: true
-//         });
-
-//          marker = new google.maps.Marker({
-//     position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()),
-//     icon: goldStar,
-//     draggable: true,
-//     map: map.instance,
-//     title: 'Uluru (Ayers Rock)'
-//   });
-// });
 
 
 var contentview1 = '<div class="listing-map-popover">'+
@@ -189,42 +203,60 @@ else
 }
 });
 
-
-// GoogleMaps.create({
-//   name: 'myMap',
-//   element: document.getElementById('myMap'),
-//   options: {
-//     center: new google.maps.LatLng(-37.8136, 144.9631),
-//     zoom: 8
-//   }
-// });
-
-
 });
 
- Template.login.onRendered(function(){
+ Template.maplistings.onRendered(function(){
 
 GoogleMaps.load({key: Meteor.settings.public.G_MAP_KEY, libraries: 'places'});
 
-
-
-  // autocomplete.addListener('place_changed', function() {
-  //   infowindow.close();
-  //   marker.setVisible(false);
-  //   var place = autocomplete.getPlace();
-  //   if (!place.geometry) {
-  //     window.alert("Autocomplete's returned place contains no geometry");
-  //     return;
-  //   }
+this.$('.datetimepickerstart').datetimepicker({
+        format: 'DD/MM/YYYY',
+        minDate: moment(),
+        //collapse:false,
+        //disabledHours:true,
+        //keepOpen: true,
+        //inline: true,
+        //focusOnShow:false,
+        //collapse:false,
+        //deactivation des dates ou le parking est completenabledDates()
+        //enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
+        //[moment().add(3, 'days')]            //[
+            //moment().add(7, 'days'),
+            //              ]
+    });
+ 
+ this.$('.datetimepickerend').datetimepicker({
+        format: 'DD/MM/YYYY',
+        minDate: moment(),
+        //keepOpen: true,
+        //inline: true,
+        //focusOnShow:false,
+        //collapse:false,
+        //deactivation des dates ou le parking est completenabledDates()
+        //enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
+        //[moment().add(3, 'days')]            //[
+            //moment().add(7, 'days'),
+            //              ]
+    }); 
 
 
 
 });
 
 
- Template.login.helpers({
+ Template.maplistings.helpers({
 
-   exampleMapOptions: function() {
+    campingcars: function(){
+
+    //const instance = Template.instance();
+    console.log("camping car find : "+CampingCars.find({}).count());
+    //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetech()[0].daysfull[0]);
+
+
+return CampingCars.find({},{limit:5}).fetch();
+  },
+
+   MapListingsOptions: function() {
     // Make sure the maps API has loaded
 
 
@@ -239,7 +271,7 @@ GoogleMaps.load({key: Meteor.settings.public.G_MAP_KEY, libraries: 'places'});
  //  autocomplete.bindTo('bounds', map);
       // Map initialization options
       return {
-        center: new google.maps.LatLng(-25.363, 131.044),
+        center: new google.maps.LatLng(47.993, -4.114),
         zoom: 8,
         libraries: 'places',
       };
@@ -247,8 +279,8 @@ GoogleMaps.load({key: Meteor.settings.public.G_MAP_KEY, libraries: 'places'});
 },
 });
 
-  Template.login.events({
-'place_changed #pac-input':function(event){
+  Template.maplistings.events({
+'place_changed #location-input':function(event){
 console.log("Detection place change");
 },
     'click #facebook-login': function(event) {
