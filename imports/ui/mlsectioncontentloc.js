@@ -9,9 +9,99 @@ import './mlsectioncontentloc.html';
  
  Template.mlsectioncontentloc.onCreated(function() {
 TAPi18n.setLanguage("fr");
+
+
+ GoogleMaps.ready('adressMap', function(map){
+
+//console.log("campingcar find! nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
+
+console.log("start ready:");
+
+
+  var input = /** @type {!HTMLInputElement} */(
+      document.getElementById('adressautocomplete'));
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+//   autocomplete.bindTo('bounds', map);
+
+// var infowindow = new google.maps.InfoWindow();
+//   var marker = new google.maps.Marker({
+//     map: map,
+//     anchorPoint: new google.maps.Point(0, -29)
+//   });
+
+  autocomplete.addListener('place_changed', function() {
+    console.log("listener autocomplete");
+    //infowindow.close();
+    // marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    //var ll = autocomplete.getLat();
+
+    //console.log("Place lat: "+JSON.stringify(ll));
+    if (!place.geometry) {
+       window.alert("Autocomplete's returned place contains no geometry");
+       return;
+     }
+
+    // // If the place has a geometry, then present it on a map.
+    if (place.geometry.location) {
+console.log("geometry: "+JSON.stringify(place.geometry.location));
+//var lat = place.geometry.location.lat;
+//var lng = place.geometry.location.lng;
+
+//console.log("lat: "+lat+"lng: "+lng);
+var dig = '{"city":"'+place.name+'","location":'+JSON.stringify(place.geometry.location)+'}';
+console.log("DIG: "+dig);
+
+var js = JSON.parse(dig);
+        CampingCars.update({
+            _id: FlowRouter.getParam('_id')
+        }, {
+            $set: js
+        }, {
+          upsert: true
+        });
+    } else {
+     }
 });
 
+});
+
+
+
+});
+
+ Template.mlsectioncontentloc.onRendered(function() {
+
+GoogleMaps.load({key: Meteor.settings.public.G_MAP_KEY, libraries: 'places'});
+
+});
+
+
  Template.mlsectioncontentloc.helpers({
+
+   adressMapOptions: function() {
+    // Make sure the maps API has loaded
+
+
+
+    if (GoogleMaps.loaded()) {
+
+ // var input = /** @type {!HTMLInputElement} */(
+ //      document.getElementById('pac-input'));
+
+
+ //  var autocomplete = new google.maps.places.Autocomplete(input);
+ //  autocomplete.bindTo('bounds', map);
+      // Map initialization options
+      return {
+        center: new google.maps.LatLng(-25.363, 131.044),
+        zoom: 8,
+        libraries: 'places',
+      };
+    }
+},
+
     campingcars: function(){
     //const instance = Template.instance();
     //console.log("helper route id : "+FlowRouter.getParam("_id"));

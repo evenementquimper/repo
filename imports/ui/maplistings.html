@@ -6,16 +6,13 @@
   </div>
 
 <div class="hero-inner">
-<div class="hero-copy">
+<!-- <div class="hero-copy">
 <h1 class="hero-copy-title">Begin Your Journey
 </h1>
 <p class="hero-copy-content">Rent directly from motorhome owners.
 </p>
-</div>
- <div class="map-container" style="width:800px;max-width:100%;height:400px;visibility:hidden;">
-  </div>
-
-<div class="homepage-search">
+</div> -->
+<div class="homepage-search" style="position: relative;">
 <form class="listings-search">
 <div class="flex-grid">
 <div style="width: 25%;" class="flex-grid-item">
@@ -95,5 +92,74 @@
          </div>
          </form>
          </div>
+</div>
+
+<div class="listings">
+{{#each campingcars}}
+            <div class="">
+<p>{{this._id}}</p>
+<div class="slick-slide featured-vehicles-card" data-index="-3" style="width: 400px;">
+         <div class="public-listing">
+         <a class="" href="/listings/{{this._id}}">
+         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.12);border-radius:2px;overflow:hidden;z-index:1;">
+         <div style="padding-bottom:0;">
+         <div>
+         <div style="position:relative;">
+
+         <div style="width:320px;height:200px;">
+         <img src="{{this.images.[0]}}" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;" alt="error image" itemprop="image">
          </div>
+
+
+         <div style="position:absolute;top:0;bottom:0;right:0;left:0;">
+         <div style="height:100%;position:relative;">
+         <div style="position:absolute;bottom:0;right:0;left:0;padding-top:8px;background:rgba(0, 0, 0, 0.54);">
+         <div style="padding:0 20px 10px;position:relative;" title="Vehicle price from:">
+         <span style="font-size:16px;color:rgba(255, 255, 255, 0.87);display:block;line-height:26px;font-weight:300;">Vehicle price from:
+         </span>
+         <span style="font-size:14px;color:rgba(255, 255, 255, 0.54);display:block;">$220 per day...
+         </span>
+         </div>
+         </div>
+         </div>
+         </div>
+         </div>
+         <div title="Madi" style="height:72px;padding:16px;font-weight:500;box-sizing:border-box;position:relative;">
+         <div style="height:45px;width:45px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:45px;font-size:26.5px;color:#ffffff;margin-right:16px;">
+         <svg fill="#FFFFFF" height="100%" viewBox="0 0 24 24" width="100%">
+         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z">
+         </path>
+         <path d="M0 0h24v24H0z" fill="none">
+         </path>
+         </svg>
+         </div>
+         <div style="display:inline-block;vertical-align:top;max-width:200px;">
+         <span style="color:rgba(0, 0, 0, 0.87);display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;margin-left:8px;">{{this.name}}
+         </span>
+         <span style="color:rgba(0, 0, 0, 0.54);display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;margin-left:8px;">Sleeps {{this.maxGuests}}
+         </span>
+         </div>
+         </div>
+
+<!--          <div>
+         <button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:absolute;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;padding:12px;width:48px;height:48px;font-size:0;right:30px;bottom:0;" tabindex="0" type="button">
+         <div>
+         <span class="material-icons close-icon" style="position:relative;font-size:24px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:#4caf50;">date_range
+         </span>
+         </div>
+         </button>
+         <noscript data-reactid=".0.0.1.$page.1.0.0.1.0.0.0.$cloned-3.$bkGgLa6FB49EiGH4m.0.0.0.$=10.3.1">
+         </noscript>
+         </div> -->
+
+         </div>
+         </div>
+         </div>
+         </a>
+         </div>
+         </div>
+
+            </div>
+{{/each}}
+</div>
 </template>
