@@ -1,9 +1,25 @@
 
+
+
 FlowRouter.route('/', {
 	name:'index',
   action() {
     BlazeLayout.render("mainLayout", {nav:"nav",homepage:"homepage"});
  }
+});
+
+FlowRouter.route('/twilio/my_twiml.xml', {
+  where: 'server',
+  action: function(res) {
+console.log("creation xml");
+    var xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+    xmlData += "<Response>";
+    xmlData += "<Say voice=\"woman\" language=\"en\">Hello!</Say>";
+    xmlData += "</Response>";
+
+    res.writeHead(200, {'Content-Type': 'application/xml'});
+    res.end(xmlData);
+  }
 });
 
 FlowRouter.route('/dashboard_one', {
@@ -44,7 +60,9 @@ FlowRouter.route('/manage', {
 
 FlowRouter.route('/maplistings', {
   name:'maplistings',
-  action: function() {
+  action: function(params, queryParams) {
+    console.log("Params: "+JSON.stringify(params));
+    console.log("queryParams: "+JSON.stringify(queryParams));
     BlazeLayout.render("mainLayout", {nav:"nav",homepage: "maplistings"});
 
   }

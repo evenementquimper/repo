@@ -29,7 +29,7 @@ import './sectionbooking.html';
 
 
 this.$('.datetimepicker').datetimepicker({
-        //format: 'DD/MM/YYYY',
+        format: 'DD/MM/YYYY',
         minDate: moment(),
         keepOpen: true,
         inline: true,

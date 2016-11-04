@@ -4,10 +4,12 @@ import { EJSON } from 'meteor/ejson';
 
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
- 
+import { AddOns } from '../api/addons.js';
+import { Session } from 'meteor/session';
 
 import './mlsectioncontentavailability.html';
 import './exampleModal.html';
+import './addon.html';
 import './addonmodal.js';
         var dayfull = [];//tableau de moment
 
@@ -20,9 +22,9 @@ import './addonmodal.js';
 
 
 this.$('.datetimepicker').datetimepicker({
-        //format: 'DD/MM/YYYY',
+        format: 'YYYY-MM-DD',
         minDate: moment(),
-        keepOpen: true,
+        //keepOpen: true,
         inline: true,
         focusOnShow:false,
         collapse:false,
@@ -49,9 +51,15 @@ this.$('.datetimepicker').datetimepicker({
     //const instance = Template.instance();
     //console.log("helper route id : "+FlowRouter.getParam("_id"));
     //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetech()[0].daysfull[0]);
-
+Session.set("campid", FlowRouter.getParam("_id"));
 
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+  },
+    addon: function(){
+    //const instance = Template.instance();
+    //console.log("helper route id : "+FlowRouter.getParam("_id"));
+    console.log("addon find! vue nombre: "+AddOns.find({campingcar_id:FlowRouter.getParam("_id")}).count());
+return AddOns.find({campingcar_id:FlowRouter.getParam("_id")}).fetch()[0];
   }
 });
   Template.mlsectioncontentavailability.events({
@@ -129,17 +137,20 @@ else
     },
 
   'click .addons-panel': function(event, template) {
+    var addonplus = template.find('#addonplus');
+    addonplus.style.display = "inline-block";
+    //var campid = FlowRouter.getParam("_id");
     //console.log("event "+event);
-    // Prevent default browser form submit
+    // Prevent default browser form submit       max-width: 768px;   overflow-y: auto; 
 //this.preventDefault();
    // 
     // console.log("event type : "+event.type);
     // console.log("event target : "+event.target);
     // console.log("event target text: "+event.target.text.value);
     //console.log("event current target : "+EJSON.stringify(event.currentTarget.hr.style));
-setTimeout(function(){
-        Modal.show('exampleModal')
-    }, 500)
+//setTimeout(function(){
+    //    Modal.show('addonmodal', campid)
+  //  }, 500)
 
   },
 

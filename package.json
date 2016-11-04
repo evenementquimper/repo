@@ -1,5 +1,5 @@
 {
-  "name": "simple-todos",
+  "name": "leboncampingcar",
   "private": true,
   "scripts": {
     "start": "meteor run"

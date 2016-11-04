@@ -4,7 +4,7 @@ import { Template } from 'meteor/templating';
 
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
-
+import { AddOns } from '../api/addons.js';
  
 
 import './mylistingLayout.html';
