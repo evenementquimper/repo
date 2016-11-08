@@ -8,6 +8,14 @@ FlowRouter.route('/', {
  }
 });
 
+// FlowRouter.route('/', {
+//   name:'index',
+//   action() {
+//     BlazeLayout.render("mainLayout", {nav:"nav",homepage:"homepage"});
+//  }
+// });
+// {{> atForm}}
+
 FlowRouter.route('/twilio/my_twiml.xml', {
   where: 'server',
   action: function(res) {
@@ -72,9 +80,17 @@ FlowRouter.route('/maplistings', {
 FlowRouter.route('/authentication', {
   name:'authentication',
   action: function() {
-    BlazeLayout.render("authentication");
-
-  }
+    //console.log("Meteor user?: "+Meteor.userId());
+    //if(!Meteor.userId()) atForm
+  //  {
+    BlazeLayout.render("mainLayout", {nav:"",homepage:"atForm"});
+//}
+//else
+//{
+  //BlazeLayout.render("mainLayout", {nav:"nav",homepage:"homepage"});
+  //FlowRouter.go("index");
+  //}
+}
 
 });
 

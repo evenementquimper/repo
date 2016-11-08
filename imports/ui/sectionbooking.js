@@ -17,6 +17,12 @@ import './sectionbooking.html';
  Template.sectionbooking.onCreated(function() {
      this.dtime = new ReactiveDict();
      this.prizes = new ReactiveDict();
+    // this.zoom = new ReactiveVar(0);
+    // document.on('scroll', function(e) {
+    //     // ... event processing stuff; 
+    //     // say it produces value 'zoomAmount' ...
+    //     this.zoom.set(zoomAmount);
+    // });
     
 
 });
@@ -27,7 +33,11 @@ import './sectionbooking.html';
 //Meteor.call("get_resource_usage", 67189, 21654, null, null, null, null, null, null);
 
 
-
+  var el = this.$('.sticky-inner-wrapper');
+  console.log("offset top?: "+el.offset().top);
+  //console.log("sticky move: "+el.style.position);
+//console.log("client height : "+document.body.clientHeight);
+//console.log("element scroll : "+el.scrollTop);
 
 this.$('.startdatetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',
@@ -62,7 +72,14 @@ this.$('.enddatetimepicker').datetimepicker({
 
  Template.sectionbooking.helpers({
 
+    // zoom: function() { 
+    //     // This will be called when 'zoom' changes, 
+    //     console.log("zoom change: "+Template.instance().zoom.get());// so treat this as your events function
+    //     return Template.instance().zoom.get(); 
+    // },
     campingcarsbook: function(){
+
+
     //const instance = Template.instance();
     console.log("route id : "+FlowRouter.getParam("_id"));
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
@@ -189,6 +206,14 @@ console.log("netp calcul result"+netprize);
 });
   Template.sectionbooking.events({
 
+    'e.wheelDelta': function(event, template) {
+        console.log("scrolled");
+        return false;
+    },
+
+// 'scroll.change': function(event, instance){
+//     console.log("scroll!!");
+// },
 
 'dp.change .startdatetimepicker': function(event, instance){
  event.preventDefault();

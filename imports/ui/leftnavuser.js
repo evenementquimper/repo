@@ -32,13 +32,13 @@ return CampingCars.find({"userid": Meteor.userId()});
   'click .logout':function(event, template){
     event.preventDefault();
     Meteor.logout();
-        Meteor.loggingIn();
+        //Meteor.loggingIn();
         //       Meteor.loginWithFacebook({}, function(err){
         //     if (err) {
         //         throw new Meteor.Error("Facebook login failed");
         //     }
         // });
-    //FlowRouter.go("authentication");
+    FlowRouter.go("index");
   },
 
   'click .mydetails':function(event, template){

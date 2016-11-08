@@ -44,7 +44,7 @@ import './sectionbooking.js';
 import './mlsectioncontentavailability.js';
 
 import './listing';
-import '../accounts/config.js';
+//import '../accounts/config.js';
 import './appLayout.html';
 import './_header.html';
 import './_header.js';
