@@ -14,8 +14,8 @@ import './maplistings.html';
     this.subscribe('campingcars');
   });
   //console.log("Query params location: "+FlowRouter.getQueryParam("location"));
-console.log("location param: "+JSON.stringify(FlowRouter.getParam("location")));
-
+//console.log("lat param: "+JSON.stringify(FlowRouter.getParam("location").lat()));
+//console.log("lng param: "+JSON.stringify(FlowRouter.getParam("lng")));
 console.log("start param: "+FlowRouter.getParam("start"));
 
 console.log("end param: "+FlowRouter.getParam("end"));
@@ -90,52 +90,16 @@ var quimper = {
 [-4.037175629126088,47.964024539971064],
 [-4.037448532411251,47.953436978615564],
 [-4.047538379379563,47.937299041280419]
-
-
-          // [123.61, -22.14],
-          // [122.38, -21.73],
-          // [121.06, -21.69],
-          // [119.66, -22.22],
-          // [119.00, -23.40],
-          // [118.65, -24.76],
-          // [118.43, -26.07],
-          // [118.78, -27.56],
-          // [119.22, -28.57],
-          // [120.23, -29.49],
-          // [121.77, -29.87],
-          // [123.57, -29.64],
-          // [124.45, -29.03],
-          // [124.71, -27.95],
-          // [124.80, -26.70],
-          // [124.80, -25.60],
-          // [123.61, -25.64],
-          // [122.56, -25.64],
-          // [121.72, -25.72],
-          // [121.81, -26.62],
-          // [121.86, -26.98],
-          // [122.60, -26.90],
-          // [123.57, -27.05],
-          // [123.57, -27.68],
-          // [123.35, -28.18],
-          // [122.51, -28.38],
-          // [121.77, -28.26],
-          // [121.02, -27.91],
-          // [120.49, -27.21],
-          // [120.14, -26.50],
-          // [120.10, -25.64],
-          // [120.27, -24.52],
-          // [120.67, -23.68],
-          // [121.72, -23.32],
-          // [122.43, -23.48],
-          // [123.04, -24.04],
-          // [124.54, -24.28],
-          // [124.58, -23.20],
-          // [123.61, -22.14]
         ]
       ]
     }
   }]
 };
+
+if(FlowRouter.getParam("lat") && FlowRouter.getParam("lng"))
+  //var location = JSON.parse('('+FlowRouter.getParam("lat")+','+FlowRouter.getParam("lng")+')');
+       map.instance.setCenter(new google.maps.LatLng(FlowRouter.getParam("lat"), FlowRouter.getParam("lng")));
+       map.instance.setZoom(8);  // Why 17? Because it looks good.
 //console.log("current geolocalisation: ",Geolocation.currentLocation());
 //console.log("geolocalisation: ",Geolocation.latLng());
 
@@ -186,7 +150,7 @@ autocomplete.addListener('place_changed', function() {
       }
     else {
        map.instance.setCenter(place.geometry.location);
-       map.instance.setZoom(17);  // Why 17? Because it looks good.
+       map.instance.setZoom(10);  // Why 17? Because it looks good.
 }
  });
 
@@ -217,7 +181,7 @@ var contentview = '<div class="listing-map-popover">'+
          '0 1px 4px rgba(0,0,0,0.12);border-radius:2px;overflow:hidden;z-index:1;">'+
          '<div style="padding-bottom:0;">'+
          '<div style="position:relative;">'+
-         '<div style="width:250px;height:156px;">'+
+         '<div style="width:150px;height:95px;">'+
          '<img src="'+CampingCars.find({}).fetch()[i].images[0]+'" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;" alt="rien" itemprop="image"></div>'+
          '<div style="position:absolute;top:0;bottom:0;right:0;left:0;">'+
          '<div style="height:100%;position:relative;"'+

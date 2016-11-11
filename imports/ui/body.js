@@ -52,6 +52,7 @@ import './_footer.html';
 
 import './override-atPwdFormBtn.js';
 import './authentication.js';
+import './loginLayout.html';
 
 
 Template.body.onCreated(function bodyOnCreated() {

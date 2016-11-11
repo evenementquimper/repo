@@ -66,11 +66,11 @@ FlowRouter.route('/manage', {
 
 });
 
-FlowRouter.route('/maplistings', {
+FlowRouter.route('/maplistings/:lat/:lng/:start/:end', {
   name:'maplistings',
   action: function(params, queryParams) {
-    console.log("Params: "+JSON.stringify(params));
-    console.log("queryParams: "+JSON.stringify(queryParams));
+    //console.log("Params: "+JSON.stringify(params));
+    //console.log("queryParams: "+JSON.stringify(queryParams));
     BlazeLayout.render("mainLayout", {nav:"nav",homepage: "maplistings"});
 
   }
@@ -80,16 +80,7 @@ FlowRouter.route('/maplistings', {
 FlowRouter.route('/authentication', {
   name:'authentication',
   action: function() {
-    //console.log("Meteor user?: "+Meteor.userId());
-    //if(!Meteor.userId()) atForm
-  //  {
-    BlazeLayout.render("mainLayout", {nav:"",homepage:"atForm"});
-//}
-//else
-//{
-  //BlazeLayout.render("mainLayout", {nav:"nav",homepage:"homepage"});
-  //FlowRouter.go("index");
-  //}
+    BlazeLayout.render("loginLayout");
 }
 
 });

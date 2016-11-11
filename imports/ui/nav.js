@@ -11,5 +11,8 @@ import './nav.html';
   //console.log()
 });
   Template.nav.events({
-
+    'click .top-nav-logout':function(event, template){
+    event.preventDefault();
+    Meteor.logout();
+  },
    });

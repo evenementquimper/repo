@@ -2499,13 +2499,13 @@ h1,h2,h3,h4,h5,h6 {
 }
 .top-nav.top-nav--functional {
 	border-bottom:1px solid gainsboro;
-	background-color:#fff
+	background-color:#256d94
 }
 .top-nav.top-nav--functional .top-nav-menu-route a {
-	color:#ef4136
+	color:#f2f2f2
 }
 .top-nav.top-nav--functional .top-nav-menu-route a:hover {
-	color:#b12324;
+	color:#e6e6e6;
 	text-decoration:none;
 	cursor:pointer
 }

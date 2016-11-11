@@ -9,17 +9,22 @@ Meteor.startup(function () {
   } else {
     env = Braintree.Environment.Sandbox;
   }
-  // Initialize Braintree connection:
+  // Initialize Braintree connection: 
+try{
   gateway = BrainTreeConnect({
     environment: env,
     publicKey: Meteor.settings.public.BT_PUBLIC_KEY,
     privateKey: Meteor.settings.private.BT_PRIVATE_KEY,
     merchantId: Meteor.settings.public.BT_MERCHANT_ID
   });
+  } catch(error){
+    throw new Meteor.Error(1001, error.message);
+}
 });
 
 Meteor.methods({
   getClientToken: function (clientId) {
+    console.log("start getclientToken");
     var generateToken = Meteor.wrapAsync(gateway.clientToken.generate, gateway.clientToken);
     var options = {};
 
@@ -28,9 +33,11 @@ Meteor.methods({
     }
 
     var response = generateToken(options);
+     //console.log("getclientToken: "+response.clientToken);
     return response.clientToken;
   },
     btCreateCustomer: function(){
+      console.log("Method btCreate, user: "+Meteor.user());
     var user = Meteor.user();
 
     var customerData = {
@@ -42,6 +49,7 @@ Meteor.methods({
       if (error){
         console.log(error);
       } else {
+        console.log("bdd insert customerid: "+response.customer.id);
         // If customer is successfuly created on Braintree servers,
         // we will now add customer ID to our User
         Meteor.users.update(user._id, {
