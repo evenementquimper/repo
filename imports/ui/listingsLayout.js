@@ -1,10 +1,12 @@
 import { Template } from 'meteor/templating';
-
+import { ReactiveDict } from 'meteor/reactive-dict';
  
 
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
 import { Reservations } from '../api/reservations.js';
+import { AddOns } from '../api/addons.js';
+import { Session } from 'meteor/session';
  
 
 import './listingsLayout.html';
@@ -20,13 +22,13 @@ import './listingsLayout.html';
     this.subscribe('campingcars');
     this.subscribe('usersdata');
     this.subscribe('reservations');
+    this.subscribe('addons');
   });
-      //   BlazeLayout.render("listingsLayout"
-      // ,{listing:"mlsectioncontentavailability"}
-      // );
+  this.addons = new ReactiveDict();
 });
 
  Template.listingsLayout.helpers({
+
 
 
   //task: function() {

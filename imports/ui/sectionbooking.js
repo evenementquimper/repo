@@ -93,6 +93,13 @@ return Template.instance().prizes.get('netprize');
     return Template.instance().currentUpload.get();
   },
 
+totalprize: function(){
+  var net = Template.instance().prizes.get('netprize');
+  var addons =  150;//Template.instance().prizes.get('addons');
+  var insurance = 100;//Template.instance().prizes.get('insurance');
+  return net+addons+insurance;
+},
+
 
   guests: function(){
     var mxg = 0;
@@ -138,12 +145,12 @@ var dif = null;
 var netprize = 0;
 if(moment(instance.dtime.get('startdatepicker'),"YYYY-MM-DD").isValid())
 {
-    console.log("get instance start DD: ");
+    //console.log("get instance start DD: ");
 sd = moment(instance.dtime.get('startdatepicker'),"YYYY-MM-DD");    
 }
 
 if(moment(instance.dtime.get('enddatepicker'),"YYYY-MM-DD").isValid()){
-    console.log("get instance end DD: ");
+    //console.log("get instance end DD: ");
 fd = moment(instance.dtime.get('enddatepicker'),"YYYY-MM-DD");
 }
 
@@ -158,24 +165,24 @@ else
 //console.log("FD: "+fd);
    dif = moment.duration(fd.diff(sd));
     //var dif = fd.diff(sd);
-    console.log("dif: "+dif.asDays());
+    //console.log("dif: "+dif.asDays());
     instance.dtime.set('deltadate', dif);
 
      if(bddcp.priceperday)
      {
-        console.log("netp bef parse p"+bddcp.priceperday); 
+        //console.log("netp bef parse p"+bddcp.priceperday); 
          pday = parseInt(bddcp.priceperday);
-         console.log("netp parse p"+pday); 
+         //console.log("netp parse p"+pday); 
         //nday = instance.prizes.get('deltadate');
      }  
      else
      {
-console.log("else netp parse p"); 
+//console.log("else netp parse p"); 
      } 
         
-console.log("netp calcul start");
+//console.log("netp calcul start");
 netprize = pday * dif.asDays();
-console.log("netp calcul result"+netprize);
+//console.log("netp calcul result"+netprize);
  instance.prizes.set('netprize', netprize);
 
     }

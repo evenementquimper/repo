@@ -4,7 +4,9 @@ import { EJSON } from 'meteor/ejson';
 
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
- 
+import { Reservations } from '../api/reservations.js';
+import { AddOns } from '../api/addons.js';
+import { Session } from 'meteor/session';
 
 import './listing.html';
 import './sectionavailability.html';
@@ -68,7 +70,10 @@ todoArgs(todo){
     //const instance = Template.instance();
     console.log("route id : "+FlowRouter.getParam("_id"));
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
-  }
+  },
+  campingcaraddons: function(){
+return AddOns.find({campingcarId:FlowRouter.getParam("_id")}).fetch();
+},
 // ways:function(){
 // return Way_Coll.find({}).fetch();
 // },
@@ -99,7 +104,29 @@ return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
     // },
 });
   Template.listing.events({
+'click .add-addon':function(event, template){
+    //     // Prevent default browser 
+var addonstab = [];
+if(Session.get("addonstab"))
+{
 
+  // addonstab = Session.get("addonstab");
+  // for (var i = 0; addonstab.length < i; i++) {
+  //   if(addonstab[i])
+  // }
+  
+}
+else
+{
+
+}
+
+addonstab.push(event.currentTarget.id);
+Session.set("addonstab",addonstab);
+//var dig = '{"'+event.currentTarget.id+'":"'+event.currentTarget.value+'"}';
+       event.preventDefault();
+       console.log("add-addon session?: "+Session.get("addonstab"));
+}
   //   'click #valid': function(event, template) {
   //     // Prevent default browser 
   //     event.preventDefault();

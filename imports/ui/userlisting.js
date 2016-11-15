@@ -39,17 +39,18 @@ return CampingCars.find({"userid": Meteor.userId()});
 //console.log("click input value: "+event.target.value);
 //console.log("click tag name: "+event.target.tagName);
 //Meteor.call("Planyotest");
-Meteor.call("AddResource", null, "newcampingcarResII", "1", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, function(error, result){
-  if(!error){
-    console.log("CallBack result: "+JSON.stringify(result));
-    if(result.data.data.new_resource_id)
-    {
-    console.log("CallBack data id: "+JSON.stringify(result.data.data.new_resource_id));
-    resId = result.data.data.new_resource_id;
+
+//Meteor.call("AddResource", null, "newcampingcarResII", "1", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, function(error, result){
+  //if(!error){
+    //console.log("CallBack result: "+JSON.stringify(result));
+    //if(result.data.data.new_resource_id)
+    //{
+    //console.log("CallBack data id: "+JSON.stringify(result.data.data.new_resource_id));
+    //resId = result.data.data.new_resource_id;
 
       CampingCars.insert({
               userid: Meteor.userId(),
-              planyo_resource_id: resId,
+              //planyo_resource_id: resId,
               createdAt: new Date()
           }, function( error, result) { 
      if ( error ) console.log ( error ); //info about what went wrong
@@ -59,34 +60,28 @@ Meteor.call("AddResource", null, "newcampingcarResII", "1", null, null, null, nu
  }
 });
 
-  }
-  else
-  {
+  //}
+  //else
+  //{
 
-  }
-  }
-  else
-  {
-    console.log("CallBack error: "+JSON.stringify(error));
-    resId = null;
-  }
-});
+  //}
+  //}
+  //else
+  //{
+    //console.log("CallBack error: "+JSON.stringify(error));
+    //resId = null;
+  //}
+//});
 
-if(resId!=null)
-{
+//if(resId!=null)
+//{
 
-}
+//}
 
-else
-{
+//else
+//{
   
-}
-  
-
-
-var key = event.target.name;
- var tar = event.target;
-
+//}
   },
 
   'click .user-listing-item':function(event, template){

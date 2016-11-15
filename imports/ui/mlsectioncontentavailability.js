@@ -8,9 +8,9 @@ import { AddOns } from '../api/addons.js';
 import { Session } from 'meteor/session';
 
 import './mlsectioncontentavailability.html';
-import './exampleModal.html';
-import './addon.html';
-import './addonmodal.js';
+//import './exampleModal.html';
+//import './addon.html';
+//import './addonmodal.js';
         var dayfull = [];//tableau de moment
 
  Template.mlsectioncontentavailability.onRendered(function() {
@@ -59,7 +59,7 @@ return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
     //const instance = Template.instance();
     //console.log("helper route id : "+FlowRouter.getParam("_id"));
     console.log("addon find! vue nombre: "+AddOns.find({campingcar_id:FlowRouter.getParam("_id")}).count());
-return AddOns.find({campingcar_id:FlowRouter.getParam("_id")}).fetch()[0];
+return AddOns.find({campingcarId:FlowRouter.getParam("_id")});
   }
 });
   Template.mlsectioncontentavailability.events({
@@ -125,32 +125,25 @@ else
   
 // },
 
-    'click button': function(event, template) {
-      event.preventDefault();
-      console.log("click day");
-        console.log("datetimepick data", $('.datetimepicker').data().date);
-        var dd = [$('.datetimepicker').data().date];
+    // 'click button': function(event, template) {
+    //   event.preventDefault();
+    //   console.log("click day");
+    //     console.log("datetimepick data", $('.datetimepicker').data().date);
+    //     var dd = [$('.datetimepicker').data().date];
 
-        $('.datetimepicker').data("DateTimePicker").disabledDates(dd);
-        // $('.datetimepicker').data("DateTimePicker").destroy();
+    //     $('.datetimepicker').data("DateTimePicker").disabledDates(dd);
+    //     // $('.datetimepicker').data("DateTimePicker").destroy();
        
-    },
+    // },
 
-  'click .addons-panel': function(event, template) {
-    var addonplus = template.find('#addonplus');
-    addonplus.style.display = "inline-block";
-    //var campid = FlowRouter.getParam("_id");
-    //console.log("event "+event);
-    // Prevent default browser form submit       max-width: 768px;   overflow-y: auto; 
-//this.preventDefault();
-   // 
-    // console.log("event type : "+event.type);
-    // console.log("event target : "+event.target);
-    // console.log("event target text: "+event.target.text.value);
-    //console.log("event current target : "+EJSON.stringify(event.currentTarget.hr.style));
-//setTimeout(function(){
-    //    Modal.show('addonmodal', campid)
-  //  }, 500)
+  'click #addonplus': function(event, template) {
+    //var addonplus = template.find('#addonplus');
+    //addonplus.style.display = "inline-block";
+
+    AddOns.insert({ 
+              userid : Meteor.userId(),
+              campingcarId:FlowRouter.getParam("_id"),
+              createdAt: new Date() });
 
   },
 
@@ -169,6 +162,55 @@ var js = JSON.parse(dig);
           upsert: true
         });
   },
+
+'click .addondisplay': function(event, template){
+console.log("id?: "+event.currentTarget.id);
+var adid = event.currentTarget.id;
+//var f = '.'+
+var f = template.find(".addondetail"+adid);
+console.log("F display: "+f.style.display);
+if(f.style.display=="none")
+{
+f.style.display = "inline-block";
+}
+else
+{
+ f.style.display = "none"; 
+}
+},
+
+// 'textarea .addon-item':function(event, template){
+// event.preventDefault(); 
+// var curid = event.currentTarget.id;
+// var tabcurid = curid.split('_');
+
+// console.log("id?: "+event.currentTarget.id);
+// console.log("id tab?: "+tabcurid[1]);
+// },
+
+  'input .addon-item': function (event, template) {
+
+//event.preventDefault(); 
+var curid = event.currentTarget.id;
+var tabcurid = curid.split('_');
+
+console.log("id?: "+event.currentTarget.id);
+console.log("id tab?: "+tabcurid[1]);
+
+    //var routeid = FlowRouter.getParam('_id');
+var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value+'"}';
+console.log("DIG: "+dig);
+var js = JSON.parse(dig);
+
+        AddOns.update({
+            _id: tabcurid[1]
+        }, {
+            $set: js
+        }, {
+          upsert: true
+        });
+  },
+
 
 'click .text-item': function(event, template){
 //console.log("click current text-item label style width: "+event.currentTarget.children[0].style.position);

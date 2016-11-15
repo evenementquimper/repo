@@ -68,5 +68,14 @@
 	"extrastorage":"Extra Storage",
 	"outdoortableandchairs":"Outdoor Table and Chairs",
 	"towbar":"Tow Bar",
-	"bikerack":"Bike Rack"
+	"bikerack":"Bike Rack",
+	//sectionbooking.html
+	"pricingsummary":"Résumé des prix",
+	"pick-up":"Debut",
+	"drop-off":"Fin",
+	"guests":"Places",
+	"days":"jours",
+	"serandroadsup":"Services",
+	"insurance":"Assurance",
+	"requestbooking":"Demande de réservation"
 }

@@ -1,56 +1,54 @@
-<template name="addon">
-<div class="addondetail{{this._id}}" id="{{this._id}}" style="display:none ;box-sizing: border-box; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; position: relative; width: 95%;margin: 0px auto; z-index: 1500; opacity: 1;">
+
+<template name="modaladdon">
+    
+    <div class="modal fade">
+        
+        <div class="modal-dialog">
+            
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Optional Addon
+         </h4>
+                </div>
+
+                
+                <div class="modal-body">
+                    
+                    <p>A modal example. {{campid}}
+                    </p>
+
+
+    <div style="box-sizing: border-box; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; position: relative; width: 95%; max-width: 768px; margin: 0px auto; z-index: 1500; overflow-y: auto; opacity: 1;">
     <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 14px 45px rgba(0,0,0,0.25),
-         0 10px 18px rgba(0,0,0,0.22);border-radius:2px;background:#ffffff;" >
+         0 10px 18px rgba(0,0,0,0.22);border-radius:2px;background:#ffffff;" data-reactid=".p.0.$=10.0">
      
-         <div style="padding: 24px; overflow-y: auto; overflow-x: hidden; max-height: 318px;">
-         <form class="addon-form">
-         <div class="flex-grid">
-
-         <div style="width: 33.3333%;" class="">
-         <div style="margin-right:10px;">
-
-
-
-<!-- <div class="text-item" style="font-size:16px;line-height:24px;width:256px;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-{{#if campingcars.make}}
-<label for="mui01" style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">Vehicle Make</label>
-{{else}}
-<label for="mui01" style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);">Vehicle Make</label>
-{{/if}}
-<input id="mui01" class="data-item" name="make" value="{{campingcars.make}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:80%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;" type="text">
-
-<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
-<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-</div>
- -->
+         <div style="padding: 24px; overflow-y: auto; overflow-x: hidden; max-height: 318px;" data-reactid=".p.0.$=10.0.1">
+         <form class="addon-form" data-reactid=".p.0.$=10.0.1.0">
+         <div class="flex-grid" data-reactid=".p.0.$=10.0.1.0.0">
+         
 
 
 
 
-
-
-
+         <div style="width: 33.3333%;" class="" data-reactid=".p.0.$=10.0.1.0.0.$0/=10">
+         <div style="margin-right:10px;" data-reactid=".p.0.$=10.0.1.0.0.$0/=10.0">
          <div class="text-item" style="font-size:16px;line-height:24px;width:100%;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-         {{#if this.name}}
-         <label for="{{this_id}}" style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">Vehicle Model</label>
+         {{#if addon.name}}
+         <label style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">Vehicle Model</label>
          {{else}}
-         <label for="{{this_id}}" style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);">Addon Name
+         <label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);" data-reactid=".p.0.$=10.0.1.0.0.$0/=10.0.0.0">Addon Name
          </label>
          {{/if}}
          <div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;" data-reactid=".p.0.$=10.0.1.0.0.$0/=10.0.0.1">What's it called?
          </div>
-
-<!--    <input class="data-item" name="priceperday" value="{{campingcars.priceperday}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" data-reactid=".0.1.1.3.0.$main.0.1.0.1.1.0.2" type="number" placeholder="Price per day"> -->
-
-         <input id="{{this._id}}" class="addon-item" name="name" value="{{this.name}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="text">
-         <div>
+         <input class="addon-item" name="name" value="{{addon.name}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" data-reactid=".p.0.$=10.0.1.0.0.$0/=10.0.0.2" type="text">
+         <div data-reactid=".p.0.$=10.0.1.0.0.$0/=10.0.0.3">
          <hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;" data-reactid=".p.0.$=10.0.1.0.0.$0/=10.0.0.3.0">
          <hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".p.0.$=10.0.1.0.0.$0/=10.0.0.3.1">
          </div>
          </div>
-
-
          </div>
          </div>
 
@@ -81,8 +79,7 @@
          </label>
          <div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;" data-reactid=".p.0.$=10.0.1.0.0.$1/=11.0.0.1">How much is it?
          </div>
-
-         <input min="0" class="addon-item" name="amount" value="{{amount.name}}" id="{{this._id}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" data-reactid=".p.0.$=10.0.1.0.0.$1/=11.0.0.2" type="number">
+         <input min="0" name="amount" value="" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" data-reactid=".p.0.$=10.0.1.0.0.$1/=11.0.0.2" type="number">
          <div data-reactid=".p.0.$=10.0.1.0.0.$1/=11.0.0.3">
          <hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;" data-reactid=".p.0.$=10.0.1.0.0.$1/=11.0.0.3.0">
          <hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".p.0.$=10.0.1.0.0.$1/=11.0.0.3.1">
@@ -93,7 +90,6 @@
          <div style="width: 33.3333%;" class="flex-grid-item" data-reactid=".p.0.$=10.0.1.0.0.$2/=12">
          <div data-reactid=".p.0.$=10.0.1.0.0.$2/=12.0">
          <div style="position:relative;cursor:pointer;overflow:visible;display:table;height:auto;width:100%;margin-top:40px;" data-reactid=".p.0.$=10.0.1.0.0.$2/=12.0.0">
-         
          <input style="position:absolute;cursor:pointer;pointer-events:all;opacity:0;width:100%;height:100%;z-index:2;left:0;box-sizing:border-box;padding:0;margin:0;" data-reactid=".p.0.$=10.0.1.0.0.$2/=12.0.0.0" type="checkbox">
          <div style="width:100%;height:100%;" data-reactid=".p.0.$=10.0.1.0.0.$2/=12.0.0.1">
          <div style="box-sizing:border-box;content:' ';display:table;" data-reactid=".p.0.$=10.0.1.0.0.$2/=12.0.0.1.$=2=2before">
@@ -128,9 +124,8 @@
          </label>
          <div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;" data-reactid=".p.0.$=10.0.1.0.1.1">Max Quantity Per Booking
          </div>
-
-         <input min="0" class="addon-item" name="maxPerBooking" value="{{maxPerBooking.name}}" id="{{this._id}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="number">
-         <div>
+         <input min="0" name="maxPerBooking" value="" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" data-reactid=".p.0.$=10.0.1.0.1.2" type="number">
+         <div data-reactid=".p.0.$=10.0.1.0.1.3">
          <hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;" data-reactid=".p.0.$=10.0.1.0.1.3.0">
          <hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".p.0.$=10.0.1.0.1.3.1">
          </div>
@@ -225,4 +220,24 @@
          </div>
          
          </div>
+
+
+                
+                </div>
+
+                
+                <div class="modal-footer">
+                    
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                    </button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+
+            
+            </div>
+        
+        </div>
+    
+    </div>
+
 </template>
