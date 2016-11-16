@@ -13,7 +13,7 @@ import './sectionavailability.html';
 import './sectionbooking.html';
  
  Template.listing.onCreated(function() {
-
+Session.set("addonstab", null);
   //CampingCars.insert({name:"peugeot", description:"un super camping car de la mort qui tue", maxguests:4, bedsnumb: 4});
   //this.getListId = () => FlowRouter.getParam('_id');
 //souscription a la base de donnée
@@ -105,26 +105,47 @@ return AddOns.find({campingcarId:FlowRouter.getParam("_id")}).fetch();
 });
   Template.listing.events({
 'click .add-addon':function(event, template){
+       event.preventDefault();
     //     // Prevent default browser 
+var ob = event.currentTarget;
+    //background-color:#ffffff;
+console.log("style transition: "+ob.style.backgroundColor);
+console.log("Id: "+event.currentTarget.id);
 var addonstab = [];
 if(Session.get("addonstab"))
 {
 
-  // addonstab = Session.get("addonstab");
-  // for (var i = 0; addonstab.length < i; i++) {
-  //   if(addonstab[i])
-  // }
+  addonstab = Session.get("addonstab");
+  
+  if(addonstab.indexOf(ob.id)!==-1)
+   {
+//textContent
+console.log("childNodes length: "+ob.childNodes[1].innerText);
+ob.childNodes[1].innerText = "Add";
+
+    delete addonstab[addonstab.indexOf(ob.id)];
+    Session.set("addonstab",addonstab);
+    ob.style.backgroundColor = "#ef4136";
+
+
+      }
+      else
+      {
+        addonstab.push(ob.id);
+        Session.set("addonstab",addonstab);
+    ob.style.backgroundColor = "rgb(255, 102, 179)";
+    ob.childNodes[1].innerText = "Remove";
+      }
   
 }
 else
 {
+addonstab.push(ob.id);
+Session.set("addonstab",addonstab);
 
 }
 
-addonstab.push(event.currentTarget.id);
-Session.set("addonstab",addonstab);
 //var dig = '{"'+event.currentTarget.id+'":"'+event.currentTarget.value+'"}';
-       event.preventDefault();
        console.log("add-addon session?: "+Session.get("addonstab"));
 }
   //   'click #valid': function(event, template) {

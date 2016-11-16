@@ -1,6 +1,6 @@
 import { Template } from 'meteor/templating';
 import { EJSON } from 'meteor/ejson';
- 
+import { FilesCollection } from 'meteor/ostrio:files';
 
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
@@ -8,10 +8,28 @@ import { AddOns } from '../api/addons.js';
 import { Session } from 'meteor/session';
 
 import './mlsectioncontentavailability.html';
-//import './exampleModal.html';
-//import './addon.html';
-//import './addonmodal.js';
-        var dayfull = [];//tableau de moment
+
+
+//this.Images = new Meteor.Files({  collectionName: 'Images'
+//   allowClientCode: false, // Disallow remove files from Client
+//   //public: true,
+//   storagePath: '../../../../../public/images/'+FlowRouter.getParam("_id"),
+//   onBeforeUpload: function (file) {
+//     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
+//     if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.extension)) {
+//       return true;
+//     } else {
+//       return 'Please upload image, with size equal or less than 10MB';
+//     }
+//   }
+//}); 
+var dayfull = [];//tableau de moment
+
+ Template.mlsectioncontentavailability.onCreated(function() {
+  this.currentUpload = new ReactiveVar(false);
+
+
+});
 
  Template.mlsectioncontentavailability.onRendered(function() {
 //var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
@@ -45,6 +63,18 @@ this.$('.datetimepicker').datetimepicker({
 // }
  Template.mlsectioncontentavailability.helpers({
 
+  currentUpload: function () {
+    return Template.instance().currentUpload.get();
+  },
+
+      uploadedFiles: function () {
+      var filesCursor = Images.find();
+      //console.log("filecursor fetch: "+Images.find());
+      //console.log("filecursor fetch: "+filesCursor.fetch());
+      //console.log("filecursor get: "+filesCursor.get());
+      console.log("Collection find: "+JSON.stringify(Images.find({}).cursor));
+    return Images.find({}).cursor;
+},
 
 
     campingcars: function(){
@@ -344,6 +374,100 @@ var val = null;
     //console.log("event current target child : "+event.currentTarget.children.item(6).children.item(0).style);
 //style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
     
+  },
+
+  'click .image-remove': function(e, template){
+e.preventDefault();
+console.log("curent id: "+e.currentTarget.id);
+//{"images":{ $in:["hXZjsSk5oSzm759aN"]}}
+var dig = '{"images":"'+e.currentTarget.id+'"}';
+console.log("DIG: "+dig);
+
+var js = JSON.parse(dig);
+
+        CampingCars.update({
+            _id: FlowRouter.getParam('_id')
+        }, {
+            $pull: js
+        }, {
+          multi: true
+        });
+},
+
+'click .image-up': function(e, template){
+e.preventDefault();
+console.log("curent id: "+e.currentTarget.id);
+//{"images":{ $in:["hXZjsSk5oSzm759aN"]}}
+var dig = '{ images:{ $each: [], $sort: -1 }}';
+console.log("DIG: "+dig);
+
+//var js = JSON.parse(dig);
+
+        // CampingCars.update({
+        //     _id: FlowRouter.getParam('_id'),
+        //     images: e.currentTarget.id
+        // }, {
+        //     $set: { "images.$" :{ $each: [], $sort: -1 }}
+        // });
+},
+
+'click .image-upload': function(e, template){
+//console.log("click button");
+  e.preventDefault();
+  
+  var inpt = template.find('.fileInputAddon');
+  inpt.id = e.currentTarget.id; 
+  inpt.click();
+},
+  'change .fileInputAddon': function (e, template) {
+
+console.log("fileInputAddon Id :"+e.currentTarget.id);
+var addonId = e.currentTarget.id;
+
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case 
+      // multiple files were selected
+      var upload = Images.insert({
+        //campingcarid: FlowRouter.getParam("_id"),
+        file: e.currentTarget.files[0],
+        streams: 'dynamic',
+        chunkSize: 'dynamic'
+      }, false);
+
+      upload.on('start', function () {
+        template.currentUpload.set(this);
+      });
+
+      upload.on('end', function (error, fileObj) {
+        if (error) {
+          alert('Error during upload: ' + error);
+        } else {
+                        var sup = fileObj.path.split('../../../../../public');
+              console.log("Split 1: "+sup[0]);
+              console.log("Split 2: "+sup[1]);
+          alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
+//sauvegarde de id de l'image ds la bdd du camping car
+
+
+var dig = '{"images":"'+sup[1]+'"}';
+//console.log("DIG: "+dig);
+
+var js = JSON.parse(dig);
+
+        AddOns.update({
+            _id: addonId
+        }, {
+            $addToSet: js
+        }, {
+          upsert: true
+        });
+
+         }
+        template.currentUpload.set(false);
+      });
+
+      upload.start();
+    }
   }
 
    });

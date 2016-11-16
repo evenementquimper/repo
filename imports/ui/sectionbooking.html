@@ -163,6 +163,39 @@
 </span>
 </td>
 </tr>
+
+{{#if campingcaraddonsselect}}
+{{#each campingcaraddonsselect}}
+<tr>
+<td>
+<span>Optional Add-Ons</span>
+
+<div>
+<small>
+<ul class="booking-price-fees booking-price-fees--optional">
+<li>
+
+<span>
+</span>
+<span>{{this.name}}</span>
+<span>: </span>
+<span class="">
+<span class="glyphicon glyphicon-eur"></span>
+<span>{{this.amount}}</span><sup class="charge-currency">EUR</sup></span><span></span></li></ul>
+
+</small>
+</div>
+
+
+</td><td class="text-right">
+<span class="">
+<span class="glyphicon glyphicon-eur"></span>
+<span>{{this.amount}}</span><sup class="charge-currency">EUR</sup></span></td></tr>
+{{/each}}
+{{else}}
+{{/if}}
+
+
 <tr>
 <td>
 <strong>Total 

@@ -198,8 +198,6 @@
          <div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;" data-reactid=".p.0.$=10.0.1.0.2.1">What does the user get for this additional charge?
          </div>
          <div style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;">
-<!--          <textarea style="width:100%;resize:none;overflow:hidden;visibility:hidden;font:inherit;padding:0;position:absolute;" tabindex="-1" rows="2" readonly="" data-reactid=".p.0.$=10.0.1.0.2.2.0">
-         </textarea> -->
          <textarea id="muiad05_{{this._id}}" class="addon-item" name="description" rows="2" style="width:100%;resize:none;font:inherit;padding:0;tap-highlight-color:rgba(0,0,0,0);position:relative;height:48px;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);margin-top:36px;margin-bottom:-36px;box-sizing:border-box;" data-reactid=".p.0.$=10.0.1.0.2.2.1" placeholder="description svp" value="{{this.description}}">
          </textarea>
          </div>
@@ -208,6 +206,81 @@
          <hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".p.0.$=10.0.1.0.2.3.1">
          </div>
          </div>
+         
+
+
+
+
+
+
+
+
+
+
+
+<button id="{{this._id}}" class="image-upload" style="border: 10px none; background: transparent none repeat scroll 0% 0%; box-sizing: border-box; display: inline-block; font-style: inherit; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgb(239, 65, 54); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 14px; letter-spacing: 0px; text-transform: uppercase; font-weight: 500; border-radius: 2px; position: relative; overflow: hidden; line-height: 36px; min-width: 88px; padding: 0px; margin: 0px;" tabindex="0" type="button">
+
+<div>
+
+<span style="position:relative;padding-left:16px;padding-right:16px;">Choose an Image</span>
+
+</div>
+</button>
+{{#if this.images}}
+{{#each this.images}}
+
+         <div class="ml-panel">
+         <div>
+         <div class="image-display main" style="background-color: rgb(20, 35, 48); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px;">
+
+         <button class="image-remove" id="{{this}}" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:absolute;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;padding:12px;width:48px;height:48px;font-size:0;top:0;right:0;" tabindex="0" type="button">
+
+         <div>
+
+         <span class="glyphicon glyphicon-trash" style="position:relative;font-size:24px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:#FFF;">clear</span></div>
+
+         </button>
+
+
+         <button class="image-up" id="{{this}}" tabindex="0" type="button">
+         
+         <div>
+         <span class="glyphicon glyphicon-arrow-up">image up</span></div>
+
+         </button>
+
+
+         <img src="{{this}}" alt="image1" itemprop="image">
+
+<!--          <button style="border:10px;background:none;box-sizing:border-box;display:none;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:absolute;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;padding:12px;width:48px;height:48px;font-size:0;bottom:0;right:0;" tabindex="0" type="button">
+         <div>
+         <div style="position:absolute;font-family:Roboto, sans-serif;font-size:10px;line-height:22px;padding:0 8px;z-index:3000;color:#ffffff;overflow:hidden;top:-10000px;border-radius:2px;user-select:none;opacity:0;left:24px;transition:top 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms,transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms,opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;">
+         <div style="position: absolute; left: 50%; top: 0px; transform: translate(-50%, -50%); border-radius: 50%; background-color: transparent; transition: width 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, height 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, backgroundColor 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; width: 0px; height: 0px;">
+           
+         </div>
+         <span class="glyphicon glyphicon-trash" style="position:relative;white-space:nowrap;">Set as a main image</span>
+         </div>
+      <span class="material-icons star-icon" style="position:relative;font-size:24px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:#FFF;">star</span>
+         </div>
+         </button> -->
+         </div></div></div>
+{{/each}}
+{{else}}
+{{/if}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
          <div class="addon-form-row" data-reactid=".p.0.$=10.0.1.0.3">
          <h3 class="addon-form-section-heading" data-reactid=".p.0.$=10.0.1.0.3.0">Addon Image
          </h3>
@@ -222,7 +295,12 @@
          </button>
          </div>
          </div>
-         <input style="display:none;" accept="image/*" data-reactid=".p.0.$=10.0.1.0.4" type="file">
+
+         <input class="fileInputAddon" id="" multiple="" style="display:none;" accept="image/*" data-reactid=".p.0.$=10.0.1.0.4" type="file">
+
+
+
+
          <hr style="margin:0;margin-top:-1px;margin-left:0;height:1px;border:none;background-color:rgba(0,0,0,0.3);" data-reactid=".p.0.$=10.0.1.0.5">
          <div class="addon-form-row" data-reactid=".p.0.$=10.0.1.0.6">
          <h3 class="addon-form-section-heading" data-reactid=".p.0.$=10.0.1.0.6.0">Available Dates

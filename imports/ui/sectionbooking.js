@@ -6,6 +6,8 @@ import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
 import { UsersData } from '../api/usersdata.js';
 import { Reservations } from '../api/reservations.js';
+import { AddOns } from '../api/addons.js';
+import { Session } from 'meteor/session';
 
 import './sectionbooking.html';
  //Collection
@@ -87,6 +89,12 @@ return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
 
 netprize: function(){  
 return Template.instance().prizes.get('netprize');
+},
+
+campingcaraddonsselect:function(){
+
+var addonsids = Session.get("addonstab");
+return AddOns.find({_id:{ $in: addonsids }}).fetch();
 },
 
   currentUpload: function () {
