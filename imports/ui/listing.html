@@ -177,11 +177,11 @@
          
          </button>
          
-         <button id="addons" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);padding:0px 12px;height:48px;color:inherit;font-weight:500;font-size:14px;width:33.333333333333336%;text-transform:uppercase;background-color:#ffffff;" tabindex="2" type="button" data-reactid=".0.1.1.$page.1.0.0.1.0.0.$2/=1$addons">
+         <button id="addons" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);padding:0px 12px;height:48px;color:inherit;font-weight:500;font-size:14px;width:33.333333333333336%;text-transform:uppercase;background-color:#ffffff;" tabindex="2" type="button">
          
-         <div data-reactid=".0.1.1.$page.1.0.0.1.0.0.$2/=1$addons.0">
+         <div>
          
-         <span data-reactid=".0.1.1.$page.1.0.0.1.0.0.$2/=1$addons.0.1:1">Addons (4)
+         <span>Addons
          
          </span>
          
@@ -191,7 +191,7 @@
          
          </div>
          
-         <div style="width:100%;" data-reactid=".0.1.1.$page.1.0.0.1.0.1">
+         <div style="width:100%;">
          
          <div style="left:0%;width:33.333333333333336%;bottom:0;display:block;background-color:#ef4136;height:2px;margin-top:-2px;position:relative;transition:left 1s cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".0.1.1.$page.1.0.0.1.0.1.0">&nbsp;
          
@@ -1187,7 +1187,8 @@
 {{#each campingcaraddons}}
 
 <div class="list-item list-item--addon">
-<img src="https://res.cloudinary.com/mighway/image/upload/w_100,h_100,c_thumb/default/e0564430-fae7-4800-a9ea-99b6d6e77160" style="height: 98px; width: 98px; border-radius: 0px; display: inline-block; border: 1px solid rgba(0, 0, 0, 0.08);" class="list-item-image">
+
+<img src="{{this.images.[0]}}" style="height: 98px; width: 98px; border-radius: 0px; display: inline-block; border: 1px solid rgba(0, 0, 0, 0.08);" class="list-item-image">
 <div class="list-item-content">
 <h3 class="list-item-title">{{this.name}}
 </h3>

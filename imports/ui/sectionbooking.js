@@ -9,11 +9,8 @@ import { Reservations } from '../api/reservations.js';
 import { AddOns } from '../api/addons.js';
 import { Session } from 'meteor/session';
 
+//import './loc_confirm_resa_mail.html';
 import './sectionbooking.html';
- //Collection
-
-
-//Markers = new Mongo.Collection('markers');  
 
 
  Template.sectionbooking.onCreated(function() {
@@ -94,7 +91,27 @@ return Template.instance().prizes.get('netprize');
 campingcaraddonsselect:function(){
 
 var addonsids = Session.get("addonstab");
-return AddOns.find({_id:{ $in: addonsids }}).fetch();
+var addonsbdd = AddOns.find({_id:{ $in: addonsids }}).fetch();
+
+var addonsprize = 0;
+
+for (var j = 0; addonsbdd.length > j ; j++) {
+  var nbrdays = 1;
+  var adetday = 0;
+  if(addonsbdd.perday && Template.instance().dtime.get('deltadate'))
+  {
+    nbrdays = Template.instance().dtime.get('deltadate'); 
+  }
+  else
+  {
+  }
+  console.log("addons[j].name: "+addonsbdd[j].name);
+  adetday = addonsbdd[j].amount*nbrdays;
+  addonsprize = addonsprize+adetday;
+}
+
+Template.instance().prizes.set('addonsprize', addonsprize);
+return addonsbdd;
 },
 
   currentUpload: function () {
@@ -102,9 +119,17 @@ return AddOns.find({_id:{ $in: addonsids }}).fetch();
   },
 
 totalprize: function(){
-  var net = Template.instance().prizes.get('netprize');
-  var addons =  150;//Template.instance().prizes.get('addons');
-  var insurance = 100;//Template.instance().prizes.get('insurance');
+  var net = 0;
+
+  if(Template.instance().prizes.get('netprize'))
+    net = Template.instance().prizes.get('netprize');
+  
+  var addons = 0;
+
+  if(Template.instance().prizes.get('addonsprize'))
+    addons = Template.instance().prizes.get('addonsprize');
+
+  var insurance = 0;//Template.instance().prizes.get('insurance');
   return net+addons+insurance;
 },
 
@@ -200,139 +225,36 @@ netprize = pday * dif.asDays();
     return dif.asDays();
   },
 
-//   images: function(){
-//     //return Images.find({ filename: 'chat.jpg' });
-//     console.log("Collection find: "+Images.find().cursor);
-//     //console.log("Collection images car find: "+ImagesCar.find({}).fetch());
-//     return Images.collection.find({}).fetch();
-//   },
-//     uploadedFiles: function () {
-//       var filesCursor = Images.find();
-//       //console.log("filecursor fetch: "+Images.find());
-//       //console.log("filecursor fetch: "+filesCursor.fetch());
-//       //console.log("filecursor get: "+filesCursor.get());
-//       console.log("Collection find: "+JSON.stringify(Images.find({}).cursor));
-//     return Images.find({}).cursor;
-// }
-
-
-
 
 });
   Template.sectionbooking.events({
 
     'e.wheelDelta': function(event, template) {
-        console.log("scrolled");
+        //console.log("scrolled");
         return false;
     },
 
-// 'scroll.change': function(event, instance){
-//     console.log("scroll!!");
-// },
-
 'dp.change .startdatetimepicker': function(event, instance){
  event.preventDefault();
-      console.log("dp change startdatepicker");
 
-       console.log("datetimepick data", $('.startdatetimepicker').data().date);
 if(moment($('.startdatetimepicker').data().date).isValid())
       instance.dtime.set('startdatepicker', $('.startdatetimepicker').data().date);
-      //startt = $('.datetimepickerstart').data().date;
-
-// var dday = moment();//.format("DD/MM/YYYY");
-// var day = $('.datetimepicker').data().date;
-// //day = day.format("X"); 
-// console.log("moment select: "+moment(day).format("YYYY-MM-DD"));
-// //console.log("moment day select: "+moment(day).date());
-// console.log("moment dday: "+dday.format("YYYY-MM-DD"));
-//console.log("moment day dday: "+dday.date());
-
-
-// if(moment().format("YYYY-MM-DD")!==moment(day).format("YYYY-MM-DD"))
-// {
-
-// //console.log("event current target : "+EJSON.stringify(event.target));
-//   console.log("datetime css height: "+JSON.stringify($('.datetimepicker').height()));
-// //$('.datetimepicker').data("DateTimePicker").destroy();
-// var tb = Object.keys($('.datetimepicker').data("DateTimePicker").enabledDates());
-// console.log("disabledDates: "+JSON.stringify($('.datetimepicker').data("DateTimePicker").disabledDates()));
-// console.log("disabledDates keys tab: "+JSON.stringify(tb));
-// var tb2 = [];
-// for (var i = 0; i < tb.length; i++) {
-// tb2[i] = moment(tb[i]);
-// }
-// tb2.push(moment(day));
-// console.log("disabledDates add: "+JSON.stringify(tb2));
-// $('.datetimepicker').data("DateTimePicker").enabledDates(tb2);
-// }
-// else
-// {
-// }
-
   
 },
 
 'dp.change .enddatetimepicker': function(event, instance){
  event.preventDefault();
-      console.log("dp change enddatepicker");
-
-       console.log("datetimepick data", $('.enddatetimepicker').data().date);
        if(moment($('.enddatetimepicker').data().date).isValid())
       instance.dtime.set('enddatepicker', $('.enddatetimepicker').data().date);
-      //startt = $('.datetimepickerstart').data().date;
-
-// var dday = moment();//.format("DD/MM/YYYY");
-// var day = $('.datetimepicker').data().date;
-// //day = day.format("X"); 
-// console.log("moment select: "+moment(day).format("YYYY-MM-DD"));
-// //console.log("moment day select: "+moment(day).date());
-// console.log("moment dday: "+dday.format("YYYY-MM-DD"));
-//console.log("moment day dday: "+dday.date());
-
-
-// if(moment().format("YYYY-MM-DD")!==moment(day).format("YYYY-MM-DD"))
-// {
-
-// //console.log("event current target : "+EJSON.stringify(event.target));
-//   console.log("datetime css height: "+JSON.stringify($('.datetimepicker').height()));
-// //$('.datetimepicker').data("DateTimePicker").destroy();
-// var tb = Object.keys($('.datetimepicker').data("DateTimePicker").enabledDates());
-// console.log("disabledDates: "+JSON.stringify($('.datetimepicker').data("DateTimePicker").disabledDates()));
-// console.log("disabledDates keys tab: "+JSON.stringify(tb));
-// var tb2 = [];
-// for (var i = 0; i < tb.length; i++) {
-// tb2[i] = moment(tb[i]);
-// }
-// tb2.push(moment(day));
-// console.log("disabledDates add: "+JSON.stringify(tb2));
-// $('.datetimepicker').data("DateTimePicker").enabledDates(tb2);
-// }
-// else
-// {
-// }
-
   
 },
 
 
-'click .booking-request': function(e, template){
+'click .booking-request': function(e, instance){
 var campingcarid = FlowRouter.getParam('_id');
 var us = Meteor.user();
 var userdata = UsersData.find({_id:Meteor.user()}).fetch()[0];
-console.log("Meteor User: "+JSON.stringify(us));
-console.log("User data name: "+JSON.stringify(UsersData.find({_id:Meteor.user()})));
 
-
- var resource_id = "67189";
-    var start_time = moment().add(27, 'days');
-    //console.log("First start: "+start_time.format('DD-MM-YYYY'));
-    //var BookingDate = moment(Session.get("BookingDate"), 'DD-MM-YYYY');
-    //BookingDate.format('DD-MM-YYYY');
-//console.log("BookingDate F: "+BookingDate.format('DD-MM-YYYY'));
-    //var start_time = moment().format('DD/MM/YYYY');
-    //var duration = Session.get("ParkingDuration");
-    var user_id = Meteor.userId();
-    var end_time = moment(start_time, 'DD-MM-YYYY').add(4, 'days');
     
     var quantity = 1;
     var admin_mode = true;
@@ -360,42 +282,68 @@ console.log("User data name: "+JSON.stringify(UsersData.find({_id:Meteor.user()}
     var assignment1 = null;
     var version = null;
     var language = null;
-    var planyo_api_key = null//"6c516632983afd2a9b40525eb1ea2b54bf37e18425264d1d2b5062afee2b61";
+    var planyo_api_key = null
 
-     Reservations.insert({"email":email});
+ //var hash = CryptoJS.MD5("Message");
+ //console.log("hash: "+hash);
+  //var hashIn = CryptoJS.MD5.decrypt(hash);
+  //console.log("hashIn: "+MD5(hashIn));
+  // Meteor.call('SendMail',
+  //           'antoine.donniou@gmail.com',
+  //           'Test send mail',
+  //           'Hello from Meteor!',
+  //           null,
+  //           null,
+  //           null);
 
-     Meteor.call('MakeReservation',
-    user_id,
-    resource_id, 
-    start_time.format('YYYY-MM-DD'), 
-    end_time.format('YYYY-MM-DD'), 
-    quantity, 
-    admin_mode, 
-    send_notifications,
-    force_status, 
-    wants_share, 
-    rental_prop_xyz, 
-    rental_prop_voucher, 
-    custom_price, 
-    email, 
-    first_name, 
-    last_name,
-    address, 
-    city, 
-    zip, 
-    state, 
-    country, 
-    phone_prefix, 
-    phone_number, 
-    mobile_prefix, 
-    mobile_number, 
-    user_notes, 
-    admin_notes, 
-    cart_id,
-    assignment1,
-    version,
-    language,
-    planyo_api_key);
+//      Reservations.insert({"user_id":Meteor.userId(),
+//                           "resource_id":FlowRouter.getParam('_id'),
+//                           "start_time": instance.dtime.get('startdatepicker'), 
+//                           "end_time": instance.dtime.get('enddatepicker'),
+//                           "addons_id":Session.get("addonstab"),
+//                           "addonsprize": instance.prizes.get('addonsprize'),
+//                           "netprize": instance.prizes.get('netprize'),
+//                           "email":email,
+//                         createdAt: new Date()}, function( error, result) { 
+//      if ( error ) console.log ( error ); //info about what went wrong
+//      if ( result )
+//  {
+//   FlowRouter.go('dashboard', { reservation_id: result });
+//  }
+// });
+
+    //  Meteor.call('MakeReservation',
+    // user_id,
+    // resource_id, 
+    // start_time.format('YYYY-MM-DD'), 
+    // end_time.format('YYYY-MM-DD'), 
+    // quantity, 
+    // admin_mode, 
+    // send_notifications,
+    // force_status, 
+    // wants_share, 
+    // rental_prop_xyz, 
+    // rental_prop_voucher, 
+    // custom_price, 
+    // email, 
+    // first_name, 
+    // last_name,
+    // address, 
+    // city, 
+    // zip, 
+    // state, 
+    // country, 
+    // phone_prefix, 
+    // phone_number, 
+    // mobile_prefix, 
+    // mobile_number, 
+    // user_notes, 
+    // admin_notes, 
+    // cart_id,
+    // assignment1,
+    // version,
+    // language,
+    // planyo_api_key);
 
 
 }

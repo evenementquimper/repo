@@ -12,17 +12,19 @@ import { Session } from 'meteor/session';
 import './listingsLayout.html';
  
  Template.listingsLayout.onCreated(function(template) {
-  console.log("route id layout: "+FlowRouter.getParam("id"));
+  console.log("route id layout: "+FlowRouter.getParam("_id"));
   this.getListId = () => FlowRouter.getParam('_id');
 //souscription a la base de donnée
       //var ResId = template.find('section.section');
       //ResId.style.display = "none";
   this.autorun(() => {
+    console.log("autorun start: ");
     this.subscribe('tasks');
     this.subscribe('campingcars');
     this.subscribe('usersdata');
     this.subscribe('reservations');
     this.subscribe('addons');
+    console.log("autorun end: ");
   });
   this.addons = new ReactiveDict();
 });

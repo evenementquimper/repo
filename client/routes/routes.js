@@ -43,9 +43,9 @@ FlowRouter.route('/dashboard_one', {
     }
 });
 
-FlowRouter.route('/dashboard', {
+FlowRouter.route('/dashboard/:reservation_id', {
   name:'dashboard',
-  action() {
+  action(params, queryParams) {
     BlazeLayout.render("dashboard");
  }
 });
@@ -93,10 +93,10 @@ FlowRouter.route('/user', {
 }
 });
 
-FlowRouter.route('/reservationslisting', {
-  name:'reservationslisting',
+FlowRouter.route('/userbooking', {
+  name:'userbooking',
   action: function() {
-    BlazeLayout.render("reservationslisting");
+    BlazeLayout.render("userbooking");
 
   }
 });
@@ -162,9 +162,7 @@ FlowRouter.route('/mylistings/availability/:_id', {
 FlowRouter.route('/listings/:_id', {
 	name:'listings',
   action: function() {
-    BlazeLayout.render("listingsLayout"
-    	,{section:"listing"}
-    	);
+    BlazeLayout.render("listingsLayout");
 
   }
 });

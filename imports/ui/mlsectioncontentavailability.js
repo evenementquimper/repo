@@ -9,21 +9,7 @@ import { Session } from 'meteor/session';
 
 import './mlsectioncontentavailability.html';
 
-
-//this.Images = new Meteor.Files({  collectionName: 'Images'
-//   allowClientCode: false, // Disallow remove files from Client
-//   //public: true,
-//   storagePath: '../../../../../public/images/'+FlowRouter.getParam("_id"),
-//   onBeforeUpload: function (file) {
-//     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
-//     if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.extension)) {
-//       return true;
-//     } else {
-//       return 'Please upload image, with size equal or less than 10MB';
-//     }
-//   }
-//}); 
-var dayfull = [];//tableau de moment
+var dayfull = [];
 
  Template.mlsectioncontentavailability.onCreated(function() {
   this.currentUpload = new ReactiveVar(false);
@@ -32,12 +18,6 @@ var dayfull = [];//tableau de moment
 });
 
  Template.mlsectioncontentavailability.onRendered(function() {
-//var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
-//console.log("Bdd daysfull: "+JSON.stringify(bdd.daysfull));
-//Meteor.call("get_resource_usage", 67189, 21654, null, null, null, null, null, null);
-
-
-
 
 this.$('.datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',
@@ -55,12 +35,6 @@ this.$('.datetimepicker').datetimepicker({
 
 });
 
-
-//  Template.mlsectioncontentavailability.rendered = function() {
-
-// this.$('.datepicker').datepicker();
-
-// }
  Template.mlsectioncontentavailability.helpers({
 
   currentUpload: function () {
@@ -69,26 +43,15 @@ this.$('.datetimepicker').datetimepicker({
 
       uploadedFiles: function () {
       var filesCursor = Images.find();
-      //console.log("filecursor fetch: "+Images.find());
-      //console.log("filecursor fetch: "+filesCursor.fetch());
-      //console.log("filecursor get: "+filesCursor.get());
-      console.log("Collection find: "+JSON.stringify(Images.find({}).cursor));
     return Images.find({}).cursor;
 },
 
 
     campingcars: function(){
-    //const instance = Template.instance();
-    //console.log("helper route id : "+FlowRouter.getParam("_id"));
-    //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetech()[0].daysfull[0]);
-Session.set("campid", FlowRouter.getParam("_id"));
 
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
   },
     addon: function(){
-    //const instance = Template.instance();
-    //console.log("helper route id : "+FlowRouter.getParam("_id"));
-    console.log("addon find! vue nombre: "+AddOns.find({campingcar_id:FlowRouter.getParam("_id")}).count());
 return AddOns.find({campingcarId:FlowRouter.getParam("_id")});
   }
 });
@@ -101,24 +64,15 @@ event.preventDefault();
 
 'dp.change .datetimepicker': function(event, template){
  event.preventDefault();
-      console.log("dp change datepicker");
-       console.log("datetimepick data", $('.datetimepicker').data().date);
+
             
-var dday = moment();//.format("DD/MM/YYYY");
+var dday = moment();
 var day = $('.datetimepicker').data().date;
-//day = day.format("X"); 
-console.log("moment select: "+moment(day).format("YYYY-MM-DD"));
-//console.log("moment day select: "+moment(day).date());
-console.log("moment dday: "+dday.format("YYYY-MM-DD"));
-//console.log("moment day dday: "+dday.date());
 
 
 if(moment().format("YYYY-MM-DD")!==moment(day).format("YYYY-MM-DD"))
 {
 
-//console.log("event current target : "+EJSON.stringify(event.target));
-  console.log("datetime css height: "+JSON.stringify($('.datetimepicker').height()));
-//$('.datetimepicker').data("DateTimePicker").destroy();
 var tb = Object.keys($('.datetimepicker').data("DateTimePicker").enabledDates());
 console.log("disabledDates: "+JSON.stringify($('.datetimepicker').data("DateTimePicker").disabledDates()));
 console.log("disabledDates keys tab: "+JSON.stringify(tb));

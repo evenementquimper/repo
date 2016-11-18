@@ -23,6 +23,8 @@ import './userlayout.html';
 import './mylistingLayout.js';
 import './listingsLayout.js';
 import './userlisting.js';
+import './userbooking.js';
+
 import './reservationslisting.js';
 import './login.js';
 import './dashboard.js';
@@ -43,7 +45,7 @@ import './mlsectioncontentimages.js';
 import './sectionbooking.js';
 import './mlsectioncontentavailability.js';
 
-import './listing';
+import './listing.js';
 //import '../accounts/config.js';
 import './appLayout.html';
 import './_header.html';

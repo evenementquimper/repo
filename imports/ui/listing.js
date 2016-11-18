@@ -1,8 +1,5 @@
 import { Template } from 'meteor/templating';
-import { EJSON } from 'meteor/ejson';
  
-
-import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
 import { Reservations } from '../api/reservations.js';
 import { AddOns } from '../api/addons.js';
@@ -13,21 +10,11 @@ import './sectionavailability.html';
 import './sectionbooking.html';
  
  Template.listing.onCreated(function() {
+  console.log("creation listing.js ");
 Session.set("addonstab", null);
-  //CampingCars.insert({name:"peugeot", description:"un super camping car de la mort qui tue", maxguests:4, bedsnumb: 4});
-  //this.getListId = () => FlowRouter.getParam('_id');
-//souscription a la base de donnée
-  //this.autorun(() => {
-    //this.subscribe('tasks');
-  //});
 });
 
  Template.listing.onRendered(function() {
-//var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
-//console.log("Bdd daysfull: "+JSON.stringify(bdd.daysfull));
-//Meteor.call("get_resource_usage", 67189, 21654, null, null, null, null, null, null);
-
-
 
 
 this.$('.datetimepicker').datetimepicker({
@@ -47,24 +34,6 @@ this.$('.datetimepicker').datetimepicker({
 });
 
  Template.listing.helpers({
-todoArgs(todo){
-
-
-},
-  tasks: function() {
-
-    var category = FlowRouter.getParam("id");
-    console.log("Parametre: "+category);
-    //var o_id = new ObjectID(id);  _id:category
-//db.test.find({_id:o_id}) _id: 'category'
-
-    console.log("BDD: "+Tasks.find({}).fetch()[0]);
-    var bdd = Tasks.find({}).fetch();
-    //console.log("BDD: "+Tasks.find({}).fetch());
-    
-    //return Tasks.find({}).fetch()[0];
-    return bdd;
-  },
 
     campingcars: function(){
     //const instance = Template.instance();

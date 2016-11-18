@@ -20,9 +20,6 @@ import './leftnavuser.html';
 
 
  campingcars(){
-    //const instance = Template.instance();
-    //console.log("helper route id : "+FlowRouter.getParam("_id")); "userid": Meteor.userId()
-    //console.log("campingcar find! vue nombre: "+CampingCars.find({}).count());
 return CampingCars.find({"userid": Meteor.userId()});
   }
 
@@ -32,12 +29,6 @@ return CampingCars.find({"userid": Meteor.userId()});
   'click .logout':function(event, template){
     event.preventDefault();
     Meteor.logout();
-        //Meteor.loggingIn();
-        //       Meteor.loginWithFacebook({}, function(err){
-        //     if (err) {
-        //         throw new Meteor.Error("Facebook login failed");
-        //     }
-        // });
     FlowRouter.go("index");
   },
 
@@ -52,7 +43,7 @@ return CampingCars.find({"userid": Meteor.userId()});
 
   'click .mybooking':function(event, template){
     event.preventDefault();
-    FlowRouter.go("reservationslisting");
+    FlowRouter.go("userbooking");
   },
     'click .mylisting':function(event, template){
     event.preventDefault();
