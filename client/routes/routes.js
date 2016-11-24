@@ -166,3 +166,11 @@ FlowRouter.route('/listings/:_id', {
 
   }
 });
+
+FlowRouter.route('/admin', {
+  name:'admin',
+  action: function() {
+    BlazeLayout.render("mainLayout", {nav:"nav",homepage:"admin"});
+
+  }
+});

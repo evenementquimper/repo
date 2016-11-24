@@ -6,6 +6,7 @@ import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
 import { AddOns } from '../api/addons.js';
 import { Session } from 'meteor/session';
+import { Reservations } from '../api/reservations.js';
 
 import './mlsectioncontentavailability.html';
 
@@ -37,6 +38,274 @@ this.$('.datetimepicker').datetimepicker({
 
  Template.mlsectioncontentavailability.helpers({
 
+    calendarsectionoptions: function() {
+
+    if(Reservations.find({resource_id:FlowRouter.getParam("_id")}).count() && FlowRouter.getParam("_id") && CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch())
+{
+
+var bddcampingcar = CampingCars.find({_id: FlowRouter.getParam('_id')}).fetch();
+//console.log("Camping car full days: "+bddcampingcar[0].daysfull[0]);
+var tabtest = [];
+
+var bddreservations = Reservations.find({resource_id:FlowRouter.getParam("_id")}).fetch();
+
+var evttab = [];
+var tabnoresa = [];
+
+for (var i = 0;  bddreservations.length > i; i++) {
+//le loueur
+var loueurid = bddreservations[i].user_id;
+
+
+  var tt ="Loueur Id:"+loueurid+", Netprize :"+bddreservations[i].netprize+", Addonsprize: "+bddreservations[i].addonsprize;
+ 
+
+  var uevent = {id:bddreservations[i]._id,
+                title: tt,
+                start: bddreservations[i].start_time,
+                end: bddreservations[i].end_time,
+              };
+
+
+  //console.log("uevet :"+uevent.title);
+  //vttab[i] = uevent;
+//rr.eventSources[0].events.push(uevent);
+tabtest.push(uevent);
+  // prsuevt;
+    //console.log("uevet  tabparse:"+evttab[i]);
+}
+
+// if(bddcampingcar[0].daysfull)
+// {
+//   console.log("day ful length"+bddcampingcar[0].daysfull.length);
+//   for (var j = 0; bddcampingcar[0].daysfull.length > j; j++) {
+//         var udfull = {id:"Day full"+j,
+//                 title: "Day full"+j,
+//                 start: bddcampingcar[0].daysfull[j]
+//               };
+// tabnoresa.push(udfull);
+// console.log("udfulls start: "+udfull.start);
+//   }
+
+// }
+// else
+// {
+
+// }
+
+        var rr = {
+
+              eventClick: function(calEvent, jsEvent, view) {
+
+        //event.title = "CLICKED!";
+     //alert('Event: ' + calEvent.title);
+        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        //alert('View: ' + view.name);
+
+        // change the border color just for fun
+        $(this).css('border-color', 'red');
+
+  calEvent.title = "CLICKED!";
+
+//        $('.fc').fullCalendar('updateEvent', [calEvent]);
+$('.fc').fullCalendar('removeEvents', [calEvent.id]);
+
+        //$('.fc').fullCalendar( 'removeEvents' [calEvent.id] );
+   //element.css('background-color', 'red');
+        //$(this).fullCalendar('updateEvent', event);
+
+    },
+             dayClick : function(date, jsEvent, view) {
+var dyf = bddcampingcar[0].daysfull;
+
+//console.log("jsevent id: "+jsEvent.id);
+//console.log("jsevent currentTarget name: "+jsEvent.currentTarget.name);
+//console.log("jsevent currentTarget value: "+jsEvent.currentTarget.value);
+    var evtfonct = $('.fc').fullCalendar( 'getEventSourceById', "eventfonction");
+    console.log("evtfonct color: "+evtfonct.color);
+             //console.log("style day: "+$(this).style); 
+
+//var dig = '{"'+daysfull+'":"'+event.currentTarget.value+'"}';
+//console.log("DIG: "+dig);
+//var js = JSON.parse(dig);
+
+        // CampingCars.update({
+        //     _id: FlowRouter.getParam('_id')
+        // }, {
+        //     $set: {daysfull:datet}
+        // }, {
+        //   upsert: true
+        // });
+
+        //alert('Clicked on: ' + date.format());
+
+        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+
+        //alert('Current view: ' + view.name);
+
+console.log("this: "+$(this).css('background-color'));
+
+        if($(this).css('background-color')!='transparent')
+        {
+        //$(this).css('background-color','transparent');
+//cs = 'blue';
+
+      }
+      else
+      {
+       //$(this).css('background-color', 'red'); 
+       var adddfull = moment(date);
+dyf.push(adddfull.format('YYYY-MM-DD'));
+         // CampingCars.update({
+         //     _id: FlowRouter.getParam('_id')
+         // }, {
+         //     $set: {daysfull:dyf}
+         // }, {
+         //   upsert: true
+         // });
+     
+         //view.fullCalendar('refetchEvents');
+      }
+
+    },
+    eventMouseover: function(event, jsEvent, view) {
+
+        //alert('event: ' + event);
+        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+
+        //alert('Current view: ' + view.name);
+
+        // change the day's background color just for fun
+        //$(this).css('background-color', 'blue');
+
+    },
+            //height: 200,
+            defaultDate: '2016-11-10',
+              //eventLimit: true, // for all non-agenda views
+        header: {
+        center: 'month,agendaFourDay' // buttons for switching between views
+    },
+    views: {
+        agendaDay: {
+            type: 'agendaWeek',
+            duration: { days: 15 },
+            //buttonText: '4 day'
+        }
+    },
+    slotEventOverlap:false,
+            //defaultView: 'agendaWeek',
+            //defaultView: 'basicWeek',
+
+   eventSources:
+          [
+
+        // your event source
+        {
+    events:tabtest,
+    //[  
+            // {
+            //     title: 'testtitle',
+            //     start: '2016-11-21',
+            //     end: '2016-11-23'
+            //   },
+            //   testevent
+        // {
+        //     title  : "event1",
+        //     start  : "2016-11-11"
+        // },
+        // {
+        //     title  : "event2",
+        //     start  : "2016-11-12",
+        //     end    : "2016-12-12"
+        // },
+        //         {
+        //     title  : 'réservations01',
+        //     start  : '2016-11-12',
+        //     end    : '2016-12-12'
+        // },
+        // {
+        //     title  : 'event3',
+        //     start  : '2010-01-09T12:30:00',
+        //     allDay : false // will make the time show
+        // },
+        //   {
+        //     start: '2016-11-10T10:00:00',
+        //     end: '2016-11-10T16:00:00',
+        //     rendering: 'background'
+        // }
+    //],
+            id:"tabtest",
+            color: 'red',     // an option!
+            textColor: 'white'// an option!
+        },
+        //{
+    //events:tabnoresa,
+    // [
+    //         {
+    //         title  : 'event3',
+    //         start  : '2016-11-09',
+    //         end  : '2016-11-09'
+
+    //     }
+    // ],
+
+    //eventBackgroundColor: 'black'
+    //color:'blue',
+    //textColor:'white'
+    //backgroundColor:'black',
+    //textColor: 'white',
+    //rendering :'background' 
+        //},
+        {
+    events: function(start, end, timezone, callback) {
+var events = [];
+  console.log("day ful length"+bddcampingcar[0].daysfull.length);
+  for (var j = 0; bddcampingcar[0].daysfull.length > j; j++) {
+        
+        var udfull = {id:"Day full"+j,
+                title: "Day full"+j,
+                start: bddcampingcar[0].daysfull[j]
+              };
+                     events.push(udfull);
+//tabnoresa.push(udfull);
+//console.log("udfulls start: "+udfull.start);
+  }
+
+      
+   
+      callback(events);
+    },
+            id:"eventfonction",
+            color: 'grey',     // an option!
+            textColor: 'white'// an option! 
+
+  }
+        // any other event sources...
+
+    ]
+
+        };
+        
+        //console.log("rr : "+JSON.stringify(rr.eventSources[0].events));
+                //console.log("rr event 0: "+rr.eventSources[0].events[0]);
+                return rr;
+
+}
+else
+{
+  return false;
+}
+
+
+
+
+
+                //console.log("rr string event 0: "+JSON.stringify(rr.eventSources[0].events[0]));
+                //console.log("rr event 1: "+rr.eventSources[0].events[1]);
+                //console.log("rr string event 1: "+JSON.stringify(rr.eventSources[0].events[1]));
+        //return rr;
+    },
+
   currentUpload: function () {
     return Template.instance().currentUpload.get();
   },
@@ -56,6 +325,12 @@ return AddOns.find({campingcarId:FlowRouter.getParam("_id")});
   }
 });
   Template.mlsectioncontentavailability.events({
+
+'click .fc-bgevent':function(event, template){
+event.preventDefault();
+console.log("click fc-bgevent");
+},
+
 
 'bs.click .modal':function(event, template){
 event.preventDefault();

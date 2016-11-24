@@ -46,6 +46,8 @@ import './sectionbooking.js';
 import './mlsectioncontentavailability.js';
 
 import './listing.js';
+import './admin.js';
+import './admin.html';
 //import '../accounts/config.js';
 import './appLayout.html';
 import './_header.html';
@@ -58,9 +60,17 @@ import './loginLayout.html';
 
 
 Template.body.onCreated(function bodyOnCreated() {
-
   this.state = new ReactiveDict();
-
+if ("geolocation" in navigator) {
+  /* géolocalisation possible */
+  navigator.geolocation.getCurrentPosition(function(position) {
+  	console.log("lat: "+position.coords.latitude);
+  	console.log("lng: "+position.coords.longitude);
+  //do_something(position.coords.latitude, position.coords.longitude);
+});
+} else {
+  //alert("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
+}
 }); 
 
 Template.body.helpers({

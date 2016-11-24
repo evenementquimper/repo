@@ -5,7 +5,7 @@ import { Template } from 'meteor/templating';
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
 import { AddOns } from '../api/addons.js';
- 
+import { Reservations } from '../api/reservations.js';
 
 import './mylistingLayout.html';
  
@@ -19,6 +19,7 @@ import './mylistingLayout.html';
     this.subscribe('campingcars');
     this.subscribe('Images');
     this.subscribe('addons');
+    this.subscribe('reservations');
     
   });
 });
