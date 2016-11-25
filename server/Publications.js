@@ -4,6 +4,7 @@ import { UsersData } from '../imports/api/usersdata.js';
 import { Reservations } from '../imports/api/reservations.js';
 import { AddOns } from '../imports/api/addons.js';
 import { Connections } from '../imports/api/connections.js';
+import { Mailings } from '../imports/api/mailings.js';
 Meteor.publish('tasks', function () {
     return Tasks.find({});
 });
@@ -24,4 +25,7 @@ Meteor.publish('images', function () {
 });
 Meteor.publish('connections', function () {
     return Connections.find({});
+});
+Meteor.publish('mailings', function () {
+    return Mailings.find({});
 });

@@ -33,6 +33,27 @@
 {{else}}
 {{/if}}
 
+{{#if mailings}}
+
+{{#each mailings}}
+<div><p>Mailings Id {{this._id}}</p>
+<p>Timeout {{this.timeout}}</p>
+{{{this.template.string}}}
+{{{this.template}}}
+</div>
+<button class="removemailing" id="{{this._id}}">Remove</button>
+{{/each}}
+{{else}}
+{{/if}}
+
+<div><h1>Mailling</h1>
+{{{mailview}}}
+<textarea ></textarea>
+<input type="email" id="adres">
+<input class="datetimepicker" value="" type="date">
+<button id="sendmail">Send Mail</button>
+</div>
+
 <canvas id="myChart" width="600" height="600"></canvas>
 
 

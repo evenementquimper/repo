@@ -4,6 +4,7 @@ import { EJSON } from 'meteor/ejson';
 import { CampingCars } from '../api/campingcars.js';
 import { Reservations } from '../api/reservations.js';
 import { Connections } from '../api/connections.js';
+import { Mailings } from '../api/mailings.js';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import './ChartNew.js';
 import './format.js';
@@ -21,9 +22,11 @@ var place = {loc:null};
     this.subscribe('campingcars');
     this.subscribe('connections');
     this.subscribe('reservations');
+    this.subscribe('mailings');
   });
 
-   //this.search = new ReactiveDict();
+   this.mailling = new ReactiveDict();
+
 var autocomplete;
 
 //  GoogleMaps.ready('exampleMap', function(map){
@@ -59,6 +62,23 @@ var autocomplete;
 
  Template.admin.onRendered(function() {
 
+this.$('.datetimepicker').datetimepicker({
+        useCurrent:true,
+        collapse:true,
+        //format: 'YYYY-MM-DD',
+        minDate: moment(),
+        //keepOpen: true,
+        //inline: true,
+        focusOnShow:false,
+        //collapse:false,
+        sideBySide:true
+        //enabledHours:true
+        //deactivation des dates ou le parking est completenabledDates()
+        //enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
+        //[moment().add(3, 'days')]            //[
+            //moment().add(7, 'days'),
+            //              ]
+    });
 
 var baroptions = {};
    // Set the options
@@ -281,6 +301,29 @@ var datedata = {
 //       };
 //     }
 // },
+mailview: function(){
+
+  var aeramail = '<p>Pas de template</p>';
+
+if(Template.instance().mailling.get('tempt'))
+{
+  aeramail = Template.instance().mailling.get('tempt');
+ console.log("template: "+aeramail);
+ 
+  return new Spacebars.SafeString(aeramail);
+ }
+else
+{
+  return new Spacebars.SafeString(aeramail);
+}
+
+},
+
+mailings: function(){
+
+return Mailings.find({}).fetch();
+},
+
 canvas: function(){
 var canvas1 = document.getElementById("myChart").getContext("2d");
 var datedata2 = {
@@ -524,10 +567,88 @@ return CampingCars.find({},{limit:5}).fetch();
 });
   Template.admin.events({
 
-'click #calendar': function(event, template){
-console.log("click calendar");
-$('.fc').css("display",'none');
-},
+  'input textarea': function(event, template){
+    event.preventDefault();
+
+//console.log("click current nameœ: "+event.currentTarget.name);
+console.log("click current value: "+event.currentTarget.value);
+//console.log("click current tag name: "+event.currentTarget.tagName);
+Template.instance().mailling.set('tempt', event.currentTarget.value);
+  },
+
+    'input #adres': function(event, template){
+    event.preventDefault();
+
+//console.log("click current nameœ: "+event.currentTarget.name);
+console.log("click current value: "+event.currentTarget.value);
+//console.log("click current tag name: "+event.currentTarget.tagName);
+Template.instance().mailling.set('adres', event.currentTarget.value);
+  },
+
+  'click .removemailing':function(event, template){
+   var mailing = Mailings.find({_id:event.currentTarget.id}).fetch()[0];
+   console.log("timeout id: "+mailing.timeout);
+Meteor.clearTimeout(mailing.timeout);
+Mailings.remove({_id:event.currentTarget.id});
+  },
+
+  'click #sendmail': function(instance, template){
+
+// if($('.datetimepicker').data().date)
+// {
+//     var vdate = $('.datetimepicker').data().date;
+
+//   console.log("date ?: "+vdate);
+//  console.log("date  moment?: "+moment());
+//  var delta = vdate-moment();
+//  console.log("delta?: "+delta);
+   
+// }
+
+// else
+// {
+
+// }
+
+//var settim = Meteor.call('SendMail',vdate, Template.instance().mailling.get('adres'), 'subjecttest', Template.instance().mailling.get('tempt'), null, null, null);
+//console.log("settim: "+settim);
+// Meteor.setTimeout(function(){Test(10);},10000
+//   , function(error, result){
+//   if(!error){
+//     console.log("result :"+result);
+//   }
+//   else
+//   {
+//     console.log("error :"+error);
+//   }
+// }
+
+// );
+
+//var spacetemp = new Spacebars.SafeString(Template.instance().mailling.get('tempt'));
+
+// Mailings.insert({"user_id":Meteor.userId(),
+//                  "timeout":settim,
+//                  "start_time": vdate.valueOf(),
+//                  "listmails": Template.instance().mailling.get('adres'),
+//                  "template": Template.instance().mailling.get('tempt'),
+//                   createdAt: new Date()}, function( error, result) { 
+//       if ( error ) console.log ( error ); //info about what went wrong
+//       if ( result )
+//   {
+//     console.log("enregistrement mailing_id: "+result);
+//   }
+//  });
+//console.log("settim: "+settim);
+//Meteor.setTimeout(function(){Test("10");}, 1000);
+//Meteor.call('SendMail', Template.instance().mailling.get('adres'), 'subjecttest', Template.instance().mailling.get('tempt'), null, null, null);
+
+  },
+
+// 'click #calendar': function(event, template){
+// console.log("click calendar");
+// $('.fc').css("display",'none');
+// },
 
 'click #search-button': function(instance, template){
 // var lat=46.227638;
@@ -566,3 +687,8 @@ $('.fc').css("display",'none');
 // }
 
    });  
+
+  function Test(x)
+{
+   console.log("*** Test() ***"+x);
+}
