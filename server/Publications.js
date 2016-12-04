@@ -5,6 +5,7 @@ import { Reservations } from '../imports/api/reservations.js';
 import { AddOns } from '../imports/api/addons.js';
 import { Connections } from '../imports/api/connections.js';
 import { Mailings } from '../imports/api/mailings.js';
+import { Communes } from '../imports/api/communes.js';
 Meteor.publish('tasks', function () {
     return Tasks.find({});
 });
@@ -28,4 +29,7 @@ Meteor.publish('connections', function () {
 });
 Meteor.publish('mailings', function () {
     return Mailings.find({});
+});
+Meteor.publish('communes', function () {
+    return Communes.find({});
 });

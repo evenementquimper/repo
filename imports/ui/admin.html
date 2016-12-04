@@ -38,10 +38,11 @@
 {{#each mailings}}
 <div><p>Mailings Id {{this._id}}</p>
 <p>Timeout {{this.timeout}}</p>
-{{{this.template.string}}}
+<!-- <textarea id="textarea_{{this._id}}">{{this.template}}</textarea> -->
 {{{this.template}}}
 </div>
 <button class="removemailing" id="{{this._id}}">Remove</button>
+<!-- <button class="updatemailing" id="{{this._id}}">Update</button> -->
 {{/each}}
 {{else}}
 {{/if}}

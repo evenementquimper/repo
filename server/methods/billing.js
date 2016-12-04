@@ -1,4 +1,5 @@
 // Define gateway variable 
+import { Reservations } from '../../imports/api/reservations.js';
 var gateway;
 
 Meteor.startup(function () {
@@ -33,7 +34,7 @@ Meteor.methods({
     }
 
     var response = generateToken(options);
-     //console.log("getclientToken: "+response.clientToken);
+    console.log("getclientToken: "+response.clientToken);
     return response.clientToken;
   },
     btCreateCustomer: function(){
@@ -60,12 +61,13 @@ Meteor.methods({
       }
     });
   },
-  createTransaction: function(nonceFromTheClient) {
+  createTransaction: function(nonceFromTheClient, bookingid) {
     var user = Meteor.user();
-
+    var booking = Reservations.find({_id:bookingid}).fetch()[0];
+    var totalprice = booking.netprize;
     // Let's create transaction.
     gateway.transaction.sale({
-      amount: '10.00',
+      amount: totalprice,
       paymentMethodNonce: nonceFromTheClient, // Generated nonce passed from client
       customer: {
         id: user.customerId
@@ -79,7 +81,15 @@ Meteor.methods({
         console.log(err);
       } else {
         // When payment's successful, add "paid" role to current user.
-        Roles.addUsersToRoles(user._id, 'paid', Roles.GLOBAL_GROUP)
+        //Roles.addUsersToRoles(user._id, 'paid', Roles.GLOBAL_GROUP)
+
+        Reservations.update({
+            _id: bookingid
+        }, {
+            $set: {status:"pay_ok"}
+        }, {
+          upsert: true
+        });
       }
     });
 }

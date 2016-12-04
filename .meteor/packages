@@ -49,5 +49,6 @@ session@1.1.7
 useraccounts:flow-routing
 email@1.1.18
 tanis:bootstrap-social
-fortawesome:fontawesome
 rzymek:fullcalendar
+cfs:filesystem
+cmather:handlebars-server

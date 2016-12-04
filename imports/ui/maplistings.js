@@ -3,6 +3,7 @@ import { EJSON } from 'meteor/ejson';
  
 
 import { CampingCars } from '../api/campingcars.js';
+import { Communes } from '../api/communes.js';
 
 import './maplistings.html';
  
@@ -12,6 +13,7 @@ import './maplistings.html';
 
   this.autorun(() => {
     this.subscribe('campingcars');
+      this.subscribe('communes');
   });
   //console.log("Query params location: "+FlowRouter.getQueryParam("location"));
 //console.log("lat param: "+JSON.stringify(FlowRouter.getParam("location").lat()));
@@ -19,7 +21,10 @@ import './maplistings.html';
 console.log("start param: "+FlowRouter.getParam("start"));
 
 console.log("end param: "+FlowRouter.getParam("end"));
+
+console.log("city name: "+FlowRouter.getParam("name"));
 //location:loc,start:startt,end:endt
+
 
 
  GoogleMaps.ready('MapListings', function(map){
@@ -31,10 +36,11 @@ console.log("end param: "+FlowRouter.getParam("end"));
  //  });
 //http://82.245.202.35:14603/share/jNgNf3G7uwjImetj/gogole.json
 //https://storage.googleapis.com/maps-devrel/google.json
+var gogolejson = 'http://82.245.202.35:14603/share/EmQv72qioKOtkdJL/gogole.json';
 var jj  = {"name":"antoine"};
 var geo = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"letter":"G","color":"blue","rank":"7","ascii":"71"},"geometry":{"type":"Polygon","coordinates":[[[123.61,-22.14],[122.38,-21.73],[121.06,-21.69],[119.66,-22.22],[119.00,-23.40],[118.65,-24.76],[118.43,-26.07],[118.78,-27.56],[119.22,-28.57],[120.23,-29.49],[121.77,-29.87],[123.57,-29.64],[124.45,-29.03],[124.71,-27.95],[124.80,-26.70],[124.80,-25.60],[123.61,-25.64],[122.56,-25.64],[121.72,-25.72],[121.81,-26.62],[121.86,-26.98],[122.60,-26.90],[123.57,-27.05],[123.57,-27.68],[123.35,-28.18],[122.51,-28.38],[121.77,-28.26],[121.02,-27.91],[120.49,-27.21],[120.14,-26.50],[120.10,-25.64],[120.27,-24.52],[120.67,-23.68],[121.72,-23.32],[122.43,-23.48],[123.04,-24.04],[124.54,-24.28],[124.58,-23.20],[123.61,-22.14]]]}}]};
 
-
+//var quimperjson = 'http://82.245.202.35:14603/share/AfC3WXizi-0Jnpwj/quimper.json';
 var quimper = {
   "type": "FeatureCollection",
   "features": [{
@@ -96,24 +102,35 @@ var quimper = {
   }]
 };
 
-if(FlowRouter.getParam("lat") && FlowRouter.getParam("lng"))
+if(FlowRouter.getParam("lat") && FlowRouter.getParam("lng") && FlowRouter.getParam("name"))
   //var location = JSON.parse('('+FlowRouter.getParam("lat")+','+FlowRouter.getParam("lng")+')');
        map.instance.setCenter(new google.maps.LatLng(FlowRouter.getParam("lat"), FlowRouter.getParam("lng")));
        map.instance.setZoom(8);  // Why 17? Because it looks good.
 //console.log("current geolocalisation: ",Geolocation.currentLocation());
 //console.log("geolocalisation: ",Geolocation.latLng());
+//addGeoJson
 
-map.instance.data.addGeoJson(quimper);
+var city = FlowRouter.getParam("name").toUpperCase();
+console.log("CITY: "+city);
+if(Communes.find({})!=null)
+{
+console.log("commune bdd: "+Communes.find({"Nom Commune":city}));
 
-map.instance.data.setStyle({
-  //icon: '//example.com/path/to/image.png',
-  fillColor: 'red',
-  fillOpacity: 0.1,
-});
+
+}
+
+
+// map.instance.data.addGeoJson(quimper);
+
+// map.instance.data.setStyle({
+//   //icon: '//example.com/path/to/image.png',
+//   fillColor: 'red',
+//   fillOpacity: 0.1,
+// });
 //data.loadGeoJson mettre url de fichier json
 //map.instance.data.loadGeoJson('{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"letter":"G","color":"blue","rank":"7","ascii":"71"},"geometry":{"type":"Polygon","coordinates":[[[123.61,-22.14],[122.38,-21.73],[121.06,-21.69],[119.66,-22.22],[119.00,-23.40],[118.65,-24.76],[118.43,-26.07],[118.78,-27.56],[119.22,-28.57],[120.23,-29.49],[121.77,-29.87],[123.57,-29.64],[124.45,-29.03],[124.71,-27.95],[124.80,-26.70],[124.80,-25.60],[123.61,-25.64],[122.56,-25.64],[121.72,-25.72],[121.81,-26.62],[121.86,-26.98],[122.60,-26.90],[123.57,-27.05],[123.57,-27.68],[123.35,-28.18],[122.51,-28.38],[121.77,-28.26],[121.02,-27.91],[120.49,-27.21],[120.14,-26.50],[120.10,-25.64],[120.27,-24.52],[120.67,-23.68],[121.72,-23.32],[122.43,-23.48],[123.04,-24.04],[124.54,-24.28],[124.58,-23.20],[123.61,-22.14]]]}}]}');
 
- if(CampingCars.find({})!=null)
+ if(CampingCars.find({})!=null && Communes.find({})!=null)
 {
 //console.log("campingcar find! nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
 
@@ -135,6 +152,8 @@ autocomplete.addListener('place_changed', function() {
     console.log("listener autocomplete");
     //infowindow.close();
     // marker.setVisible(false);
+
+
     var place = autocomplete.getPlace();
     console.log("Place: "+JSON.stringify(place.geometry));
     if (!place.geometry) {
@@ -146,9 +165,187 @@ autocomplete.addListener('place_changed', function() {
     if (place.geometry.viewport) {
     console.log("geometry viewport");
     map.instance.fitBounds(place.geometry.viewport);
+    
+
+
+// map.instance.data.forEach(function(feature){
+// map.instance.data.remove(feature);      
+
+
+// });
+
+         console.log("commune bdd: "+Communes.find({"Nom Commune":city}));
+     console.log("commune bdd length: "+Communes.find({"Nom Commune":city}).fetch()[0].KML);
+     
+     var communesbdd = Communes.find({"Nom Commune":city}).fetch()[0];
+   var prs = communesbdd.KML.split("<Polygon> <outerBoundaryIs> <LinearRing> <coordinates>");
+
+var prs2 = prs[1].split("</coordinates> </LinearRing> </outerBoundaryIs> </Polygon>");
+var lasttab = [];
+var prs3 = [];
+prs3 = prs2[0].split(" ");
+var coordtest =        [[  
+
+[-4.047538379379563,47.937299041280419],
+[-4.059807257208011,47.93109409296504],
+[-4.069298138970288,47.932997683389296],
+[-4.047538379379563,47.937299041280419]
+
+         ]];
+
+var com = {
+  "type": "FeatureCollection",
+  "features": [{
+    "id":"1234",
+    "type": "Feature",
+    "properties": {
+      "letter": "G",
+      "color": "red",
+      "rank": "7",
+      "ascii": "71"
+    },
+    "geometry": {
+      "type": "Polygon",
+      "coordinates":
+      [
+      
+       [  
+
+// [-4.047538379379563,47.937299041280419],
+// [-4.059807257208011,47.93109409296504],
+// [-4.069298138970288,47.932997683389296],
+// [-4.094330635109166,47.941198464136676],
+// [-4.08320748088317,47.952235211855928],
+// [-4.096508163056058,47.94249430770418],
+// [-4.109130215738879,47.942750446932664],
+// [-4.109365061977363,47.94970296390894],
+// [-4.097614630081992,47.95254749291324],
+// [-4.094888980764785,47.962913898974037],
+// [-4.096950024413827,47.971255676872481],
+// [-4.112589030106671,47.97718448686188],
+// [-4.11696148524967,47.984274453541865],
+// [-4.118226688327344,47.977077386753145],
+// [-4.103318577502409,47.967779839511564],
+// [-4.110286259553058,47.963562467408074],
+// [-4.119092233379512,47.965214838449079],
+// [-4.127469480312324,47.964480007369275],
+// [-4.134764166178001,47.980355592267642],
+// [-4.152237708825501,47.987152863067543],
+// [-4.160538561616586,48.006896681058457],
+// [-4.181773409179098,48.021159610375278],
+// [-4.171894133643456,48.021709443223841],
+// [-4.159119346894218,48.017094728569191],
+// [-4.134118682673018,48.019357924576518],
+// [-4.147867885570347,48.031885619045475],
+// [-4.129164114574619,48.043025353861466],
+// [-4.114276967033581,48.042238544894197],
+// [-4.110411513133865,48.044451427135009],
+// [-4.106475723804794,48.064666840442349],
+// [-4.07764688146446,48.063886329489236],
+// [-4.067141345288972,48.049547848310617],
+// [-4.058174869980196,48.034384302255098],
+// [-4.066502939339628,47.993324439495773],
+// [-4.024656266498619,47.991816832099005],
+// [-4.015716283222489,47.988448729539137],
+// [-4.014298247096703,47.978369344974631],
+// [-4.037175629126088,47.964024539971064],
+// [-4.037448532411251,47.953436978615564],
+// [-4.047538379379563,47.937299041280419]
+
+         ]
+      ]
+    }
+  }]
+};
+
+
+
+if(map.instance.data)
+{
+    if(map.instance.data.getFeatureById("1234"))
+{
+  
+  var featu = map.instance.data.getFeatureById("1234");
+console.log("get feature: "+featu.getGeometry());
+}
+} 
+//com.features[0].geometry.coordinates = coordtest;
+//var na = com.features[0].geometry.coordinates[0];
+//console.log("na length :"+na.length);
+
+
+//console.log("com :"+com.features[0].geometry.coordinates[0][0]);
+for (var i = 0 ; prs3.length > i; i++) {
+  //console.log("PR3 Tab 0: "+prs3[i]);
+  var coord = prs3[i].split(',');
+  //console.log("Coord[0]: "+parseFloat(coord[0]));
+  //console.log("Coord[1]: "+parseFloat(coord[1]));
+
+
+  if(com.features[0].geometry.coordinates[0][i]==null)
+{
+var t = [];
+com.features[0].geometry.coordinates[0].push(t);
+ //console.log("before push: "+com.features[0].geometry.coordinates[0][i]);
+  com.features[0].geometry.coordinates[0][i].push(parseFloat(coord[0]));
+  com.features[0].geometry.coordinates[0][i].push(parseFloat(coord[1]));
+
+if(map.instance.data)
+{
+  var newGeometry = new google.maps.LatLng(parseFloat(coord[0]), parseFloat(coord[1]));
+  map.instance.data.getFeatureById("1234").setGeometry(newGeometry);
+  
+}
+  //console.log("after push: "+com.features[0].geometry.coordinates[0][i]);
+}
+
+//console.log("com before:"+com.features[0].geometry.coordinates[0][i]);
+//com.features[0].geometry.coordinates[0][i].pop();
+//com.features[0].geometry.coordinates[0][i].pop();
+
+  //console.log("com after:"+com.features[0].geometry.coordinates[0][i]);
+  // console.log("PR3 Tab 1: "+prs3[i][1]);
+  // console.log("PR3 Tab 2: "+prs3[i][2]);
+  var pettab = [];
+  pettab = prs3[i];
+  //console.log("pat Tab: "+pettab);
+  
+  //com.features[0].geometry.coordinates.push(pettab);
+  //com.features[0].geometry.coordinates[0][0].push(pettab);
+}
+
+//console.log("news coord: "+com.features[0].geometry.coordinates[0]);
+
+for (var j = 0 ; lasttab.length > j; j++) {
+ 
+  //console.log("Last Tab: "+lasttab[j]);
+}
+
+if(!map.instance.data)
+{
+map.instance.data.addGeoJson(com);
+}
+//map.instance.data.remove(feature:Data.Feature) , {idPropertyName:"1234"}
+
+
+       // Color each letter gray. Change the color when the isColorful property
+        // is set to true.
+        // map.instance.data.setStyle(function(feature) {
+        //   var color = 'gray';
+        //   if (feature.getProperty('isColorful')) {
+        //     color = feature.getProperty('color');
+        //   }
+        //   return /** @type {google.maps.Data.StyleOptions} */({
+        //     fillColor: color,
+        //     strokeColor: color,
+        //     strokeWeight: 2
+        //   });
+        // });
+
 
       }
-    else {
+    else {  
+
        map.instance.setCenter(place.geometry.location);
        map.instance.setZoom(10);  // Why 17? Because it looks good.
 }

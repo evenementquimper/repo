@@ -36,7 +36,7 @@ var autocomplete;
     //infowindow.close();
     // marker.setVisible(false);
     place = autocomplete.getPlace();
-    console.log("Place: "+JSON.stringify(place.geometry));
+    console.log("Place: "+JSON.stringify(place.name));
     if (!place.geometry) {
        window.alert("Autocomplete's returned place contains no geometry");
        return;
@@ -154,6 +154,12 @@ var lng=2.213749000000007;
 startt="";
 endt="";
 var loc = "";
+var cityname= "";
+
+if(place.name)
+{
+  cityname = place.name;
+}
 
   if(place.geometry)
   {
@@ -169,7 +175,7 @@ startt = $('.datetimepickerstart').data().date;
 if($('.datetimepickerend').data().date)
 endt = $('.datetimepickerend').data().date;
 
-     var queryParams = JSON.parse('{"lat":'+lat+',"lng":'+lng+',"start":"'+startt+'","end":"'+endt+'"}');
+     var queryParams = JSON.parse('{"name":"'+cityname+'","lat":'+lat+',"lng":'+lng+',"start":"'+startt+'","end":"'+endt+'"}');
   //var queryParams = JSON.parse('{"location":'+JSON.stringify(loc)+',"start":"'+startt+'","end":"'+endt+'"}');
   
      var path = FlowRouter.path("maplistings", queryParams);

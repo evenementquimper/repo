@@ -66,7 +66,7 @@ FlowRouter.route('/manage', {
 
 });
 
-FlowRouter.route('/maplistings/:lat/:lng/:start/:end', {
+FlowRouter.route('/maplistings/:name/:lat/:lng/:start/:end', {
   name:'maplistings',
   action: function(params, queryParams) {
     //console.log("Params: "+JSON.stringify(params));

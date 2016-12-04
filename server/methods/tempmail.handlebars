@@ -1,0 +1,192 @@
+<html><head>
+  <meta charset="UTF-8">
+  <title>Validation de réservation</title>
+
+
+</head>
+
+<body>
+<!--TEMPLATE ENTIER-->
+<table style="background-color:#f1f0f8;padding:20px;font-family:Arial;" align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr><td>
+  <!--Header + Contenu-->
+  <table style="border-top:1px solid #d7d9e4;border-right:1px solid #d7d9e4;border-left:1px solid #d7d9e4;font-family:Arial;" align="center" width="680" cellspacing="0" cellpadding="0">
+    <tbody><tr>
+      <td>
+        <!--HEADER-->
+        <table style="border-bottom:1px solid #d7d9e4;font-family:arial;" height="60" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
+  <tbody><tr>
+    <td width="240">
+      <a href="http://www.cdiscount.com" target="_blank"><img style="display:block;" alt="Cdiscount" src="https://i1.cdscdn.com/imagesok/templatemail/20160607-113829_394365.png" width="240" height="60" border="0"></a>
+    </td>
+    <td style="font-size:24px;font-weight:bold;color:#e23a05;text-align:right;padding-right:10px;font-family:arial;" width="440">Validation de réservation</td>
+  </tr>
+</tbody></table>
+         
+        <!-- Contenu -->
+        <table style="font-family:Verdana, sans-serif;color:#909090;font-size:14px;border-collapse:collapse;mso-line-height-rule:exactly;" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
+          <tbody><tr>
+            <td style="font-size:12px;color:#323232;padding-left:10px; padding-right:20px;" valign="top">
+              <p style="text-align:left;font-weight:bold;">
+                <br>Réservation N° {{bookingid}}
+              </p>
+              <p style="text-align:right;">
+                Quimper, le {{datemailcreated}}
+              </p>
+              Bonjour,<br><br>
+              
+                Nous avons le plaisir de vous informer que votre réservation est validée.<br><br>
+              
+              <!-- Mon compte-->
+              <table width="100%" height="80" cellspacing="0" cellpadding="0" border="0"><tbody><tr>
+                <td style="font-size:12px;color:#323232;" width="45%">Retrouvez votre réservation en cliquant ici:</td>
+                <td width="55%">
+                  <a href="https://clients.cdiscount.com/order/orderstracking.html" target="_blank"><img style="display:block;" alt="Mon Compte" src="https://i1.cdiscount.com/imagesOK/templatemail/20151015-145237_322960.gif" width="153" height="72" border="0"></a>
+                </td>
+              </tr></tbody></table>
+              Pour toute autre question, veuillez contater le vendeur depuis votre compte en ligne.  <br><br>
+              
+              Pour plus d'information, consulter la FAQ : <a href="http://rt4-t.notification-cdiscount.cdiscount.com/r/?id=h205c801,39e69b0,39e69b1" target="_blank">Tout savoir sur une commande passée auprès d’un vendeur C Le Marché ?</a> <br><br>
+              
+              <!-- Fin Mon compte-->
+              <br>
+              
+                
+                   <div style="font-size:13px;color:#323232;font-weight:normal;">Référence à rappeler lors de tout contact avec le service client : <span style="font-weight:bold;">Facture n°735884178</span></div><br>
+                   
+                
+              
+              <!-- LISTE DES PRODUITS -->
+              <table style="font-size:12px;text-align:center;font-family:Arial;" cellspacing="0" cellpadding="0" border="0">
+                <tbody><tr><td style="height:1px;background-color:#f1f0f8;" colspan="4"> </td></tr>
+                <tr>
+                  
+                   <td colspan="4" style="text-align:left;padding:5px;font-family:Arial;font-weight:bold;">DETAILS DE VOTRE RESERVATION : </td>
+                   
+                </tr>
+                <tr><td style="height:1px;background-color:#d7d9e4;" colspan="4"> </td></tr>
+                <tr style="background-color:#f1f0f8;font-weight:bold;font-family:Arial;">
+                  <td style="padding:5px;" width="250">CAMPING-CAR</td>
+                   <td style="padding:5px;" width="200">OPTIONS</td>
+                  <td style="padding:5px;" width="150">DATE DU SEJOUR</td>
+                <td style="padding:5px;" width="45">PRIX</td>
+                </tr>
+                
+                      <tr>
+                        <td style="padding:5px;text-align:left;" width="250">
+                          <div><p>Nom: {{campingcar.name}}</p>
+                          <p>Marque: {{campingcar.make}}</p>
+                          <p>Modèle: {{campingcar.model}}</p>
+{{#if tabhand}}
+{{#each tabhand}}
+<p>Tabnand: {{this}}</p>
+{{/each}}
+{{/if}}
+                          </div>
+                          
+                               
+                           
+                        </td>
+                        <td style="padding:5px;" width="45">
+
+{{#if options}}
+OPTIONS: 
+{{#each options}}
+<p>Option ID:  {{this.id}}</p>
+<p>Option nom:  {{this.name}}</p>
+<p>Option nom:  {{this.description}}</p>
+{{/each}}
+{{/if}}
+                        </td>
+                        
+                          <td style="padding:5px;" rowspan="1" width="200">
+                            Entre le {{reservation.start_time}} et le {{reservation.end_time}}
+                          </td>
+
+                          <td style="padding:5px;" rowspan="1" width="150">
+                            
+                               Prix : {{reservation.netprize}}
+                            
+                          </td>
+                        
+                      </tr>
+                  
+              </tbody></table>
+              <br>
+              
+              
+              <div style="font-family:Arial;">
+                <span style="font-weight:bold;">Mode de paiement :</span> comptant par carte bancaire<br>
+                <span style="font-weight:bold;">Montant de la réservation : </span>22.13€<br>
+              </div>
+              <!-- Mensualités -->
+              
+              <br><br>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size:12px;color:#323232;padding-left:10px; padding-right:20px;font-family:Arial;">
+              A bientôt,<br>
+              Votre Service Client
+              <br><img alt="" src="http://i6.cdscdn.com/imagesok/templatemail/20160920-171251_419295.jpg?rnd=171FC6C3" border="0"><br>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align:center;font-style:italic;font-size:10px;font-family:Arial;">
+              Ce message est consultable depuis votre compte.<br><br>
+            </td>
+          </tr>
+        </tbody></table>
+      <!-- FIN Contenu -->
+      </td>
+    </tr>
+  </tbody></table>
+  <!--FIN Header + Contenu-->
+  <table align="center" cellspacing="0" cellpadding="0" border="0">
+    <tbody><tr>
+      <td align="center" width="680" height="10"><a href="#" target="_blank" style="color:#096ec8;font-size:12px;text-decoration:none;"></a></td>
+    </tr>
+  </tbody></table>
+  <table style="font-family:Arial;" align="center" cellspacing="0" cellpadding="0" border="0">
+    <tbody><tr><td align="center" width="680" height="10"><a href="#" target="_blank" style="color:#096ec8;font-size:12px;text-decoration:none;"></a></td></tr>
+  </tbody></table>
+    
+  <table style="border:1px solid #d7d9e4" align="center" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
+  <tbody><tr>
+    <td align="center" width="680" height="60">
+      <table style="border-bottom:1px solid #d7d9e4;font-family:arial;" width="678" height="60" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
+        <tbody><tr><td style="font-size:24px;font-weight:bold;color:#323232;padding-left:10px;">Vous pouvez nous contacter à tout moment !</td></tr>
+      </tbody></table>
+      <table style="border-bottom:1px dotted #d7d9e4;font-family:arial;" width="678" height="60" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
+        <tbody><tr>
+          <td style="font-size:12px;color:#323232;padding-left:10px;padding-top:10px;" align="left">
+            <span style="font-size:16px;line-height:30px;font-weight:bold;">J’ai une question sur ma commande ?</span><br>
+            <span style="font-size:12px;line-height:30px;">Avec mon Service Client en ligne, je peux suivre et gérer: </span><br>
+            <ul style="line-height:20px;list-style-type:none;margin:0;padding-left:20px;">
+              <li><a href="https://clients.cdiscount.com/Faq/TemplateFaq1.aspx?faqId=1" target="_blank" style="color:#096ec8;text-decoration:none;">Le paiement et la livraison de ma commande</a></li>
+              <li><a href="https://clients.cdiscount.com/Faq/TemplateFaq1.aspx?faqId=7" target="_blank" style="color:#096ec8;text-decoration:none;">La réception de ma commande</a></li>
+              <li><a href="http://rt4-t.notification-cdiscount.cdiscount.com/r/?id=h205c801,39e69b0,39e69b2" target="_blank" style="color:#096ec8;text-decoration:none;">L'édition de ma facture</a></li>
+              <li><a href="https://clients.cdiscount.com/Faq/TemplateFaq1.aspx?faqId=18" target="_blank" style="color:#096ec8;text-decoration:none;">Mes bons d’achat et remboursements</a></li>
+              <li><a href="https://clients.cdiscount.com/Faq/TemplateFaq1.aspx?faqId=14" target="_blank" style="color:#096ec8;text-decoration:none;">Le SAV de mon produit</a></li>
+            </ul>
+            <table style="font-family:arial;" cellspacing="0" cellpadding="0" border="0">
+             <tbody><tr>
+               <td style="font-size:12px;line-height:30px;" align="left">Pour accéder aux fonctionnalités en ligne, cliquez ici : </td>
+               <td style="padding-left:10px;" align="left"></td>
+             </tr>
+            </tbody></table>
+            <br>
+            
+              </td></tr></tbody></table>
+              
+                <table style="border-bottom:1px dotted #d7d9e4;font-family:arial;" width="678" height="60" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
+                </table>
+              
+            <br>
+            </td></tr></tbody></table>
+          
+                  </td>
+                </tr>
+              </tbody></table>           
+</td></tr></tbody></table>
+</body></html>

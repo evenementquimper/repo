@@ -592,6 +592,23 @@ Meteor.clearTimeout(mailing.timeout);
 Mailings.remove({_id:event.currentTarget.id});
   },
 
+//     'click .updatemailing':function(event, template){
+//    //var mailing = Mailings.find({_id:event.currentTarget.id}).fetch()[0];
+// var ResId = template.find('#textarea_'+event.currentTarget.id);
+// var textAval = $(ResId).val();
+// console.log("text val: "+textAval);
+// //Mailings.update({_id:event.currentTarget.id});
+
+//         Mailings.update({
+//             _id: event.currentTarget.id
+//         }, {
+//             $set: {template:textAval}
+//         }, {
+//           upsert: true
+//         });
+
+//   },
+
   'click #sendmail': function(instance, template){
 
 // if($('.datetimepicker').data().date)

@@ -252,7 +252,8 @@ if(moment($('.startdatetimepicker').data().date).isValid())
 
 'click .booking-request': function(e, instance){
 var campingcarid = FlowRouter.getParam('_id');
-var us = Meteor.user();
+//var us = Meteor.user();
+//console.log("user email: "+us.emails[0].address);
 var userdata = UsersData.find({_id:Meteor.user()}).fetch()[0];
 
     
@@ -282,69 +283,25 @@ var userdata = UsersData.find({_id:Meteor.user()}).fetch()[0];
     var assignment1 = null;
     var version = null;
     var language = null;
-    var planyo_api_key = null
+    var planyo_api_key = null;
 
- //var hash = CryptoJS.MD5("Message");
- //console.log("hash: "+hash);
-  //var hashIn = CryptoJS.MD5.decrypt(hash);
-  //console.log("hashIn: "+MD5(hashIn));
-  // Meteor.call('SendMail',
-  //           'antoine.donniou@gmail.com',
-  //           'Test send mail',
-  //           'Hello from Meteor!',
-  //           null,
-  //           null,
-  //           null);
 
-//      Reservations.insert({"user_id":Meteor.userId(),
-//                           "resource_id":FlowRouter.getParam('_id'),
-//                           "start_time": instance.dtime.get('startdatepicker'), 
-//                           "end_time": instance.dtime.get('enddatepicker'),
-//                           "addons_id":Session.get("addonstab"),
-//                           "addonsprize": instance.prizes.get('addonsprize'),
-//                           "netprize": instance.prizes.get('netprize'),
-//                           "email":email,
-//                         createdAt: new Date()}, function( error, result) { 
-//      if ( error ) console.log ( error ); //info about what went wrong
-//      if ( result )
-//  {
-//   FlowRouter.go('dashboard', { reservation_id: result });
-//  }
-// });
-
-    //  Meteor.call('MakeReservation',
-    // user_id,
-    // resource_id, 
-    // start_time.format('YYYY-MM-DD'), 
-    // end_time.format('YYYY-MM-DD'), 
-    // quantity, 
-    // admin_mode, 
-    // send_notifications,
-    // force_status, 
-    // wants_share, 
-    // rental_prop_xyz, 
-    // rental_prop_voucher, 
-    // custom_price, 
-    // email, 
-    // first_name, 
-    // last_name,
-    // address, 
-    // city, 
-    // zip, 
-    // state, 
-    // country, 
-    // phone_prefix, 
-    // phone_number, 
-    // mobile_prefix, 
-    // mobile_number, 
-    // user_notes, 
-    // admin_notes, 
-    // cart_id,
-    // assignment1,
-    // version,
-    // language,
-    // planyo_api_key);
-
+     Reservations.insert({"user_id":Meteor.userId(),
+                          "resource_id":FlowRouter.getParam('_id'),
+                          "status":"newbooking",
+                          "start_time": instance.dtime.get('startdatepicker'), 
+                          "end_time": instance.dtime.get('enddatepicker'),
+                          "addons_id":Session.get("addonstab"),
+                          "addonsprize": instance.prizes.get('addonsprize'),
+                          "netprize": instance.prizes.get('netprize'),
+                          "email":Meteor.user().emails[0].address,
+                        createdAt: new Date()}, function( error, result) { 
+     if ( error ) console.log ( error ); //info about what went wrong
+     if ( result )
+ {
+  //FlowRouter.go('dashboard', { reservation_id: result });
+ }
+});
 
 }
    });

@@ -8,7 +8,7 @@ import { Connections } from '../imports/api/connections.js';
 Meteor.startup(() => {
 
 
- IPGeocoder.load();
+ //IPGeocoder.load();
 
   Accounts.emailTemplates.siteName = "LeBonCampingCar";
  Accounts.emailTemplates.from = "LeBonCampingCar <leboncampingcar@gmail.com>";
@@ -32,41 +32,41 @@ Meteor.startup(() => {
 
 });
 
-Meteor.onConnection(function(conn) {
-    console.log("connection client address: "+conn.clientAddress);
-    console.log("connection client id: "+conn.id);
-nbrconn = nbrconn+1;
-console.log("nbr de client connect: "+nbrconn);
-      Connections.insert({
-              connection_id: conn.id,
-              clientaddress: conn.clientAddress,
-              totalconnections: nbrconn,
-              createdAt: new Date()
-          }, function( error, result) { 
-     if ( error ) console.log ( error ); //info about what went wrong
-     if ( result )
- {
-  console.log("insert bdd connection ok: "+result);
- }
-});
+//Meteor.onConnection(function(conn) {
+    //console.log("connection client address: "+conn.clientAddress);
+    //console.log("connection client id: "+conn.id);
+//nbrconn = nbrconn+1;
+//console.log("nbr de client connect: "+nbrconn);
+//       Connections.insert({
+//               connection_id: conn.id,
+//               clientaddress: conn.clientAddress,
+//               totalconnections: nbrconn,
+//               createdAt: new Date()
+//           }, function( error, result) { 
+//      if ( error ) console.log ( error ); //info about what went wrong
+//      if ( result )
+//  {
+//   console.log("insert bdd connection ok: "+result);
+//  }
+// });
 
 //if(conn.onClose)
     //console.log("connection client onclose: "+conn.onClose);
-    conn.onClose(function(){
-      nbrconn = nbrconn-1;
-                console.log("Close : ");
-                console.log("nbr de client connect: "+nbrconn);
-                      Connections.insert({
-              totalconnections: nbrconn,
-              createdAt: new Date()
-          }, function( error, result) { 
-     if ( error ) console.log ( error ); //info about what went wrong
-     if ( result )
- {
-  console.log("insert bdd connection ok: "+result);
- }
-});
-      });
+//     conn.onClose(function(){
+//       nbrconn = nbrconn-1;
+//                 //console.log("Close : ");
+//                 //console.log("nbr de client connect: "+nbrconn);
+//                       Connections.insert({
+//               totalconnections: nbrconn,
+//               createdAt: new Date()
+//           }, function( error, result) { 
+//      if ( error ) console.log ( error ); //info about what went wrong
+//      if ( result )
+//  {
+//   console.log("insert bdd connection ok: "+result);
+//  }
+// });
+//       });
       //console.log("connection conn onclose: "+);
 
        // },
@@ -93,4 +93,4 @@ console.log("nbr de client connect: "+nbrconn);
 //   region: 'CA',
 //   city: 'San Francisco',
 //   ll: [37.7484, -122.4156] }
-});
+//});

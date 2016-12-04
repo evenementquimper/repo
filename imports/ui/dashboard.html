@@ -1,8 +1,47 @@
 <template name="dashboard">
-  {{> nav}}
+
+    <nav class="top-nav top-nav--functional">
+
+    <div class="logo glyphicon glyphicon-chevron-left">
+    <a href="/listings/{{reservation._id}}">Book</a><a href="/listings/{{reservation._id}}"><img src="/images/logo-blue.png" alt="Logo Image"></a></div>
+<!-- <ul class="top-nav-menu">
+<li class="top-nav-menu-route"><a class="" href="/user/profile">My Account</a></li>
+<li class="top-nav-menu-route"><a class="" href="/bookings">My Bookings</a></li>
+<li class="top-nav-menu-route"><a class="" href="/my-listings">My Listings</a></li>
+</ul> -->
+
+<!-- <div class="headOP content"><a href="http://www.cdiscount.com/Order/Basket.aspx" class="hOPBaskBck jsWaiting"><span class="arr">‹</span><span class="no767">Panier</span></a><a class="hOPLogo jsWaiting" href="http://www.cdiscount.com"><img src="https://i1.cdscdn.com/RWD/header/hoplogo.png" alt="Logo Cdiscount, paiement 100% Sécurisé" width="151" height="29"><span>Paiement 100% Sécurisé</span></a><div class="hOPWizard">&nbsp;</div><div class="hOPHelp no767"><strong>Besoin d'aide ? 3979</strong><span>0,70€/min + prix appel</span>&nbsp;<a href="https://clients.cdiscount.com/service/helpbeforesale.aspx" target="_blank" class="lkDefault">Voir conditions</a></div></div> -->
+<!--   {{#if currentUser}}
+
+
+
+      <ul class="top-nav-menu">
+      <li class="top-nav-menu-route">
+      <a class="top-nav-logout">Logout</a>
+      </li>
+      <li class="top-nav-menu-route">
+      <a class="nav-my-account" href="/user">My Account</a></li>
+      <li class="top-nav-menu-route">
+      <a class="nav-my-booking" href="/userbooking">My Bookings</a>
+      </li>
+      <li class="top-nav-menu-route">
+      <a class="nav-my-listing" href="/mylisting">My Listings</a>
+      </li>
+      </ul>
+
+    {{else}}
+
+
+{{/if}} -->
+<!--       <div class="logo"><a class="" href="/"><img src="/images/logo-blue.png" alt="Logo Image"></a></div> -->
+
+    </nav>
+
   <div class="template-dashboard">
+   
     <div class="page-header">
-      <h1>Dashboard</h1>
+     <h1>Antoine, finalisez et payez votre commande en 1 clic :</h1>
+     <h2 class="onePgbTit">Votre mode de livraison <span class="no767">présélectionné </span>: <a class="jsWaiting" href="/GoToOrderProcess.mvc/OrderStepShippingValidation">Changer<span class="no1023"> de mode de livraison</span></a></h2>
     </div>
 
     {{#if showForm}}
@@ -17,10 +56,12 @@
         </div>
       </form>
 {{/if}} 
+
+  {{> recappay}}
     <ul class="list-group">
-      {{#each items}}
+<!--       {{#each items}}
         <li class="list-group-item">{{ name }} <span class="label label-default">{{ rating }}</span></li>
-      {{/each}}
+      {{/each}} -->
     </ul>
 
   </div>
