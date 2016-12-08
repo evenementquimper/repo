@@ -3,6 +3,7 @@ import { CampingCars } from '../../imports/api/campingcars.js';
 import { AddOns } from '../../imports/api/addons.js';
 import { Reservations } from '../../imports/api/reservations.js';
 import { Mailings } from '../../imports/api/mailings.js';
+import { Communes } from '../../imports/api/communes.js';
 
 
 Meteor.startup(function () {
@@ -102,4 +103,66 @@ options = AddOns.find({_id:{$in:reservation.addons_id}}).fetch();
 });
 
 Meteor.methods({
+
+    communesearch: function (place) {
+    
+    console.log("start communesearch");
+    
+    var postcode = place.address_components[4].long_name;
+    var sanac = place.address_components[0].long_name.replace(/[èéêë]/g,"e");
+
+     var city= sanac.toUpperCase();
+    console.log("place.name: "+city);
+var coms;
+    
+
+if(city.search("ARRONDISSEMENT")!=-1)
+{
+var formatadres = place.formatted_address.match(/\D+/g);
+var tab = formatadres[1].split(",");
+
+  var pcty =  tab[0].toUpperCase();
+
+console.log("tab 0: "+pcty.trim());
+
+   coms = Communes.find({$text:{$search:pcty}});
+
+   console.log("nomb de com: "+coms.count());
+    
+}
+else
+{
+coms = Communes.find({"Nom Commune":city});
+//f(coms.fetch()[0].)
+}
+
+//if 15th arrondissement of Paris
+// if(city.search("ARRONDISSEMENT"))
+// {
+//   arron =  city.match(/\d/g);
+//   console.log("match: "+arron);
+
+//         // Communes.update({
+//         //     _id: FlowRouter.getParam('_id')
+//         // }, {
+//         //     $set: js
+//         // }, {
+//         //   upsert: true
+//         // });
+
+// }
+
+
+    //console.log("Nombre de communes: "+coms.count());
+    // var generateToken = Meteor.wrapAsync(gateway.clientToken.generate, gateway.clientToken);
+    // var options = {};
+
+    // if (clientId) {
+    //   options.clientId = clientId;
+    // }
+
+    // var response = generateToken(options);
+    // console.log("getclientToken: "+response.clientToken);
+    return coms;
+  },
 });

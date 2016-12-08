@@ -155,11 +155,17 @@ startt="";
 endt="";
 var loc = "";
 var cityname= "";
+var citycode = null;
 
 if(place.name)
 {
   cityname = place.name;
 }
+
+// if(place.address_components[5].long_name)
+// {
+//   citycode = parseInt(place.address_components[5].long_name);
+// }
 
   if(place.geometry)
   {
@@ -175,7 +181,7 @@ startt = $('.datetimepickerstart').data().date;
 if($('.datetimepickerend').data().date)
 endt = $('.datetimepickerend').data().date;
 
-     var queryParams = JSON.parse('{"name":"'+cityname+'","lat":'+lat+',"lng":'+lng+',"start":"'+startt+'","end":"'+endt+'"}');
+     var queryParams = JSON.parse('{"citycode":'+citycode+',"name":"'+cityname+'","lat":'+lat+',"lng":'+lng+',"start":"'+startt+'","end":"'+endt+'"}');
   //var queryParams = JSON.parse('{"location":'+JSON.stringify(loc)+',"start":"'+startt+'","end":"'+endt+'"}');
   
      var path = FlowRouter.path("maplistings", queryParams);
