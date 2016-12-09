@@ -1,12 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 //import { GeoIp } from 'meteor/servicelocale:geoip';
-import { IPGeocoder } from 'meteor/thebakery:ipgeocoder';
+//import { IPGeocoder } from 'meteor/thebakery:ipgeocoder';
 import { Accounts } from 'meteor/accounts-base';
 import { Connections } from '../imports/api/connections.js';
 
   var nbrconn = 0;
 Meteor.startup(() => {
-
 
  //IPGeocoder.load();
 

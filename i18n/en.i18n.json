@@ -1,4 +1,23 @@
 {
+	"logout":"Logout",
+	"myaccount":"My Account",
+	"mybookings":"My Booking",
+	"mylistings":"My Listings",
+	"login":"Login",
+	"howitworks":"How It Works",
+	"insurance":"Insurance",
+	"rentamotorhome":"Rent a Motor Home",
+	"enteradestination":"Enter a Destination",
+	"pickup":"Pick Up",
+	"dropoff":"Drop Off",
+	"search":"Search",
+	"sectionintrotitle":"Check out some of these featured listings",
+	"vehiclepricefrom":"Vehicle price from:",
+	"perday":"per day",
+	"sleeps":"sleeps",
+	"section2introtitle":"Whatever your journey may be",
+	"section2introsubtitle":"Discover the beauty of France without bounds.",
+	"section2introcontent":"Choose your own road in a vehicle you’ll love by renting directly from motorhome owners. With 24/7 support, local knowledge, guest feedback and hassle-free booking, there’s never been a better way to get out of town. Whatever your style and wherever you’re headed, let your journey unfold with Mighway.",
 	"basicsintrotitle":"Tell travellers about your home away from home",
 	"basicsintrosubtitle":"Every camper on Le bon camping-car is unique. Tell them a little about your home away from home and what makes it special.",
 	"vehiculename":"Vehicle Name",
@@ -76,7 +95,6 @@
 	"guests":"Guests",
 	"days":"days",
 	"serandroadsup":"Service and Roadside Support",
-	"insurance":"Insurance",
 	"requestbooking":"Request a Booking"
 
 

@@ -5,7 +5,20 @@ import { ReactiveVar } from 'meteor/reactive-var';
 //import './main.html';
 import '../imports/ui/body.js';
 
+if (Meteor.isClient) {
+  Meteor.startup(function () {
+    //Session.set("showLoadingIndicator", true);
 
+    TAPi18n.setLanguage("fr")
+      .done(function () {
+        //Session.set("showLoadingIndicator", false);
+      })
+      .fail(function (error_message) {
+        // Handle the situation
+        console.log(error_message);
+      });
+  });
+}
 
 Template.hello.onCreated(function helloOnCreated() {
   // counter starts at 0

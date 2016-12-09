@@ -7,35 +7,27 @@
 
       <ul class="top-nav-menu">
       <li class="top-nav-menu-route">
-      <a class="top-nav-logout">Logout</a>
+      <a class="top-nav-logout">{{_ "logout"}}</a>
       </li>
       <li class="top-nav-menu-route">
-      <a class="nav-my-account" href="/user">My Account</a></li>
+      <a class="nav-my-account" href="/user">{{_ "myaccount"}}</a></li>
       <li class="top-nav-menu-route">
-      <a class="nav-my-booking" href="/userbooking">My Bookings</a>
+      <a class="nav-my-booking" href="/userbooking">{{_ "mybookings"}}</a>
       </li>
       <li class="top-nav-menu-route">
-      <a class="nav-my-listing" href="/mylisting">My Listings</a>
+      <a class="nav-my-listing" href="/mylisting">{{_ "mylistings"}}</a>
       </li>
       </ul>
 
     {{else}}
 <ul class="top-nav-menu">
-<li class="top-nav-menu-route"><a class="" href="/authentication" style="">Login</a></li>
+<li class="top-nav-menu-route"><a class="" href="/authentication" style="">{{_ "login"}}</a></li>
 <li class="top-nav-menu-route top-nav-menu-route--button">
-<div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;" data-reactid=".0.0.$nav.1.0.$/owners.0"><button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;background-color:#ef4136;" tabindex="0" type="button">
-         <div>
-         <div style="transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;top:0;"><span style="position:relative;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;">List Your Motorhome</span>
-         </div>
-         </div>
-         </button>
-         </div>
          </li>
 
-         <li class="top-nav-menu-route"><a href="#howitworks">How It Works</a></li>
-         <li class="top-nav-menu-route"><a class="" href="/insurance" style="">Insurance</a></li>
-         <li class="top-nav-menu-route"><a class="" href="/listings" style="">Rent a Motorhome</a></li></ul>
+         <li class="top-nav-menu-route"><a href="#howitworks">{{_ "howitworks"}}</a></li>
+         <li class="top-nav-menu-route"><a class="" href="/insurance" style="">{{_ "insurance"}}</a></li>
+         <li class="top-nav-menu-route"><a class="" href="/listings" style="">{{_ "rentamotorhome"}}</a></li></ul>
 
 {{/if}}
       <div class="logo"><a class="" href="/"><img src="/images/lbcclogo02.png" alt="Logo Image"></a></div>

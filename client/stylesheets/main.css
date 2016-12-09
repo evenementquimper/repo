@@ -6135,7 +6135,8 @@ body {
 }
 .listing-map-popover {
 	cursor:pointer;
-	width:250px
+	width:150px;
+	background-color: white
 }
 .profile-card {
 	margin-bottom:16px;
@@ -6757,7 +6758,7 @@ body {
 	padding-left:.35em
 }
 .featured-vehicles-card .public-listing {
-	margin:0 auto
+/*	margin:0 auto*/
 }
 .section-intro {
 	text-align:center;
