@@ -4606,6 +4606,9 @@ body {
 .left-nav--menu>div>div {
 	background-color:hsla(0,0%,100%,0)!important
 }
+.left-nav--menu{
+	background:#f56b2a
+}
 .left-nav--medium {
 	height:100%;
 	display:none;
@@ -4632,7 +4635,7 @@ body {
 	justify-content:center;
 	align-items:center;
 	cursor:pointer;
-	background:#142330;
+	background:#f56b2a;
 }
 .left-nav-user-avatar {
 	margin-bottom:16px
@@ -5811,7 +5814,7 @@ body {
 	.ml-section-progress {
 		flex:1;
 		width:100%;
-		background:#246182
+		background:#f56b2a
 	}
 }
 .ml-section-progress-display-enter {

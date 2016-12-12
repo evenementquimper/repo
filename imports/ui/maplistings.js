@@ -35,7 +35,11 @@ if(Communes.find({"nom_commune":city}).count()==1)
   var input = /** @type {!HTMLInputElement} */(
       document.getElementById('location-input'));
 
-  var autocomplete = new google.maps.places.Autocomplete(input);
+  var autocomplete = new google.maps.places.Autocomplete(input, {
+  //bounds: defaultBounds,
+  componentRestrictions: {country: 'fr'},
+  types: ['(cities)']
+});
   autocomplete.bindTo('bounds', map.instance);
 
 
@@ -80,15 +84,15 @@ var contentview = '<div class="listing-map-popover" id="'+CampingCars.find({}).f
          '<div style="padding-bottom:0;">'+
          '<div style="position:relative;">'+
          '<div style="width:150px;height:95px;">'+
-         '<img src="'+CampingCars.find({}).fetch()[i].images[0]+'" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;" alt="rien" itemprop="image"></div>'+
+         '<img src="'+CampingCars.find({}).fetch()[i].images[0]+'" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;height: 100%;" alt="rien" itemprop="image"></div>'+
          '<div style="position:absolute;top:0;bottom:0;right:0;left:0;">'+
          '<div style="height:100%;position:relative;"'+
          '<div style="position:absolute;bottom:0;right:0;left:0;padding-top:8px;background:rgba(0, 0, 0, 0.54);"'+
          '</div></div></div></div>'+
          '<div title="'+CampingCars.find({}).fetch()[i].name+'" size="45" style="padding:5px;font-weight:500;box-sizing:border-box;position:relative;">'+
          '<div style="display:inline-block;vertical-align:top;max-width:218px;">'+
-         '<span style="color:rgba(0, 0, 0, 0.87);display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>'+
-         '<span style="color:rgba(0, 0, 0, 0.54);display:block;font-size:14px;">prix '+CampingCars.find({}).fetch()[i].priceperday+'</span></div></div></div></div></div>';
+         '<span style="color:rgba(0, 0, 0, 0.87);display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+CampingCars.find({}).fetch()[i].name+'</span>'+
+         '<span style="color:rgba(0, 0, 0, 0.54);display:block;font-size:14px;">prix :'+CampingCars.find({}).fetch()[i].priceperday+' € par jour</span></div></div></div></div></div>';
 
   var infowindow = new google.maps.InfoWindow({
     content: "loading..."

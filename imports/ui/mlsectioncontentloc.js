@@ -13,31 +13,19 @@ TAPi18n.setLanguage("fr");
 
  GoogleMaps.ready('adressMap', function(map){
 
-//console.log("campingcar find! nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
-
-console.log("start ready:");
-
-
   var input = /** @type {!HTMLInputElement} */(
       document.getElementById('adressautocomplete'));
 
-  var autocomplete = new google.maps.places.Autocomplete(input);
+  var autocomplete = new google.maps.places.Autocomplete(input, {
+  componentRestrictions: {country: 'fr'}
+});
 //   autocomplete.bindTo('bounds', map);
 
-// var infowindow = new google.maps.InfoWindow();
-//   var marker = new google.maps.Marker({
-//     map: map,
-//     anchorPoint: new google.maps.Point(0, -29)
-//   });
 
   autocomplete.addListener('place_changed', function() {
-    console.log("listener autocomplete");
-    //infowindow.close();
-    // marker.setVisible(false);
     var place = autocomplete.getPlace();
-    //var ll = autocomplete.getLat();
 
-    //console.log("Place lat: "+JSON.stringify(ll));
+    //console.log("Place : "+JSON.stringify(place));
     if (!place.geometry) {
        window.alert("Autocomplete's returned place contains no geometry");
        return;
@@ -45,13 +33,7 @@ console.log("start ready:");
 
     // // If the place has a geometry, then present it on a map.
     if (place.geometry.location) {
-console.log("geometry: "+JSON.stringify(place.geometry.location));
-//var lat = place.geometry.location.lat;
-//var lng = place.geometry.location.lng;
-
-//console.log("lat: "+lat+"lng: "+lng);
-var dig = '{"city":"'+place.name+'","location":'+JSON.stringify(place.geometry.location)+'}';
-console.log("DIG: "+dig);
+var dig = '{"city":"'+place.formatted_address+'","location":'+JSON.stringify(place.geometry.location)+'}';
 
 var js = JSON.parse(dig);
         CampingCars.update({

@@ -22,14 +22,13 @@ var autocomplete;
   var input = /** @type {!HTMLInputElement} */(
       document.getElementById('autocomplete'));
 
-  autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete = new google.maps.places.Autocomplete(input, {
+  //bounds: defaultBounds,
+  componentRestrictions: {country: 'fr'},
+  types: ['(cities)']
+});
 //   autocomplete.bindTo('bounds', map);
 
-// var infowindow = new google.maps.InfoWindow();
-//   var marker = new google.maps.Marker({
-//     map: map,
-//     anchorPoint: new google.maps.Point(0, -29)
-//   });
 
   autocomplete.addListener('place_changed', function() {
     console.log("listener autocomplete");

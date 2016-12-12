@@ -31,8 +31,8 @@ Meteor.startup(() => {
 
 });
 
-//Meteor.onConnection(function(conn) {
-    //console.log("connection client address: "+conn.clientAddress);
+Meteor.onConnection(function(conn) {
+    console.log("connection client address: "+conn.clientAddress);
     //console.log("connection client id: "+conn.id);
 //nbrconn = nbrconn+1;
 //console.log("nbr de client connect: "+nbrconn);
@@ -47,7 +47,12 @@ Meteor.startup(() => {
 //  {
 //   console.log("insert bdd connection ok: "+result);
 //  }
-// });
+if(conn.clientaddress=="127.0.0.1"){
+  //conn.close();
+//Meteor.disconnect();
+}
+
+ });
 
 //if(conn.onClose)
     //console.log("connection client onclose: "+conn.onClose);

@@ -3,6 +3,7 @@ import { Template } from 'meteor/templating';
 import { CampingCars } from '../api/campingcars.js';
 import { Reservations } from '../api/reservations.js';
 import { AddOns } from '../api/addons.js';
+import { UsersData } from '../api/usersdata.js';
 import { Session } from 'meteor/session';
 
 import './listing.html';
@@ -35,17 +36,21 @@ this.$('.datetimepicker').datetimepicker({
 
  Template.listing.helpers({
 
-    campingcars: function(){
+    campingcar: function(){
     //const instance = Template.instance();
-    console.log("route id : "+FlowRouter.getParam("_id"));
+    //console.log("route id : "+FlowRouter.getParam("_id"));
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
   },
   campingcaraddons: function(){
 return AddOns.find({campingcarId:FlowRouter.getParam("_id")}).fetch();
 },
-// ways:function(){
-// return Way_Coll.find({}).fetch();
-// },
+  campingcaruser:function(){
+
+    var campingcar = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+    var proprioId = campingcar.userid;
+console.log("CampingCars userId: "+UsersData.find({_id:proprioId}).fetch()[0]._id);
+ return UsersData.find({_id:proprioId}).fetch()[0];
+},
 
 // errors:function(){
 // return Errors_Coll.find({}).fetch();

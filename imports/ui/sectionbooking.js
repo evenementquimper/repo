@@ -27,16 +27,8 @@ import './sectionbooking.html';
 });
 
  Template.sectionbooking.onRendered(function() {
-//var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
-//console.log("Bdd daysfull: "+JSON.stringify(bdd.daysfull));
-//Meteor.call("get_resource_usage", 67189, 21654, null, null, null, null, null, null);
-
 
   var el = this.$('.sticky-inner-wrapper');
-  console.log("offset top?: "+el.offset().top);
-  //console.log("sticky move: "+el.style.position);
-//console.log("client height : "+document.body.clientHeight);
-//console.log("element scroll : "+el.scrollTop);
 
 this.$('.startdatetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',
@@ -71,16 +63,8 @@ this.$('.enddatetimepicker').datetimepicker({
 
  Template.sectionbooking.helpers({
 
-    // zoom: function() { 
-    //     // This will be called when 'zoom' changes, 
-    //     console.log("zoom change: "+Template.instance().zoom.get());// so treat this as your events function
-    //     return Template.instance().zoom.get(); 
-    // },
     campingcarsbook: function(){
 
-
-    //const instance = Template.instance();
-    console.log("route id : "+FlowRouter.getParam("_id"));
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
   },
 
@@ -252,40 +236,9 @@ if(moment($('.startdatetimepicker').data().date).isValid())
 
 'click .booking-request': function(e, instance){
 var campingcarid = FlowRouter.getParam('_id');
-//var us = Meteor.user();
-//console.log("user email: "+us.emails[0].address);
 var userdata = UsersData.find({_id:Meteor.user()}).fetch()[0];
-
-    
-    var quantity = 1;
-    var admin_mode = true;
-    var send_notifications = true;
-    var force_status = 0;
-    var wants_share = null;
-    var rental_prop_xyz = null;
-    var rental_prop_voucher = "";
-    var custom_price = null;
-    var email = "antoine.donniou@gmail.com";
-    var first_name = "Donniou";
-    var last_name = "Antoine";
-    var address = "23 rue de la prairie";
-    var city = "Quimper";
-    var zip= null;
-    var state = null;
-    var country = null;
-    var phone_prefix = null;
-    var phone_number = null;
-    var mobile_prefix = "+33";
-    var mobile_number = "0665770647";
-    var user_notes = null;
-    var admin_notes = null;
-    var cart_id = null;
-    var assignment1 = null;
-    var version = null;
-    var language = null;
-    var planyo_api_key = null;
-
-
+if(Meteor.userId())
+{
      Reservations.insert({"user_id":Meteor.userId(),
                           "resource_id":FlowRouter.getParam('_id'),
                           "status":"newbooking",
@@ -299,9 +252,14 @@ var userdata = UsersData.find({_id:Meteor.user()}).fetch()[0];
      if ( error ) console.log ( error ); //info about what went wrong
      if ( result )
  {
-  //FlowRouter.go('dashboard', { reservation_id: result });
+  FlowRouter.go('dashboard', { reservation_id: result });
  }
 });
+}
+else
+{
+  FlowRouter.go('authentication');
+}
 
 }
    });
