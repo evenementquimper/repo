@@ -39,7 +39,7 @@ import './profilesection.html';
 userdata:function(){
   if(Meteor.userId())
   {
-    console.log("User ID: "+UsersData.find({_id:Meteor.userId()}).fetch().firstname);
+    console.log("User ID: "+UsersData.find({_id:Meteor.userId()}).fetch()[0].firstname);
     return UsersData.find({_id:Meteor.userId()}).fetch()[0];
   }
 }
@@ -130,6 +130,27 @@ console.log("click license-uploader-button");
           alert('Error during upload: ' + error);
         } else {
           alert('File "' + fileObj.name + '" successfully uploaded');
+                        var sup = fileObj.path.split('../../../../../public');
+              console.log("Split 1: "+sup[0]);
+              console.log("Split 2: "+sup[1]);
+          alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
+//sauvegarde de id de l'image ds la bdd du camping car
+
+
+var dig = '{"images":"'+sup[1]+'"}';
+console.log("DIG: "+dig);
+
+var js = JSON.parse(dig);
+        UsersData.update({
+            _id: Meteor.userId()
+        }, {
+            $addToSet: js
+        }, {
+          upsert: true
+        });
+
+
+
         }
         template.currentUpload.set(false);
       });
@@ -163,6 +184,24 @@ console.log("click license-uploader-button");
           alert('Error during upload: ' + error);
         } else {
           alert('File "' + fileObj.name + '" successfully uploaded');
+                                  var sup = fileObj.path.split('../../../../../public');
+              console.log("Split 1: "+sup[0]);
+              console.log("Split 2: "+sup[1]);
+          alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
+//sauvegarde de id de l'image ds la bdd du camping car
+
+
+var dig = '{"licenseimages":"'+sup[1]+'"}';
+console.log("DIG: "+dig);
+
+var js = JSON.parse(dig);
+        UsersData.update({
+            _id: Meteor.userId()
+        }, {
+            $addToSet: js
+        }, {
+          upsert: true
+        });
         }
         template.currentUpload.set(false);
       });

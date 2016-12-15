@@ -60,56 +60,31 @@
 
 <div class="display-amenities">
 
-<span class="material-icons" style="position:relative;font-size:45px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:rgba(0,0,0, 0.53);">people
-
-</span>
-
-<p>Guests x {{campingcar.maxguests}}
-
-</p>
-
+<span class="glyphicon glyphicon-user" style="position:relative;font-size:45px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:rgba(0,0,0, 0.53);">
+</span><p>{{_ "guests"}} x {{campingcar.maxguests}}</p>
 </div>
-
 </div>
-
 <div style="width:16.666666666666668%;" class="flex-grid-item">
-
 <div class="display-amenities">
-
-<span class="material-icons" style="position:relative;font-size:45px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:rgba(0,0,0, 0.53);">hotel
+<span class="glyphicon glyphicon-bed" style="position:relative;font-size:45px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:rgba(0,0,0, 0.53);">
 
 </span>
-
-<p>Beds x {{campingcar.bedsnumb}}
-
+<p>{{_ "beds"}} x {{campingcar.bedsnumb}}
 </p>
-
 </div>
-
 </div>
-
 <div style="width:16.666666666666668%;" class="flex-grid-item">
-
 <div class="display-amenities">
-
-<span class="material-icons" style="position:relative;font-size:45px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:rgba(0,0,0, 0.53);">wc
-
-</span>
-
-<p>Toilet
-
-</p>
-
+<svg fill="grey" height="45" viewBox="0 0 24 24" width="45" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M5.5 22v-7.5H4V9c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v5.5H9.5V22h-4zM18 22v-6h3l-2.54-7.63C18.18 7.55 17.42 7 16.56 7h-.12c-.86 0-1.63.55-1.9 1.37L12 16h3v6h3zM7.5 6c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm9 0c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2z"/>
+</svg>
+<p>{{_ "toilet"}}</p>
 </div>
-
 </div>
-
 </div>
-
 </div>
-
 </div>
-
 </div>
 
 
@@ -124,13 +99,13 @@
          
          <div class="listing-tabs" value="about">
          
-         <div style="margin:0;padding:0;width:100%;background-color:#246182;white-space:nowrap;">
+         <div style="margin:0;padding:0;width:100%;white-space:nowrap;">
          
          <button id="about" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);padding:0px 12px;height:48px;color:inherit;font-weight:500;font-size:14px;width:33.333333333333336%;text-transform:uppercase;background-color:#ffffff;" tabindex="0" type="button">
          
          <div>
          
-         <span>About
+         <span>{{_ "about"}}
          
          </span>
          
@@ -142,7 +117,7 @@
          
          <div>
          
-         <span>Details
+         <span>{{_ "details"}}
          
          </span>
          
@@ -154,7 +129,7 @@
          
          <div>
          
-         <span>Addons
+         <span>{{_ "addons"}}
          
          </span>
          
@@ -166,7 +141,7 @@
          
          <div style="width:100%;">
          
-         <div style="left:0%;width:33.333333333333336%;bottom:0;display:block;background-color:#ef4136;height:2px;margin-top:-2px;position:relative;transition:left 1s cubic-bezier(0.23, 1, 0.32, 1) 0ms;">&nbsp;
+         <div id="stlbar" style="left:0%;width:33.333333333333336%;bottom:0;display:block;background-color:#ef4136;height:2px;margin-top:-2px;position:relative;transition:left 1s cubic-bezier(0.23, 1, 0.32, 1) 0ms;">&nbsp;
          
          </div>
          
@@ -200,9 +175,9 @@
          
          <div class="section-row">
          
-         <div class="section-intro pull-left">
+         <div class="section-intro">
          
-         <h2 class="section-intro-title">About this Listing
+         <h2 class="section-intro-title">{{_ "aboutthislisting"}}
          
          </h2>
          
@@ -212,7 +187,7 @@
          
          <div>
          
-         <p >Our self contained roadie is ready to take off and share with you great New Zealand moments. Its well equipped, awesome to drive, sleeps 4 and has some extra storage space for some of your travel needs. Go and explore our beautiful land and have the freedom to experience outdoor adventure at its best.
+         <p >{{campingcar.description}}
          
          </p>
          
@@ -238,7 +213,7 @@
          
          <div class="col-4">
          
-         <h5>House Rules
+         <h5>{{_ "houserules"}}
          
          </h5>
          
@@ -248,7 +223,7 @@
          
          <div>
          
-         <p>No Smoking No Pets
+         <p>{{_ "nosmoking"}} {{_ "nopets"}}
          
          </p>
          
@@ -1233,5 +1208,6 @@
          </div>
          
          </main>
-         
+
+
          </template>

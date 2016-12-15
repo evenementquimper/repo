@@ -50,10 +50,100 @@ return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
 });
   Template.mlsectioncontentdetails.events({
 
+'click #outpoupselect': function(event, template){
+      event.preventDefault();
+      console.log("event type : "+event.type);
+    console.log("event target : "+event.target);
+    var fueltypeselect = template.find('#fueltypeselect');
+    var transmissionselect = template.find('#transmissionselect');
+//var appcont = template.find('.app-container-view');
+var popupselect = template.find('.popupselect');
+
+//popupselect.style.display =
+
+
+if(fueltypeselect.style.display == 'inline-block'||transmissionselect.style.display == 'inline-block')
+{ 
+  console.log("fueltypeselect :"+fueltypeselect.style.display);
+  fueltypeselect.style.display = 'none';
+  transmissionselect.style.display = 'none';
+  event.currentTarget.style.display = 'none';
+  //appcont.style.overflowY = 'scroll';
+}
+else
+{
+
+  console.log("else fueltypeselect :"+fueltypeselect.style.display);
+}
+//appcont.style.overflowY = 'scroll';
+
+},
+
+'click .transmissiontype': function(event, template){
+      event.preventDefault();
+
+var dig = '{"transmissiontype":"'+event.currentTarget.innerHTML+'"}';
+var js = JSON.parse(dig);
+        CampingCars.update({
+            _id: FlowRouter.getParam('_id')
+        }, {
+            $set: js
+        }, {
+          upsert: true
+        });
+        var outpoupselect = template.find('#outpoupselect');
+        outpoupselect.style.display = 'none';
+        var transmissionselect = template.find('#transmissionselect');
+          transmissionselect.style.display = 'none';
+      
+},
+
+'click #transmissiontype': function(event, template){
+      event.preventDefault();
+console.log("Click transmission");
+var transmissionselect = template.find('#transmissionselect');
+var outpoupselect = template.find('#outpoupselect');
+outpoupselect.style.display = "inline-block";
+
+transmissionselect.style.display = "inline-block";
+
+transmissionselect.style.top = event.pageY+'px';
+transmissionselect.style.left = event.pageX+'px';
+},
+
+'click .fueltype':function(event, template){
+      event.preventDefault();
+var dig = '{"fueltype":"'+event.currentTarget.innerHTML+'"}';
+var js = JSON.parse(dig);
+        CampingCars.update({
+            _id: FlowRouter.getParam('_id')
+        }, {
+            $set: js
+        }, {
+          upsert: true
+        });
+                var outpoupselect = template.find('#outpoupselect');
+        outpoupselect.style.display = 'none';
+        var fueltypeselect = template.find('#fueltypeselect');
+          fueltypeselect.style.display = 'none';
+},
+
+'click #fueltype': function(event, template){
+    event.preventDefault();
+var fueltypeselect = template.find('#fueltypeselect');
+var outpoupselect = template.find('#outpoupselect');
+outpoupselect.style.display = "inline-block";
+
+fueltypeselect.style.display = "inline-block";
+
+fueltypeselect.style.top = event.pageY+'px';
+fueltypeselect.style.left = event.pageX+'px';
+},
+
   'keyup .new-task': function(event, template) {
     //console.log("event "+event);
     // Prevent default browser form submit
-//this.preventDefault();
+//
    // 
     console.log("event type : "+event.type);
     console.log("event target : "+event.target);

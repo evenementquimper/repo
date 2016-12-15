@@ -1,13 +1,22 @@
 <template name="mlsectioncontentimages">
-<div class="ml-section-content" data-reactid=".0.0.1.3.0.$main.0.1">
 
-<div class="ml-page" data-reactid=".0.0.1.3.0.$main.0.1.0">
 
-<h2 data-reactid=".0.0.1.3.0.$main.0.1.0.0">Images</h2>
+    <div class="app-container">
+      <div class="app-container-view">
+   <div class="manage-listing">
+        <div class="ml-section-left">
+{{> topnavmylisting}}
 
-	<div class="ml-panel" data-reactid=".0.0.1.3.0.$main.0.1.0.1">
 
-		<div data-reactid=".0.0.1.3.0.$main.0.1.0.1.0"></div>
+<div class="ml-section-content">
+
+<div class="ml-page">
+
+<h2>Images</h2>
+
+	<div class="ml-panel">
+
+		<div></div>
 
 	</div>
 
@@ -108,19 +117,11 @@
 <div class="images-errors"></div></div></div>
 
 
-<!--     {{#each images}}
-      <div>
-      <p>images._id</p>
-        <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" /></a>
+{{> mlsectionbuttons}}
+  </div>
+{{> mlsectionright}}
+  </div>
       </div>
-    {{/each}} -->
-
-<!--   {{#with currentUpload}}
-    <b>Uploading file name: {{file.name}}</b>
-    <b>Uploading file id: {{file._id}}</b> 
-    <a href="{{file.link}}?download=true" download="{{file.name}}">File name {{file.name}}</a>
-    <span id="progress">{{progress.get}}%</span>
-  {{else}}
-    <input id="fileInput" type="file" />
-  {{/with}} -->
+      
+    </div>
 </template>

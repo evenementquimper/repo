@@ -77,23 +77,6 @@ import './listingsLayout.html';
 });
   Template.listingsLayout.events({
 
-  //   'click #valid': function(event, template) {
-  //     // Prevent default browser 
-  //     event.preventDefault();
-  //     var ResId = template.find('#email');
-  //     var email = $(ResId).val();
-  //     //console.log("Current Service: "+Session.get("currentService"));
-  //     if (Session.get("currentService")=="ticketreloading") {
-  //     //console.log("Vérification du mail "+email);
-  //     Session.set("BookingEmail", email);
-  //     Router.go("BookingPrint");
-  //     }
-  //     else
-  //     {
-  //     Router.go("NewBookingName");
-  //     Session.set("BookingEmail", email);
-  // }
-  // },
       'click button#about': function(event, template) {
 
     // Prevent default browser
@@ -103,7 +86,9 @@ import './listingsLayout.html';
       var Resdetails = template.find('.listingdetails');
       var Resabout = template.find('.listingabout');
       var Resaddons = template.find('.listingaddons');
-
+      var stlbar = template.find('#stlbar');
+stlbar.style.left= '0%';
+stlbar.style.width= '33.3333%';
 
       Resdetails.style.display = "none";
       Resabout.style.display = "inherit";
@@ -120,7 +105,9 @@ import './listingsLayout.html';
       var Resdetails = template.find('.listingdetails');
       var Resabout = template.find('.listingabout');
       var Resaddons = template.find('.listingaddons');
-
+var stlbar = template.find('#stlbar');
+stlbar.style.left= '33.3333%';
+stlbar.style.width= '33.3333%';
       Resdetails.style.display = "inherit";
       Resabout.style.display = "none";
      Resaddons.style.display = "none";
@@ -136,7 +123,9 @@ import './listingsLayout.html';
       var Resdetails = template.find('.listingdetails');
       var Resabout = template.find('.listingabout');
       var Resaddons = template.find('.listingaddons');
-
+var stlbar = template.find('#stlbar');
+stlbar.style.left= '66.6667%';
+stlbar.style.width= '33.3333%';
 
       Resdetails.style.display = "none";
       Resabout.style.display = "none";

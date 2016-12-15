@@ -5410,9 +5410,8 @@ body {
 	background:#f68f77
 }
 .booking-wrapper {
-	position:absolute;
-	top:-60px;
-	left:0;
+	position:fixed;
+	top:50px;
 	z-index:10
 }
 .booking-modal .booking {
@@ -5731,6 +5730,13 @@ body {
 .manage-listing-tabs .tab-item-complete {
 	border-bottom:3px solid #9ccc65!important
 }
+
+.tab-item-basics:hover {
+	color:#fff;
+	text-decoration:none;
+	cursor:pointer
+}
+
 .manage-listing .image-display,.manage-listing .image-upload {
 	display:inline-block;
 	position:relative;
