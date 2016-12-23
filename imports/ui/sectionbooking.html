@@ -46,22 +46,16 @@
 </div>
 <div style="width:33.333333333333336%;" class="flex-grid-item">
 <div style="font-size:16px;line-height:24px;width:100%;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;margin-bottom:5px;">
-<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:perspective(1px) scale(0.75) translate3d(2px, -28px, 0);transform-origin:left top;pointer-events:none;user-select:none;color:rgba(86,90,92,0.5);">{{_ "guests"}}
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:perspective(1px) scale(0.75) translate3d(2px, -28px, 0);transform-origin:left top;pointer-events:none;user-select:none;color:rgba(86,90,92,0.5);">{{_ "people"}}
 </label>
-<div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;">{{_ "guests"}}
+<div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;">{{_ "people"}}
 </div>
-<select>
 
-{{#each guests}}
-	<option>{{this}}</option>
-{{/each}}
-
-</select>
-<div value="1" style="display:inline-block;font-size:15px;height:100%;font-family:Roboto, sans-serif;outline:none;position:relative;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;tap-highlight-color:rgba(0,0,0,0);padding:0;width:100%;border:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;">
+<div id="people" value="1" style="display:inline-block;font-size:15px;height:100%;font-family:Roboto, sans-serif;outline:none;position:relative;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;tap-highlight-color:rgba(0,0,0,0);padding:0;width:100%;border:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;">
 <div style="cursor:pointer;height:100%;position:relative;width:100%;">
 <div style="box-sizing:border-box;content:' ';display:table;">
 </div>
-<div style="color:rgba(86, 90, 92, 0.87);line-height:56px;opacity:1;position:relative;padding-left:0;padding-right:48px;top:6px;">One
+<div style="color:rgba(86, 90, 92, 0.87);line-height:56px;opacity:1;position:relative;padding-left:50px;padding-right:48px;top:6px;">{{people}}
 </div>
 <svg style="display:inline-block;height:24px;width:24px;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;fill:rgba(0,0,0,0.3);position:absolute;right:0;top:22px;" viewBox="0 0 24 24">
 <path d="M7 10l5 5 5-5z">
@@ -200,7 +194,7 @@
 <td>
 <strong>Total 
 </strong>
-<small>(GST inc)
+<small>
 </small>
 </td>
 <td class="text-right">
@@ -234,7 +228,8 @@
           </div>
          </form>
          </div>
-         <div class="sharing-component-wrapper clearfix">
+
+<!--          <div class="sharing-component-wrapper clearfix">
          <div class="sharing-component-buttons-wrapper">
 
 
@@ -264,9 +259,54 @@
 	         </span>
 	         </div>
          </div>
+         </div> -->
+
          </div>
          </div>
          </div>
          </div>
-         </div>
+
+
+
+
+<div id="outpoupselect" style="display:none; position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; z-index: 2000;">
+
+<div class="popupselect" id="peopleselect" style="display:none;background-color: rgb(255, 255, 255); transition: transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; opacity: 1; transform: scaleY(1); transform-origin: left top 0px; position: fixed; z-index: 2100; max-height: 448px; width: 256px; top: 247.3px; left: 247px;">
+<div style="z-index: 1000; top: 0px; right: 0px; transform: scaleX(1); transform-origin: right center 0px; width: 256px;">
+<div style="background-color: rgb(255, 255, 255); box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; transform: scaleY(1); transform-origin: center top 0px; opacity: 1; max-height: 500px; overflow-y: auto;">
+<div style="background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; border-radius: 2px; padding: 16px 0px; display: table-cell; width: 256px;">
+
+
+<div style="opacity: 1;">
+<span tabindex="0" type="button" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: block; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">
+<div>
+<div style="margin-left: 0px; padding: 0px 24px; position: relative;">
+<div class="peoplenbr">1</div>
+</div>
+</div>
+</span>
+</div>
+
+
+<div style="opacity: 1;">
+<span tabindex="0" type="button" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: block; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgb(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">
+<div>
+<div style="margin-left: 0px; padding: 0px 24px; position: relative;">
+<div class="peoplenbr">2</div>
+</div>
+</div>
+</span>
+</div>
+</div>
+</div></div></div>
+
+
+
+
+</div>
+
+
+
+
+
          </template>

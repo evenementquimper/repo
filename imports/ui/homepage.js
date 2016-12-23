@@ -117,14 +117,6 @@ this.$('.owl-carousel').owlCarousel({
 
 
     if (GoogleMaps.loaded()) {
-
-  //var input = /** @type {!HTMLInputElement} */(
-    //   document.getElementById('pac-input'));
-
-
-  //var autocomplete = new google.maps.places.Autocomplete(input);
- //  autocomplete.bindTo('bounds', map);
-      // Map initialization options
       return {
         center: new google.maps.LatLng(-25.363, 131.044),
         zoom: 8,
@@ -135,12 +127,17 @@ this.$('.owl-carousel').owlCarousel({
 
 
     campingcars: function(){
-    console.log("camping car find : "+CampingCars.find({}).count());
-    //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetech()[0].daysfull[0]);
 
+if(CampingCars.find({}))
+{
+return CampingCars.find({}).fetch();
 
-return CampingCars.find({},{limit:5}).fetch();
-  }
+}
+else
+{
+  return false;
+}
+  },
 });
   Template.homepage.events({
 

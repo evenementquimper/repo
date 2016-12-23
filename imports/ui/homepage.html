@@ -136,17 +136,21 @@
          </div>
          <div title="Madi" style="height:72px;padding:16px;font-weight:500;box-sizing:border-box;position:relative;">
          <div style="height:45px;width:45px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:45px;font-size:26.5px;color:#ffffff;margin-right:16px;">
+         {{#if this.userimage}}
+         <img src="{{this.userimage}}" style="height:45px;width:45px;user-select:none;border-radius:50%;">
+         {{else}}
          <svg fill="#FFFFFF" height="100%" viewBox="0 0 24 24" width="100%">
          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z">
          </path>
          <path d="M0 0h24v24H0z" fill="none">
          </path>
          </svg>
+         {{/if}}
          </div>
          <div style="display:inline-block;vertical-align:top;max-width:200px;">
          <span style="color:rgba(0, 0, 0, 0.87);display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;margin-left:8px;">{{this.name}}
          </span>
-         <span style="color:rgba(0, 0, 0, 0.54);display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;margin-left:8px;">{{_ "sleeps"}} {{this.maxGuests}}
+         <span style="color:rgba(0, 0, 0, 0.54);display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;margin-left:8px;">{{_ "maxguests"}}: {{this.maxGuests}}
          </span>
          </div>
          </div>

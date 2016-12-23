@@ -19,6 +19,28 @@ import './profilesection.html';
 
 });
 
+  Template.profilesection.onRendered(function() {
+
+
+this.$('.datetimepicker').datetimepicker({
+        format: 'DD/MM/YYYY',
+        //maxDate: moment().subtract(18, 'years'),
+        viewMode:'years'
+        //minDate: moment().subtract(18, 'years'),
+        //keepOpen: true,
+        //inline: true,
+        //focusOnShow:false,
+        //collapse:false,
+        //deactivation des dates ou le parking est completenabledDates()
+        //enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
+        //[moment().add(3, 'days')]            //[
+            //moment().add(7, 'days'),
+            //              ]  <div style="height:100px;width:100px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:100px;font-size:54px;color:#ffffff;">
+
+    });
+
+});
+
 
  Template.profilesection.helpers({
 
@@ -37,10 +59,14 @@ import './profilesection.html';
     return Images.find();
 },
 userdata:function(){
-  if(Meteor.userId())
+  if(Meteor.userId() && UsersData.find({_id:Meteor.userId()}))
   {
-    console.log("User ID: "+UsersData.find({_id:Meteor.userId()}).fetch()[0].firstname);
+    //console.log("User ID: "+UsersData.find({_id:Meteor.userId()}).fetch()[0].firstname);
     return UsersData.find({_id:Meteor.userId()}).fetch()[0];
+  }
+  else
+  {
+    return false;
   }
 }
 
@@ -66,6 +92,41 @@ var js = JSON.parse(dig);
 //Meteor.call( 'UpdateUserData', Meteor.userId(), js );
   },
 
+'dp.change .datetimepicker': function(event, instance){
+ event.preventDefault();
+console.log("datepick chage"+$('.datetimepicker').data().date);
+
+      var dig = '{"birthdate":"'+$('.datetimepicker').data().date+'"}';
+console.log("DIG: "+dig);
+
+var js = JSON.parse(dig);
+        UsersData.update({
+            _id: Meteor.userId()
+        }, {
+            $set: js
+        }, {
+          upsert: true
+        });
+},
+
+  'input .datatext-item': function (event, template) {
+event.preventDefault(); 
+console.log("event text area: "+event.type);
+//
+//var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value.replace(/\n|\r|\0|\t/g,'')+'"}';
+var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value+'"}';
+
+console.log("value length: "+event.currentTarget.value);
+console.log("DIG: "+dig);
+var js = JSON.parse(dig);
+        UsersData.update({
+            _id: Meteor.userId()
+        }, {
+            $set: js
+        }, {
+          upsert: true
+        });
+  },
 
 'click .text-item': function(event, template){
 //console.log("click current text-item label style width: "+event.currentTarget.children[0].style.position);
@@ -103,7 +164,7 @@ console.log("click avatar upload");
   //var email = $(ResId).val();
 },
 
-'click .license-uploader-button': function(e, template){
+'click .license-upload': function(e, template){
 console.log("click license-uploader-button");
   e.preventDefault();
   var inp = template.find('#licenseImage');
@@ -135,7 +196,7 @@ console.log("click license-uploader-button");
               console.log("Split 2: "+sup[1]);
           alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
 //sauvegarde de id de l'image ds la bdd du camping car
-
+//$addToSet
 
 var dig = '{"images":"'+sup[1]+'"}';
 console.log("DIG: "+dig);
@@ -143,9 +204,11 @@ console.log("DIG: "+dig);
 var js = JSON.parse(dig);
         UsersData.update({
             _id: Meteor.userId()
-        }, {
-            $addToSet: js
-        }, {
+        }, 
+            {
+            $set: js
+        }
+        , {
           upsert: true
         });
 
@@ -198,7 +261,7 @@ var js = JSON.parse(dig);
         UsersData.update({
             _id: Meteor.userId()
         }, {
-            $addToSet: js
+            $set: js
         }, {
           upsert: true
         });

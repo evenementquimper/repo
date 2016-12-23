@@ -1,7 +1,7 @@
 
 
 
-<template name="userlisting">
+<template name="mylisting">
 <body>
   
   <div id="app">
@@ -38,22 +38,21 @@ border-left: 1px solid #dcdcdc;">
           <div style="margin-left:0;padding-left:72px;padding-right:82px;padding-bottom:16px;padding-top:16px;position:relative;">
               
               <div style="height:50px;width:50px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:50px;font-size:29px;color:#ffffff;position:absolute;top:16px;left:16px;">
+                              <svg fill="#FFFFFF" height="100%" viewBox="0 0 70 60" width="60%">
 
-                <svg fill="#FFFFFF" height="100%" viewBox="0 0 70 60" width="60%">
-
-<!-- M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z -->
 
                 <path d="M 1.00,12.00 C 1.05,8.86 1.04,5.82 3.43,3.43 6.04,0.82 9.60,1.02 13.00,1.00 13.00,1.00 53.00,1.00 53.00,1.00 55.83,1.04 61.96,1.31 62.20,5.31 62.59,11.75 47.06,10.00 43.00,10.00 43.00,10.00 43.00,35.00 43.00,35.00 43.00,35.00 22.00,35.00 22.00,35.00 21.53,36.58 21.49,37.43 20.41,38.86 13.38,48.16 6.72,36.77 1.00,35.00 1.00,35.00 1.00,12.00 1.00,12.00 Z M 9.04,8.00 C 9.04,8.00 9.04,15.44 9.04,15.44 9.04,15.44 17.00,17.00 17.00,17.00 17.00,17.00 36.00,17.00 36.00,17.00 36.00,17.00 36.00,8.00 36.00,8.00 36.00,8.00 9.04,8.00 9.04,8.00 Z M 58.83,12.60 C 60.93,13.46 62.39,15.31 63.79,17.02 69.81,24.38 69.00,26.08 69.00,35.00 63.93,37.91 60.59,45.57 53.13,41.05 50.13,39.24 50.34,37.35 46.00,35.00 46.00,35.00 46.00,12.00 46.00,12.00 48.79,12.00 56.63,11.70 58.83,12.60 Z M 51.00,17.00 C 51.00,17.00 51.00,23.00 51.00,23.00 51.00,23.00 60.00,23.00 60.00,23.00 57.35,17.76 56.83,17.19 51.00,17.00 Z M 14.76,37.35 C 17.48,36.27 18.47,31.17 12.31,31.66 8.29,35.01 11.92,38.49 14.76,37.35 Z M 58.70,37.34 C 61.12,36.38 62.14,31.18 56.30,31.66 52.07,35.15 55.92,38.46 58.70,37.34 Z">    
                 </path>
                 </svg>
+        
               </div>
 
-              <span style="position:absolute;display:block;top:37px;right:20px;font-size:12px;color:#ef4136;">Not Listed</span>
+              <span style="position:absolute;display:block;top:37px;right:20px;font-size:12px;color:#ef4136;">{{status}}</span>
               <div>{{make}}</div>
               <p style="font-size:14px;line-height:18px;height:36px;margin:0;margin-top:4px;color:rgba(0, 0, 0, 0.54);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">Description: {{description}}</p></div></div></span></div><hr style="margin:0;margin-top:-1px;margin-left:72px;height:1px;border:none;background-color:#f2e8e1;"></div>
 
       {{/each}}
-<div class="user-listings-add">Add new listing</div></div></div></div></div>
+<div class="user-listings-add">{{_ "addnewlisting"}}</div></div></div></div></div>
 {{else}}
 
 {{> atForm}}

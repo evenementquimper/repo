@@ -22,7 +22,7 @@ import './userlayout.html';
 
 import './mylistingLayout.js';
 import './listingsLayout.js';
-import './userlisting.js';
+import './mylisting.js';
 import './userbooking.js';
 
 import './reservationslisting.js';
@@ -34,7 +34,7 @@ import './topnavmylisting.js';
 
 import './managelisting.html';
 import './managelisting.js';
-import './mlsectionright.html';
+import './mlsectionright.js';
 import './mlsectioncontent.html';
 import './mlsectionbuttons.html';
 
@@ -46,6 +46,8 @@ import './sectionbooking.js';
 import './mlsectioncontentavailability.js';
 
 import './listing.js';
+import './book.js';
+
 import './admin.js';
 import './admin.html';
 //import '../accounts/config.js';
@@ -61,62 +63,18 @@ import './loginLayout.html';
 
 Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
-if ("geolocation" in navigator) {
-  /* géolocalisation possible */
-  navigator.geolocation.getCurrentPosition(function(position) {
-  	console.log("lat: "+position.coords.latitude);
-  	console.log("lng: "+position.coords.longitude);
-  //do_something(position.coords.latitude, position.coords.longitude);
-});
-} else {
-  //alert("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
-}
+// if ("geolocation" in navigator) {
+//   /* géolocalisation possible */
+//   navigator.geolocation.getCurrentPosition(function(position) {
+//   	console.log("lat: "+position.coords.latitude);
+//   	console.log("lng: "+position.coords.longitude);
+//   //do_something(position.coords.latitude, position.coords.longitude);
+// });
+// } else {
+//   //alert("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
+// }
 }); 
 
 Template.body.helpers({
 
-  // tasks: function() {
-
-  //   return Tasks.find({});
-
-  // },
-
 });
-
-// Template.body.events({
-
-//   'submit .new-task'(event) {
-
-//     // Prevent default browser form submit
-
-//     event.preventDefault();
-
- 
-
-//     // Get value from form element
-
-//     const target = event.target;
-
-//     const text = target.text.value;
-
- 
-
-//     // Insert a task into the collection
-
-//     Tasks.insert({
-
-//       text,
-
-//       createdAt: new Date(), // current time
-
-//     });
-
- 
-
-//     // Clear form
-
-//     target.text.value = '';
-
-//   },
-
-// });

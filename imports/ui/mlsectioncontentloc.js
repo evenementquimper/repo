@@ -25,7 +25,7 @@ TAPi18n.setLanguage("fr");
   autocomplete.addListener('place_changed', function() {
     var place = autocomplete.getPlace();
 
-    //console.log("Place : "+JSON.stringify(place));
+    console.log("Place : "+JSON.stringify(place));
     if (!place.geometry) {
        window.alert("Autocomplete's returned place contains no geometry");
        return;
@@ -33,7 +33,7 @@ TAPi18n.setLanguage("fr");
 
     // // If the place has a geometry, then present it on a map.
     if (place.geometry.location) {
-var dig = '{"city":"'+place.formatted_address+'","location":'+JSON.stringify(place.geometry.location)+'}';
+var dig = '{"address":"'+place.formatted_address+'","city":"'+place.address_components[2].long_name+'","location":'+JSON.stringify(place.geometry.location)+'}';
 
 var js = JSON.parse(dig);
         CampingCars.update({

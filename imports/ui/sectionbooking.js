@@ -16,13 +16,6 @@ import './sectionbooking.html';
  Template.sectionbooking.onCreated(function() {
      this.dtime = new ReactiveDict();
      this.prizes = new ReactiveDict();
-    // this.zoom = new ReactiveVar(0);
-    // document.on('scroll', function(e) {
-    //     // ... event processing stuff; 
-    //     // say it produces value 'zoomAmount' ...
-    //     this.zoom.set(zoomAmount);
-    // });
-    
 
 });
 
@@ -34,15 +27,6 @@ this.$('.startdatetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',
         minDate: moment(),
 
-        //keepOpen: true,
-        //inline: true,
-        //focusOnShow:false,
-        //collapse:false,
-        //deactivation des dates ou le parking est completenabledDates()
-        //enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
-        //[moment().add(3, 'days')]            //[
-            //moment().add(7, 'days'),
-            //              ]
     });
 this.$('.enddatetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',
@@ -72,8 +56,16 @@ netprize: function(){
 return Template.instance().prizes.get('netprize');
 },
 
+people: function(){
+  //console.log("ppeople : "+Template.instance().prizes.get('peoplenbr'));
+  //Template.instance().prizes.set('peoplenbr', event.currentTarget.innerHTML);
+return Template.instance().prizes.get('peoplenbr');
+},
+
 campingcaraddonsselect:function(){
 
+if(Session.get("addonstab")!=null)
+{
 var addonsids = Session.get("addonstab");
 var addonsbdd = AddOns.find({_id:{ $in: addonsids }}).fetch();
 
@@ -96,6 +88,12 @@ for (var j = 0; addonsbdd.length > j ; j++) {
 
 Template.instance().prizes.set('addonsprize', addonsprize);
 return addonsbdd;
+}
+else
+{
+  return false;
+}
+
 },
 
   currentUpload: function () {
@@ -201,17 +199,65 @@ else
 netprize = pday * dif.asDays();
 //console.log("netp calcul result"+netprize);
  instance.prizes.set('netprize', netprize);
-
+   return dif.asDays();
     }
     else
     {
+      return false;
     }
-    return dif.asDays();
+ 
   },
 
 
 });
   Template.sectionbooking.events({
+
+'click .peoplenbr': function(event, template){
+      event.preventDefault();
+      //console.log("people nbr: "+event.currentTarget.innerHTML);
+Template.instance().prizes.set('peoplenbr', event.currentTarget.innerHTML);
+        var outpoupselect = template.find('#outpoupselect');
+        outpoupselect.style.display = 'none';
+        var transmissionselect = template.find('#peopleselect');
+          transmissionselect.style.display = 'none';
+      
+},
+
+'click #outpoupselect': function(event, template){
+      event.preventDefault();
+    var peopleselect = template.find('#peopleselect');
+var popupselect = template.find('.popupselect');
+
+
+if(peopleselect.style.display == 'inline-block')
+{ 
+  //console.log("fueltypeselect :"+fueltypeselect.style.display);
+  peopleselect.style.display = 'none';
+  event.currentTarget.style.display = 'none';
+  //appcont.style.overflowY = 'scroll';
+}
+else
+{
+
+}
+
+},
+
+'click #people': function(event, template){
+    event.preventDefault();
+    var peopleid = template.find('#people'); 
+var peopleselect = template.find('#peopleselect');
+var outpoupselect = template.find('#outpoupselect');
+outpoupselect.style.display = "inline-block";
+
+peopleselect.style.display = "inline-block";
+console.log("people top: "+peopleid.offsetTop);
+//peopleselect.style.top = event.pageY+'px';
+//peopleselect.style.left = event.pageX+'px';
+
+peopleselect.style.top = peopleid.style.top;
+peopleselect.style.left = peopleid.style.left;
+},
 
     'e.wheelDelta': function(event, template) {
         //console.log("scrolled");
@@ -242,6 +288,7 @@ if(Meteor.userId())
      Reservations.insert({"user_id":Meteor.userId(),
                           "resource_id":FlowRouter.getParam('_id'),
                           "status":"newbooking",
+                          "people": instance.prizes.get('peoplenbr'),
                           "start_time": instance.dtime.get('startdatepicker'), 
                           "end_time": instance.dtime.get('enddatepicker'),
                           "addons_id":Session.get("addonstab"),

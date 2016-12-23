@@ -1,0 +1,71 @@
+
+
+
+<template name="book">
+<body>
+  
+  <div id="app">
+  
+  <div class="root">
+    
+    <div class="top-nav-mobile">
+      
+    
+    </div>
+     {{> nav}}
+    <div class="app">
+         <div class="left-nav left-nav-medium">
+{{> leftnavuser}}
+    </div>
+{{#if currentUser}}
+<div class="app-container">
+
+<div class="app-container-view">
+<div class="ml-section-content">
+<div class="ml-page">
+<div class="ml-panel">
+<div class="ml-panel-intro">
+<h1 class="ml-panel-intro-title">Détail de la réservation
+</h1>
+<h2 class="ml-panel-intro-subtitle">{{book.info}}</h2>
+</div>
+
+<div class="ml-panel-column">
+
+<div>Nom du camping car : lecampingcar</div>
+<div>Proprietaire du camping car : lecampingcar</div>
+<div>Téléphone du proprietaire du camping car : lecampingcartel</div>
+<div>Adresse du camping car : lecampingcaradresse</div>
+<div>Nombre de personnes : {{book.people}}</div>
+<div>Début : {{book.start_time}}</div>
+<div>Fin : {{book.end_time}}</div>
+<div>Créer le : {{book.createdAt}}</div>
+<div>Statut : {{book.status}}</div>
+<div>Assurance réservation : {{book.ass}}</div>
+<div>Options : {{book.createdAt}}</div>
+<div>Prix total : {{book.createdAt}}</div>  
+
+</div>
+
+</div>
+
+<div class="ml-panel ml-panel--section" style="width: 65%;"><div class="addons-panel" style="color: rgba(86, 90, 92, 0.87); background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px;">
+<p class="ml-panel-additional-content">Télécharger et remplissez le modèle d'état des lieux avant de commençer votre voyage et lors de la restitution du camping-car.</p><div style="text-align: right;">
+<button class="etatlieux" id="{{book._id}}" tabindex="0" type="button" style="-moz-user-select: none; border: 10px none; box-sizing: border-box; display: inline-block; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; margin: 0px; padding: 0px; outline: medium none; font-size: inherit; font-weight: inherit; transform: translate(0px, 0px); height: 36px; line-height: 36px; min-width: 88px; color: rgb(239, 65, 54); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; border-radius: 2px; position: relative; overflow: hidden; background-color: transparent; text-align: center;"><div><span style="position: relative; padding-left: 16px; padding-right: 16px; vertical-align: middle; letter-spacing: 0px; text-transform: uppercase; font-weight: 500; font-size: 14px;">Télécharger Etat des lieux</span></div></button></div></div></div>
+<div class="ml-panel ml-panel--section" style="width: 65%;"><div class="addons-panel" style="color: rgba(86, 90, 92, 0.87); background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px;">
+<p class="ml-panel-additional-content">Attention des frais a hauteur de 20% du montant total de votre réservation vous seront prélever.</p><div style="text-align: right;">
+<button class="cancelbook" id="{{book._id}}" tabindex="0" type="button" style="-moz-user-select: none; border: 10px none; box-sizing: border-box; display: inline-block; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; margin: 0px; padding: 0px; outline: medium none; font-size: inherit; font-weight: inherit; transform: translate(0px, 0px); height: 36px; line-height: 36px; min-width: 88px; color: rgb(239, 65, 54); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; border-radius: 2px; position: relative; overflow: hidden; background-color: transparent; text-align: center;"><div><span style="position: relative; padding-left: 16px; padding-right: 16px; vertical-align: middle; letter-spacing: 0px; text-transform: uppercase; font-weight: 500; font-size: 14px;">Annuler la réservation</span></div></button></div></div></div>
+</div>
+</div>
+</div>
+</div>
+{{else}}
+{{/if}}
+    </div>
+  
+  </div>
+</div>
+</body>
+</template>
+
+

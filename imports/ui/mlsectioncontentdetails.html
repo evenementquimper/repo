@@ -93,7 +93,84 @@
 
 <div class="ml-panel-column">
 
-<div class="flex-grid" data-reactid=".0.1.1.3.0.$main.0.1.0.0.2.0">
+<div class="flex-grid">
+
+
+<div style="width: 50%;">
+
+<div class="select-item" style="font-size:16px;line-height:24px;width:256px;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+
+{{#if campingcars.km}}
+<label style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">{{_ "milage"}} (km)</label>
+{{else}}
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);">{{_ "milage"}}</label>
+{{/if}}
+
+<input class="data-item" name="km" value="{{campingcars.km}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:40%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="number">
+
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+
+</div>
+
+</div>
+
+<div style="width: 50%;">
+
+<div class="select-item" style="font-size:16px;line-height:24px;width:256px;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+
+{{#if campingcars.vehiculeheight}}
+<label style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">{{_ "vehiculeheight"}} (m)</label>
+{{else}}
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);">{{_ "vehiculeheight"}}</label>
+{{/if}}
+
+<input class="data-item" name="vehiculeheight" value="{{campingcars.vehiculeheight}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:40%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="number" step="0.01" min="0" max="10">
+
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+
+</div>
+
+</div>
+
+<div style="width: 50%;">
+
+<div class="select-item" style="font-size:16px;line-height:24px;width:256px;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+
+{{#if campingcars.vehiculelength}}
+<label style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">{{_ "vehiculelength"}} (m)</label>
+{{else}}
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);">{{_ "vehiculelength"}}</label>
+{{/if}}
+
+<input class="data-item" name="vehiculelength" value="{{campingcars.vehiculelength}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:40%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="number" step="0.01" min="0" max="10">
+
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+
+</div>
+
+</div>
+
+<div style="width: 50%;">
+
+<div class="select-item" style="font-size:16px;line-height:24px;width:256px;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+
+{{#if campingcars.vehiculewidth}}
+<label style="top: 38px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; cursor: text; color: rgba(86,90,92,0.5);">{{_ "vehiculewidth"}} (m)</label>
+{{else}}
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);">{{_ "vehiculewidth"}}</label>
+{{/if}}
+
+<input class="data-item" name="vehiculewidth" value="{{campingcars.vehiculewidth}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:40%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="number" step="0.01" min="0" max="10">
+
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+
+</div>
+
+</div>
 
 <div style="width: 50%;">
 
@@ -2110,6 +2187,8 @@
 <div style="box-sizing:border-box;content:' ';clear:both;display:table;"></div></div></div></div></div></div></div></div></div></div></form>
 
 </div>
+
+
 
 <div id="outpoupselect" style="display:none; position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; z-index: 2000;">
 

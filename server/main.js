@@ -32,7 +32,7 @@ Meteor.startup(() => {
 });
 
 Meteor.onConnection(function(conn) {
-    console.log("connection client address: "+conn.clientAddress);
+    //console.log("connection client address: "+conn.clientAddress);
     //console.log("connection client id: "+conn.id);
 //nbrconn = nbrconn+1;
 //console.log("nbr de client connect: "+nbrconn);

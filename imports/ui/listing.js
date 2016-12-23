@@ -29,7 +29,8 @@ this.$('.datetimepicker').datetimepicker({
         //enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
         //[moment().add(3, 'days')]            //[
             //moment().add(7, 'days'),
-            //              ]
+            //              ]  <div style="height:100px;width:100px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:100px;font-size:54px;color:#ffffff;">
+
     });
 
 });
@@ -37,45 +38,43 @@ this.$('.datetimepicker').datetimepicker({
  Template.listing.helpers({
 
     campingcar: function(){
-    //const instance = Template.instance();
-    //console.log("route id : "+FlowRouter.getParam("_id"));
+if(CampingCars.find({_id:FlowRouter.getParam("_id")}))
+{
 return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+
+}
+else
+{
+  return false;
+}
   },
   campingcaraddons: function(){
 return AddOns.find({campingcarId:FlowRouter.getParam("_id")}).fetch();
 },
   campingcaruser:function(){
 
+if(CampingCars.find({_id:FlowRouter.getParam("_id")}))
+{
+
     var campingcar = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
     var proprioId = campingcar.userid;
-console.log("CampingCars userId: "+UsersData.find({_id:proprioId}).fetch()[0]._id);
+if(UsersData.find({_id:proprioId}))
+{
  return UsersData.find({_id:proprioId}).fetch()[0];
+
+}
+else
+{
+  return false;
+}
+
+}
+else
+{
+  return false;
+}
 },
 
-// errors:function(){
-// return Errors_Coll.find({}).fetch();
-// },
-    // gates:function(){
-    //        return Gate_Coll.find({}).fetch();
-    // },
-    // interval:function(){
-    //   console.log("Interval: "+gateState.get(rr));
-    //         return gateState.get(rr);
-    // },
-    // car:function(){
-    //   return Gate2_Coll.find({}).fetch();
-    //   console.log("Barrière info: "+bdd[0].datavalues.input1state);
-
-    //   if(bdd[0].datavalues.input1state==1)
-    //   {
-    //     return true;
-    //   }
-    //   else
-    //   {
-    //     return false;
-    //   }
-
-    // },
 });
   Template.listing.events({
 'click .add-addon':function(event, template){

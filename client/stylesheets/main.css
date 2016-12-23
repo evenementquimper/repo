@@ -4877,7 +4877,7 @@ body {
 }
 @media screen and (min-width:592px) {
 	.top-nav-menu {
-		width:calc(70% - 184px);
+		width:calc(77% - 184px);
 		padding-left:10px
 	}
 }

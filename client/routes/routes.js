@@ -30,6 +30,8 @@ console.log("creation xml");
   }
 });
 
+
+
 FlowRouter.route('/dashboard_one', {
   name: 'dashboard2',
   // triggersEnter: [AccountsTemplates.ensureSignedIn],
@@ -102,9 +104,9 @@ FlowRouter.route('/userbooking', {
 });
 
 FlowRouter.route('/mylisting', {
-  name:'userlisting',
+  name:'mylisting',
   action: function() {
-    BlazeLayout.render("userlisting");
+    BlazeLayout.render("mylisting");
 
   }
 });
@@ -167,6 +169,13 @@ FlowRouter.route('/listings/:_id', {
   }
 });
 
+FlowRouter.route('/book/:_id', {
+  name:'book',
+  action: function(){
+    BlazeLayout.render("book");
+  }
+});
+
 FlowRouter.route('/admin', {
   name:'admin',
   action: function() {
@@ -174,3 +183,8 @@ FlowRouter.route('/admin', {
 
   }
 });
+
+// Picker.route('/post/:_id', function(params, req, res, next) {
+//   var post = Posts.findOne(params._id);
+//   res.end(post.content);
+// });

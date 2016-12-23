@@ -30,6 +30,11 @@
 	"vehiculedescription":"Vehicle Description",
 	"basicsintrotitle2":"Help travellers find the right fit",
 	"basicsintrosubtitle2":"People searching on Le Bon Camping-car can filter by listing basics to find a camper that matches their dream.",
+	"firstname":"Firstname",
+	"lastname":"Lastname",
+	"birthdate":"Birthdate",
+	"tellusaboutyou":"Tell us about you",
+	"addnewlisting":"Add new listing",
 	"about":"About",
 	"addons":"Addons",
 	"aboutthislisting":"About this Listing",
@@ -43,6 +48,10 @@
 	"make":"Make",
 	"model":"Model",
 	"year":"Year",
+	"milage":"Milage",
+	"vehiculeheight":"Height",
+	"vehiculelength":"Length",
+	"vehiculewidth":"Width",
 	"enginesize":"Engine Size",
 	"fueltype":"Fuel Type",
 	"transmission":"Transmission",
@@ -105,9 +114,11 @@
 	"pick-up":"Pick-up",
 	"drop-off":"Drop-off",
 	"guests":"Guests",
+	"people":"People",
 	"days":"days",
 	"serandroadsup":"Service and Roadside Support",
-	"requestbooking":"Request a Booking"
+	"requestbooking":"Request a Booking",
+	"vehiculename":"Vehicule Name"
 
 
 }

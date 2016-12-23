@@ -4,22 +4,24 @@ import { EJSON } from 'meteor/ejson';
 
 import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
+import { UsersData } from '../api/usersdata.js';
  
 
-import './userlisting.html';
+import './mylisting.html';
 
- Template.userlisting.onCreated(function() {
-console.log("Star userlisting.js");
+ Template.mylisting.onCreated(function() {
+console.log("Star mylisting.js");
 
   this.autorun(() => {
     this.subscribe('tasks');
     this.subscribe('campingcars');
+    this.subscribe('usersdata');
   });
 
 });
 
 
- Template.userlisting.helpers({
+ Template.mylisting.helpers({
 
 
  campingcars(){
@@ -29,12 +31,26 @@ console.log("Star userlisting.js");
 return CampingCars.find({"userid": Meteor.userId()});
   },
 
+
+
 });
-  Template.userlisting.events({
+  Template.mylisting.events({
 
   'click .user-listings-add':function(event, template){
     event.preventDefault();
     var resId = null;
+    var userimg = false;
+
+    if(UsersData.find({_id:Meteor.userId()}))
+    {
+    var userdat = UsersData.find({_id:Meteor.userId()}).fetch()[0];
+    userimg = userdat.images;
+    }
+else
+{
+
+}
+
 //console.log("click input nameœ: "+event.target.name);
 //console.log("click input value: "+event.target.value);
 //console.log("click tag name: "+event.target.tagName);
@@ -50,6 +66,7 @@ return CampingCars.find({"userid": Meteor.userId()});
 
       CampingCars.insert({
               userid: Meteor.userId(),
+              userimage:userimg,
               //planyo_resource_id: resId,
               createdAt: new Date()
           }, function( error, result) { 

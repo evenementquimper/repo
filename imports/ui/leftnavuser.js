@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 import { EJSON } from 'meteor/ejson';
  
 import { CampingCars } from '../api/campingcars.js';
- 
+ import { UsersData } from '../api/usersdata.js';
 
 import './leftnavuser.html';
 
@@ -11,6 +11,7 @@ import './leftnavuser.html';
   this.autorun(() => {
     //this.subscribe('users');
     this.subscribe('campingcars');
+    this.subscribe('usersdata');
   });
 
 });
@@ -21,7 +22,14 @@ import './leftnavuser.html';
 
  campingcars(){
 return CampingCars.find({"userid": Meteor.userId()});
+  },
+  userdata:function(){
+  if(Meteor.userId())
+  {
+    console.log("User ID: "+UsersData.find({_id:Meteor.userId()}).fetch()[0].firstname);
+    return UsersData.find({_id:Meteor.userId()}).fetch()[0];
   }
+}
 
 });
   Template.leftnavuser.events({
@@ -47,6 +55,6 @@ return CampingCars.find({"userid": Meteor.userId()});
   },
     'click .mylisting':function(event, template){
     event.preventDefault();
-    FlowRouter.go("userlisting");
+    FlowRouter.go("mylisting");
   },
    });

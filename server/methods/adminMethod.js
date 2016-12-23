@@ -128,6 +128,8 @@ console.log("tab 0: "+pcty.trim());
    coms = Communes.find({$text:{$search:pcty}});
 
    console.log("nomb de com: "+coms.count());
+
+   
     
 }
 else

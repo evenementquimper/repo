@@ -1,12 +1,12 @@
 <template name="leftnavuser">
 <div class="left-nav-user">
-<img src="https://res.cloudinary.com/mighway/image/upload/w_80,h_80,c_thumb,g_face/avatars/YqNq9nAEsHzAs3dmt/logo_AR_303-1470063217233">
 {{#if currentUser}}
-<div class="left-nav-user-name">{{currentUser.emails.[0].address}}
-</div>
+<img src="{{userdata.images}}" style="width: 95px;height: 100px;border-radius: 70%;">
 {{else}}
-<p>Pas de user</p>
 {{/if}}
+
+<div class="left-nav-user-name">
+</div>
 
 </div>
 
