@@ -585,6 +585,18 @@ console.log("click current value: "+event.currentTarget.value);
 Template.instance().mailling.set('adres', event.currentTarget.value);
   },
 
+'change .selectstatus':function(event, template){
+console.log("event id: "+event.currentTarget.id);
+console.log("event select: "+event.currentTarget.value);
+
+Reservations.update({_id:event.currentTarget.id},{$set:{status:event.currentTarget.value}},{upsert:true});
+
+},
+
+'click .removebook':function(event, template){
+Reservations.remove({_id:event.currentTarget.id});
+},
+
   'click .removemailing':function(event, template){
    var mailing = Mailings.find({_id:event.currentTarget.id}).fetch()[0];
    console.log("timeout id: "+mailing.timeout);

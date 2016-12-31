@@ -3,8 +3,16 @@
 
 FlowRouter.route('/', {
 	name:'index',
-  action() {
+  action:function() {
+    if (Meteor.user())
+    {
     BlazeLayout.render("mainLayout", {nav:"nav",homepage:"homepage"});
+
+    }
+else
+{
+  BlazeLayout.render("mainLayout", {nav:"navcon",homepage:"inwork"});
+}
  }
 });
 
@@ -183,6 +191,16 @@ FlowRouter.route('/admin', {
 
   }
 });
+
+FlowRouter.notFound = {
+    // Subscriptions registered here don't have Fast Render support.
+    subscriptions: function() {
+
+    },
+    action: function() {
+BlazeLayout.render("mainLayout", {nav:"naverror",homepage:"inwork"});
+    }
+};
 
 // Picker.route('/post/:_id', function(params, req, res, next) {
 //   var post = Posts.findOne(params._id);

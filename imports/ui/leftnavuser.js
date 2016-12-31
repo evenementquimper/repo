@@ -11,7 +11,7 @@ import './leftnavuser.html';
   this.autorun(() => {
     //this.subscribe('users');
     this.subscribe('campingcars');
-    this.subscribe('usersdata');
+    //this.subscribe('usersdata');
   });
 
 });
@@ -19,15 +19,15 @@ import './leftnavuser.html';
 
  Template.leftnavuser.helpers({
 
-
- campingcars(){
-return CampingCars.find({"userid": Meteor.userId()});
-  },
   userdata:function(){
-  if(Meteor.userId())
+  if(Meteor.userId() && UsersData.find({}))
   {
-    console.log("User ID: "+UsersData.find({_id:Meteor.userId()}).fetch()[0].firstname);
+    //console.log("User ID: "+UsersData.find({_id:Meteor.userId()}).fetch()[0].firstname);
     return UsersData.find({_id:Meteor.userId()}).fetch()[0];
+  }
+  else
+  {
+    return false;
   }
 }
 

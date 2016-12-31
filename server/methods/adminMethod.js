@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { CampingCars } from '../../imports/api/campingcars.js';
 import { AddOns } from '../../imports/api/addons.js';
@@ -22,7 +23,6 @@ Meteor.startup(function () {
 // const name = 'Will Robinson';
 // myConsole.warn(`Danger ${name}! Danger!`);
 
-//console.log("template: "+hand);
   //observation de la base de donnée réservations
 
 var count = 0;
@@ -33,7 +33,7 @@ var handle = query.observeChanges({
     //attention lors du relancement de meteor car relecture des réservations déja sauvegarder
 
     if(fields.status)
-    console.log(count+" UserId: "+id + " réserve le camping car Id " + fields.resource_id);
+    console.log("Add new booking: "+count+" UserId: "+id + " réserve le camping car Id " + fields.resource_id);
   //clear les nouvelles réservations qui date de la veille (non payer)
 
 
@@ -44,7 +44,8 @@ var reservation = Reservations.find({_id:id}).fetch()[0];
 
     //console.log("who Change?: "+whochange);
     //console.log("fields _id: "+fields.status);
-//console.log("Id du camping car: "+whochange.resource_id);
+console.log("Id du user: "+reservation.user_id);
+var user = Meteor.users.find({_id: reservation.user_id}).fetch()[0];
 var campingcardata = CampingCars.find({_id:reservation.resource_id}).fetch()[0];
 
 var options = false;
@@ -66,8 +67,17 @@ options = AddOns.find({_id:{$in:reservation.addons_id}}).fetch();
       //vérifier que la date de paiement est récente avant l'envoie du mail de confirmation de la réservation
         var tempmail_bookconf = Handlebars.templates['tempmail']({bookingid:"id",datemailcreated:moment().format('DD-MM-YYYY'), campingcar:campingcardata, options:options, reservation:reservation});
         //console.log("Mail de confirmation: "+tempmail_bookconf);
-          //Meteor.call('SendMail', 0, Meteor.settings.admin.ADM_EMAIL, 'subjecttest', tempmail_bookconf, null, null, null);
+          
+    }
+    if(fields.status == "sendmail_to_renter_book_confirm")
+    {
+      console.log("Sendmail to renter book confirm to"+user.emails[0].address);
+        var tempmail_bookconf = Handlebars.templates['tempmail']({bookingid:"id",datemailcreated:moment().format('DD-MM-YYYY'), campingcar:campingcardata, options:options, reservation:reservation});
+        
+      //Meteor.call('SendMail', 0, Meteor.settings.admin.ADM_EMAIL, 'subjecttest', tempmail_bookconf, null, null, null);
+Meteor.call('SendMail', 0, user.emails[0].address, 'subjecttest', tempmail_bookconf, null, null, null);
 
+      Reservations.update({_id:id},{$set:{status:"inprogress"}},{upsert:true});
     }
     if(fields.status == "admin_annul")
     {

@@ -20,7 +20,7 @@ import './mylistingLayout.html';
     this.subscribe('Images');
     this.subscribe('addons');
     this.subscribe('reservations');
-    
+    this.subscribe('usersdata');
   });
 });
 

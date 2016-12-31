@@ -27,7 +27,16 @@
 
 {{#each reservations}}
 <div><p>Réservations {{this._id}}</p>
-
+<p>Réservations status: {{this.status}}</p>
+<select class="selectstatus" id="{{this._id}}">Status
+  <option>newbooking</option>
+  <option>sendmail_to_renter_book_confirm</option>
+  <option>pay_ok</option>
+  <option>admin_annul</option>
+  <option>inprogress</option>
+  <option>finish</option>
+  <option>close</option></select>
+<button class="removebook" id="{{this._id}}">Remove booking</button>
 </div>
 {{/each}}
 {{else}}

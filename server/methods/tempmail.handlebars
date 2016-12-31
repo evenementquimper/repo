@@ -16,10 +16,10 @@
         <!--HEADER-->
         <table style="border-bottom:1px solid #d7d9e4;font-family:arial;" height="60" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
   <tbody><tr>
-    <td width="240">
-      <a href="http://www.cdiscount.com" target="_blank"><img style="display:block;" alt="Cdiscount" src="https://i1.cdscdn.com/imagesok/templatemail/20160607-113829_394365.png" width="240" height="60" border="0"></a>
+    <td width="300">
+      <a href="http://www.leboncampingcar.fr" target="_blank"><img style="display:block;" alt="Cdiscount" src="http://localhost:4444/images/lbcclogo02.png" width="300" height="60" border="0"></a>
     </td>
-    <td style="font-size:24px;font-weight:bold;color:#e23a05;text-align:right;padding-right:10px;font-family:arial;" width="440">Validation de réservation</td>
+    <td style="font-size:24px;font-weight:bold;color:#f56b2a;text-align:right;padding-right:10px;font-family:arial;" width="440">Validation de réservation</td>
   </tr>
 </tbody></table>
          
@@ -41,18 +41,61 @@
               <table width="100%" height="80" cellspacing="0" cellpadding="0" border="0"><tbody><tr>
                 <td style="font-size:12px;color:#323232;" width="45%">Retrouvez votre réservation en cliquant ici:</td>
                 <td width="55%">
-                  <a href="https://clients.cdiscount.com/order/orderstracking.html" target="_blank"><img style="display:block;" alt="Mon Compte" src="https://i1.cdiscount.com/imagesOK/templatemail/20151015-145237_322960.gif" width="153" height="72" border="0"></a>
+
+                  <a href="http://localhost:4444/book/{{bookingid}}" target="_blank">
+
+                  <div style="height:50px;width:50px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:50px;font-size:29px;color:#ffffff;top:16px;left:16px;">
+
+                <svg fill="#FFFFFF" height="100%" viewBox="0 0 70 60" width="70%">
+
+             <path d="M 16.41,13.36
+           C 14.45,15.17 12.03,14.22 11.29,11.77
+             10.37,8.69 10.77,4.57 12.59,2.04
+             20.25,-0.59 18.34,11.57 16.41,13.36 Z
+           M 57.69,13.26
+           C 53.19,16.19 49.85,7.41 53.73,2.01
+             61.15,-0.55 61.17,10.98 57.69,13.26 Z
+           M 8.00,8.00
+           C 8.37,18.66 16.19,18.59 19.15,14.72
+             20.64,12.77 20.78,10.34 21.00,8.00
+             21.00,8.00 50.00,8.00 50.00,8.00
+             50.03,10.06 49.86,12.83 51.02,14.61
+             53.41,18.27 61.59,19.66 62.00,8.00
+             62.00,8.00 70.00,8.00 70.00,8.00
+             70.00,8.00 70.00,69.00 70.00,69.00
+             70.00,69.00 0.00,69.00 0.00,69.00
+             0.00,69.00 0.00,8.00 0.00,8.00
+             0.00,8.00 8.00,8.00 8.00,8.00 Z
+           M 7.00,37.00
+           C 7.00,37.00 7.00,62.00 7.00,62.00
+             7.00,62.00 63.00,62.00 63.00,62.00
+             63.00,62.00 63.00,24.00 63.00,24.00
+             63.00,24.00 30.00,25.00 30.00,25.00
+             30.00,25.00 8.00,24.00 8.00,24.00
+             8.00,24.00 7.00,37.00 7.00,37.00 Z
+           M 52.00,31.00
+           C 52.00,31.00 44.28,40.00 44.28,40.00
+             44.28,40.00 33.00,57.00 33.00,57.00
+             29.90,54.78 22.47,48.49 21.17,45.06
+             19.04,39.47 26.19,42.82 28.00,43.80
+             28.00,43.80 32.00,46.00 32.00,46.00
+             35.04,40.02 45.07,30.48 52.00,31.00 Z"></path>
+                <path d="M0 0h24v24H0z" fill="none">
+                  
+                </path>
+                </svg>
+              </div>
+                  </a>
                 </td>
               </tr></tbody></table>
-              Pour toute autre question, veuillez contater le vendeur depuis votre compte en ligne.  <br><br>
+              Pour toute autre question, veuillez contater le propriétaire du camping-car au: {{campingcar.tel}} .  <br><br>
               
-              Pour plus d'information, consulter la FAQ : <a href="http://rt4-t.notification-cdiscount.cdiscount.com/r/?id=h205c801,39e69b0,39e69b1" target="_blank">Tout savoir sur une commande passée auprès d’un vendeur C Le Marché ?</a> <br><br>
-              
+       
               <!-- Fin Mon compte-->
               <br>
               
                 
-                   <div style="font-size:13px;color:#323232;font-weight:normal;">Référence à rappeler lors de tout contact avec le service client : <span style="font-weight:bold;">Facture n°735884178</span></div><br>
+                   <div style="font-size:13px;color:#323232;font-weight:normal;">Référence à rappeler lors de tout contact avec le service client : <span style="font-weight:bold;">Facture n°{{factureid}}</span></div><br>
                    
                 
               
@@ -92,9 +135,7 @@
 {{#if options}}
 OPTIONS: 
 {{#each options}}
-<p>Option ID:  {{this.id}}</p>
 <p>Option nom:  {{this.name}}</p>
-<p>Option nom:  {{this.description}}</p>
 {{/each}}
 {{/if}}
                         </td>
@@ -105,8 +146,8 @@ OPTIONS:
 
                           <td style="padding:5px;" rowspan="1" width="150">
                             
-                               Prix : {{reservation.netprize}}
-                            
+                               Prix : {{reservation.netprize}} €
+                             
                           </td>
                         
                       </tr>
@@ -117,7 +158,7 @@ OPTIONS:
               
               <div style="font-family:Arial;">
                 <span style="font-weight:bold;">Mode de paiement :</span> comptant par carte bancaire<br>
-                <span style="font-weight:bold;">Montant de la réservation : </span>22.13€<br>
+                <span style="font-weight:bold;">Montant de la réservation : </span>{{reservation.netprize}} €<br>
               </div>
               <!-- Mensualités -->
               
@@ -128,7 +169,6 @@ OPTIONS:
             <td style="font-size:12px;color:#323232;padding-left:10px; padding-right:20px;font-family:Arial;">
               A bientôt,<br>
               Votre Service Client
-              <br><img alt="" src="http://i6.cdscdn.com/imagesok/templatemail/20160920-171251_419295.jpg?rnd=171FC6C3" border="0"><br>
             </td>
           </tr>
           <tr>
@@ -140,51 +180,7 @@ OPTIONS:
       <!-- FIN Contenu -->
       </td>
     </tr>
-  </tbody></table>
-  <!--FIN Header + Contenu-->
-  <table align="center" cellspacing="0" cellpadding="0" border="0">
-    <tbody><tr>
-      <td align="center" width="680" height="10"><a href="#" target="_blank" style="color:#096ec8;font-size:12px;text-decoration:none;"></a></td>
-    </tr>
-  </tbody></table>
-  <table style="font-family:Arial;" align="center" cellspacing="0" cellpadding="0" border="0">
-    <tbody><tr><td align="center" width="680" height="10"><a href="#" target="_blank" style="color:#096ec8;font-size:12px;text-decoration:none;"></a></td></tr>
-  </tbody></table>
-    
-  <table style="border:1px solid #d7d9e4" align="center" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
-  <tbody><tr>
-    <td align="center" width="680" height="60">
-      <table style="border-bottom:1px solid #d7d9e4;font-family:arial;" width="678" height="60" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
-        <tbody><tr><td style="font-size:24px;font-weight:bold;color:#323232;padding-left:10px;">Vous pouvez nous contacter à tout moment !</td></tr>
-      </tbody></table>
-      <table style="border-bottom:1px dotted #d7d9e4;font-family:arial;" width="678" height="60" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
-        <tbody><tr>
-          <td style="font-size:12px;color:#323232;padding-left:10px;padding-top:10px;" align="left">
-            <span style="font-size:16px;line-height:30px;font-weight:bold;">J’ai une question sur ma commande ?</span><br>
-            <span style="font-size:12px;line-height:30px;">Avec mon Service Client en ligne, je peux suivre et gérer: </span><br>
-            <ul style="line-height:20px;list-style-type:none;margin:0;padding-left:20px;">
-              <li><a href="https://clients.cdiscount.com/Faq/TemplateFaq1.aspx?faqId=1" target="_blank" style="color:#096ec8;text-decoration:none;">Le paiement et la livraison de ma commande</a></li>
-              <li><a href="https://clients.cdiscount.com/Faq/TemplateFaq1.aspx?faqId=7" target="_blank" style="color:#096ec8;text-decoration:none;">La réception de ma commande</a></li>
-              <li><a href="http://rt4-t.notification-cdiscount.cdiscount.com/r/?id=h205c801,39e69b0,39e69b2" target="_blank" style="color:#096ec8;text-decoration:none;">L'édition de ma facture</a></li>
-              <li><a href="https://clients.cdiscount.com/Faq/TemplateFaq1.aspx?faqId=18" target="_blank" style="color:#096ec8;text-decoration:none;">Mes bons d’achat et remboursements</a></li>
-              <li><a href="https://clients.cdiscount.com/Faq/TemplateFaq1.aspx?faqId=14" target="_blank" style="color:#096ec8;text-decoration:none;">Le SAV de mon produit</a></li>
-            </ul>
-            <table style="font-family:arial;" cellspacing="0" cellpadding="0" border="0">
-             <tbody><tr>
-               <td style="font-size:12px;line-height:30px;" align="left">Pour accéder aux fonctionnalités en ligne, cliquez ici : </td>
-               <td style="padding-left:10px;" align="left"></td>
-             </tr>
-            </tbody></table>
-            <br>
-            
-              </td></tr></tbody></table>
-              
-                <table style="border-bottom:1px dotted #d7d9e4;font-family:arial;" width="678" height="60" cellspacing="0" cellpadding="0" border="0" bgcolor="white">
-                </table>
-              
-            <br>
-            </td></tr></tbody></table>
-          
+  </tbody></table>        
                   </td>
                 </tr>
               </tbody></table>           

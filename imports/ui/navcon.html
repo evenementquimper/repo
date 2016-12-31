@@ -1,0 +1,32 @@
+    <template name="navcon">
+    <nav class="top-nav top-nav--functional">
+
+  {{#if currentUser}}
+
+
+
+      <ul class="top-nav-menu">
+      <li class="top-nav-menu-route">
+      <a class="top-nav-logout">{{_ "logout"}}</a>
+      </li>
+      <li class="top-nav-menu-route">
+      <a class="nav-my-account" href="/user">{{_ "myaccount"}}</a></li>
+      <li class="top-nav-menu-route">
+      <a class="nav-my-booking" href="/userbooking">{{_ "mybookings"}}</a>
+      </li>
+      <li class="top-nav-menu-route">
+      <a class="nav-my-listing" href="/mylisting">{{_ "mylistings"}}</a>
+      </li>
+      </ul>
+
+    {{else}}
+<ul class="top-nav-menu">
+<li class="top-nav-menu-route"><a class="" href="/authentication" style="">{{_ "login"}}</a></li>
+</ul>
+
+{{/if}}
+      <div class="logo"><a class="" href="/"><img src="/images/lbcclogo02.png" alt="Logo Image"></a></div>
+
+    </nav>
+</template>
+
