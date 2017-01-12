@@ -9,27 +9,43 @@ import { CampingCars } from '../api/campingcars.js';
 import './mlsectioncontentbasics.html';
  
  Template.mlsectioncontentbasics.onCreated(function() {
-TAPi18n.setLanguage("fr");
+
+
+  Tracker.autorun(function () {
+    Meteor.subscribe("campingcars");
+    Meteor.subscribe('Images');
+    Meteor.subscribe('addons');
+    Meteor.subscribe('reservations');
+    Meteor.subscribe('usersdata');
+});
+
+//TAPi18n.setLanguage("fr");
 });
 
  Template.mlsectioncontentbasics.helpers({
     campingcars: function(){
-    //const instance = Template.instance();
-    //console.log("helper route id : "+FlowRouter.getParam("_id"));
-    console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
-return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
-  }
+      if(Meteor.userId()!==CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].userid)
+      {
+         FlowRouter.go("index");
+         return true;
+      }
+      else
+      {
+          return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+
+      }
+}
 
 });
 
   Template.mlsectioncontentbasics.events({
 
   'input .data-item': function (event, template) {
-//event.preventDefault(); 
-console.log("event: "+event.type);
+event.preventDefault(); 
+//console.log("event: "+event.type);
     var routeid = FlowRouter.getParam('_id');
 var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value+'"}';
-console.log("DIG: "+dig);
+//console.log("DIG: "+dig);
 
 var js = JSON.parse(dig);
         CampingCars.update({
@@ -43,12 +59,10 @@ var js = JSON.parse(dig);
 
   'input .datatext-item': function (event, template) {
 event.preventDefault(); 
-console.log("event text area: "+event.type);
-
     var routeid = FlowRouter.getParam('_id');
 var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value.replace(/\n|\r|\0|\t/g,'')+'"}';
-console.log("value length: "+event.currentTarget.value.replace(/\n|\r|\0|\t/g,''));
-console.log("DIG: "+dig);
+//console.log("value length: "+event.currentTarget.value.replace(/\n|\r|\0|\t/g,''));
+//console.log("DIG: "+dig);
 var js = JSON.parse(dig);
         CampingCars.update({
             _id: FlowRouter.getParam('_id')

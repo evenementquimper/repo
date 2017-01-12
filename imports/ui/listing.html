@@ -409,14 +409,23 @@
          </div>
          <div class="col-8">
          <div class="flex-grid">
+
          <div style="width:50%;" class="flex-grid-item">
+         {{#if campingcar.vacuum}}
+         <div class="list-amenity">{{_ "centralvacuumcleaner"}}
+         </div>
+         {{else}}
+          
          <div class="list-amenity">
          <del>{{_ "centralvacuumcleaner"}}
          </del>
+         
          </div>
+         {{/if}}
          </div>
+         
          <div style="width:50%;" class="flex-grid-item">
-         {{#if campingcar.vaccum}}
+         {{#if campingcar.hotwtr}}
          <div class="list-amenity">{{_ "hotwater"}}
          </div>
          {{else}}
@@ -424,10 +433,19 @@
          </del>
          {{/if}}
          </div>
+
+         {{#if campingcar.wtrpur}}
          <div style="width:50%;" class="flex-grid-item">
          <div class="list-amenity">{{_ "waterpurifier"}}
          </div>
          </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">
+         <del>{{_ "waterpurifier"}}</del>
+         </div>
+         </div>
+         {{/if}}
 		 
 		 {{#if campingcar.sink}}
          <div style="width:50%;" class="flex-grid-item">
@@ -473,18 +491,18 @@
 
 		 {{#if campingcar.ctop}}
          <div style="width:50%;" class="flex-grid-item">
-         <div class="list-amenity">{{_ "cooktop"}} ({{_ "gas"}} / {{_ "hob"}})
+         <div class="list-amenity">{{_ "cooktop"}}
          </div>
          </div>
          {{else}}
          <div style="width:50%;" class="flex-grid-item">
          <div class="list-amenity">
-         <del>{{_ "cooktop"}} ({{_ "gas"}} / {{_ "hob"}})
+         <del>{{_ "cooktop"}}
          </del>
          </div>
          </div>
          {{/if}}
-		 {{#if campingcar.grill}}
+<!-- 		 {{#if campingcar.grill}}
          <div style="width:50%;" class="flex-grid-item">
          <div class="list-amenity">{{_ "grill"}}
          </div>
@@ -496,7 +514,7 @@
          </del>
          </div>
          </div>
-         {{/if}}
+         {{/if}} -->
 
 		 {{#if campingcar.fridge}}
          <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
@@ -745,7 +763,7 @@
          </div>
          </div>
          {{/if}}
-		 {{#if campingcar.towel}}
+<!-- 		 {{#if campingcar.towel}}
          <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
          <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "towels"}}
          </div>
@@ -757,7 +775,7 @@
          </del>
          </div>
          </div>
-         {{/if}}
+         {{/if}} -->
          </div>
          </div>
          </div>
@@ -902,13 +920,13 @@
 
 		 {{#if campingcar.fwtank}}
          <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
-         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "freshwatertank"}}
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "watertank"}}
          </div>
          </div>
          {{else}}
          <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
          <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
-         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "freshwatertank"}}
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "watertank"}}
          </del>
          </div>
          </div>
@@ -1096,13 +1114,13 @@
          {{/if}}
 		 {{#if campingcar.bbq}}
          <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
-         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">BBQ
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "bbq"}}
          </div>
          </div>
          {{else}}
          <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
          <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
-         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">BBQ
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "bbq"}}
          </del>
          </div>
          </div>

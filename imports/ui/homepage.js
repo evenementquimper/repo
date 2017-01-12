@@ -10,9 +10,10 @@ var startt = moment();
 var endt = moment();
 var place = {loc:null};
  Template.homepage.onCreated(function() {
-  this.autorun(() => {
-    this.subscribe('campingcars');
-  });
+  
+  Tracker.autorun(function () {
+  Meteor.subscribe("campingcars");
+});
 
    //this.search = new ReactiveDict();
 var autocomplete;
@@ -31,11 +32,11 @@ var autocomplete;
 
 
   autocomplete.addListener('place_changed', function() {
-    console.log("listener autocomplete");
+    //console.log("listener autocomplete");
     //infowindow.close();
     // marker.setVisible(false);
     place = autocomplete.getPlace();
-    console.log("Place: "+JSON.stringify(place.name));
+    //console.log("Place: "+JSON.stringify(place.name));
     if (!place.geometry) {
        window.alert("Autocomplete's returned place contains no geometry");
        return;
@@ -120,7 +121,7 @@ this.$('.owl-carousel').owlCarousel({
       return {
         center: new google.maps.LatLng(-25.363, 131.044),
         zoom: 8,
-        libraries: 'places',
+        //libraries: 'places',
       };
     }
 },

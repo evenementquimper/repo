@@ -23,7 +23,14 @@
    <div class="manage-listing">
         <div class="ml-section-left">
 {{> topnavmylisting}} -->
+{{#momentum plugin="fade"}}
+  {{#if Template.subscriptionsReady}}
 {{> Template.dynamic template=content}}
+  {{else}}
+    <div>Chargement</div>
+  {{/if}}
+{{/momentum}}
+
 <!-- {{> mlsectionbuttons}}
 	</div>
 {{> mlsectionright}}

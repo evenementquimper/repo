@@ -13,14 +13,13 @@ import './listingsLayout.html';
  
  Template.listingsLayout.onCreated(function(template) {
 //souscription a la base de donnée
-  this.autorun(() => {
-    this.subscribe('tasks');
-    this.subscribe('campingcars');
-    //this.subscribe('usersdata');
-    this.subscribe('reservations');
-    this.subscribe('addons');
-    //console.log("autorun end: ");
-  });
+  Tracker.autorun(function () {
+    Meteor.subscribe("campingcars");
+    Meteor.subscribe('addons');
+    Meteor.subscribe('reservations');
+    Meteor.subscribe('usersdata');
+});
+
   this.addons = new ReactiveDict();
 });
 

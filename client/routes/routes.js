@@ -79,8 +79,8 @@ FlowRouter.route('/manage', {
 FlowRouter.route('/maplistings/:name/:lat/:lng/:start/:end', {
   name:'maplistings',
   action: function(params, queryParams) {
-    //console.log("Params: "+JSON.stringify(params));
-    //console.log("queryParams: "+JSON.stringify(queryParams));
+    //console.log("Params: "+JSON.stringify(params));  maplistings"
+    //console.log("queryParams: "+JSON.stringify(queryParams));inwork
     BlazeLayout.render("mainLayout", {nav:"nav",homepage: "maplistings"});
 
   }

@@ -8,59 +8,34 @@ import { CampingCars } from '../api/campingcars.js';
 
 import './mlsectioncontentdetails.html';
  
-//Markers = new Mongo.Collection('markers');  
+Template.mlsectioncontentdetails.helpers({
 
- Template.mlsectioncontentdetails.onCreated(function() {
+campingcars: function(){
 
+      if(Meteor.userId()!==CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].userid)
+      {
+         FlowRouter.go("index");
+         return true;
+      }
+      else
+      {
+          return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
 
+      }
+}
 });
 
-
- Template.mlsectioncontentdetails.helpers({
-
-// function(){
-//   GoogleMaps.load({key:"AIzaSyCFo3iJe21DtIo3wkHNXrTOBmT9DQz_6C0"});
-// },
-
-todoArgs(todo){
-
-
-},
-  tasks: function() {
-
-    var category = FlowRouter.getParam("id");
-    console.log("Parametre: "+category);
-    //var o_id = new ObjectID(id);  _id:category
-//db.test.find({_id:o_id}) _id: 'category'
-
-    console.log("BDD: "+Tasks.find({}).fetch()[0]);
-    var bdd = Tasks.find({}).fetch();
-    //console.log("BDD: "+Tasks.find({}).fetch());
-    
-    //return Tasks.find({}).fetch()[0];
-    return bdd;
-  },
-
-    campingcars: function(){
-    //const instance = Template.instance();
-    //console.log("helper route id : "+FlowRouter.getParam("_id"));
-    console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
-return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
-  }
-});
-  Template.mlsectioncontentdetails.events({
+Template.mlsectioncontentdetails.events({
 
 'click #outpoupselect': function(event, template){
-      event.preventDefault();
-      console.log("event type : "+event.type);
-    console.log("event target : "+event.target);
-    var fueltypeselect = template.find('#fueltypeselect');
-    var transmissionselect = template.find('#transmissionselect');
+
+  event.preventDefault();
+  //console.log("event type : "+event.type);
+  //console.log("event target : "+event.target);
+  var fueltypeselect = template.find('#fueltypeselect');
+  var transmissionselect = template.find('#transmissionselect');
 //var appcont = template.find('.app-container-view');
-var popupselect = template.find('.popupselect');
-
-//popupselect.style.display =
-
+  var popupselect = template.find('.popupselect');
 
 if(fueltypeselect.style.display == 'inline-block'||transmissionselect.style.display == 'inline-block')
 { 
@@ -100,15 +75,14 @@ var js = JSON.parse(dig);
 
 'click #transmissiontype': function(event, template){
       event.preventDefault();
-console.log("Click transmission");
 var transmissionselect = template.find('#transmissionselect');
 var outpoupselect = template.find('#outpoupselect');
 outpoupselect.style.display = "inline-block";
 
 transmissionselect.style.display = "inline-block";
 
-transmissionselect.style.top = event.pageY+'px';
-transmissionselect.style.left = event.pageX+'px';
+transmissionselect.style.top = event.clientY+'px';
+transmissionselect.style.left = event.clientX+'px';
 },
 
 'click .fueltype':function(event, template){
@@ -136,8 +110,8 @@ outpoupselect.style.display = "inline-block";
 
 fueltypeselect.style.display = "inline-block";
 
-fueltypeselect.style.top = event.pageY+'px';
-fueltypeselect.style.left = event.pageX+'px';
+fueltypeselect.style.top = event.clientY+'px';
+fueltypeselect.style.left = event.clientX+'px';
 },
 
   'keyup .new-task': function(event, template) {

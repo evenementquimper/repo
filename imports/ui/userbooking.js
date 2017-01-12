@@ -8,12 +8,14 @@ import { Reservations } from '../api/reservations.js';
 import './userbooking.html';
 
  Template.userbooking.onCreated(function() {
-console.log("Star userbooking.js");
 
-  this.autorun(() => {
-    this.subscribe('campingcars');
-    this.subscribe('reservations');
-  });
+  Tracker.autorun(function () {
+    Meteor.subscribe("campingcars");
+    Meteor.subscribe('Images');
+    Meteor.subscribe('addons');
+    Meteor.subscribe('reservations');
+    Meteor.subscribe('usersdata');
+});
 
 });
 

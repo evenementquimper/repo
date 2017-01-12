@@ -11,7 +11,7 @@ import './sectionavailability.html';
 import './sectionbooking.html';
  
  Template.listing.onCreated(function() {
-  console.log("creation listing.js ");
+
 Session.set("addonstab", null);
 });
 

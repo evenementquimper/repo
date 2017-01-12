@@ -85,10 +85,16 @@ GoogleMaps.load({key: Meteor.settings.public.G_MAP_KEY, libraries: 'places'});
 },
 
     campingcars: function(){
-    //const instance = Template.instance();
-    //console.log("helper route id : "+FlowRouter.getParam("_id"));
-    console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).count());
-return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+      if(Meteor.userId()!==CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].userid)
+      {
+         FlowRouter.go("index");
+         return true;
+      }
+      else
+      {
+          return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+
+      }
   }
 
 });

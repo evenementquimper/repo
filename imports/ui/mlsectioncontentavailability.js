@@ -318,7 +318,16 @@ else
 
     campingcars: function(){
 
-return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+      if(Meteor.userId()!==CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].userid)
+      {
+         FlowRouter.go("index");
+         return true;
+      }
+      else
+      {
+          return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+
+      }
   },
     addon: function(){
 return AddOns.find({campingcarId:FlowRouter.getParam("_id")});

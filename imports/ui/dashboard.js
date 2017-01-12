@@ -8,15 +8,12 @@ import  './recappay.html';
 
 Template.dashboard.onCreated(function() {
 
-  console.log("route id layout: "+FlowRouter.getParam("_id"));
 //souscription a la base de donnée
-      //var ResId = template.find('section.section');
-      //ResId.style.display = "none";
-  this.autorun(() => {
-    this.subscribe('campingcars');
-    this.subscribe('reservations');
-    this.subscribe('addons');
-  });
+    Tracker.autorun(function () {
+    Meteor.subscribe("campingcars");
+    Meteor.subscribe('addons');
+    Meteor.subscribe('reservations');
+});
 });
 
 Template.dashboard.onRendered(function() {
@@ -61,7 +58,10 @@ Template.dashboard.onRendered(function() {
                   throw new Meteor.Error('transaction-creation-failed');
                 } else {
                   console.log("Transaction creation ok");
-                  alert('Thank you for your payment! Reload page to access our premium items!');
+
+//alert('Thank you for your payment!');
+      
+                  //alert('Thank you for your payment! Reload page to access our premium items!');
                 }
               });
             }

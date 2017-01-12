@@ -14,6 +14,14 @@ import './sectionbooking.html';
 
 
  Template.sectionbooking.onCreated(function() {
+
+  Tracker.autorun(function () {
+    Meteor.subscribe("campingcars");
+    Meteor.subscribe('Images');
+    Meteor.subscribe('addons');
+    Meteor.subscribe('reservations');
+});
+
      this.dtime = new ReactiveDict();
      this.prizes = new ReactiveDict();
 
@@ -120,26 +128,24 @@ totalprize: function(){
     var mxg = 0;
 var bdd;
     var guestsop = [];
-    if(CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch())
+    if(CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0]!=null)
     {
-    bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch();
-    //console.log("bdd: "+JSON.stringify(bdd[0].maxGuests));
-    //console.log("parse guests: "+parseInt(bdd[0].maxGuests));
-    mxg = parseInt(bdd[0].maxGuests);
+    bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+    //console.log("bdd: "+JSON.stringify(bdd));
+    //console.log("parse guests: "+parseInt(bdd.maxGuests));
+    mxg = parseInt(bdd.maxGuests);
         
     for (var i = 1; mxg >= i; i++) {
 
-        guestsop[i] = i;
+        guestsop[i] = {"guest":i};
         //console.log("guestsop: "+guestsop[i]);
     }
+    return guestsop;
     }
     else
     {
-
+      return false;
     }
-
-
-    return guestsop;
   },
 
   deltadays: function(){
@@ -255,8 +261,8 @@ console.log("people top: "+peopleid.offsetTop);
 //peopleselect.style.top = event.pageY+'px';
 //peopleselect.style.left = event.pageX+'px';
 
-peopleselect.style.top = peopleid.style.top;
-peopleselect.style.left = peopleid.style.left;
+peopleselect.style.top = event.clientY+'px';
+peopleselect.style.left = event.clientX+'px';
 },
 
     'e.wheelDelta': function(event, template) {
@@ -294,7 +300,7 @@ if(Meteor.userId())
                           "addons_id":Session.get("addonstab"),
                           "addonsprize": instance.prizes.get('addonsprize'),
                           "netprize": instance.prizes.get('netprize'),
-                          "email":Meteor.user().emails[0].address,
+                          //"email":Meteor.user().emails[0].address,
                         createdAt: new Date()}, function( error, result) { 
      if ( error ) console.log ( error ); //info about what went wrong
      if ( result )

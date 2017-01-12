@@ -11,10 +11,10 @@ var contentviewtab = [];
 
  Template.maplistings.onCreated(function() {
 
-  this.autorun(() => {
-    this.subscribe('campingcars');
-      this.subscribe('communes');
-  });
+  Tracker.autorun(function () {
+  Meteor.subscribe("campingcars");
+  Meteor.subscribe("communes");
+});
 
  GoogleMaps.ready('MapListings', function(map){
 
@@ -294,25 +294,6 @@ return CampingCars.find({},{limit:32}).fetch();
     FlowRouter.go("listings",{_id:event.currentTarget.id});
 },
 
-'place_changed #location-input':function(event){
-console.log("Detection place change");
-},
-    'click #facebook-login': function(event) {
-      console.log("facebook log");
-        Meteor.loginWithFacebook({}, function(err){
-            if (err) {
-                throw new Meteor.Error("Facebook login failed");
-            }
-        });
-    },
- 
-    'click #logout': function(event) {
-        Meteor.logout(function(err){
-            if (err) {
-                throw new Meteor.Error("Logout failed");
-            }
-        })
-    }
 
    });
 

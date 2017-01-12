@@ -12,10 +12,11 @@ import './authentication.html';
         //         throw new Meteor.Error("Facebook login failed");
         //     }
         // });
-  this.autorun(() => {
-    //this.subscribe('users');
-    this.subscribe('campingcars');
-  });
+
+  Tracker.autorun(function () {
+    Meteor.subscribe("campingcars");
+});
+
 
 });
 

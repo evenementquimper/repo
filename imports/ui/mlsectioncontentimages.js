@@ -40,10 +40,16 @@ this.Images = new Meteor.Files({  collectionName: 'Images'
   },
 
       campingcars: function(){
-        console.log("Collection find: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0]);
-        //var imgId = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+      if(Meteor.userId()!==CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].userid)
+      {
+         FlowRouter.go("index");
+         return true;
+      }
+      else
+      {
+          return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
 
-return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+      }
   },
 
   images: function(){

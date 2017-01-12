@@ -8,7 +8,7 @@ import { Connections } from '../imports/api/connections.js';
 Meteor.startup(() => {
 
  //IPGeocoder.load();
-
+Meteor.absoluteUrl(['http://leboncampingcar.fr']);
   Accounts.emailTemplates.siteName = "LeBonCampingCar";
  Accounts.emailTemplates.from = "LeBonCampingCar <leboncampingcar@gmail.com>";
  //console.log("email template: "+Accounts.emailTemplates.verifyEmail.subject);
@@ -18,7 +18,7 @@ Meteor.startup(() => {
   },
   text( user, url ) {
     let emailAddress   = user.emails[0].address,
-        urlWithoutHash = url.replace( 'http://localhost:3000/#/', 'http://82.245.202.35:4444/#/' ),
+        urlWithoutHash = url.replace( 'http://localhost:4444/#/', 'http://leboncampingcar.fr' ),
         supportEmail   = "leboncampingcar@gmail.com",
         emailBody      = `To verify your email address (${emailAddress}) visit the following link:\n\n${urlWithoutHash}\n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: ${supportEmail}.`;
 

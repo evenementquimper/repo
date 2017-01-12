@@ -8,11 +8,9 @@ import './leftnavuser.html';
 
  Template.leftnavuser.onCreated(function() {
   
-  this.autorun(() => {
-    //this.subscribe('users');
-    this.subscribe('campingcars');
-    //this.subscribe('usersdata');
-  });
+    Tracker.autorun(function () {
+    Meteor.subscribe("campingcars");
+});
 
 });
 

@@ -9,10 +9,13 @@ import './book.html';
 //Markers = new Mongo.Collection('markers');  
 
  Template.book.onCreated(function() {
-  this.autorun(() => {
-    this.subscribe('campingcars');
-    this.subscribe('reservations');
-  });
+  
+    Tracker.autorun(function () {
+    Meteor.subscribe("campingcars");
+    Meteor.subscribe('Images');
+    Meteor.subscribe('addons');
+    Meteor.subscribe('usersdata');
+});
 });
 
 

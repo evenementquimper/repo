@@ -12,11 +12,10 @@ import './mylisting.html';
  Template.mylisting.onCreated(function() {
 console.log("Star mylisting.js");
 
-  this.autorun(() => {
-    this.subscribe('tasks');
-    this.subscribe('campingcars');
-    this.subscribe('usersdata');
-  });
+    Tracker.autorun(function () {
+    Meteor.subscribe("campingcars");
+    Meteor.subscribe('usersdata');
+});
 
 });
 
