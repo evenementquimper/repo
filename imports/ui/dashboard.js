@@ -52,15 +52,20 @@ Template.dashboard.onRendered(function() {
               console.log("custumer creation ok");
               // ... and when the customer is successfuly created,
               // call method for creating a transaction (finally!)
-              Meteor.call('createTransaction', nonce, FlowRouter.getParam('reservation_id'), function(error, success) {
+              Meteor.call('createTransaction', nonce, FlowRouter.getParam('reservation_id'), function(error, transactionResult) {
                 if (error) {
                   console.log("Transaction creation bad");
                   throw new Meteor.Error('transaction-creation-failed');
                 } else {
                   console.log("Transaction creation ok");
+//                   console.log("Retour ?: ", transactionResult);
+// console.log("Retour success?: ", transactionResult.success);
+// console.log("Retour succes transaction¿: "+transactionResult.transaction);
 
-//alert('Thank you for your payment!');
-      
+// console.log("Retour status: "+transactionResult.transaction.status);
+
+ //FlowRouter.go('/book/'+FlowRouter.getParam("reservation_id"));
+      //book/v3SKd6px3nDvJzsRZ
                   //alert('Thank you for your payment! Reload page to access our premium items!');
                 }
               });
@@ -77,15 +82,48 @@ Template.dashboard.helpers({
   //   return Items.find();
   // },
   campingcar: function(){
+if(Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0])
+{
+  var resa = Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0];
 
+    if(CampingCars.find({_id:resa.resource_id}).fetch())
+    {
+return CampingCars.find({_id:resa.resource_id}).fetch()[0]; 
+    }
+    else
+    {
+return false;
+    }
 
-    //const instance = Template.instance();
-    //console.log("route id : "+FlowRouter.getParam("_id"));
-return "campingcar";//CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
-  },
+}
+else
+{
+  return false;
+}
+},
   reservation:function(){
-    //console.log("Reservations find: "+Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0]._id);
+if(Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0])
+{
+
+    if(Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0].status == "submitted_for_settlement")
+    {
+alert('Thank you for your payment!');
+FlowRouter.go('/book/'+FlowRouter.getParam("reservation_id"));
+    }
+    else
+    {
+
+    }
+
 return Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0];
+
+}
+    else
+    {
+return false;
+    }
+  //console.log("Reservations find: "+Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0]._id);
+
   },
 
     showForm: function() {

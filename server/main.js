@@ -6,6 +6,20 @@ import { Connections } from '../imports/api/connections.js';
 
   var nbrconn = 0;
 Meteor.startup(() => {
+ 
+
+
+  // Return early if URL isn't HTTPS (or if it isn't set).
+  // var isHttps = parse(Meteor.settings.private.cdnPrefix).protocol === 'https:';
+  // if (!isHttps)
+  //   return;
+
+  // Add CDN awesomeness - this is the critical line.
+ //WebAppInternals.setBundledJsCssPrefix(Meteor.settings.private.cdnPrefix);
+  // Trust the URL in our browser policy (if it's available).
+  try {
+    return BrowserPolicy.content.allowOriginForAll(Meteor.settings.private.cdnPrefix);
+  } catch (undefined) {}
 
  //IPGeocoder.load();
 Meteor.absoluteUrl(['http://leboncampingcar.fr']);

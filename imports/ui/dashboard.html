@@ -1,39 +1,8 @@
 <template name="dashboard">
 
     <nav class="top-nav top-nav--functional">
-
-    <div class="logo glyphicon glyphicon-chevron-left">
-    <a href="/listings/{{reservation._id}}">Book</a><a href="/listings/{{reservation._id}}"><img src="/images/logo-blue.png" alt="Logo Image"></a></div>
-<!-- <ul class="top-nav-menu">
-<li class="top-nav-menu-route"><a class="" href="/user/profile">My Account</a></li>
-<li class="top-nav-menu-route"><a class="" href="/bookings">My Bookings</a></li>
-<li class="top-nav-menu-route"><a class="" href="/my-listings">My Listings</a></li>
-</ul> -->
-
-<!-- <div class="headOP content"><a href="http://www.cdiscount.com/Order/Basket.aspx" class="hOPBaskBck jsWaiting"><span class="arr">‹</span><span class="no767">Panier</span></a><a class="hOPLogo jsWaiting" href="http://www.cdiscount.com"><img src="https://i1.cdscdn.com/RWD/header/hoplogo.png" alt="Logo Cdiscount, paiement 100% Sécurisé" width="151" height="29"><span>Paiement 100% Sécurisé</span></a><div class="hOPWizard">&nbsp;</div><div class="hOPHelp no767"><strong>Besoin d'aide ? 3979</strong><span>0,70€/min + prix appel</span>&nbsp;<a href="https://clients.cdiscount.com/service/helpbeforesale.aspx" target="_blank" class="lkDefault">Voir conditions</a></div></div> -->
-<!--   {{#if currentUser}}
-
-
-
-      <ul class="top-nav-menu">
-      <li class="top-nav-menu-route">
-      <a class="top-nav-logout">Logout</a>
-      </li>
-      <li class="top-nav-menu-route">
-      <a class="nav-my-account" href="/user">My Account</a></li>
-      <li class="top-nav-menu-route">
-      <a class="nav-my-booking" href="/userbooking">My Bookings</a>
-      </li>
-      <li class="top-nav-menu-route">
-      <a class="nav-my-listing" href="/mylisting">My Listings</a>
-      </li>
-      </ul>
-
-    {{else}}
-
-
-{{/if}} -->
-<!--       <div class="logo"><a class="" href="/"><img src="/images/logo-blue.png" alt="Logo Image"></a></div> -->
+    <div class="logo">
+    <a href="/listings/{{reservation._id}}"><img src="/images/lbcclogo02.png" alt="Logo Image"></a></div>
 
     </nav>
 
@@ -41,28 +10,46 @@
    
     <div class="page-header">
      <h1>Antoine, finalisez et payez votre commande en 1 clic :</h1>
-     <h2 class="onePgbTit">Votre mode de livraison <span class="no767">présélectionné </span>: <a class="jsWaiting" href="/GoToOrderProcess.mvc/OrderStepShippingValidation">Changer<span class="no1023"> de mode de livraison</span></a></h2>
     </div>
-
+<div class="row">
+<div class="col-md-2 col-xs-2 col-sm-2">
+    <div class="glyphicon glyphicon-chevron-left"><a href="/listings/{{reservation._id}}">Camping-car</a></div>
+</div>
+<div class="col-md-6 col-xs-4 col-sm-4" style="border-left: 1px solid #dcdcdc;">
     {{#if showForm}}
-      <h3>Buy access to our list of items!</h3>
-
+    <h2 style="margin-bottom: 15px;"><strong>Paiement par carte bancaire ou Paypal</strong></h2>
       <form role="form">
         <div class="row">
-          <div class="col-md-6 col-xs-12">
+          <div class="col-md-12 col-xs-12">
             <div id="payment-form"></div>
             <button type="submit" class="btn btn-success">Submit</button>
           </div>
         </div>
       </form>
 {{/if}} 
-
-  {{> recappay}}
+</div>
+<div class="col-md-4 col-xs-6" style="position: relative;
+padding: 45px 15px 15px;
+margin: 0 -15px 15px;">
+ <h2 style="margin-bottom: 15px;"><strong>Détails</strong></h2>
+ {{#if campingcar}}
+<div>Nom du camping car : {{campingcar.name}}</div>
+{{else}}
+{{/if}}
+{{#if reservation}}
+<div>Nombre de personnes : {{reservation.people}}</div>
+<div>Début : {{reservation.start_time}}</div>
+<div>Fin : {{reservation.end_time}}</div>
+<div>Créer le : {{reservation.createdAt}}</div>
+<div>Assurance réservation : {{reservation.ass}}</div>
+<div>Prix total : <strong style="color:red;">{{reservation.netprize}}</strong></div>  
+{{else}}
+{{/if}}
+</div>
+</div>
+<!--   {{> recappay}}
     <ul class="list-group">
-<!--       {{#each items}}
-        <li class="list-group-item">{{ name }} <span class="label label-default">{{ rating }}</span></li>
-      {{/each}} -->
-    </ul>
+    </ul> -->
 
   </div>
 </template>

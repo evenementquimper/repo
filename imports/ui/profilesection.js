@@ -44,6 +44,10 @@ this.$('.datetimepicker').datetimepicker({
 
  Template.profilesection.helpers({
 
+owner:function(){
+return CampingCars.find({userid: Meteor.userId()}).fetch();
+},
+
   currentUpload: function () {
     return Template.instance().currentUpload.get();
   },
@@ -82,12 +86,29 @@ return UsersData.find({_id:Meteor.userId()}).fetch()[0];
 });
   Template.profilesection.events({
   'input .data-item': function (event, template) {
-//event.preventDefault(); 
-console.log("event: "+event.type);
-    var routeid = FlowRouter.getParam('_id');
+event.preventDefault(); 
 var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value+'"}';
-console.log("DIG: "+dig);
+//console.log("DIG: "+dig);
 
+//if(event.currentTarget.name=="iban")
+//{
+//console.log("Iban number");
+//var ibanval = event.currentTarget.value;
+//var ibanerror = template.find('#ibanerror');
+//console.log("IBAN valid: "+IBAN.isValid('BE68539007547034'));
+//console.log("IBAN2 valid: "+IBAN.isValid('FR76160061001110'));
+//if(IBAN.isValid(ibanval)==true)
+ // {
+  //  ibanerror.style.display = "none";
+//}
+//else
+//{
+//ibanerror.style.display = "inline-block";
+//console.log("Label: "+ibanerror.innerHTML);
+//}
+//}
+//else
+//{
 var js = JSON.parse(dig);
         UsersData.update({
             _id: Meteor.userId()
@@ -96,8 +117,8 @@ var js = JSON.parse(dig);
         }, {
           upsert: true
         });
-//called from client
-//Meteor.call( 'UpdateUserData', Meteor.userId(), js );
+
+//}
   },
 
 'dp.change .datetimepicker': function(event, instance){
@@ -164,7 +185,7 @@ hli.style.transform = "scaleX(1)";
 },
 
 
-'click .avatar-upload': function (e, template){
+'click .avatar-upload-button': function (e, template){
 console.log("click avatar upload");
   e.preventDefault();
   var inp = template.find('#avatarImage');
@@ -172,7 +193,7 @@ console.log("click avatar upload");
   //var email = $(ResId).val();
 },
 
-'click .license-upload': function(e, template){
+'click .license-upload-button': function(e, template){
 console.log("click license-uploader-button");
   e.preventDefault();
   var inp = template.find('#licenseImage');
@@ -207,8 +228,9 @@ console.log("click license-uploader-button");
 //$addToSet
 
 var dig = '{"images":"'+sup[1]+'"}';
-console.log("DIG: "+dig);
-
+//console.log("DIG: "+dig);
+var dig2 = '{"userimage":"'+sup[1]+'"}';
+var js2 = JSON.parse(dig2); 
 var js = JSON.parse(dig);
         UsersData.update({
             _id: Meteor.userId()
@@ -219,8 +241,15 @@ var js = JSON.parse(dig);
         , {
           upsert: true
         });
-
-
+CampingCars.update({
+            userid: Meteor.userId()
+        }, 
+            {
+            $set: js2
+        }
+        , {
+          upsert: true
+        });
 
         }
         template.currentUpload.set(false);

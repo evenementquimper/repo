@@ -11,8 +11,23 @@ var endt = moment();
 var place = {loc:null};
  Template.homepage.onCreated(function() {
   
+  //   this.autorun(() => {
+  //   this.subscribe('campingcars');
+  // });
+
   Tracker.autorun(function () {
-  Meteor.subscribe("campingcars");
+  Meteor.subscribe("campingcars", {
+    onError: function( error ) {
+        console.log("Meteor subscribe error: "+error);
+        // if the subscribe terminates with an error
+    },
+    onReady: function() {
+      console.log("Meteor subscribe ready: ");
+        // when ready
+    }
+
+
+  });
 });
 
    //this.search = new ReactiveDict();

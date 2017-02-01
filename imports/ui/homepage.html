@@ -2,12 +2,12 @@
 <template name="homepage">
 
 <div class="homepage" itemscope="" itemtype="http://schema.org/Organization">
-<div class="hero" style="background-image:;" itemprop="image">
+<div class="hero" style="background-image: url('/images/etang.jpg');" itemprop="image">
 <div class="hero-inner">
 <div class="hero-copy">
-<h1 class="hero-copy-title">Begin Your Journey
+<h1 class="hero-copy-title">voyager en camping-car
 </h1>
-<p class="hero-copy-content">Rent directly from motorhome owners.
+<p class="hero-copy-content">Location entre particuliers.
 </p>
 </div>
 
@@ -196,7 +196,7 @@
          </p>
          </div>
          <div class="content-block content-block--right">
-         <img class="intro-image" src="images/borne-kilometrique.jpg.png">
+         <img class="intro-image" src="/images/borne-kilometrique.jpg.png" alt="Borne Image">
          </div>
          </div>
          </div>
@@ -222,7 +222,7 @@
          <h3 data-reactid=".0.0.1.$page.2.0.2.$1.0.0.1">Coromandel
          </h3>
          </div>
-         <img src="images/locations/coromandel-small.jpg">
+         <img src="images/locations/coromandel-small.jpg" alt="Coromandel Image">
          </a>
          </div>
          <div class="explore-region content-block">
@@ -233,7 +233,7 @@
          <h3>Northland
          </h3>
          </div>
-         <img src="images/locations/northland-small.jpg">
+         <img src="images/locations/northland-small.jpg" alt="Northland Image">
          </a>
          </div>
          </div>
@@ -260,7 +260,7 @@
          <div class="content-block">
          <div class="renter-benefits" style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
          0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
-         <img class="renter-benefits-image" src="images/300x300_Itinerary.png">
+         <img class="renter-benefits-image" src="images/300x300_Itinerary.png" alt="Itinerary Image">
          <h3>{{_ "plan"}}
          </h3>
          <p>{{_ "plantext"}}
@@ -270,7 +270,11 @@
          <div class="content-block">
          <div class="renter-benefits" style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
          0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
-         <img class="renter-benefits-image" src="images/300x300_Key.png">
+         {{#if Template.subscriptionsReady}}
+         <img class="renter-benefits-image" src="images/300x300_Key.png" alt="Key Image">
+         {{else}}
+         <div>Chargement</div>
+         {{/if}}
          <h3>{{_ "book"}}
          </h3>
          <p>{{_ "booktext"}}
@@ -280,7 +284,7 @@
          <div class="content-block">
          <div class="renter-benefits" style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
          0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
-         <img class="renter-benefits-image" src="images/300x300_Marker.png" data-reactid=".0.0.1.$page.4.3.2.0.0">
+         <img class="renter-benefits-image" src="images/300x300_Marker.png" alt="Marker Image">
          <h3>{{_ "explore"}}
          </h3>
          <p>{{_ "exploretext"}}
@@ -288,21 +292,6 @@
          </div>
          </div>
          </div>
-
-<!--          <div class="section-row" style="justify-content:center;padding:2em;">
-         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;" data-reactid=".0.0.1.$page.4.4.0">
-         <button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;background-color:#ef4136;" tabindex="0" type="button" data-reactid=".0.0.1.$page.4.4.0.0">
-         <div>
-         <div style="transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;top:0;">
-         <span style="position:relative;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;">View Listings
-         </span>
-         </div>
-         </div>
-         </button>
-         </div>
-         </div> -->
-
          </section>
          <section class="section">
          <div class="section-intro">
@@ -311,43 +300,46 @@
          <h3 class="section-intro-subtitle">
          </h3>
          </div>
-<!--          <iframe src="https://www.youtube.com/embed/p-fWx8t7kGU?modestbranding=1;autohide=1&amp;showinfo=0&amp;controls=0;" allowfullscreen="" data-reactid=".0.0.1.$page.5.1" width="100%" height="560" frameborder="0">
-         </iframe> -->
          </section>
          <section class="owner section section--white">
          <div class="section-container">
          <div class="section-row">
          <div class="content-block content-block--left">
-         <p>Offset the costs of your motorhome when you’re not on the road by renting to like-minded travellers. At Mighway, simply choose your level of service and we take good care of the rest. That means comprehensive insurance cover, customer vetting, security deposits, payment processing and round the clock support to ensure safe and worry-free renting.
+         <p>{{_ "section4text"}}
          </p>
          </div>
+  {{#if currentUser}}
+<div class="owner-buttons content-block content-block--right"><div style="color: rgba(86, 90, 92, 0.87); background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; display: inline-block; min-width: 88px;"><a href="/mylisting"><button tabindex="0" type="button" style="border: 10px none; box-sizing: border-box; display: inline-block; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; margin: 0px; padding: 0px; outline: medium none; font-size: inherit; font-weight: inherit; transform: translate(0px, 0px); position: relative; height: 36px; line-height: 36px; width: 100%; border-radius: 2px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; background-color: rgb(36, 97, 130); text-align: center;"><div><div style="height: 36px; border-radius: 2px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; top: 0px;"><span style="-moz-user-select: none; position: relative; opacity: 1; font-size: 14px; letter-spacing: 0px; text-transform: uppercase; font-weight: 500; margin: 0px; padding-left: 16px; padding-right: 16px; color: rgb(255, 255, 255);">Ajouter votre camping-car</span></div></div></button></a></div></div>
+{{else}}
+<div class="owner-buttons content-block content-block--right"><div style="color: rgba(86, 90, 92, 0.87); background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; display: inline-block; min-width: 88px;"><a href="/authentication"><button tabindex="0" type="button" style="border: 10px none; box-sizing: border-box; display: inline-block; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; margin: 0px; padding: 0px; outline: medium none; font-size: inherit; font-weight: inherit; transform: translate(0px, 0px); position: relative; height: 36px; line-height: 36px; width: 100%; border-radius: 2px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; background-color: rgb(36, 97, 130); text-align: center;"><div><div style="height: 36px; border-radius: 2px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; top: 0px;"><span style="-moz-user-select: none; position: relative; opacity: 1; font-size: 14px; letter-spacing: 0px; text-transform: uppercase; font-weight: 500; margin: 0px; padding-left: 16px; padding-right: 16px; color: rgb(255, 255, 255);">Inscription</span></div></div></button></a></div></div>
+{{/if}}
 
          </div>
          <div class="section-row">
          <div class="content-block">
          <div class="owner-benefits">
-         <img src="images/verification.png">
-         <h4>Renter verification
+         <img src="images/verification.png" alt="Verification Image">
+         <h4>{{_ "section5introtitle"}}
          </h4>
-         <p>All Mighway guests must register and verify their memberships. Because they’re verified, you can trust your motorhome’s in good hands and you get the final say on every booking.
+         <p>{{_ "section5text"}}
          </p>
          </div>
          </div>
          <div class="content-block">
          <div class="owner-benefits">
          <img src="images/payment.png">
-         <h4>Secure payment
+         <h4>{{_ "section6introtitle"}}
          </h4>
-         <p>All payments are processed through our secure payment system and earnings are deposited directly into your bank account. There’s no need to handle cash or chase down payments.
+         <p>{{_ "section6text"}}
          </p>
          </div>
          </div>
          <div class="content-block">
          <div class="owner-benefits">
          <img src="images/cash.png">
-         <h4>Easy earnings
+         <h4>{{_ "section7introtitle"}}
          </h4>
-         <p>Renting out your motorhome out when you’re not on the road is a great way to offset your costs. We’ll help you manage your pricing to attract the best renters and maximise returns.
+         <p>{{_ "section7text"}}
          </p>
          </div>
          </div>
@@ -356,14 +348,10 @@
          <div class="content-block">
          <div class="owner-benefits">
          <img src="images/insurance.png">
-         <h4>Comprehensive insurance
+         <h4>{{_ "section8introtitle"}}
          </h4>
          <p>
-         <span>Mighway’s comprehensive insurance gives you peace of mind. Rest easy in the knowledge that incidents will be covered and all renters are fully insured. You can see our full policy details 
-         </span>
-         <a href="/insurance">here
-         </a>
-         <span>.
+         <span>{{_ "section8text"}}
          </span>
          </p>
          </div>
@@ -371,25 +359,26 @@
          <div class="content-block">
          <div class="owner-benefits">
          <img src="images/securitydeposits.png">
-         <h4>Security deposits
+         <h4>{{_ "section9introtitle"}}
          </h4>
-         <p>All renters authorise a bond to Mighway to cover any minor damage or insurance excess. Insurance is compulsory for all renters and covered by Camper Care.
+         <p>{{_ "section9text"}}
          </p>
          </div>
          </div>
          <div class="content-block">
          <div class="owner-benefits">
          <img src="images/toolstemplates.png">
-         <h4>Tips, tools and support
+         <h4>{{_ "section10introtitle"}}
          </h4>
-         <p>Mighway resources make it easy to market your motorhome, share tips and provide advice. As well as your tips, renters have our full support with 24/7 roadside assistance.
+         <p>{{_ "section10text"}}
          </p>
          </div>
          </div>
          </div>
          </div>
          </section>
-         <div class="newsletter">
+
+<!--          <div class="newsletter">
          <form class="newsletter">
          <h3 class="newsletter-title">Signup to the Mighway Newsletter
          </h3>
@@ -429,6 +418,7 @@
          </div>
          </div>
          </form>
-         </div>
+         </div> -->
+
          </div>
          </template>

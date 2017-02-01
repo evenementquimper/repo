@@ -88,6 +88,7 @@ else
     var user = Meteor.user();
     var booking = Reservations.find({_id:bookingid}).fetch()[0];
     var totalprice = booking.netprize;
+    var transresult=null;
     // Let's create transaction.
     gateway.transaction.sale({
       amount: "10.00",//totalprice,'fake-valid-visa-nonce',//
@@ -100,6 +101,7 @@ else
     }, function (err, transactionResult) {
       if (err) { 
         console.log(err);
+
       } else {
 
         console.log("Method transaction Id :"+transactionResult.transaction.id);
@@ -123,8 +125,9 @@ console.log("Method transaction status :"+transactionResult.transaction.status);
         }, {
           upsert: true
         });
-         return transactionResult;
       }
+
     });
+
 }
 });

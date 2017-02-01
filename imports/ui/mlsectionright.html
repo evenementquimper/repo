@@ -1,5 +1,16 @@
 				<template name="mlsectionright">
 				<div class="ml-section-right">
-					<div class="ml-section-progress"><div><div>Completed: 0 out of 5 steps</div></div></div>
+					<div class="ml-section-progress"><div>
+					{{#if steps}}
+					<div>{{_ "completed"}}: {{steps}} {{_ "outof"}} 5 {{_ "steps"}}</div>
+					{{else}}
+					{{#if publish}}
+					<div><button class="unpublish">Retirer votre annonce</button></div>
+					{{else}}
+					<div><button class="publish"> Publier votre annonce</button></div>
+					{{/if}}
+					{{/if}}
+					</div>
+					</div>
 				</div>
 				</template>

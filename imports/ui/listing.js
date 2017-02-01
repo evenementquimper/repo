@@ -11,6 +11,19 @@ import './sectionavailability.html';
 import './sectionbooking.html';
  
  Template.listing.onCreated(function() {
+//   Tracker.autorun(function () {
+//     Meteor.subscribe("campingcars");
+//     Meteor.subscribe('addons');
+//     Meteor.subscribe('reservations');
+//     Meteor.subscribe('usersdata');
+// });
+
+  this.autorun(() => {
+    this.subscribe('campingcars');
+    this.subscribe('addons');
+    this.subscribe('reservations');
+    this.subscribe('usersdata');
+  });
 
 Session.set("addonstab", null);
 });

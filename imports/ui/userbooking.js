@@ -23,8 +23,7 @@ import './userbooking.html';
  Template.userbooking.helpers({
 
  reservations(){
-
-return Reservations.find({"user_id": Meteor.userId(),"status" : "pay_ok"});
+return Reservations.find({"user_id": Meteor.userId(),"status" : "submitted_for_settlement"});
   },
 
  campingcars(){

@@ -2,7 +2,6 @@ import { Template } from 'meteor/templating';
 import { EJSON } from 'meteor/ejson';
 import { FilesCollection } from 'meteor/ostrio:files';
 
-import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
 import { AddOns } from '../api/addons.js';
 import { Session } from 'meteor/session';
@@ -14,7 +13,7 @@ var dayfull = [];
 
  Template.mlsectioncontentavailability.onCreated(function() {
   this.currentUpload = new ReactiveVar(false);
-
+  //this.dayfull = new ReactiveVar(false);
 
 });
 
@@ -34,6 +33,28 @@ this.$('.datetimepicker').datetimepicker({
             //              ]
     });
 
+ this.$('.fc').fullCalendar({
+    customButtons: {
+        myCustomButton: {
+            text: 'custom!',
+            click: function() {
+                alert('clicked the custom button!');
+            }
+        }
+    },
+    header: {
+        left: 'prev,next today myCustomButton',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+    }
+});
+ //console.log("les events : "+JSON.stringify(evtsourc[0])+" "+evtsourc[1]);
+
+});
+
+Template.mlsectioncontentavailability.onDestroyed(function () {
+ //var evtsourc = $('.fc').fullCalendar('getEventSources');
+ //console.log("les events : "+EJSON.stringify(evtsourc));
 });
 
  Template.mlsectioncontentavailability.helpers({
@@ -44,7 +65,7 @@ this.$('.datetimepicker').datetimepicker({
 {
 
 var bddcampingcar = CampingCars.find({_id: FlowRouter.getParam('_id')}).fetch();
-//console.log("Camping car full days: "+bddcampingcar[0].daysfull[0]);
+
 var tabtest = [];
 
 var bddreservations = Reservations.find({resource_id:FlowRouter.getParam("_id")}).fetch();
@@ -64,6 +85,10 @@ var loueurid = bddreservations[i].user_id;
                 title: tt,
                 start: bddreservations[i].start_time,
                 end: bddreservations[i].end_time,
+                color:'red',
+                backgroundColor:'blue',
+                borderColor :'green', 
+                textColor :'white',
               };
 
 
@@ -96,19 +121,29 @@ tabtest.push(uevent);
         var rr = {
 
               eventClick: function(calEvent, jsEvent, view) {
-
+//event.preventDefault();
         //event.title = "CLICKED!";
-     //alert('Event: ' + calEvent.title);
+     //alert('Event: ' + calEvent.id);
         //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
         //alert('View: ' + view.name);
 
         // change the border color just for fun
-        $(this).css('border-color', 'red');
+        //$(this).css('border-color', 'red');
+//       var moday = moment(calEvent.id, 'x');
 
-  calEvent.title = "CLICKED!";
-
+// console.log("calevent: "+moday.format('YYYY-MM-DD'));
+//   var d = moday.format('YYYY-MM-DD');
+  
 //        $('.fc').fullCalendar('updateEvent', [calEvent]);
-$('.fc').fullCalendar('removeEvents', [calEvent.id]);
+$('.fc').fullCalendar('removeEvents', calEvent.id);
+
+ //var evtsourc = $('.fc').fullCalendar('getEventSources'); JSON.stringify(
+ console.log("les events : "+calEvent.id);
+        // CampingCars.update({
+        //     _id: FlowRouter.getParam('_id')
+        // }, {
+        //     $unset: {daysfull:d}
+        // });
 
         //$('.fc').fullCalendar( 'removeEvents' [calEvent.id] );
    //element.css('background-color', 'red');
@@ -116,81 +151,71 @@ $('.fc').fullCalendar('removeEvents', [calEvent.id]);
 
     },
              dayClick : function(date, jsEvent, view) {
-var dyf = bddcampingcar[0].daysfull;
+//var dyf = CampingCars.find({_id: FlowRouter.getParam('_id')}).fetch()[0].daysfull;
 
-//console.log("jsevent id: "+jsEvent.id);
+//console.log("dayclick : "+dyf[0]);
+
 //console.log("jsevent currentTarget name: "+jsEvent.currentTarget.name);
 //console.log("jsevent currentTarget value: "+jsEvent.currentTarget.value);
-    var evtfonct = $('.fc').fullCalendar( 'getEventSourceById', "eventfonction");
-    console.log("evtfonct color: "+evtfonct.color);
-             //console.log("style day: "+$(this).style); 
-
+             //console.log("View: "+view.name); 
+//$(this).css('background-color', 'red');
 //var dig = '{"'+daysfull+'":"'+event.currentTarget.value+'"}';
 //console.log("DIG: "+dig);
 //var js = JSON.parse(dig);
 
-        // CampingCars.update({
-        //     _id: FlowRouter.getParam('_id')
-        // }, {
-        //     $set: {daysfull:datet}
-        // }, {
-        //   upsert: true
-        // });
+//       var moday = moment(date, 'x');
 
-        //alert('Clicked on: ' + date.format());
+// console.log("calevent: "+moday.format('YYYY-MM-DD'));
+//   var d = moday.format('YYYY-MM-DD');
 
-        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+//         CampingCars.update({
+//             _id: FlowRouter.getParam('_id')
+//         }, {
+//             $set: {daysfull:d}
+//         });
 
-        //alert('Current view: ' + view.name);
-
-console.log("this: "+$(this).css('background-color'));
-
-        if($(this).css('background-color')!='transparent')
+      var source = {
+    events: [
         {
-        //$(this).css('background-color','transparent');
-//cs = 'blue';
+            id:date,
+            //title: 'Block',
+            start: date
+        }
+        // etc...
+    ],
+    color: 'red',     // an option!
+    textColor: 'white'
+};
 
-      }
-      else
-      {
-       //$(this).css('background-color', 'red'); 
-       var adddfull = moment(date);
-dyf.push(adddfull.format('YYYY-MM-DD'));
-         // CampingCars.update({
-         //     _id: FlowRouter.getParam('_id')
-         // }, {
-         //     $set: {daysfull:dyf}
-         // }, {
-         //   upsert: true
-         // });
-     
-         //view.fullCalendar('refetchEvents');
-      }
+$('.fc').fullCalendar( 'addEventSource', source )
 
     },
-    eventMouseover: function(event, jsEvent, view) {
 
-        //alert('event: ' + event);
-        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-        //alert('Current view: ' + view.name);
-
-        // change the day's background color just for fun
-        //$(this).css('background-color', 'blue');
-
-    },
             //height: 200,
             defaultDate: '2016-11-10',
+
+    customButtons: {
+        myCustomButton: {
+            text: 'custom!',
+            click: function() {
+ //               var evtsourc2 = $('.fc').fullCalendar('getEventSources');
+ // console.log("les events : "+EJSON.stringify(evtsourc2));
+                alert('clicked the custom button!');
+            }
+        }
+    },
               //eventLimit: true, // for all non-agenda views
         header: {
-        center: 'month,agendaFourDay' // buttons for switching between views
+        center: 'agendaFourDay, myCustomButton' // buttons for switching between views
     },
     views: {
         agendaDay: {
             type: 'agendaWeek',
             duration: { days: 15 },
             //buttonText: '4 day'
-        }
+        },
+        day: {
+        },
     },
     slotEventOverlap:false,
             //defaultView: 'agendaWeek',
@@ -256,38 +281,36 @@ dyf.push(adddfull.format('YYYY-MM-DD'));
     //textColor: 'white',
     //rendering :'background' 
         //},
-        {
-    events: function(start, end, timezone, callback) {
-var events = [];
-  console.log("day ful length"+bddcampingcar[0].daysfull.length);
-  for (var j = 0; bddcampingcar[0].daysfull.length > j; j++) {
+//         {
+//     events: function(start, end, timezone, callback) {
+// var events = [];
+//   console.log("day ful length"+bddcampingcar[0].daysfull.length);
+//   for (var j = 0; bddcampingcar[0].daysfull.length > j; j++) {
         
-        var udfull = {id:"Day full"+j,
-                title: "Day full"+j,
-                start: bddcampingcar[0].daysfull[j]
-              };
-                     events.push(udfull);
-//tabnoresa.push(udfull);
-//console.log("udfulls start: "+udfull.start);
-  }
+//         var udfull = {id:"Day full"+j,
+//                 title: "Day full"+j,
+//                 start: bddcampingcar[0].daysfull[j]
+//               };
+//                      events.push(udfull);
+// //tabnoresa.push(udfull);
+// //console.log("udfulls start: "+udfull.start);
+//   }
 
       
    
-      callback(events);
-    },
-            id:"eventfonction",
-            color: 'grey',     // an option!
-            textColor: 'white'// an option! 
+//       callback(events);
+//     },
+//             id:"eventfonction",
+//             color: 'grey',     // an option!
+//             textColor: 'white'// an option! 
 
-  }
+//   }
         // any other event sources...
 
     ]
 
         };
-        
-        //console.log("rr : "+JSON.stringify(rr.eventSources[0].events));
-                //console.log("rr event 0: "+rr.eventSources[0].events[0]);
+
                 return rr;
 
 }
@@ -296,14 +319,6 @@ else
   return false;
 }
 
-
-
-
-
-                //console.log("rr string event 0: "+JSON.stringify(rr.eventSources[0].events[0]));
-                //console.log("rr event 1: "+rr.eventSources[0].events[1]);
-                //console.log("rr string event 1: "+JSON.stringify(rr.eventSources[0].events[1]));
-        //return rr;
     },
 
   currentUpload: function () {
@@ -346,63 +361,6 @@ event.preventDefault();
       console.log("bs show modal");
 },
 
-'dp.change .datetimepicker': function(event, template){
- event.preventDefault();
-
-            
-var dday = moment();
-var day = $('.datetimepicker').data().date;
-
-
-if(moment().format("YYYY-MM-DD")!==moment(day).format("YYYY-MM-DD"))
-{
-
-var tb = Object.keys($('.datetimepicker').data("DateTimePicker").enabledDates());
-console.log("disabledDates: "+JSON.stringify($('.datetimepicker').data("DateTimePicker").disabledDates()));
-console.log("disabledDates keys tab: "+JSON.stringify(tb));
-var tb2 = [];
-for (var i = 0; i < tb.length; i++) {
-tb2[i] = moment(tb[i]);
-}
-tb2.push(moment(day));
-console.log("disabledDates add: "+JSON.stringify(tb2));
-$('.datetimepicker').data("DateTimePicker").enabledDates(tb2);
-}
-else
-{
-  console.log("Same day: ");
-
-  //var dd = [day];
-
-  //
-  //console.log("dday : "+dday);
-}
-    //$('.datetimepicker').data("DateTimePicker").destroy();
-        //const $checkbox = instance.$('.datetimepicker');
-  //$checkbox.prop('checked', !$checkbox.prop('checked'));
-  
-},
-
-// 'click .datetimepicker': function(event, template){
-//     event.preventDefault();
-//       console.log("click datetimepik");
-//         console.log("datetimepick data", $('.datetimepicker').data().date);
-//         var dd = [$('.datetimepicker').data().date];
-
-//         $('.datetimepicker').data("DateTimePicker").disabledDates(dd);
-  
-// },
-
-    // 'click button': function(event, template) {
-    //   event.preventDefault();
-    //   console.log("click day");
-    //     console.log("datetimepick data", $('.datetimepicker').data().date);
-    //     var dd = [$('.datetimepicker').data().date];
-
-    //     $('.datetimepicker').data("DateTimePicker").disabledDates(dd);
-    //     // $('.datetimepicker').data("DateTimePicker").destroy();
-       
-    // },
 
   'click #addonplus': function(event, template) {
     //var addonplus = template.find('#addonplus');
@@ -434,7 +392,7 @@ var js = JSON.parse(dig);
 'click .addondisplay': function(event, template){
 console.log("id?: "+event.currentTarget.id);
 var adid = event.currentTarget.id;
-//var f = '.'+
+
 var f = template.find(".addondetail"+adid);
 console.log("F display: "+f.style.display);
 if(f.style.display=="none")
@@ -447,15 +405,6 @@ else
 }
 },
 
-// 'textarea .addon-item':function(event, template){
-// event.preventDefault(); 
-// var curid = event.currentTarget.id;
-// var tabcurid = curid.split('_');
-
-// console.log("id?: "+event.currentTarget.id);
-// console.log("id tab?: "+tabcurid[1]);
-// },
-
   'input .addon-item': function (event, template) {
 
 //event.preventDefault(); 
@@ -465,7 +414,7 @@ var tabcurid = curid.split('_');
 console.log("id?: "+event.currentTarget.id);
 console.log("id tab?: "+tabcurid[1]);
 
-    //var routeid = FlowRouter.getParam('_id');
+
 var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value+'"}';
 console.log("DIG: "+dig);
 var js = JSON.parse(dig);
@@ -502,8 +451,6 @@ lab.style.color ="rgba(86,90,92,0.5)";
 var hrstyle = {"border-color":"rgb(36,97,130)" ,"bottom":"8px","box-sizing" : "content-bo","margin": "0px", "position" :"absolute","width":"100%","transform":"scaleX(1)","transition":"all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms","border-width":"medium medium 2px","border-style":"none none solid"};
 hli.style.transform = "scaleX(1)";
 
-//console.log("click current value: "+event.currentTarget.value);
-//console.log("click current tag name: "+event.currentTarget.tagName);
 
 },
 
@@ -529,25 +476,15 @@ lab.style.color ="rgba(86,90,92,0.5)";
 var hrstyle = {"border-color":"rgb(36,97,130)" ,"bottom":"8px","box-sizing" : "content-bo","margin": "0px", "position" :"absolute","width":"100%","transform":"scaleX(1)","transition":"all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms","border-width":"medium medium 2px","border-style":"none none solid"};
 hli.style.transform = "scaleX(1)";
 
-//console.log("click current value: "+event.currentTarget.value);
-//console.log("click current tag name: "+event.currentTarget.tagName);
 
 },
 
 
   'click .flex-grid-item':function(event, template){
     event.preventDefault();
-//console.log("click input nameœ: "+event.target.name);
-//console.log("click input value: "+event.target.value);
-//console.log("click tag name: "+event.target.tagName);
-
-console.log("click current nameœ: "+event.currentTarget.name);
-console.log("click current value: "+event.currentTarget.value);
-console.log("click current tag name: "+event.currentTarget.tagName);
-
 var key = event.target.name;
  var tar = event.target;
-//var req = Json.parse('{_id:"'+FlowRouter.getParam('_id')'",'+key+':null}');
+
 var routeid = FlowRouter.getParam('_id');
 var dig = '{_id:"'+routeid+'",'+key+':"on"}';
 console.log("av parser: "+dig);
@@ -555,7 +492,7 @@ console.log("fetch key: "+CampingCars.find({_id:FlowRouter.getParam('_id')}).fet
 if (event.target.value=="on")
 {
 
- //tar.value="off"; 
+
 console.log("bdd on: "+tar.value);
 var dig0 = '{"'+key+'":false  }';
 
@@ -594,24 +531,9 @@ CampingCars.update({_id: FlowRouter.getParam('_id')
   upsert: true
 });
 
-//var bdd = CampingCars.find({_id: FlowRouter.getParam('_id')});
+
 
 var val = null;
-//var dat = '{"'+key+'":'+val+'}';
-//console.log("avant json: "+dat);
-//var js = JSON.parse(dat);
-  //      CampingCars.update({
-    //        _id: FlowRouter.getParam('_id')
-      //  }, {
-        //    $set: js
-        //}, {
-          //  upsert: true
-        //});
-    //console.log("event target : "+event.target);
-    //console.log("event current target child : "+event.currentTarget.children.item(0).children.item(1).children.item(1).children.item(0).children.item(0).style);
-    //console.log("event current target child : "+event.currentTarget.children.item(6).children.item(0).style);
-//style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
-    
   },
 
   'click .image-remove': function(e, template){

@@ -11,16 +11,16 @@ import { Session } from 'meteor/session';
 
 import './listingsLayout.html';
  
- Template.listingsLayout.onCreated(function(template) {
+ Template.listingsLayout.onCreated(function() {
 //souscription a la base de donnée
-  Tracker.autorun(function () {
-    Meteor.subscribe("campingcars");
-    Meteor.subscribe('addons');
-    Meteor.subscribe('reservations');
-    Meteor.subscribe('usersdata');
-});
+//   Tracker.autorun(function () {
+//     Meteor.subscribe("campingcars");
+//     Meteor.subscribe('addons');
+//     Meteor.subscribe('reservations');
+//     Meteor.subscribe('usersdata');
+// });
 
-  this.addons = new ReactiveDict();
+ // this.addons = new ReactiveDict();
 });
 
  Template.listingsLayout.helpers({

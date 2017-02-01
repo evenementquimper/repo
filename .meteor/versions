@@ -122,6 +122,7 @@ templating-compiler@1.2.15
 templating-runtime@1.2.15
 templating-tools@1.0.5
 thebakery:ipgeocoder@0.1.2
+theduke:iban@0.0.5
 tracker@1.1.1
 tsega:bootstrap3-datetimepicker@4.17.37_1
 twbs:bootstrap@3.3.6
