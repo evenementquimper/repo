@@ -11,6 +11,10 @@ var contentviewtab = [];
 
  Template.maplistings.onCreated(function() {
 
+
+  //titre de la page
+  DocHead.setTitle("Localisation, carte, communes|Le Bon Camping-car");
+  
   Tracker.autorun(function () {
   Meteor.subscribe("campingcars");
   Meteor.subscribe("communes");

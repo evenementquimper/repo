@@ -51,6 +51,10 @@
 	"vehiculedescription":"Vehicle Description",
 	"basicsintrotitle2":"Help travellers find the right fit",
 	"basicsintrosubtitle2":"People searching on Le Bon Camping-car can filter by listing basics to find a camper that matches their dream.",
+	"greycardtitle":"Gray Card",
+	"updategreycardpicture":"Load the Gray Card",
+	"insurancetitle":"insurance",
+	"updateinsurancepicture":"Update insurance",
 	"introduceyourself":"Introduce Yourself",
 	"updateprofilepicture":"Update Profile Picture",
 	"profilepicturetex":"Clear frontal face photos will help other get to know and trust you. It’s not very clear from a landscape photo who you are! Please upload a photo that clearly shows your face.",
@@ -162,7 +166,12 @@
 	"days":"days",
 	"serandroadsup":"Service and Roadside Support",
 	"requestbooking":"Request a Booking",
-	"vehiculename":"Vehicule Name"
-
+	"vehiculename":"Vehicule Name",
+	"addonname":"Addon Name",
+	"amount":"amount",
+	"maxquantityperbooking":"Max Quantity Per Booking",
+	"enableaddon":"Enable Addon",
+	"company":"Company",
+	"termsandconditions":"Terms and Conditions"
 
 }

@@ -17,6 +17,8 @@ import './authentication.html';
     Meteor.subscribe("campingcars");
 });
 
+    //titre de la page
+  DocHead.setTitle("Inscription, Connection|Le Bon Camping-car");
 
 });
 

@@ -212,39 +212,6 @@
          
          </section>
          
-         <section class="section section--white-bordered">
-         
-         <div class="section-container">
-         
-         <div class="section-left">
-         
-         <div class="section-row">
-         
-         <div class="col-4">
-         
-         <h5>{{_ "houserules"}}
-         
-         </h5>
-         
-         </div>
-         
-         <div class="col-8">
-         
-         <div>
-         
-         <p>{{_ "nosmoking"}} {{_ "nopets"}}
-         
-         </p>
-         
-         </div>
-         
-         </div>
-         
-         </div>
-         
-         </div>
-         </div>
-         </section>
          <section class="section">
          <div class="section-container">
          <div class="section-left">
@@ -290,7 +257,7 @@
          <div class="section-container">
          <div class="section-left">
          <div class="section-intro pull-left">
-         <h2 class="section-intro-title">Tech specs
+         <h2 class="section-intro-title">Spécifications Techniques
          </h2>
          </div>
          </div>
@@ -1154,17 +1121,19 @@
 <div class="section-container">
 <div class="section-left">
 <div class="section-intro pull-left">
-<h2 class="section-intro-title">Add-ons
+<h2 class="section-intro-title">Options
 </h2>
+
 </div>
 
 <div class="list-container">
 
 {{#each campingcaraddons}}
 
+{{#if this.enable}}
 <div class="list-item list-item--addon">
 
-<img src="{{this.images.[0]}}" style="height: 98px; width: 98px; border-radius: 0px; display: inline-block; border: 1px solid rgba(0, 0, 0, 0.08);" class="list-item-image">
+<img src="{{this.image}}" style="height: 98px; width: 98px; border-radius: 0px; display: inline-block; border: 1px solid rgba(0, 0, 0, 0.08);" class="list-item-image">
 <div class="list-item-content">
 <h3 class="list-item-title">{{this.name}}
 </h3>
@@ -1172,8 +1141,6 @@
 <div style="overflow:hidden;">
 <div title="">{{this.description}}
 </div>
-<span class="link">Read More
-</span>
 </div>
 </div>
 </div>
@@ -1181,15 +1148,17 @@
 <div class="listing-addon-actions">
 <div class="listing-addon-billing">
 <span class="listing-addon-price">
-<span class="glyphicon glyphicon-eur">
-</span>
-<span>{{this.amount}}
-</span>
-<sup class="charge-currency">EUR
+{{this.amount}}
+<sup class="glyphicon glyphicon-eur charge-currency"> EUR
 </sup>
 </span>
-<span class="listing-addon-frequency">fixed price
+{{#if this.perday}}
+<span class="listing-addon-frequency">Par jour
 </span>
+{{else}}
+<span class="listing-addon-frequency">Pour le séjour
+</span>
+{{/if}}
 </div>
 <div class="add-addon" id="{{this._id}}" style="background-color:#ef4136;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
          0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;width:100%;">
@@ -1199,6 +1168,8 @@
          </div>
          </div>
          </div>
+{{else}}
+{{/if}}
 
 {{/each}}
 
@@ -1211,13 +1182,19 @@
 
 </div>
 
-  <div class="input-group datetimepicker">
-    <span class="input-group-addon" style="display:none;"><i class="glyphicon glyphicon-calendar"></i></span>
-    <input class="set-due-date form-control" type="text" style="display:none;"/>
-  </div>
-  <button>Valid</button>
+<div class="ml-calendar ml-calendar--column">
+<h1 class="ml-panel-intro-title">Disponibilités
+</h1>
+<div class="ml-panel-intro ml-panel-intro" style="width: 65%;padding-left: 8%;
+padding-right: 8%;">
 
+{{#if calendaroptions}}
+{{> fullcalendar calendaroptions}}
+{{else}}
+{{/if}}
 
+                </div>
+                </div>
          
          </div>
          
@@ -1240,18 +1217,6 @@
          </div>
          
          </div>
-         
-         <noscript data-reactid=".0.1.1.$page.7">
-         
-         </noscript>
-         
-         <noscript data-reactid=".0.1.1.$page.8">
-         
-         </noscript>
-         
-         <noscript data-reactid=".0.1.1.$page.9">
-         
-         </noscript>
          
          </div>
          

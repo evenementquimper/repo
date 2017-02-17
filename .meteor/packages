@@ -53,6 +53,8 @@ cfs:filesystem
 cmather:handlebars-server
 meteorhacks:picker
 pascoual:pdfkit
-force-ssl
+force-ssl@1.0.13
 percolate:momentum
 theduke:iban
+kadira:dochead
+gadicohen:sitemaps

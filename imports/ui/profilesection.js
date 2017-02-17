@@ -158,39 +158,28 @@ var js = JSON.parse(dig);
   },
 
 'click .text-item': function(event, template){
-//console.log("click current text-item label style width: "+event.currentTarget.children[0].style.position);
-var lab = event.currentTarget.children[0];
-var inp = event.currentTarget.children[1];
-var hli = event.currentTarget.children[3];
-//console.log("Label: "+lab.innerHTML);
-inp.style.display = "inline-block";
-
-var nstyle = {"font-size":"","line-height" : "22px","z-index": "1", "transform-origin" :"left top 0px","transform":"perspective(1px) scale(0.75) translate3d(2px, -28px, 0px)"};
-lab.style = nstyle;
-//lab.style.;
-lab.style.top = "38px";
-lab.style.transition = "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms";
-//lab.style.;
-lab.style.cursor = "text";
-//lab.style.; 244, 67, 54
-lab.style.color ="rgba(86,90,92,0.5)";
-//lab.innerHTML = "Vehicle Model";
-
-var hrstyle = {"border-color":"rgb(36,97,130)" ,"bottom":"8px","box-sizing" : "content-bo","margin": "0px", "position" :"absolute","width":"100%","transform":"scaleX(1)","transition":"all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms","border-width":"medium medium 2px","border-style":"none none solid"};
-hli.style.transform = "scaleX(1)";
-
-//console.log("click current value: "+event.currentTarget.value);
-//console.log("click current tag name: "+event.currentTarget.tagName);
+  
+  event.preventDefault();
+  var lab = event.currentTarget.children[0];
+  var inp = event.currentTarget.children[1];
+  var hli = event.currentTarget.children[3];
+  var nstyle = {"font-size":"","line-height" : "22px","z-index": "1", "transform-origin" :"left top 0px","transform":"perspective(1px) scale(0.75) translate3d(2px, -28px, 0px)"};
+  inp.style.display = "inline-block";
+  lab.style = nstyle;
+  lab.style.top = "38px";
+  lab.style.transition = "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms";
+  lab.style.cursor = "text";
+  lab.style.color ="rgba(86,90,92,0.5)";
+  var hrstyle = {"border-color":"rgb(36,97,130)" ,"bottom":"8px","box-sizing" : "content-bo","margin": "0px", "position" :"absolute","width":"100%","transform":"scaleX(1)","transition":"all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms","border-width":"medium medium 2px","border-style":"none none solid"};
+  hli.style.transform = "scaleX(1)";
 
 },
 
 
 'click .avatar-upload-button': function (e, template){
-console.log("click avatar upload");
   e.preventDefault();
   var inp = template.find('#avatarImage');
   inp.click();
-  //var email = $(ResId).val();
 },
 
 'click .license-upload-button': function(e, template){

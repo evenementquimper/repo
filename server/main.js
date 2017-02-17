@@ -15,11 +15,11 @@ Meteor.startup(() => {
   //   return;
 
   // Add CDN awesomeness - this is the critical line.
- //WebAppInternals.setBundledJsCssPrefix(Meteor.settings.private.cdnPrefix);
-  // Trust the URL in our browser policy (if it's available).
-  try {
-    return BrowserPolicy.content.allowOriginForAll(Meteor.settings.private.cdnPrefix);
-  } catch (undefined) {}
+  //WebAppInternals.setBundledJsCssPrefix(Meteor.settings.private.cdnPrefix);
+ //  // Trust the URL in our browser policy (if it's available).
+   //try {
+     //return BrowserPolicy.content.allowOriginForAll(Meteor.settings.private.cdnPrefix);
+   //} catch (undefined) {}
 
  //IPGeocoder.load();
 Meteor.absoluteUrl(['http://leboncampingcar.fr']);
@@ -46,8 +46,8 @@ Meteor.absoluteUrl(['http://leboncampingcar.fr']);
 });
 
 Meteor.onConnection(function(conn) {
-    //console.log("connection client address: "+conn.clientAddress);
-    //console.log("connection client id: "+conn.id);
+    console.log("connection client address: "+conn.clientAddress);
+    console.log("connection client id: "+conn.id);
 //nbrconn = nbrconn+1;
 //console.log("nbr de client connect: "+nbrconn);
 //       Connections.insert({

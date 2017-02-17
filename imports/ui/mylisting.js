@@ -66,6 +66,7 @@ else
       CampingCars.insert({
               userid: Meteor.userId(),
               userimage:userimg,
+              daysfull : [],
               //planyo_resource_id: resId,
               createdAt: new Date()
           }, function( error, result) { 

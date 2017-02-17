@@ -3,6 +3,8 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { DDP } from 'meteor/ddp-client';
 
 //import './main.html';
+import '../imports/ui/footer.html';
+import '../imports/ui/pagetitle.html';
 import '../imports/ui/body.js';
 import '../imports/ui/nav.js';
 import '../imports/ui/navcon.html';
@@ -57,7 +59,7 @@ import '../imports/ui/_footer.html';
 
 import '../imports/ui/override-atPwdFormBtn.js';
 import '../imports/ui/authentication.js';
-import '../imports/ui/loginLayout.html';
+import '../imports/ui/loginLayout.js';
 
 if (Meteor.isClient) {
   Meteor.startup(function () {

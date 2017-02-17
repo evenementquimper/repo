@@ -1,5 +1,4 @@
-
-
+//import { CampingCars } from '../imports/api/campingcars.js';
 
 FlowRouter.route('/', {
 	name:'index',
@@ -169,6 +168,25 @@ FlowRouter.route('/mylistings/availability/:_id', {
 
   }
 });
+
+// FlowRouter.route('/campingcar/:city/:make/:model', {
+//   name:'campingcar',
+
+//   action: function(params) {
+
+//     if(CampingCars.find({city:params.city , make:params.make, model:params.model}).fetch()[0])
+//     {
+//     var bdd = CampingCars.find({city:params.city , make:params.make, model:params.model}).fetch()[0];
+//     FlowRouter.go('/listings/'+bdd._id);
+//     //BlazeLayout.render("listingsLayout");
+// }
+// else
+// {
+//   FlowRouter.go('/');
+//   }
+// }
+// });
+
 FlowRouter.route('/listings/:_id', {
 	name:'listings',
   action: function() {
@@ -176,6 +194,8 @@ FlowRouter.route('/listings/:_id', {
 
   }
 });
+
+
 
 FlowRouter.route('/book/:_id', {
   name:'book',

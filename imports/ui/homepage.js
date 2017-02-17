@@ -5,24 +5,24 @@ import { CampingCars } from '../api/campingcars.js';
 import { ReactiveDict } from 'meteor/reactive-dict'; 
 
 import './homepage.html';
-        var dayfull = [];//tableau de moment
+var dayfull = [];//tableau de moment
 var startt = moment();
 var endt = moment();
 var place = {loc:null};
- Template.homepage.onCreated(function() {
-  
-  //   this.autorun(() => {
-  //   this.subscribe('campingcars');
-  // });
 
+Template.homepage.onCreated(function() {
+  
+
+
+  
   Tracker.autorun(function () {
   Meteor.subscribe("campingcars", {
     onError: function( error ) {
-        console.log("Meteor subscribe error: "+error);
+        //console.log("Meteor subscribe error: "+error);
         // if the subscribe terminates with an error
     },
     onReady: function() {
-      console.log("Meteor subscribe ready: ");
+      //console.log("Meteor subscribe ready: ");
         // when ready
     }
 
@@ -30,28 +30,20 @@ var place = {loc:null};
   });
 });
 
-   //this.search = new ReactiveDict();
-var autocomplete;
 
- GoogleMaps.ready('exampleMap', function(map){
+  var autocomplete;
 
+  GoogleMaps.ready('exampleMap', function(map){
   var input = /** @type {!HTMLInputElement} */(
       document.getElementById('autocomplete'));
 
   autocomplete = new google.maps.places.Autocomplete(input, {
-  //bounds: defaultBounds,
   componentRestrictions: {country: 'fr'},
   types: ['(cities)']
 });
-//   autocomplete.bindTo('bounds', map);
-
 
   autocomplete.addListener('place_changed', function() {
-    //console.log("listener autocomplete");
-    //infowindow.close();
-    // marker.setVisible(false);
     place = autocomplete.getPlace();
-    //console.log("Place: "+JSON.stringify(place.name));
     if (!place.geometry) {
        window.alert("Autocomplete's returned place contains no geometry");
        return;
@@ -76,6 +68,11 @@ var autocomplete;
 });
 
  Template.homepage.onRendered(function() {
+
+var linkInfo = {rel: "icon", sizes:"16x16 32x32", href: "/favicon.ico?v=3"};
+DocHead.addLink(linkInfo);
+  //titre de la page
+DocHead.setTitle("Le Bon Camping-car");
 
 GoogleMaps.load({key: Meteor.settings.public.G_MAP_KEY, libraries: 'places'});
 
@@ -108,23 +105,18 @@ this.$('.datetimepickerstart').datetimepicker({
     }); 
 
 
-this.$('.owl-carousel').owlCarousel({
-   loop:true,
-    margin:10,
-    nav:false,
-    items:3,
-    autoplay:true,
-    autoplayTimeout:5000,
+  this.$('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:false,
+        items:3,
+        autoplay:true,
+        autoplayTimeout:5000,
 });
 
 });
 
 
-//  Template.mlsectioncontentavailability.rendered = function() {
-
-// this.$('.datepicker').datepicker();
-
-// }
  Template.homepage.helpers({
 
    exampleMapOptions: function() {
@@ -160,47 +152,38 @@ else
 
 
 'click #search-button': function(instance, template){
-  //console.log(JSON.stringify(Template.instance().search.get('geometry')));
-var lat=46.227638;
-var lng=2.213749000000007;
-startt="";
-endt="";
-var loc = "";
-var cityname= "";
-var citycode = null;
 
-if(place.name)
-{
-  cityname = place.name;
-}
+    var lat=46.227638;
+    var lng=2.213749000000007;
+    startt="";
+    endt="";
+    var loc = "";
+    var cityname= "";
+    var citycode = null;
 
-// if(place.address_components[5].long_name)
-// {
-//   citycode = parseInt(place.address_components[5].long_name);
-// }
+    if(place.name)
+    {
+      cityname = place.name;
+    }
 
-  if(place.geometry)
-  {
-loc = place.geometry.location;
-lat=loc.lat();
-lng=loc.lng();
-}
+    if(place.geometry)
+    {
+      loc = place.geometry.location;
+      lat=loc.lat();
+      lng=loc.lng();
+    }
 
+    if($('.datetimepickerstart').data().date)
+    startt = $('.datetimepickerstart').data().date;
 
-if($('.datetimepickerstart').data().date)
-startt = $('.datetimepickerstart').data().date;
+    if($('.datetimepickerend').data().date)
+    endt = $('.datetimepickerend').data().date;
 
-if($('.datetimepickerend').data().date)
-endt = $('.datetimepickerend').data().date;
-
-     var queryParams = JSON.parse('{"citycode":'+citycode+',"name":"'+cityname+'","lat":'+lat+',"lng":'+lng+',"start":"'+startt+'","end":"'+endt+'"}');
-  //var queryParams = JSON.parse('{"location":'+JSON.stringify(loc)+',"start":"'+startt+'","end":"'+endt+'"}');
-  
-     var path = FlowRouter.path("maplistings", queryParams);
+    var queryParams = JSON.parse('{"citycode":'+citycode+',"name":"'+cityname+'","lat":'+lat+',"lng":'+lng+',"start":"'+startt+'","end":"'+endt+'"}');
+    var path = FlowRouter.path("maplistings", queryParams);
      //FlowRouter.setQueryParams(queryParams);
-FlowRouter.go(path);
-
-},
+    FlowRouter.go(path);
+  },
 
 'dp.change .datetimepickerstart': function(instance, template){
  //event.preventDefault();

@@ -7,7 +7,15 @@ import { CampingCars } from '../api/campingcars.js';
  
 
 import './mlsectioncontentdetails.html';
- 
+var metanbr;
+Template.mlsectioncontentdetails.onRendered(function() {
+
+ var linkInfo = {rel: "icon", sizes:"16x16 32x32", href: "/favicon.ico?v=3"};
+ DocHead.addLink(linkInfo);
+ metanbr=0;
+
+}); 
+
 Template.mlsectioncontentdetails.helpers({
 
 campingcars: function(){
@@ -19,6 +27,22 @@ campingcars: function(){
       }
       else
       {
+
+          metanbr++;
+
+          if(metanbr==1){
+          var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+          DocHead.setTitle(bdd.name+"|Détails|Le Bon Camping-car");
+          var cont = "Marque "+bdd.make+" modèle "+bdd.model;
+          var metaInfo = {name: "description", content: cont};
+          DocHead.addMeta(metaInfo);  
+
+          }
+          else
+          {
+
+          }
+
           return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
 
       }
@@ -270,24 +294,8 @@ CampingCars.update({_id: FlowRouter.getParam('_id')
   upsert: true
 });
 
-//var bdd = CampingCars.find({_id: FlowRouter.getParam('_id')});
-
 var val = null;
-//var dat = '{"'+key+'":'+val+'}';
-//console.log("avant json: "+dat);
-//var js = JSON.parse(dat);
-  //      CampingCars.update({
-    //        _id: FlowRouter.getParam('_id')
-      //  }, {
-        //    $set: js
-        //}, {
-          //  upsert: true
-        //});
-    //console.log("event target : "+event.target);
-    //console.log("event current target child : "+event.currentTarget.children.item(0).children.item(1).children.item(1).children.item(0).children.item(0).style);
-    //console.log("event current target child : "+event.currentTarget.children.item(6).children.item(0).style);
-//style input style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;"
-    
+
   }
 
    });

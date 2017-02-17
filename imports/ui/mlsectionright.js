@@ -22,7 +22,11 @@ steps: function(){
 	    campingcar.name!="" &&
 	    campingcar.description!="" &&
 	    campingcar.maxGuests!="" &&
-	    campingcar.beds!="")
+	    campingcar.beds!="" &&
+	    campingcar.greycardimages!=null &&
+	    campingcar.greycardimages!="" &&
+	    campingcar.insuranceimages!=null &&
+	    campingcar.insuranceimages!="")
 			steps = steps+1;
 
 	if(campingcar.make!=null &&
