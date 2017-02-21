@@ -21,7 +21,15 @@ var metanbr;
 // });
 
   this.autorun(() => {
-    this.subscribe('campingcars');
+    const campingcarssubs = this.subscribe('campingcars');
+    if(campingcarssubs.ready()){
+      var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+  DocHead.setTitle(bdd.name+"|Le Bon Camping-car");
+  var metaInfo = {name: "description", content: bdd.description};
+  DocHead.addMeta(metaInfo);
+
+    }
+
     this.subscribe('addons');
     this.subscribe('reservations');
     this.subscribe('usersdata');
@@ -56,13 +64,6 @@ var tabtest = [
     if(Reservations.find({resource_id:FlowRouter.getParam("_id")}).count() && FlowRouter.getParam("_id") && CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch())
 {
 var bddcampingcar = CampingCars.find({_id: FlowRouter.getParam('_id')}).fetch()[0];
-
-  metanbr++;
-
-  if(metanbr==1)
-  DocHead.setTitle(bddcampingcar.name+"|Le Bon Camping-car");
-  var metaInfo = {name: "description", content: bddcampingcar.description};
-  DocHead.addMeta(metaInfo);
 
 var bddreservations = Reservations.find({resource_id:FlowRouter.getParam("_id")}).fetch();
 

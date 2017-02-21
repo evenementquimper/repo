@@ -61,6 +61,10 @@ import '../imports/ui/override-atPwdFormBtn.js';
 import '../imports/ui/authentication.js';
 import '../imports/ui/loginLayout.js';
 
+import '../imports/ui/campingcarsLayout.js';
+import '../imports/ui/campingcar.js';
+import '../imports/ui/campingcarbooking.js';
+
 if (Meteor.isClient) {
   Meteor.startup(function () {
     //Session.set("showLoadingIndicator", true);

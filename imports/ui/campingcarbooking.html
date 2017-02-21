@@ -1,0 +1,318 @@
+<template name="campingcarbooking">
+<div class="section-right">
+<div style="" class="sticky-outer-wrapper booking-wrapper">
+<div class="sticky-inner-wrapper" style="position: relative; transform: translate3d(0px, 0px, 0px);">
+<div>
+
+
+<div class="booking">
+<form>
+<div class="booking-charge">
+<div class="booking-charge-price" itemprop="price">{{_ "pricingsummary"}}
+</div>
+</div>
+<div class="booking-date">
+<div class="filter">
+<div class="flex-grid">
+<div style="width:33.333333333333336%;" class="flex-grid-item">
+<div>
+<div style="font-size:16px;line-height:24px;width:100%;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;margin-bottom:5px;">
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:perspective(1px) scale(0.75) translate3d(2px, -28px, 0);transform-origin:left top;pointer-events:none;user-select:none;color:rgba(86,90,92,0.5);">{{_ "pick-up"}}
+</label>
+<div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;" >{{_ "pick-up"}}
+</div>
+<input class="startdatetimepicker" value="" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="text">
+<div>
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+</div>
+</div>
+</div>
+</div>
+<div style="width:33.333333333333336%;" class="flex-grid-item">
+<div>
+<div style="font-size:16px;line-height:24px;width:100%;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;margin-bottom:5px;">
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:perspective(1px) scale(0.75) translate3d(2px, -28px, 0);transform-origin:left top;pointer-events:none;user-select:none;color:rgba(86,90,92,0.5);">{{_ "drop-off"}}
+</label>
+<div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;">{{_ "drop-off"}}
+</div>
+<input class="enddatetimepicker" value="" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="text">
+<div>
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+</div>
+</div>
+</div>
+</div>
+<div style="width:33.333333333333336%;" class="flex-grid-item">
+<div style="font-size:16px;line-height:24px;width:100%;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;margin-bottom:5px;">
+<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:perspective(1px) scale(0.75) translate3d(2px, -28px, 0);transform-origin:left top;pointer-events:none;user-select:none;color:rgba(86,90,92,0.5);">{{_ "people"}}
+</label>
+<div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;">{{_ "people"}}
+</div>
+
+<div id="people" value="1" style="display:inline-block;font-size:15px;height:100%;font-family:Roboto, sans-serif;outline:none;position:relative;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;tap-highlight-color:rgba(0,0,0,0);padding:0;width:100%;border:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;">
+<div style="cursor:pointer;height:100%;position:relative;width:100%;">
+<div style="box-sizing:border-box;content:' ';display:table;">
+</div>
+<div style="color:rgba(86, 90, 92, 0.87);line-height:56px;opacity:1;position:relative;padding-left:50px;padding-right:48px;top:6px;">{{people}}
+</div>
+<svg style="display:inline-block;height:24px;width:24px;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;fill:rgba(0,0,0,0.3);position:absolute;right:0;top:22px;" viewBox="0 0 24 24">
+<path d="M7 10l5 5 5-5z">
+</path>
+</svg>
+<div style="border-top:none;bottom:1px;left:0;margin:-1px 24px;right:0;position:absolute;">
+</div>
+<div style="box-sizing:border-box;content:' ';clear:both;display:table;">
+</div>
+</div>
+</div>
+<div>
+<hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
+<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="booking-errors">
+</div>
+<div class="booking-price">
+<table class="pricing-table">
+<tbody>
+<tr>
+<td>
+<span>
+<span class="glyphicon glyphicon-eur">
+</span>
+<span>{{campingcarsbook.priceperday}}
+</span>
+<sup class="charge-currency">EUR
+</sup>
+</span>
+<span> x 
+</span>
+<span>{{deltadays}}
+</span>
+<span> {{_ "days"}}
+</span>
+</td>
+<td class="text-right">
+<span>
+<span class="glyphicon glyphicon-eur">
+</span>
+<span>{{netprize}}
+</span>
+<sup class="charge-currency">EUR
+</sup>
+</span>
+</td>
+</tr>
+<tr>
+<td>
+<span>{{_ "serandroadsup"}}
+</span>
+<button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;padding:0 5px;width:auto;height:auto;font-size:0;" tabindex="0" type="button">
+<div>
+<div style="position: absolute; font-family: Roboto,sans-serif; font-size: 10px; line-height: 22px; padding: 0px 8px; z-index: 3000; color: rgb(255, 255, 255); overflow: hidden; top: -10000px; border-radius: 2px; opacity: 0; transition: top 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box;">
+<div style="position: absolute; left: 0%; top: 100%; transform: translate(-50%, -50%); border-radius: 50%; background-color: transparent; transition: width 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, height 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, backgroundColor 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; width: 0px; height: 0px;">
+</div>
+</div>
+</div>
+</button>
+</td>
+<td class="text-right">
+<span>
+<span class="glyphicon glyphicon-eur">
+</span>
+<span>200
+</span>
+<sup class="charge-currency">EUR
+</sup>
+</span>
+</td>
+</tr>
+<tr>
+<td>
+<span>{{_ "insurance"}}
+</span>
+<button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;padding:0 5px;width:auto;height:auto;font-size:0;" tabindex="0" type="button">
+<div>
+<div style="position:absolute;font-family:Roboto, sans-serif;font-size:10px;line-height:22px;padding:0 8px;z-index:3000;color:#ffffff;overflow:hidden;top:-10000px;border-radius:2px;user-select:none;opacity:0;transition:top 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms,transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms,opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;">
+<div style="position: absolute; left: 0%; top: 100%; transform: translate(-50%, -50%); border-radius: 50%; background-color: transparent; transition: width 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, height 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms, backgroundColor 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; width: 0px; height: 0px;">
+</div>
+</div>
+</div>
+</button>
+</td>
+<td class="text-right">
+<span class="">
+<span class="glyphicon glyphicon-eur">
+</span>
+<span>280
+</span>
+<sup class="charge-currency">EUR
+</sup>
+</span>
+</td>
+</tr>
+
+{{#if campingcaraddonsselect}}
+{{#each campingcaraddonsselect}}
+<tr>
+<td>
+<span>Optional Add-Ons</span>
+
+<div>
+<small>
+<ul class="booking-price-fees booking-price-fees--optional">
+<li>
+
+<span>
+</span>
+<span>{{this.name}}</span>
+<span>: </span>
+<span class="">
+<span class="glyphicon glyphicon-eur"></span>
+<span>{{this.amount}}</span><sup class="charge-currency">EUR</sup></span><span></span></li></ul>
+
+</small>
+</div>
+
+
+</td><td class="text-right">
+<span class="">
+<span class="glyphicon glyphicon-eur"></span>
+<span>{{this.amount}}</span><sup class="charge-currency">EUR</sup></span></td></tr>
+{{/each}}
+{{else}}
+{{/if}}
+
+
+<tr>
+<td>
+<strong>Total 
+</strong>
+<small>
+</small>
+</td>
+<td class="text-right">
+<strong>
+<span>
+<span class="glyphicon glyphicon-eur">
+</span>
+<span>{{totalprize}}
+</span>
+<sup class="charge-currency">EUR
+</sup>
+</span>
+</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="booking-submit">
+<div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;width:100%;margin-bottom:5px;">
+         {{#if currentUser}}
+         <button class="booking-request" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;background-color:#ef4136;" tabindex="0" type="button">
+         <div>
+         <div style="transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;top:0;">
+         <span style="position:relative;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;">{{_ "requestbooking"}}
+         </span>
+         </div>
+         </div>
+         </button>
+{{else}}
+<a class="" href="/authentication">
+         <button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;background-color:#ef4136;" tabindex="0" type="button">
+         <div>
+         <div style="transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;top:0;">
+         <span style="position:relative;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;">{{_ "requestbooking"}}
+         </span>
+         </div>
+         </div>
+         </button>
+         </a>
+{{/if}}
+         </div>
+          </div>
+         </form>
+         </div>
+
+<!--          <div class="sharing-component-wrapper clearfix">
+         <div class="sharing-component-buttons-wrapper">
+
+
+         <div class="sharing-component-button">
+         <i class="fa fa-google">
+         </i>
+         <span>Google
+         </span>
+         </div>
+         <div class="sharing-component-button">
+         <i class="fa fa-facebook">
+         </i>
+         <span>Facebook
+         </span>
+         </div>
+         <div class="sharing-component-button">
+         <i class="fa fa-twitter">
+         </i>
+         <span>Twitter
+         </span>
+         </div>
+
+	         <div class="sharing-component-button">
+	         <i class="fa fa-instagram">
+	         </i>
+	         <span>Instagram
+	         </span>
+	         </div>
+         </div>
+         </div> -->
+
+         </div>
+         </div>
+         </div>
+         </div>
+
+
+
+
+<div id="outpoupselect" style="display:none; position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; z-index: 2000;">
+
+<div class="popupselect" id="peopleselect" style="display:none;background-color: rgb(255, 255, 255); transition: transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; opacity: 1; transform: scaleY(1); transform-origin: left top 0px; position: fixed; z-index: 2100; max-height: 448px; width: 256px; top: 247.3px; left: 247px;">
+<div style="z-index: 1000; top: 0px; right: 0px; transform: scaleX(1); transform-origin: right center 0px; width: 256px;">
+<div style="background-color: rgb(255, 255, 255); box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; transform: scaleY(1); transform-origin: center top 0px; opacity: 1; max-height: 500px; overflow-y: auto;">
+<div style="background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; border-radius: 2px; padding: 16px 0px; display: table-cell; width: 256px;">
+{{#if guests}}
+{{#each guests}}
+<div style="opacity: 1;">
+<span tabindex="0" type="button" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: block; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">
+<div>
+<div style="margin-left: 0px; padding: 0px 24px; position: relative;">
+<div class="peoplenbr">{{guest}}</div>
+</div>
+</div>
+</span>
+</div>
+{{/each}}
+{{else}}
+{{/if}}
+
+</div>
+</div></div></div>
+
+
+
+
+</div>
+
+
+
+
+
+         </template>

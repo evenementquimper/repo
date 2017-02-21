@@ -1,0 +1,1227 @@
+
+
+<template name="campingcar">
+
+
+<main id="main" class="main">
+
+<div class="listing-booking" itemscope="" itemtype="http://schema.org/Product">
+
+<div class="listing-booking-wrapper">
+       
+<div class="hero" style="background-image:url(&quot;{{campingcar.images.[0]}}&quot;);" itemprop="image">
+<div class="hero-inner">
+<div class="hero-copy">
+</div>
+</div>
+</div>
+</div>
+<div class="summary-section">
+<section class="section--no-padding-bottom section">
+<div class="section-container">
+<div class="booking-summary-section">
+<div class="section-left">
+<div class="section-row">
+<div class="col-2">
+<div class="booking-summary-owner">
+{{#if campingcaruser.images}}
+<div style="height:100px;width:100px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:100px;font-size:54px;color:#ffffff;background-image:url(&quot;{{campingcaruser.images}}&quot;);background-size: 100px 100px;">
+
+
+</div>
+
+{{else}}
+<div style="height:100px;width:100px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:100px;font-size:54px;color:#ffffff;">
+
+<svg fill="#FFFFFF" height="100%" viewBox="0 0 24 24" width="100%">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z">
+</path>
+<path d="M0 0h24v24H0z" fill="none">
+</path>
+</svg>
+</div>
+{{/if}}
+<h3>{{campingcaruser.firstname}}
+
+</h3>
+
+</div>
+
+</div>
+
+<div class="col-10">
+
+<div class="booking-summary-title-wrapper">
+
+<h1 class="booking-summary-title" itemprop="name">{{campingcar.model}}
+
+</h1>
+
+<h3 class="booking-summary-subtitle">{{campingcar.city}}
+
+</h3>
+
+</div>
+
+<div class="flex-grid">
+
+<div style="width:16.666666666666668%;" class="flex-grid-item">
+
+<div class="display-amenities">
+
+<span class="glyphicon glyphicon-user" style="position:relative;font-size:45px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:rgba(0,0,0, 0.53);">
+</span><p>{{_ "guests"}} x {{campingcar.maxGuests}}</p>
+</div>
+</div>
+<div style="width:16.666666666666668%;" class="flex-grid-item">
+<div class="display-amenities">
+<span class="glyphicon glyphicon-bed" style="position:relative;font-size:45px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:rgba(0,0,0, 0.53);">
+
+</span>
+<p>{{_ "beds"}} x {{campingcar.beds}}
+</p>
+</div>
+</div>
+<div style="width:16.666666666666668%;" class="flex-grid-item">
+<div class="display-amenities">
+<svg fill="grey" height="45" viewBox="0 0 24 24" width="45" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M5.5 22v-7.5H4V9c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v5.5H9.5V22h-4zM18 22v-6h3l-2.54-7.63C18.18 7.55 17.42 7 16.56 7h-.12c-.86 0-1.63.55-1.9 1.37L12 16h3v6h3zM7.5 6c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm9 0c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2z"/>
+</svg>
+<p>{{_ "toilet"}}</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+{{> campingcarbooking}}
+
+
+
+         
+         </div>
+         
+         <div class="section-left">
+         
+         <div class="listing-tabs" value="about">
+         
+         <div style="margin:0;padding:0;width:100%;white-space:nowrap;">
+         
+         <button id="about" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);padding:0px 12px;height:48px;color:inherit;font-weight:500;font-size:14px;width:33.333333333333336%;text-transform:uppercase;background-color:#ffffff;" tabindex="0" type="button">
+         
+         <div>
+         
+         <span>{{_ "about"}}
+         
+         </span>
+         
+         </div>
+         
+         </button>
+         
+         <button id="details" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);padding:0px 12px;height:48px;color:inherit;font-weight:500;font-size:14px;width:33.333333333333336%;text-transform:uppercase;background-color:#ffffff;" tabindex="1" type="button">
+         
+         <div>
+         
+         <span>{{_ "details"}}
+         
+         </span>
+         
+         </div>
+         
+         </button>
+         
+         <button id="addons" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);padding:0px 12px;height:48px;color:inherit;font-weight:500;font-size:14px;width:33.333333333333336%;text-transform:uppercase;background-color:#ffffff;" tabindex="2" type="button">
+         
+         <div>
+         
+         <span>{{_ "addons"}}
+         
+         </span>
+         
+         </div>
+         
+         </button>
+         
+         </div>
+         
+         <div style="width:100%;">
+         
+         <div id="stlbar" style="left:0%;width:33.333333333333336%;bottom:0;display:block;background-color:#ef4136;height:2px;margin-top:-2px;position:relative;transition:left 1s cubic-bezier(0.23, 1, 0.32, 1) 0ms;">&nbsp;
+         
+         </div>
+         
+         </div>
+         
+         <div>
+         
+         </div>
+         
+         </div>
+         
+         </div>
+         
+         </div>
+         
+         </section>
+         
+         </div>
+         
+         <div class="">
+
+
+
+<div class="listingabout">
+         
+         <section class="section" id="test" style="width:100%;">
+         
+         <div class="section-container">
+         
+         <div class="section-left">
+         
+         <div class="section-row">
+         
+         <div class="section-intro">
+         
+         <h2 class="section-intro-title">{{_ "aboutthislisting"}}
+         
+         </h2>
+         
+         </div>
+         
+         <div class="section-details" itemprop="description">
+         
+         <div>
+         
+         <p >{{campingcar.description}}
+         
+         </p>
+         
+         </div>
+         
+         </div>
+         
+         </div>
+         
+         </div>
+         
+         </div>
+         
+         </section>
+         
+         <section class="section">
+         <div class="section-container">
+         <div class="section-left">
+         <div class="photo-gallery">
+         <div class="section-row">
+         <div class="col-12">
+      </div>
+         
+         </div>
+         
+<div class="section-row">
+
+<div class="col-12">
+
+<div class="flex-grid">
+         {{#if campingcar.images}}
+         {{#each campingcar.images}}
+<div style="width:50%;" class="flex-grid-item">
+
+<img class="booking-img" src="{{this}}" alt="image" itemprop="image">
+
+</div>
+{{/each}}
+{{else}}
+{{/if}}
+</div></div></div>
+         
+         </div>
+         
+         </div>
+         
+         </div>
+         
+         </section>
+
+</div>
+
+         
+         <div class="listingdetails" style="display:none;">
+         
+         <section class="section">
+         
+         <div class="section-container">
+         <div class="section-left">
+         <div class="section-intro pull-left">
+         <h2 class="section-intro-title">Spécifications Techniques
+         </h2>
+         </div>
+         </div>
+         </div>
+         </section>
+         <section class="section">
+         <div class="section-container">
+         <div class="section-left">
+         <div class="section-row section-row--divider">
+         <div class="col-4">
+         <h5>{{_ "thespace"}}
+         </h5>
+         </div>
+         <div class="col-4">
+         <p>
+
+         <span>{{_ "beds"}}: 
+         </span>
+         <strong>{{campingcar.beds}}
+         </strong>
+         </p>
+         </div>
+         <div class="col-4">
+         <p>
+         <span>{{_ "maxguests"}}: 
+         </span>
+         <strong>{{campingcar.maxGuests}}
+         </strong>
+         </p>
+         </div>
+         </div>
+         <div class="section-row section-row--divider">
+         <div class="col-4">
+         <h5>{{_ "thespecs"}}
+         </h5>
+         </div>
+         <div class="col-4">
+         <p>
+         <span>{{_ "make"}}: 
+         </span>
+         <strong>{{campingcar.make}}
+         </strong>
+         </p>
+         <p>
+         <span>{{_ "model"}}: 
+         </span>
+         <strong>{{campingcar.model}}
+         </strong>
+         </p>
+         <p>
+         <span>{{_ "year"}}: 
+         </span>
+         <strong>{{campingcar.year}}
+         </strong>
+         </p>
+          <p>
+         <span>{{_ "vehiculelength"}}: 
+         </span>
+         <strong>{{campingcar.vehiculelength}} m
+         </strong>
+         </p>
+         <p>
+         <span>{{_ "vehiculeheight"}}: 
+         </span>
+         <strong>{{campingcar.vehiculeheight}} m
+         </strong>
+         </p>
+         </div>
+         <div class="col-4">
+         <p>
+         <span>{{_ "enginesize"}}: 
+         </span>
+         <strong>
+         <span>{{campingcar.engineSize}}
+         </span>
+         <span>cc
+         </span>
+         </strong>
+         </p>
+         <p>
+         <span>{{_ "fueltype"}}: 
+         </span>
+         <strong>{{campingcar.fueltype}}
+         </strong>
+         </p>
+         <p>
+         <span>{{_ "transmission"}}: 
+         </span>
+         <strong>{{campingcar.transmissiontype}}</strong>
+         </p>
+         <p>
+         <span>{{_ "vehiculewidth"}}: 
+         </span>
+         <strong>{{campingcar.vehiculewidth}} m
+         </strong>
+         </p>
+           <p>
+         <span>{{_ "milage"}}: 
+         </span>
+         <strong>{{campingcar.km}} km
+         </strong>
+         </p>
+         </div>
+         </div>
+         </div>
+         </div>
+         </section>
+         <section class="section">
+         <div class="section-container">
+         <div class="section-left">
+         <div class="section-row section-row--divider">
+         <div class="section-row-sub-section">
+         <div class="col-4">
+         <h5>{{_ "kitchendining"}}
+         </h5>
+         </div>
+         <div class="col-8">
+         <div class="flex-grid">
+
+         <div style="width:50%;" class="flex-grid-item">
+         {{#if campingcar.vacuum}}
+         <div class="list-amenity">{{_ "centralvacuumcleaner"}}
+         </div>
+         {{else}}
+          
+         <div class="list-amenity">
+         <del>{{_ "centralvacuumcleaner"}}
+         </del>
+         
+         </div>
+         {{/if}}
+         </div>
+         
+         <div style="width:50%;" class="flex-grid-item">
+         {{#if campingcar.hotwtr}}
+         <div class="list-amenity">{{_ "hotwater"}}
+         </div>
+         {{else}}
+         <del>{{_ "hotwater"}}
+         </del>
+         {{/if}}
+         </div>
+
+         {{#if campingcar.wtrpur}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">{{_ "waterpurifier"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">
+         <del>{{_ "waterpurifier"}}</del>
+         </div>
+         </div>
+         {{/if}}
+		 
+		 {{#if campingcar.sink}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">{{_ "sink"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">
+         <del>{{_ "sink"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 
+		 {{#if campingcar.oven}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">{{_ "oven"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">
+         <del>{{_ "oven"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.mwave}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">{{_ "microwave"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">
+         <del>{{_ "microwave"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.ctop}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">{{_ "cooktop"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">
+         <del>{{_ "cooktop"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+<!-- 		 {{#if campingcar.grill}}
+         <div style="width:50%;" class="flex-grid-item">
+         <div class="list-amenity">{{_ "grill"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "grill"}}
+         </del>
+         </div>
+         </div>
+         {{/if}} -->
+
+		 {{#if campingcar.fridge}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity">{{_ "refrigerator"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "refrigerator"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.freezer}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "freezer"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "freezer"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.cooler}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "cooler"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "cooler"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.basic}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "basiclivingequipment"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "basiclivingequipment"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.ttowel}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "teatowels"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "teatowels"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+         </div>
+         </div>
+         </div>
+         <div class="section-row-sub-section" data-reactid=".0.1.1.$page.3.2.0.0.0.$1">
+         <div class="col-4" data-reactid=".0.1.1.$page.3.2.0.0.0.$1.0">
+         <h5 data-reactid=".0.1.1.$page.3.2.0.0.0.$1.0.0">{{_ "living"}}
+         </h5>
+         </div>
+         <div class="col-8" data-reactid=".0.1.1.$page.3.2.0.0.0.$1.1">
+         <div class="flex-grid" data-reactid=".0.1.1.$page.3.2.0.0.0.$1.1.0">
+
+		 {{#if campingcar.ac}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "airconditioner"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "airconditioner"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.heat}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "heater"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "heater"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.curtain}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "curtains"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "curtains"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.flyscr}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "flyscreens"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "flyscreens"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.dtable}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "diningtable"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "diningtable"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.skylight}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "skylight"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "skylight"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.fan}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "fan"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "fan"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+         </div>
+         </div>
+         </div>
+         <div class="section-row-sub-section" data-reactid=".0.1.1.$page.3.2.0.0.0.$2">
+         <div class="col-4" data-reactid=".0.1.1.$page.3.2.0.0.0.$2.0">
+         <h5 data-reactid=".0.1.1.$page.3.2.0.0.0.$2.0.0">{{_ "bathroomlaundry"}}
+         </h5>
+         </div>
+         <div class="col-8" data-reactid=".0.1.1.$page.3.2.0.0.0.$2.1">
+         <div class="flex-grid" data-reactid=".0.1.1.$page.3.2.0.0.0.$2.1.0">
+
+		 {{#if campingcar.toilet}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "toilet"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "toilet"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.ishower}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "shower"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "shower"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.washb}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "washbasin"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "washbasin"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.washer}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "washer"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "washer"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.dryer}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "dryer"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "dryer"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+<!-- 		 {{#if campingcar.towel}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "towels"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "towels"}}
+         </del>
+         </div>
+         </div>
+         {{/if}} -->
+         </div>
+         </div>
+         </div>
+         <div class="section-row-sub-section" data-reactid=".0.1.1.$page.3.2.0.0.0.$3">
+         <div class="col-4" data-reactid=".0.1.1.$page.3.2.0.0.0.$3.0">
+         <h5 data-reactid=".0.1.1.$page.3.2.0.0.0.$3.0.0">{{_ "sleeping"}}
+         </h5>
+         </div>
+         <div class="col-8" data-reactid=".0.1.1.$page.3.2.0.0.0.$3.1">
+         <div class="flex-grid" data-reactid=".0.1.1.$page.3.2.0.0.0.$3.1.0">
+
+		 {{#if campingcar.linen}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "linen"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "linen"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.pillows}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "pillows"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "pillows"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+         </div>
+         </div>
+         </div>
+         <div class="section-row-sub-section" data-reactid=".0.1.1.$page.3.2.0.0.0.$4">
+         <div class="col-4" data-reactid=".0.1.1.$page.3.2.0.0.0.$4.0">
+         <h5 data-reactid=".0.1.1.$page.3.2.0.0.0.$4.0.0">{{_ "entertainment"}}
+         </h5>
+         </div>
+         <div class="col-8" data-reactid=".0.1.1.$page.3.2.0.0.0.$4.1">
+         <div class="flex-grid" data-reactid=".0.1.1.$page.3.2.0.0.0.$4.1.0">
+
+
+
+		 {{#if campingcar.radio}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "radio"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "radio"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.cd}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">CD
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">CD
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.tv}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">TV
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">TV
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.dvd}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">DVD
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">DVD
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.sat}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "satellitesystem"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "satellitesystem"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.wifi}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">Wi-Fi
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">Wi-Fi
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+         </div>
+         </div>
+         </div>
+         <div class="section-row-sub-section" data-reactid=".0.1.1.$page.3.2.0.0.0.$5">
+         <div class="col-4" data-reactid=".0.1.1.$page.3.2.0.0.0.$5.0">
+         <h5 data-reactid=".0.1.1.$page.3.2.0.0.0.$5.0.0">{{_ "general"}}
+         </h5>
+         </div>
+         <div class="col-8" data-reactid=".0.1.1.$page.3.2.0.0.0.$5.1">
+         <div class="flex-grid" data-reactid=".0.1.1.$page.3.2.0.0.0.$5.1.0">
+
+		 {{#if campingcar.fwtank}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "watertank"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "watertank"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.gwtank}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "greywatertank"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "greywatertank"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.pinvert}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "powerinverter"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "powerinverter"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.dgen}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "dieselgenerator"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "dieselgenerator"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.spanel}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "solarpanels"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "solarpanels"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+         </div>
+         </div>
+         </div>
+         <div class="section-row-sub-section" data-reactid=".0.1.1.$page.3.2.0.0.0.$6">
+         <div class="col-4" data-reactid=".0.1.1.$page.3.2.0.0.0.$6.0">
+         <h5 data-reactid=".0.1.1.$page.3.2.0.0.0.$6.0.0">{{_ "safety"}}
+         </h5>
+         </div>
+         <div class="col-8" data-reactid=".0.1.1.$page.3.2.0.0.0.$6.1">
+         <div class="flex-grid" data-reactid=".0.1.1.$page.3.2.0.0.0.$6.1.0">
+
+		 {{#if campingcar.smkdetect}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "smokedetector"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "smokedetector"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.fireext}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "fireextinguisher"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "fireextinguisher"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.rcamera}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "reversecamera"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "reversecamera"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+         </div>
+         </div>
+         </div>
+         <div class="section-row-sub-section" data-reactid=".0.1.1.$page.3.2.0.0.0.$7">
+         <div class="col-4" data-reactid=".0.1.1.$page.3.2.0.0.0.$7.0">
+         <h5 data-reactid=".0.1.1.$page.3.2.0.0.0.$7.0.0">{{_ "outdoors"}}
+         </h5>
+         </div>
+         <div class="col-8" data-reactid=".0.1.1.$page.3.2.0.0.0.$7.1">
+         <div class="flex-grid" data-reactid=".0.1.1.$page.3.2.0.0.0.$7.1.0">
+
+		 {{#if campingcar.awning}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "awning"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "awning"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+
+		 {{#if campingcar.oshower}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "outsideshower"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "outsideshower"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.storage}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "extrastorage"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "extrastorage"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.otablench}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "outdoortableandchairs"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "outdoortableandchairs"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.tbar}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "towbar"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "towbar"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.bbq}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "bbq"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "bbq"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+		 {{#if campingcar.brack}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$sink/=1$sink.$sink">{{_ "bikerack"}}
+         </div>
+         </div>
+         {{else}}
+         <div style="width:50%;" class="flex-grid-item" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven">
+         <div class="list-amenity" data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven">
+         <del data-reactid=".0.1.1.$page.3.2.0.0.0.$0.1.0.$oven/=1$oven.$oven.0">{{_ "bikerack"}}
+         </del>
+         </div>
+         </div>
+         {{/if}}
+         </div>
+         </div>
+         </div>
+         </div>
+         </div>
+         </div>
+         </section>
+         </div>
+
+
+<div class="listingaddons" style="display:none;">
+
+<section class="section">
+<div class="section-container">
+<div class="section-left">
+<div class="section-intro pull-left">
+<h2 class="section-intro-title">Options
+</h2>
+
+</div>
+
+<div class="list-container">
+
+{{#each campingcaraddons}}
+
+{{#if this.enable}}
+<div class="list-item list-item--addon">
+
+<img src="{{this.image}}" style="height: 98px; width: 98px; border-radius: 0px; display: inline-block; border: 1px solid rgba(0, 0, 0, 0.08);" class="list-item-image">
+<div class="list-item-content">
+<h3 class="list-item-title">{{this.name}}
+</h3>
+<div class="list-item-description">
+<div style="overflow:hidden;">
+<div title="">{{this.description}}
+</div>
+</div>
+</div>
+</div>
+<div class="list-item-actions">
+<div class="listing-addon-actions">
+<div class="listing-addon-billing">
+<span class="listing-addon-price">
+{{this.amount}}
+<sup class="glyphicon glyphicon-eur charge-currency"> EUR
+</sup>
+</span>
+{{#if this.perday}}
+<span class="listing-addon-frequency">Par jour
+</span>
+{{else}}
+<span class="listing-addon-frequency">Pour le séjour
+</span>
+{{/if}}
+</div>
+<div class="add-addon" id="{{this._id}}" style="background-color:#ef4136;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;width:100%;">
+         <button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;" tabindex="0" type="button">Addons      
+         </button>
+         </div>
+         </div>
+         </div>
+         </div>
+{{else}}
+{{/if}}
+
+{{/each}}
+
+         </div>
+         <div class="list-container">
+         </div>
+         </div>
+         </div>
+         </section>
+
+</div>
+
+<div class="ml-calendar ml-calendar--column">
+<h1 class="ml-panel-intro-title">Disponibilités
+</h1>
+<div class="ml-panel-intro ml-panel-intro" style="width: 65%;padding-left: 8%;
+padding-right: 8%;">
+
+{{#if campingcar}}
+{{> fullcalendar calendaroptions}}
+{{else}}
+{{/if}}
+
+
+                </div>
+                </div>
+         
+         </div>
+         
+         <div style="display:none;" data-reactid=".0.1.1.$page.5">
+         
+         </div>
+         
+         <div class="listing-details-snackbar" style="position:fixed;left:0;display:flex;right:0;bottom:0;z-index:2900;visibility:hidden;transform:translate3d(0, 48px, 0);transition:transform 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms,visibility 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".0.1.1.$page.6">
+         
+         <div style="background-color: rgba(86, 90, 92, 0.87); padding: 0px 24px; height: 48px; line-height: 48px; border-radius: 2px; max-width: 568px; min-width: 288px; flex-grow: 0; margin: auto;" data-reactid=".0.1.1.$page.6.0">
+         
+         <div style="font-size:14px;color:#ffffff;opacity:0;transition:opacity 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".0.1.1.$page.6.0.0">
+         
+         <span data-reactid=".0.1.1.$page.6.0.0.0">
+         
+         </span>
+         
+         </div>
+         
+         </div>
+         
+         </div>
+         
+         </div>
+         
+         </main>
+
+
+         </template>

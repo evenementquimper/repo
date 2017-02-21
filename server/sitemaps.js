@@ -1,9 +1,12 @@
+import { CampingCars } from '../imports/api/campingcars.js';
+
 sitemaps.add('/sitemap.xml', function() {
   // required: page
   // optional: lastmod, changefreq, priority, xhtmlLinks, images, videos
-  return [
+  var out = [
     { page: '/', lastmod: new Date(), changefreq: 'daily', priority: 1 },
-    { page: '/authentication', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 },
+    { page: '/authentication', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 }
+
     //{ page: '/authentication', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 },
     // https://support.google.com/webmasters/answer/178636?hl=en
     // { page: '/pageWithViedeoAndImages',
@@ -25,4 +28,15 @@ sitemaps.add('/sitemap.xml', function() {
     //   { rel: 'alternate', hreflang: 'en', href: '/lang/english' }
     // ]}
   ];
+  var campingcars = CampingCars.find().fetch();
+    _.each(campingcars, function(campingcar) {
+        if(campingcar.city && campingcar.make && campingcar.model)
+    out.push({
+      page: '/campingcar/'+campingcar.city+'/'+campingcar.make+'/'+campingcar.model,
+      lastmod: new Date(),
+      changefreq: 'daily', 
+      priority: 0.8
+    });
+  });
+    return out;
 });

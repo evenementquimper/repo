@@ -21,7 +21,7 @@ Template.mlsectioncontentloc.onCreated(function() {
       componentRestrictions: {country: 'fr'}
                     });
 
-    autocomplete2.bindTo('bounds', map.instance);
+    //autocomplete2.bindTo('bounds', map.instance);
 
     var marker = new google.maps.Marker({
     map: map.instance,
@@ -85,15 +85,16 @@ Template.mlsectioncontentloc.onCreated(function() {
 
   adressMapOptions: function() {
     // Make sure the maps API has loaded
-    if (GoogleMaps.loaded()) {
 
         var camplat = "48.1076427";
         var camplng = "-1.6789076000000023";
 
-            if(CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].location!=null)
-                camplat = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].location.lat;
-                camplng = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].location.lng;
-      // Map initialization options
+    if (GoogleMaps.loaded()) {
+
+      //       if(CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].location!=null)
+      //           camplat = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].location.lat;
+      //           camplng = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0].location.lng;
+      // // Map initialization options
       return {
         center: new google.maps.LatLng(camplat, camplng),
         zoom: 8,

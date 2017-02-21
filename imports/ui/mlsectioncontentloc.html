@@ -20,9 +20,13 @@
 			</h2>
 			
 			</div>
+ {{#if adressMapOptions}}
  <div class="map-container" style="width:100%;height:280px;">
+
     {{> googleMap name="adressMap" options=adressMapOptions}}
   </div>
+  {{else}}
+  {{/if}}
 			
 			<div class="ml-panel-column">
 			<div style="width: 90%;margin-top: 15px;">
