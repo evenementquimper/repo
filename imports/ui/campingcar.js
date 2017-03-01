@@ -8,7 +8,7 @@ import { Session } from 'meteor/session';
 
 import './campingcar.html';
 //import './sectionavailability.html';
-import './campingcarbooking.html';
+//import './campingcarbooking.html';
 
 var metanbr;
 
@@ -137,7 +137,8 @@ calendaroptions: function() {
 return CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
   },
   campingcaraddons: function(){
-return AddOns.find({campingcarId:CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')})._id}).fetch();
+    //console.log("camping car id :"+CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0]._id);
+return AddOns.find({campingcarId:CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0]._id}).fetch();
 },
   campingcaruser:function(){
 
@@ -146,14 +147,11 @@ return UsersData.find({_id:CampingCars.find({city:FlowRouter.getParam('city') , 
 
 });
 
-  Template.listing.events({
+  Template.campingcar.events({
 'click .add-addon':function(event, template){
        event.preventDefault();
     //     // Prevent default browser 
 var ob = event.currentTarget;
-
-//console.log("style transition: "+ob.style.backgroundColor);
-//console.log("Id: "+event.currentTarget.id);
 var addonstab = [];
 if(Session.get("addonstab"))
 {
@@ -163,7 +161,6 @@ if(Session.get("addonstab"))
   if(addonstab.indexOf(ob.id)!==-1)
    {
 
-//console.log("childNodes length: "+ob.childNodes[1].innerText);
 ob.childNodes[1].innerText = "Add";
 
     delete addonstab[addonstab.indexOf(ob.id)];

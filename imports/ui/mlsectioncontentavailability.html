@@ -11,23 +11,32 @@
 <div class="ml-page">
 <div class="ml-panel">
 <div class="ml-panel-intro">
-<h1 class="ml-panel-intro-title">Manage Availability
+<h1 class="ml-panel-intro-title">{{_ "manageavailability"}}
 </h1>
-<h2 class="ml-panel-intro-subtitle">Select one of the options below to fine tune when your vehicle is for hire. The more time you make it available the higher your earning potential.
+<h2 class="ml-panel-intro-subtitle"><p>Le planning ci-dessous vous permet de valider les demandes de réservations en cliquant directement sur la réservation.</p><p>Vous pouvez également interdire ou autoriser les réservations les jours que vous désirez en cliquant sur le jour correspondant, (tous les jours sont par défaut autorisés à la location).</p> 
 </h2>
 
 </div>
 <div class="ml-calendar ml-calendar--column">
 <div class="ml-panel-intro ml-panel-intro">
-<h1 class="ml-panel-intro-title">Block days you can't rent
+<h1 class="ml-panel-intro-title">Planning
 </h1>
 {{#if calendarsectionoptions}}
 {{> fullcalendar calendarsectionoptions}}
 {{/if}}
 
-<h2 class="ml-panel-intro-subtitle">Right now travellers can try and book any day. You can always come back to the calendar to update
-                availability.
-                </h2>
+<fieldset>
+    <legend style="width: 12%;">Legende</legend>
+<ul>
+  <li style="display:inline-block;">
+  <svg style="height:25px;width:34px;background-color:blue" viewBox="0 0 25 34">
+</svg> Nouvelles réservations a valider</li>
+  <li style="display:inline-block;"><svg style="height:25px;width:34px;background-color:green" viewBox="0 0 25 34">
+</svg> Réservation valider</li>
+  <li style="display:inline-block;"><svg style="height:25px;width:34px;background-color:red" viewBox="0 0 25 34">
+</svg> Jours interdits à la réservation</li>
+</ul>
+  </fieldset>
                 </div>
                 </div>
                 </div>
@@ -35,11 +44,9 @@
 
                 <div class="ml-panel ml-panel--section">
                 <div class="ml-panel-intro">
-                <h1 class="ml-panel-intro-title">Set a daily price for your vehicle
+                <h1 class="ml-panel-intro-title">Prix de location à la journée
                 </h1>
-                <h2 class="ml-panel-intro-subtitle">You can set a price to reflect the space, amenities, and luxuries your vehicle provides.
-                </h2>
-                <h3>Base Price
+                <h3>Prix de Base
                 </h3>
                 </div>
                 <div class="ml-panel-column">
@@ -51,11 +58,11 @@
                 </div>
                 </div>
                 </div>
+                                <h3>Nombre minimum de jours de location possible (ex: location à la semaine, mettre 6)
+                </h3>
                 <div class="ml-panel-column">
                 <div style="font-size:16px;line-height:24px;width:256px;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-                <label for="mui-id-566" style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:perspective(1px) scale(0.75) translate3d(2px, -28px, 0);transform-origin:left top;pointer-events:none;user-select:none;color:rgba(86,90,92,0.5);">Minimum Rental Days
-                </label>
-                <input id="mui-id-566" name="pricing.minRental" value="0" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="number">
+                <input class="data-item" name="mindaysrental" value="{{campingcars.mindaysrental}}" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="number" placeholder="durée minimum">
                 <div>
                 <hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;" data-reactid=".0.1.1.3.0.$main.0.1.0.1.2.0.3.0">
                 <hr style="border-width: medium medium 2px; border-style: none none solid; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; border-color: rgb(36, 97, 130); bottom: 8px; box-sizing: content-box; margin: 0px; position: absolute; width: 100%; transform: scaleX(0); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
@@ -225,21 +232,6 @@ box-sizing: border-box;" type="text"></textarea>
          <div>
          <div class="image-display main" style="background-color: rgb(20, 35, 48); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px;">
 
-<!--          <button class="image-remove" id="{{addon._id}}" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:absolute;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;padding:12px;width:48px;height:48px;font-size:0;top:0;right:0;" tabindex="0" type="button">
-
-         <div>
-
-         <span class="glyphicon glyphicon-trash" style="position:relative;font-size:24px;display:inline-block;user-select:none;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;color:#FFF;">clear</span></div>
-
-         </button>
-
-
-         <button class="image-up" id="{{this}}" tabindex="0" type="button">
-         
-         <div>
-         <span class="glyphicon glyphicon-arrow-up">image up</span></div>
-
-         </button> -->
 
 
          <img src="{{this.image}}" alt="image1" itemprop="image">
@@ -345,60 +337,6 @@ box-sizing: border-box;" type="text"></textarea>
          </button>
          </div>
          </div>
-
-
-
-
-
-
-
-         </div>
-         <div class="ml-panel ml-panel--section" data-reactid=".0.1.1.3.0.$main.0.1.0.4">
-         <h3 data-reactid=".0.1.1.3.0.$main.0.1.0.4.0">Seasonal Rates
-         </h3>
-         <p class="ml-panel-additional-content" data-reactid=".0.1.1.3.0.$main.0.1.0.4.1">These rates will apply between the dates you set exclusively. It's a great way to make things a little cheaper when demand is low, or a extra few dollars when campers are in high demand!
-         </p>
-         <div data-reactid=".0.1.1.3.0.$main.0.1.0.4.2">
-         <div data-reactid=".0.1.1.3.0.$main.0.1.0.4.2.0">
-         </div>
-         <button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);color:rgba(86, 90, 92, 0.87);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;border-radius:2px;user-select:none;position:relative;overflow:hidden;background-color:rgba(0, 0, 0, 0);line-height:36px;min-width:88px;padding:0;margin:0;" tabindex="0" type="button" data-reactid=".0.1.1.3.0.$main.0.1.0.4.2.1">
-         <div data-reactid=".0.1.1.3.0.$main.0.1.0.4.2.1.0">
-         <span style="position:relative;padding-left:16px;padding-right:16px;" data-reactid=".0.1.1.3.0.$main.0.1.0.4.2.1.0.1">Add Another Rate
-         </span>
-         </div>
-         </button>
-         </div>
-         </div>
-         <div class="ml-panel-column" data-reactid=".0.1.1.3.0.$main.0.1.0.5">
-         <h2 data-reactid=".0.1.1.3.0.$main.0.1.0.5.0">Managed Pricing
-         </h2>
-         <div style="position:relative;cursor:pointer;overflow:visible;display:table;height:auto;width:100%;" data-reactid=".0.1.1.3.0.$main.0.1.0.5.1">
-         <input style="position:absolute;cursor:pointer;pointer-events:all;opacity:0;width:100%;height:100%;z-index:2;left:0;box-sizing:border-box;padding:0;margin:0;" data-reactid=".0.1.1.3.0.$main.0.1.0.5.1.0" type="checkbox">
-         <div style="width:100%;height:100%;" data-reactid=".0.1.1.3.0.$main.0.1.0.5.1.1">
-         <div style="box-sizing:border-box;content:' ';display:table;" data-reactid=".0.1.1.3.0.$main.0.1.0.5.1.1.$=2=2before">
-         </div>
-         <div style="transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;float:left;position:relative;display:block;width:24px;margin-right:16px;margin-left:0;height:24px;" data-reactid=".0.1.1.3.0.$main.0.1.0.5.1.1.1:0">
-         <div data-reactid=".0.1.1.3.0.$main.0.1.0.5.1.1.1:0.0">
-         <svg style="display:inline-block;height:24px;width:24px;user-select:none;transition:all 2s cubic-bezier(0.23, 1, 0.32, 1) 200ms;position:absolute;opacity:1;fill:rgba(86, 90, 92, 0.87);" viewBox="0 0 24 24" data-reactid=".0.1.1.3.0.$main.0.1.0.5.1.1.1:0.0.0">
-         <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" data-reactid=".0.1.1.3.0.$main.0.1.0.5.1.1.1:0.0.0.0">
-         </path>
-         </svg>
-         <svg style="display:inline-block;height:24px;width:24px;user-select:none;transition:opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, transform 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms;position:absolute;opacity:0;transform:scale(0);transition-origin:50% 50%;fill:#246182;" viewBox="0 0 24 24" data-reactid=".0.1.1.3.0.$main.0.1.0.5.1.1.1:0.0.1">
-         <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" data-reactid=".0.1.1.3.0.$main.0.1.0.5.1.1.1:0.0.1.0">
-         </path>
-         </svg>
-         </div>
-         <div>
-         </div>
-         <div style="position:absolute;overflow:hidden;height:100%;width:100%;top:0;left:0;">
-         </div>
-         </div>
-         <label style="float:left;position:relative;display:block;width:calc(100% - 60px);line-height:24px;color:rgba(86, 90, 92, 0.87);font-family:Roboto, sans-serif;" for="mui-id-567">I give mighway the authority to manage the pricing of my vehicle.
-         </label>
-         <div style="box-sizing:border-box;content:' ';clear:both;display:table;">
-         </div>
-         </div>
-         </div>
          </div>
          </div>
          </div>
@@ -406,7 +344,31 @@ box-sizing: border-box;" type="text"></textarea>
 {{> mlsectionright}}
     </div>
       </div>
-      
+    <div class="outpoupselect" id="outpoupselect" style="display:none; position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; z-index: 2000;">
+
+<div class="popupselect" id="bookselect" style="display:none;background-color: rgb(255, 255, 255); transition: transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; opacity: 1; transform: scaleY(1); transform-origin: left top 0px;position: fixed; z-index: 2100; max-height: 448px; width: 256px; top: 247.3px; left: 247px;">
+
+<div class="bookselecttitre" style="z-index: 1000; top: 0px; right: 0px; transform: scaleX(1); transform-origin: right center 0px; width: 256px;">
+<!-- <div style="background-color: rgb(255, 255, 255); box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; transform: scaleY(1); transform-origin: center top 0px; opacity: 1; max-height: 500px; overflow-y: auto;">
+<div style="background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; border-radius: 2px; padding: 16px 0px; display: table-cell; width: 256px;">
+
+<button style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: block; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;" class="valid_book" name="owner_valid">Accepter</button>
+<button style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: block; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;padding: 0px 24px;" class="cancel_book" name="owner_cancel">Refuser</button>
+
+</div>
+</div> -->
+
+</div>
+</div>
+
+
+
+
+</div>
     </div>
+
+
+
+
 
          </template>

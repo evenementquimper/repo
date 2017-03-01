@@ -171,5 +171,7 @@
 	"maxquantityperbooking":"Quantité Maximum par réservation",
 	"enableaddon":"Activer",
 	"company":"Entreprise",
-	"termsandconditions":"Termes et conditions"
+	"termsandconditions":"Termes et conditions",
+	"chooseanimage":"Charger une image(s)",
+	"manageavailability":"Planning des Réservations & Disponibilités"
 }

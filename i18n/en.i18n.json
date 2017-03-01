@@ -172,6 +172,8 @@
 	"maxquantityperbooking":"Max Quantity Per Booking",
 	"enableaddon":"Enable Addon",
 	"company":"Company",
-	"termsandconditions":"Terms and Conditions"
+	"termsandconditions":"Terms and Conditions",
+	"chooseanimage":"Choose an Image",
+	"manageavailability":"Manage Availability"
 
 }

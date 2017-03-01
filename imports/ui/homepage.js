@@ -135,16 +135,7 @@ this.$('.datetimepickerstart').datetimepicker({
 
 
     campingcars: function(){
-
-if(CampingCars.find({}))
-{
-return CampingCars.find({}).fetch();
-
-}
-else
-{
-  return false;
-}
+return CampingCars.find({publish : 'valid'}).fetch();
   },
 });
   Template.homepage.events({

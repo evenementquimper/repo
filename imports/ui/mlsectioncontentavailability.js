@@ -6,6 +6,7 @@ import { CampingCars } from '../api/campingcars.js';
 import { AddOns } from '../api/addons.js';
 import { Session } from 'meteor/session';
 import { Reservations } from '../api/reservations.js';
+import { UsersData } from '../api/usersdata.js';
 
 import './mlsectioncontentavailability.html';
 
@@ -51,6 +52,7 @@ Template.mlsectioncontentavailability.helpers({
 
         var bddcampingcar = CampingCars.find({_id: FlowRouter.getParam('_id')}).fetch()[0];
         var bddreservations = Reservations.find({resource_id:FlowRouter.getParam("_id")}).fetch();
+      
         var evttab = [];
         var tabnoresa = [];
         var tabfull = bddcampingcar.daysfull;
@@ -58,7 +60,7 @@ Template.mlsectioncontentavailability.helpers({
             for (var j = 0; tabfull.length > j; j++)  {
 
                   var dd = moment(tabfull[j], 'YYYY-MM-DD');
-                  var d = dd.format('x')
+                  var d = dd.format('x');
   
                   var daysf = {id:d,
                               start: tabfull[j],
@@ -70,20 +72,45 @@ Template.mlsectioncontentavailability.helpers({
 
             for (var i = 0;  bddreservations.length > i; i++) {
 
-                  var loueurid = bddreservations[i].user_id;
-                  var tt ="Loueur Id:"+loueurid+", Netprize :"+bddreservations[i].netprize+", Addonsprize: "+bddreservations[i].addonsprize;
- 
+                  
+                    var loueurid = bddreservations[i].user_id;
+
+                  if(UsersData.find({_id:loueurid}).fetch()[0])
+                      {
+                  var tt = UsersData.find({_id:loueurid}).fetch()[0].firstname+", "+UsersData.find({_id:loueurid}).fetch()[0].lastname+", Montant: "+bddreservations[i].netprize;
+                        
+                        var status = bddreservations[i].status;
+                        console.log("Status booking: "+status);
+                        var colorstatus = 'blue';
+
+                        //if(bddreservations[i].status=='newbooking')
+
+                          if(status=='owner_cancel')
+                            colorstatus = 'black';
+                          
+
+                          if(status=='owner_valid')
+                            colorstatus = 'green';
+
+                            //if(bddreservations[i].status=='lodger_cancel')
+
                   var uevent = {id:bddreservations[i]._id,
                                 title: tt,
                                 start: bddreservations[i].start_time,
                                 end: bddreservations[i].end_time,
-                                color:'red',
-                                backgroundColor:'blue',
-                                borderColor :'green', 
+                                //color:'red',
+                                backgroundColor:colorstatus,
+                                //borderColor :'green', 
                                 textColor :'white',
+                                height: '35px',
                                 };
 
                   tabtest.push(uevent);
+                      }
+                  else
+                  {
+
+                  }
               }
 
 
@@ -94,6 +121,7 @@ Template.mlsectioncontentavailability.helpers({
                   if(calEvent.title==null)
                       {
                           $('.fc').fullCalendar('removeEvents', calEvent.id);
+
                           var moday = moment(calEvent.id, 'x');
                           var d = moday.format('YYYY-MM-DD');
 
@@ -106,11 +134,119 @@ Template.mlsectioncontentavailability.helpers({
                                 },
                                 { multi: true });
                       }
-                  else
+                  if(calEvent.backgroundColor=='blue')
                       {
-                          //alert('Impossible de ');
+
+                          var bookselect = $('#bookselect');
+                          var bookselecttitre = $('.bookselecttitre');
+                          bookselecttitre.empty();
+                          bookselecttitre.prepend('<h3>Valider cette réservation ?</h3>');
+                          var outpoupselect = $('#outpoupselect');
+                          outpoupselect.css({'display':'inline-block'});
+                          bookselect.css({'display':'inline-block','top':jsEvent.clientY+'px', left:jsEvent.clientX+'px'});
+
+    
+                          $('.valid_book').on("click", function(){
+                              
+                              calEvent.backgroundColor = 'green';
+                              $('.fc').fullCalendar('updateEvent', calEvent);
+                              var dig = '{"status":"owner_valid"}';
+                              var js = JSON.parse(dig);
+        
+                                  Reservations.update({
+                                      _id: calEvent.id
+                                        }, {
+                                        $set: js
+                                          }, {
+                                        upsert: true
+                                  });
+                          });
+
+                          $('.cancel_book').on("click", function(){
+
+                            $('.fc').fullCalendar('removeEvents', calEvent.id);
+                            var dig = '{"status":"owner_cancel"}';
+                            var js = JSON.parse(dig);
+                      
+                                  Reservations.update({
+                                      _id: calEvent.id
+                                        }, {
+                                        $set: js
+                                        }, {
+                                        upsert: true
+                                  });
+                          });
                       }
-    },
+                    if(calEvent.backgroundColor=='green')
+                      {
+
+                          var bookselect = $('#bookselect');
+                          var bookselecttitre = $('.bookselecttitre');
+                          bookselecttitre.empty();
+                          bookselecttitre.prepend( '<h3>Attention Annulation de la réservation</h3><div>'+
+                                                   '<button style="display:inline;">Annuler</button>'+
+                                                   '<button class="cancel_book" name="owner_cancel">Confirmer</button></div>');
+                          var outpoupselect = $('#outpoupselect');
+                          var cancelbook = $('.cancel_book');
+                          cancelbook.css({'display':'inline-block'});
+                          var validbook = $('.valid_book');
+                          validbook.css({'display':'none'});
+                          outpoupselect.css({'display':'inline-block'});
+                          bookselect.css({'display':'inline-block','top':jsEvent.clientY+'px', left:jsEvent.clientX+'px'});
+                          $('.cancel_book').on("click", function(){
+
+                            $('.fc').fullCalendar('removeEvents', calEvent.id);
+                            var dig = '{"status":"owner_cancel"}';
+                            var js = JSON.parse(dig);
+                      
+                                  Reservations.update({
+                                      _id: calEvent.id
+                                        }, {
+                                        $set: js
+                                        }, {
+                                        upsert: true
+                                  });
+                          });
+                      }
+                    if(calEvent.backgroundColor=='black')
+                      {
+
+                          var bookselect = $('#bookselect');
+                          var bookselecttitre = $('.bookselecttitre');
+                          bookselecttitre.empty();
+                          bookselecttitre.prepend( '<h3>Cette réservation est annuler, vous pouvez la valider</h3>'+
+                                                   '<button style="display:inline;">Annuler</button>'+
+                                                   '<button class="valid_book" name="owner_valid">Valider</button></div>');
+                          var outpoupselect = $('#outpoupselect');
+                          var cancelbook = $('.cancel_book');
+                          cancelbook.css({'display':'none'});
+                          var validbook = $('.valid_book');
+                          validbook.css({'display':'inline-block'});
+                          outpoupselect.css({'display':'inline-block'});
+                          bookselect.css({'display':'inline-block','top':jsEvent.clientY+'px', left:jsEvent.clientX+'px'});
+
+                          $('.valid_book').on("click", function(){
+                              
+                              calEvent.backgroundColor = 'green';
+                              $('.fc').fullCalendar('updateEvent', calEvent);
+                              var dig = '{"status":"owner_valid"}';
+                              var js = JSON.parse(dig);
+        
+                                  Reservations.update({
+                                      _id: calEvent.id
+                                        }, {
+                                        $set: js
+                                          }, {
+                                        upsert: true
+                                  });
+                          });
+                      }
+                      else
+                      {
+
+                      }
+            },
+
              dayClick : function(date, jsEvent, view) {
 
                   var moday = moment(date, 'x');
@@ -140,12 +276,17 @@ Template.mlsectioncontentavailability.helpers({
 
     },
 
-            //height: 200,
+
+        height: 200,
         defaultDate: moment(),
               //eventLimit: true, // for all non-agenda views
-        header: {
-        center: 'agendaFourDay, myCustomButton' // buttons for switching between views
+                header: {
+            left:   'prev',
+            center: 'title, agendaFourDay, myCustomButton',
+            right:  'next'
         },
+        height: 'auto',
+        aspectRatio: 2,
         views: {
           agendaDay: {
             type: 'agendaWeek',
@@ -204,6 +345,88 @@ return AddOns.find({campingcarId:FlowRouter.getParam("_id")});
   }
 });
   Template.mlsectioncontentavailability.events({
+
+//   'click .fc-event-container':function( event, template ) { 
+//               //console.log("mouseover html: "+$(this).html());
+//                 console.log("mouseover event: ");
+//                  //var peopleid = template.find('#people'); 
+// var peopleselect = template.find('#peopleselect');
+// var outpoupselect = template.find('#outpoupselect');
+// outpoupselect.style.display = "inline-block";
+
+// peopleselect.style.display = "inline-block";
+
+// //peopleselect.style.top = event.pageY+'px'; mouseenter
+// //peopleselect.style.left = event.pageX+'px';
+
+// peopleselect.style.top = event.clientY+'px';
+// peopleselect.style.left = event.clientX+'px';
+//               //$(this).css('border-color', 'red');
+              
+//             },
+// 'click button ':function(event, template){
+//   console.log("id?: "+event.currentTarget.id);
+//   console.log("name?: "+event.currentTarget.name);
+//   event.preventDefault();
+//   var bookid = event.currentTarget.id;
+//   var dig = '{"status":"'+event.currentTarget.name+'"}';
+//   var js = JSON.parse(dig);
+//         Reservations.update({
+//             _id: bookid
+//         }, {
+//             $set: js
+//         }, {
+//           upsert: true
+//         });
+
+//                   var source = {id:'01',
+//                                 events: [{id:event.currentTarget.id,
+//                                      //title: 'Block',
+//                                        //start: date,
+//                                  //rendering:'background',
+//                            //backgroundColor:'red',
+//                                           }
+//                                          ],
+//                                 //color: 'red',     // an option!
+//                             //textColor: 'white'
+//                                 };
+
+//                var uevent = {id:event.currentTarget.id,
+//                                 //title: tt,
+//                                 //start: bddreservations[i].start_time,
+//                                 //end: bddreservations[i].end_time,
+//                                 //color:'red',
+//                                 //backgroundColor:colorstatus,
+//                                 //borderColor :'green', 
+//                                 //textColor :'white',
+//                                 //height: '35px',
+//                                 };
+
+//         //if(event.currentTarget.id=='owner_cancel')
+//         $('.fc').fullCalendar( 'removeEventSource', source )
+//   //$('.fc').fullCalendar('removeEvents', uevent);
+
+// },
+
+'click #outpoupselect': function(event, template){
+      event.preventDefault();
+    var bookselect = template.find('#bookselect');
+var popupselect = template.find('.popupselect');
+
+
+if(bookselect.style.display == 'inline-block')
+{ 
+  //console.log("fueltypeselect :"+fueltypeselect.style.display);
+  bookselect.style.display = 'none';
+  event.currentTarget.style.display = 'none';
+  //appcont.style.overflowY = 'scroll';
+}
+else
+{
+
+}
+
+},
 
 'click .fc-bgevent':function(event, template){
     event.preventDefault();

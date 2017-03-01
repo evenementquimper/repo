@@ -76,27 +76,24 @@ map.instance.data.addGeoJson(geom2);
 
 var mark = [];
 var infowindowtab = [];
+var campingcars = CampingCars.find({publish : 'valid'}).fetch();
+for (var i = 0;i < campingcars.length; i++) {
 
-for (var i = 0;i < CampingCars.find({}).fetch().length; i++) {
-
- if(CampingCars.find({}).fetch()[i].location && CampingCars.find({}).fetch()[i].location && CampingCars.find({}).fetch()[i].images)
+ if(campingcars[i].location && campingcars[i].location && campingcars[i].images)
  {
 
-var contentview = '<div class="listing-map-popover" id="'+CampingCars.find({}).fetch()[i]._id+'">'+
+var contentview = '<div class="listing-map-popover">'+
 '<div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),'+
          '0 1px 4px rgba(0,0,0,0.12);border-radius:2px;overflow:hidden;z-index:1;">'+
          '<div style="padding-bottom:0;">'+
          '<div style="position:relative;">'+
          '<div style="width:150px;height:95px;">'+
-         '<img src="'+CampingCars.find({}).fetch()[i].images[0]+'" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;height: 100%;" alt="rien" itemprop="image"></div>'+
-         '<div style="position:absolute;top:0;bottom:0;right:0;left:0;">'+
-         '<div style="height:100%;position:relative;"'+
-         '<div style="position:absolute;bottom:0;right:0;left:0;padding-top:8px;background:rgba(0, 0, 0, 0.54);"'+
-         '</div></div></div></div>'+
-         '<div title="'+CampingCars.find({}).fetch()[i].name+'" size="45" style="padding:5px;font-weight:500;box-sizing:border-box;position:relative;">'+
+         '<a href="/campingcar/'+campingcars[i].city+'/'+campingcars[i].make+'/'+campingcars[i].model+'"><img src="'+campingcars[i].images[0]+'" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;height: 100%;" alt="rien" itemprop="image"></a></div>'+
+         '</div>'+
+         '<div title="'+campingcars[i].name+'" size="45" style="padding:5px;font-weight:500;box-sizing:border-box;position:relative;">'+
          '<div style="display:inline-block;vertical-align:top;max-width:218px;">'+
-         '<span style="color:rgba(0, 0, 0, 0.87);display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+CampingCars.find({}).fetch()[i].name+'</span>'+
-         '<span style="color:rgba(0, 0, 0, 0.54);display:block;font-size:14px;">prix :'+CampingCars.find({}).fetch()[i].priceperday+' € par jour</span></div></div></div></div></div>';
+         '<span style="color:rgba(0, 0, 0, 0.87);display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><a href="/campingcar/'+campingcars[i].city+'/'+campingcars[i].make+'/'+campingcars[i].model+'">'+campingcars[i].name+'</a></span>'+
+         '<span style="color:rgba(0, 0, 0, 0.54);display:block;font-size:14px;">prix :'+campingcars[i].priceperday+' € par jour</span></div></div></div></div></div>';
 
   var infowindow = new google.maps.InfoWindow({
     content: "loading..."
@@ -271,11 +268,11 @@ this.$('.datetimepickerstart').datetimepicker({
     campingcars: function(){
 
     //const instance = Template.instance();
-    console.log("camping car find : "+CampingCars.find({}).count());
+    console.log("camping car find : "+CampingCars.find({publish : 'valid'}).count());
     //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetech()[0].daysfull[0]);
 
 
-return CampingCars.find({},{limit:32}).fetch();
+return CampingCars.find({publish : 'valid'},{limit:32}).fetch();
   },
 
    MapListingsOptions: function() {
@@ -293,10 +290,10 @@ return CampingCars.find({},{limit:32}).fetch();
 
   Template.maplistings.events({
 
-'click .listing-map-popover':function(event, template){
-    event.preventDefault();
-    FlowRouter.go("listings",{_id:event.currentTarget.id});
-},
+// 'click .listing-map-popover':function(event, template){
+//     event.preventDefault();
+//     FlowRouter.go("listings",{_id:event.currentTarget.id});
+// },
 
 
    });

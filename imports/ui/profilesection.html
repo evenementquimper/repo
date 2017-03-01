@@ -121,54 +121,42 @@
 
 
 
-
-<div class="profile-card" style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
+<div class="section-container">
+<div class="profile-card" style="background-color:#ffffff; transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing:border-box; font-family:Roboto, sans-serif; -webkit-tap-highlight-color:rgba(0,0,0,0); box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12); border-radius:2px; margin-top: 90px;">
 
          <h3 style="line-height: 210%;">{{_ "driverlicense"}}</h3>
 
          <div class="profile-avatar">
          <input id="licenseImage" name="licenseImage" style="display:none;" type="file">
-         <div class="license-upload">
+         
+<div class="license-upload" style="min-width: 150px;">
 
-         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;overflow:hidden;z-index:1;">
+         <div style="background-color:#ffffff; transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing:border-box; font-family:Roboto, sans-serif; -webkit-tap-highlight-color:rgba(0,0,0,0); box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12); border-radius:2px; overflow:hidden; z-index:1;">
          <div style="padding-bottom:0;">
          <div style="position:relative;">
             <div>
-            {{#if userdata}}
+            
+            {{#if userdata.licenseimages}}
                <img src="{{userdata.licenseimages}}" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;">
                {{else}}
-                    <img src="" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;">
                {{/if}}
+               
             </div>
-         <div style="position:absolute;top:0;bottom:0;right:0;left:0;">
-         <div style="height:100%;position:relative;">
-         <div style="position:absolute;bottom:0;right:0;left:0;padding-top:0px;background:rgba(0, 0, 0, 0.54);">
-         <div style="padding:16px;position:relative;">
+         <div style="position:absolute; top:0; bottom:0; right:0; left:0;">
+         <div style="height:100%; position:relative;">
+         <div style="position:absolute; bottom:0; right:0; left:0; padding-top:0px; background:rgba(0, 0, 0, 0.54);">
+         <div style="padding:16px; position:relative;">
          <span style="font-size:24px;color:rgba(255, 255, 255, 0.87);display:block;line-height:36px;"></span>
-         <span style="font-size:13px;color:rgba(255, 255, 255, 1);display:block;font-weight:400;">
-         <button class="license-upload-button" type="button">
+         <span class="license-upload-button" style="font-size:13px; color:rgba(255, 255, 255, 1); display:block; font-weight:400;">
             <div>
 
-   
-
-               <span>{{_ "updatedriverlicense"}}</span></div></button></span></div>
-
-               </div></div></div></div></div></div>
-
-         
+               <span>{{_ "updatedriverlicense"}}</span></div></span></div></div></div></div></div></div></div>
 
          </div>
-         <div>Scanner votre permis de conduire.</div></div></div>
 
-
-         <div style="position:fixed;left:0;display:flex;right:0;bottom:0;z-index:2900;visibility:hidden;transform:translate3d(0, 48px, 0);transition:transform 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms,visibility 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-         <div style="background-color: rgba(86, 90, 92, 0.87); padding: 0px 24px; height: 48px; line-height: 48px; border-radius: 2px; max-width: 568px; min-width: 288px; flex-grow: 0; margin: auto;">
-         <div style="font-size:14px;color:#ffffff;opacity:0;transition:opacity 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-         <span>
-            
-         </span></div></div></div>
+         </div></div></div>
 
 
 {{#if owner}}

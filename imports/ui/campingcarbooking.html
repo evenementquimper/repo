@@ -109,7 +109,8 @@
 </span>
 </td>
 </tr>
-<tr>
+
+<!-- <tr>
 <td>
 <span>{{_ "serandroadsup"}}
 </span>
@@ -132,7 +133,8 @@
 </sup>
 </span>
 </td>
-</tr>
+</tr> -->
+
 <tr>
 <td>
 <span>{{_ "insurance"}}
@@ -150,7 +152,7 @@
 <span class="">
 <span class="glyphicon glyphicon-eur">
 </span>
-<span>280
+<span>{{insuranceprize}}
 </span>
 <sup class="charge-currency">EUR
 </sup>
@@ -162,7 +164,7 @@
 {{#each campingcaraddonsselect}}
 <tr>
 <td>
-<span>Optional Add-Ons</span>
+<span>Options</span>
 
 <div>
 <small>
@@ -184,7 +186,7 @@
 </td><td class="text-right">
 <span class="">
 <span class="glyphicon glyphicon-eur"></span>
-<span>{{this.amount}}</span><sup class="charge-currency">EUR</sup></span></td></tr>
+<span>{{this.somaddonprice}}</span><sup class="charge-currency">EUR</sup></span></td></tr>
 {{/each}}
 {{else}}
 {{/if}}
