@@ -41,8 +41,15 @@ margin: 0 -15px 15px;">
 <div>Début : {{reservation.start_time}}</div>
 <div>Fin : {{reservation.end_time}}</div>
 <div>Créer le : {{reservation.createdAt}}</div>
-<div>Assurance réservation : {{reservation.ass}}</div>
-<div>Prix total : <strong style="color:red;">{{reservation.netprize}}</strong></div>  
+{{#if reservation.advance}}
+{{#if reservation.solde}}
+<div>Solde à régler : <strong style="color:red;">{{reservation.solde.prize}}</strong></div>
+{{else}}
+<div>Acompte à régler : <strong style="color:red;">{{reservation.advance.prize}}</strong></div>
+{{/if}}
+{{else}}
+<div>Prix total : <strong style="color:red;">{{reservation.brutprize}}</strong></div>  
+{{/if}}
 {{else}}
 {{/if}}
 </div>

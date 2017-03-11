@@ -131,6 +131,7 @@ totalprize: function(){
     addons = Template.instance().prizes.get('addonsprize');
 
   var insurance = Template.instance().dtime.get('deltadate')*14;
+  Template.instance().prizes.set('brutprize', net+addons+insurance);
   return net+addons+insurance;
 },
 
@@ -179,7 +180,8 @@ sd = moment(instance.dtime.get('startdatepicker'),"YYYY-MM-DD");
 
 if(moment(instance.dtime.get('enddatepicker'),"YYYY-MM-DD").isValid()){
 
-fd = moment(instance.dtime.get('enddatepicker'),"YYYY-MM-DD");
+fd = moment(instance.dtime.get('enddatepicker'),"YYYY-MM-DD").add(1, 'day');
+//console.log("date de fin: "+)
 }
 
 else
@@ -305,28 +307,45 @@ alert("Réservation Impossible durant cette période");
 if(Meteor.userId() && error==false)
 {
 alert("Réservation Ok");
+var advance = false;
+console.log("Différence entre auj et start: "+moment(instance.dtime.get('startdatepicker'),"YYYY-MM-DD").diff(moment(), 'months'));
 
-//      Reservations.insert({"user_id":Meteor.userId(),
-//                           "resource_id":FlowRouter.getParam('_id'),
-//                           "status":"newbooking",
-//                           "people": instance.prizes.get('peoplenbr'),
-//                           "start_time": instance.dtime.get('startdatepicker'), 
-//                           "end_time": instance.dtime.get('enddatepicker'),
-//                           "addons_id":Session.get("addonstab"),
-//                           "addonsprize": instance.prizes.get('addonsprize'),
-//                           "netprize": instance.prizes.get('netprize'),
-//                           //"email":Meteor.user().emails[0].address,
-//                         createdAt: new Date()}, function( error, result) { 
-//      if ( error ) console.log ( error ); //info about what went wrong
-//      if ( result )
-//  {
-//   //FlowRouter.go('dashboard', { reservation_id: result });
-//  }
-// });
+//si la date du debut de la réservation est à dans plus 1 mois, un acompte de 30% est prélever  
+if(moment(instance.dtime.get('startdatepicker'),"YYYY-MM-DD").diff(moment(), 'months')!=0)
+{
+  var advprize = 0.30*instance.prizes.get('brutprize');
+  //'{"transmissiontype":"'+event.currentTarget.innerHTML+'"}';
+  advance = '{"prize":'+advprize+',"payment":false}';
+  var js = JSON.parse(advance);
+//advance.prize = advprize;
+console.log("adv prize: "+js.prize);
+}
+else
+{}
+var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
+     Reservations.insert({"user_id":Meteor.userId(),
+                          "resource_id":bdd._id,
+                          "status":"newbooking",
+                          "mailstatus":"notsend",
+                          "people": instance.prizes.get('peoplenbr'),
+                          "start_time": instance.dtime.get('startdatepicker'), 
+                          "end_time": instance.dtime.get('enddatepicker'),
+                          "addons_id":Session.get("addonstab"),
+                          "addonsprize": instance.prizes.get('addonsprize'),
+                          "brutprize": instance.prizes.get('brutprize'),
+                          "advance": js,
+                          //"email":Meteor.user().emails[0].address,
+                        createdAt: new Date()}, function( error, result) { 
+     if ( error ) console.log ( error ); //info about what went wrong
+     if ( result )
+ {
+  FlowRouter.go('dashboard', { reservation_id: result });
+ }
+});
 }
 else
 {
-  //FlowRouter.go('authentication');
+  FlowRouter.go('authentication');
 }
 
 }

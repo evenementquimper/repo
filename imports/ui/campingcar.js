@@ -7,8 +7,6 @@ import { UsersData } from '../api/usersdata.js';
 import { Session } from 'meteor/session';
 
 import './campingcar.html';
-//import './sectionavailability.html';
-//import './campingcarbooking.html';
 
 var metanbr;
 
@@ -60,7 +58,7 @@ calendaroptions: function() {
     // {
 
         var bddcampingcar = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
-        var bddreservations = Reservations.find({resource_id:bddcampingcar._id}).fetch();
+        var bddreservations = Reservations.find({resource_id:bddcampingcar._id,status:{ $in: [ "newbooking", "owner_valid" ] }}).fetch();
         var evttab = [];
         var tabnoresa = [];
         var tabfull = bddcampingcar.daysfull;
@@ -82,11 +80,11 @@ calendaroptions: function() {
 
                   //var loueurid = bddreservations[i].user_id;
                   //var tt ="Loueur Id:"+loueurid+", Netprize :"+bddreservations[i].netprize+", Addonsprize: "+bddreservations[i].addonsprize;
- 
+                  var fday = moment(bddreservations[i].end_time,'YYYY-MM-DD').add(1, 'day');
                   var uevent = {id:bddreservations[i]._id,
                                 //title: tt,
                                 start: bddreservations[i].start_time,
-                                end: bddreservations[i].end_time,
+                                end: fday.format('YYYY-MM-DD'),
                                 rendering:'background',
                                 backgroundColor:'red'
                                 };

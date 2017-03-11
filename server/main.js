@@ -8,6 +8,8 @@ import { Connections } from '../imports/api/connections.js';
 Meteor.startup(() => {
  
 
+// Give Alice the 'admin' role
+Roles.addUsersToRoles('b3HDiL9jY9TNf6sMh', 'admin', Roles.GLOBAL_GROUP);
 
   // Return early if URL isn't HTTPS (or if it isn't set).
   // var isHttps = parse(Meteor.settings.private.cdnPrefix).protocol === 'https:';

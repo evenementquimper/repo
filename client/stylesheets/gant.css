@@ -1,0 +1,8 @@
+.meeting_task{
+    border:2px solid #BFC518;
+    color:#6ba8e3;
+    background: #F2F67E;
+}
+.meeting_task .gantt_task_progress{
+    background:#D9DF29;
+}

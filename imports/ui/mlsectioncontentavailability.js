@@ -51,7 +51,7 @@ Template.mlsectioncontentavailability.helpers({
     {
 
         var bddcampingcar = CampingCars.find({_id: FlowRouter.getParam('_id')}).fetch()[0];
-        var bddreservations = Reservations.find({resource_id:FlowRouter.getParam("_id")}).fetch();
+        var bddreservations = Reservations.find({resource_id:FlowRouter.getParam("_id"),status:{ $in: [ "newbooking", "owner_valid" ] }}).fetch();
       
         var evttab = [];
         var tabnoresa = [];
@@ -77,10 +77,19 @@ Template.mlsectioncontentavailability.helpers({
 
                   if(UsersData.find({_id:loueurid}).fetch()[0])
                       {
-                  var tt = UsersData.find({_id:loueurid}).fetch()[0].firstname+", "+UsersData.find({_id:loueurid}).fetch()[0].lastname+", Montant: "+bddreservations[i].netprize;
+                        var ttprix = bddreservations[i].brutprize;
+
+                        if(bddreservations[i].brutprize.prize)
+                          ttprix = bddreservations[i].brutprize.prize
+
+                  var tt = UsersData.find({_id:loueurid}).fetch()[0].firstname+", "+UsersData.find({_id:loueurid}).fetch()[0].lastname+", Montant: "+ttprix;
                         
                         var status = bddreservations[i].status;
-                        console.log("Status booking: "+status);
+                        //console.log("booking _id: "+bddreservations[i]._id);
+                        //console.log("resa end time: "+bddreservations[i].end_time);
+                        //ajout d'un jour a la fin pour visualiser le dernier jour
+                        var lastday = moment(bddreservations[i].end_time, 'YYYY-MM-DD').add(1, 'day');
+
                         var colorstatus = 'blue';
 
                         //if(bddreservations[i].status=='newbooking')
@@ -97,7 +106,7 @@ Template.mlsectioncontentavailability.helpers({
                   var uevent = {id:bddreservations[i]._id,
                                 title: tt,
                                 start: bddreservations[i].start_time,
-                                end: bddreservations[i].end_time,
+                                end: lastday,
                                 //color:'red',
                                 backgroundColor:colorstatus,
                                 //borderColor :'green', 
@@ -140,7 +149,10 @@ Template.mlsectioncontentavailability.helpers({
                           var bookselect = $('#bookselect');
                           var bookselecttitre = $('.bookselecttitre');
                           bookselecttitre.empty();
-                          bookselecttitre.prepend('<h3>Valider cette réservation ?</h3>');
+                          bookselecttitre.prepend('<h3></h3>');
+                          bookselecttitre.prepend( '<h3>Valider cette réservation ?</h3><div>'+
+                                                   '<button class="cancel_book" name="owner_cancel" style="display:inline;">Refuser</button>'+
+                                                   '<button class="valid_book" name="owner_valid" style="display:inline;">Valider</button></div>');
                           var outpoupselect = $('#outpoupselect');
                           outpoupselect.css({'display':'inline-block'});
                           bookselect.css({'display':'inline-block','top':jsEvent.clientY+'px', left:jsEvent.clientX+'px'});
@@ -150,7 +162,7 @@ Template.mlsectioncontentavailability.helpers({
                               
                               calEvent.backgroundColor = 'green';
                               $('.fc').fullCalendar('updateEvent', calEvent);
-                              var dig = '{"status":"owner_valid"}';
+                              var dig = '{"status":"owner_valid","mailstatus":"notsend"}';
                               var js = JSON.parse(dig);
         
                                   Reservations.update({
@@ -165,7 +177,7 @@ Template.mlsectioncontentavailability.helpers({
                           $('.cancel_book').on("click", function(){
 
                             $('.fc').fullCalendar('removeEvents', calEvent.id);
-                            var dig = '{"status":"owner_cancel"}';
+                            var dig = '{"status":"owner_cancel","mailstatus":"notsend"}';
                             var js = JSON.parse(dig);
                       
                                   Reservations.update({
@@ -184,7 +196,7 @@ Template.mlsectioncontentavailability.helpers({
                           var bookselecttitre = $('.bookselecttitre');
                           bookselecttitre.empty();
                           bookselecttitre.prepend( '<h3>Attention Annulation de la réservation</h3><div>'+
-                                                   '<button style="display:inline;">Annuler</button>'+
+                                                   '<button class="valid_book" name="owner_valid" style="display:inline;">Annuler</button>'+
                                                    '<button class="cancel_book" name="owner_cancel">Confirmer</button></div>');
                           var outpoupselect = $('#outpoupselect');
                           var cancelbook = $('.cancel_book');
@@ -196,7 +208,7 @@ Template.mlsectioncontentavailability.helpers({
                           $('.cancel_book').on("click", function(){
 
                             $('.fc').fullCalendar('removeEvents', calEvent.id);
-                            var dig = '{"status":"owner_cancel"}';
+                            var dig = '{"status":"owner_cancel","mailstatus":"notsend"}';
                             var js = JSON.parse(dig);
                       
                                   Reservations.update({
@@ -229,7 +241,7 @@ Template.mlsectioncontentavailability.helpers({
                               
                               calEvent.backgroundColor = 'green';
                               $('.fc').fullCalendar('updateEvent', calEvent);
-                              var dig = '{"status":"owner_valid"}';
+                              var dig = '{"status":"owner_valid","mailstatus":"notsend"}';
                               var js = JSON.parse(dig);
         
                                   Reservations.update({
@@ -279,6 +291,7 @@ Template.mlsectioncontentavailability.helpers({
 
         height: 200,
         defaultDate: moment(),
+        displayEventTime:false,
               //eventLimit: true, // for all non-agenda views
                 header: {
             left:   'prev',
@@ -600,7 +613,7 @@ if (r == true) {
 
   'click .image-remove': function(e, template){
 e.preventDefault();
-console.log("curent id: "+e.currentTarget.id);
+//console.log("curent id: "+e.currentTarget.id);
 //{"images":{ $in:["hXZjsSk5oSzm759aN"]}}
 var dig = '{"images":"'+e.currentTarget.id+'"}';
 console.log("DIG: "+dig);
@@ -618,10 +631,10 @@ var js = JSON.parse(dig);
 
 'click .image-up': function(e, template){
 e.preventDefault();
-console.log("curent id: "+e.currentTarget.id);
+//console.log("curent id: "+e.currentTarget.id);
 //{"images":{ $in:["hXZjsSk5oSzm759aN"]}}
 var dig = '{ images:{ $each: [], $sort: -1 }}';
-console.log("DIG: "+dig);
+//console.log("DIG: "+dig);
 
 //var js = JSON.parse(dig);
 

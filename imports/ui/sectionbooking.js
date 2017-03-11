@@ -22,7 +22,7 @@ import './sectionbooking.html';
     const campingcarssubs = Meteor.subscribe("campingcars");
     if(campingcarssubs.ready()){
       var bdd = CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
-      //console.log("Ready :"+bdd.daysfull[1]);
+      console.log("Ready :"+bdd.daysfull[1]);
   //this.dtime.set('fulldate', bdd.daysfull);
  $('.startdatetimepicker').data("DateTimePicker").disabledDates(bdd.daysfull);
  $('.enddatetimepicker').data("DateTimePicker").disabledDates(bdd.daysfull);
@@ -30,7 +30,41 @@ import './sectionbooking.html';
     }
     Meteor.subscribe('Images');
     Meteor.subscribe('addons');
-    Meteor.subscribe('reservations');
+   const reservationssubs = Meteor.subscribe('reservations');
+if(reservationssubs.ready()){
+      var bddreservations = Reservations.find({}).fetch();
+      console.log("Résefvations Ready :"+bddreservations.length);
+  //this.dtime.set('fulldate', bdd.daysfull);
+var tabfull=null;
+
+            for (var i = 0;  bddreservations.length > i; i++) {
+
+                  //var loueurid = bddreservations[i].user_id;
+                  //var tt ="Loueur Id:"+loueurid+", Netprize :"+bddreservations[i].netprize+", Addonsprize: "+bddreservations[i].addonsprize;
+                  var sday= moment(bddreservations[i].start_time,'YYYY-MM-DD');
+                  var fday = moment(bddreservations[i].end_time,'YYYY-MM-DD').add(1, 'day');
+
+                  for (var j = moment(bddreservations[i].start_time,'YYYY-MM-DD'); fday.diff(sday, 'days') < 0; j.add(1, 'day') )
+                  {
+                    console.log("réservation, "+bddreservations[i].resource_id+" jour?:"+j.format('YYYY-MM-DD'));
+                  }
+            
+                  // var uevent = {id:bddreservations[i]._id,
+                  //               //title: tt,
+                  //               start: bddreservations[i].start_time,
+                  //               end: fday.format('YYYY-MM-DD'),
+                  //               rendering:'background',
+                  //               backgroundColor:'red'
+                  //               };
+
+                  tabfull.push(sday);
+                  tabfull.push(fday);
+              }
+
+ $('.startdatetimepicker').data("DateTimePicker").disabledDates(tabfull);
+ $('.enddatetimepicker').data("DateTimePicker").disabledDates(tabfull);
+
+    }
 });
 
 

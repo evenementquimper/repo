@@ -19,9 +19,147 @@ var place = {loc:null};
 
  Template.admin.onCreated(function() {
   this.autorun(() => {
+      // wait on roles to intialise so we can check is use is in proper role
+  if (Roles.subscription.ready() && !FlowRouter._initialized) {
+    FlowRouter.initialize()
+  }
     this.subscribe('campingcars');
     this.subscribe('connections');
-    this.subscribe('reservations');
+    //this.subscribe('reservations');
+
+   const reservationssubs = this.subscribe('reservations');
+console.log("Role ? "+Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP))
+    if(reservationssubs.ready() && Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP)!=false)
+    {
+gantt.config.start_date = moment("2017-01-01", 'YYYY-MM-DD');
+//gantt.config.end_date = new Date(2017, 03, 20);
+gantt.config.end_date = moment("2017-07-20", 'YYYY-MM-DD');
+  
+    gantt.init("gantt");
+
+// gantt.templates.task_class = function(start, end, task){
+//     if(task.type == gantt.config.types.reservation){
+//         return "reservation_task";
+//     }
+//     return "";
+// };
+
+
+// var taskId = gantt.addTask({
+//     id:'10',
+//     text:"Project #1",
+//     start_date:"09-03-2017",
+//     duration:28
+// });
+
+// gantt.addTask({
+//     id:'3',
+//     text:"Alpha release",
+//     type:gantt.config.types.milestone,
+//     parent:'10',
+//     start_date:'13-03-2017'
+// });
+
+// var newreservation = {
+//     data:[
+//         {id:'1', text:"Project #1", type:gantt.config.types.project, open:true},           
+//         {id:'2', text:"Task #1",start_date:'12-03-2017', duration:3, parent:1},
+//         {id:'3', text:"Alpha release", type:gantt.config.types.milestone, parent:1, start_date:'13-03-2017'},
+//         {id:'4', text:"Task #2",start_date:'14-03-2017', duration:3, parent:1}],
+//     links:[]
+// };
+// gantt.addTask(newreservation);
+var reservations = Reservations.find({}).fetch();
+for (var i = 0;  reservations.length > i; i++) {
+
+var start_time = moment(reservations[i].start_time,'YYYY-MM-DD');
+var end_time = moment(reservations[i].end_time,'YYYY-MM-DD').add(1, 'day');
+var color = 'blue';
+var montant = 0;
+      if(reservations[i].status=='owner_cancel')
+        color = 'black';
+                          
+
+      if(reservations[i].status=='owner_valid')
+        color = 'green';
+
+        if(reservations[i].brutprize)
+            montant = reservations[i].brutprize;
+            if(reservations[i].brutprize.prize)
+                montant = reservations[i].brutprize.prize;
+
+gantt.addTask({id:"p_"+i,
+               text:reservations[i]._id+"Montant: "+montant,
+               color:color,
+               start_date:start_time.format('DD-MM-YYYY'),
+               duration:end_time.diff(start_time, 'days')});
+    
+  if(reservations[i].advance && reservations[i].advance.payment)
+  {
+gantt.addTask({
+    id:"advance_"+i,
+    text:"advance "+reservations[i].advance.prize,
+    type:gantt.config.types.milestone,
+    parent:"p_"+i,
+    start_date:reservations[i].advance.createdAt
+});    
+  }
+  if(reservations[i].solde && reservations[i].solde.payment)
+  {
+   gantt.addTask({
+    id:"solde_"+i,
+    text:"Solde "+reservations[i].solde.prize,
+    type:gantt.config.types.milestone,
+    parent:"p_"+i,
+    start_date:reservations[i].solde.createdAt
+});    
+  }       
+  if(!reservations[i].advance && !reservations[i].solde && reservations[i].brutprize && reservations[i].brutprize.payment)
+  {
+   gantt.addTask({
+    id:"Comptant_"+i,
+    text:"Comptant "+reservations[i].brutprize.prize,
+    type:gantt.config.types.milestone,
+    parent:"p_"+i,
+    start_date:reservations[i].brutprize.createdAt
+});    
+  }   
+
+gantt.addTask({
+    id:"c_"+i,
+    text:"Création",
+    type:gantt.config.types.milestone,
+    parent:"p_"+i,
+    start_date:reservations[i].createdAt
+});
+//{id:"A"+reservations[i]._id+i, text:"Task #1", color:color,  start_date:start_time.format('DD-MM-YYYY'), duration:end_time.diff(start_time, 'days'), parent:"p_"+i},
+//{id:"B"+reservations[i]._id+i, text:"Alpha release", type:gantt.config.types.milestone,   parent:"p_"+i, start_date:"11-03-2017"}
+
+
+}
+
+
+//gantt.meteor({tasks: Reservations});
+
+      // var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
+      // DocHead.setTitle(bdd.city+"|"+bdd.make+"|"+bdd.model+"|"+bdd.name+"|Le Bon Camping-car");
+      // var metaInfo = {name: "description", content: bdd.description};
+      // DocHead.addMeta(metaInfo);
+      // var linkInfo = {rel: "icon", sizes:"16x16 32x32", href: "/favicon.ico?v=4"};
+      // DocHead.addLink(linkInfo);
+
+  // var campingcars = CampingCars.find().fetch();
+  //   _.each(campingcars, function(campingcar) {
+  //       if(campingcar.city && campingcar.make && campingcar.model)
+  //   out.push({
+  //     page: '/campingcar/'+campingcar.city+'/'+campingcar.make+'/'+campingcar.model,
+  //     lastmod: new Date(),
+  //     changefreq: 'daily', 
+  //     priority: 0.8
+  //   });
+  // });
+    }
+
     this.subscribe('mailings');
   });
 
@@ -61,6 +199,22 @@ var autocomplete;
 });
 
  Template.admin.onRendered(function() {
+
+// gantt.config.types.reservation = "type_id";
+// gantt.locale.labels.type_reservation = "Réservation";
+// gantt.config.lightbox.reservation_sections = [
+//     {name:"title", height:20, map_to:"text", type:"textarea", focus:true},
+//     {name:"details", height:70, map_to: "details", type: "textarea"},
+//     {name:"type", type:"typeselect", map_to:"type"},
+//     {name:"time", height:72, type:"time", map_to:"auto"}
+// ];
+// gantt.locale.labels.section_title = "Subject";
+// gantt.locale.labels.section_details = "Details";
+// gantt.config.autosize = "xy";
+//gantt.config.initial_scroll = true;
+//gantt.config.autosize_min_width = 500;
+//gantt.config.autofit = true;
+
 
 this.$('.datetimepicker').datetimepicker({
         useCurrent:true,
@@ -291,6 +445,11 @@ var datedata = {
 // }
  Template.admin.helpers({
 
+userinfo: function(){
+//if(Meteor.user() && Meteor.user().emails[0].address==Meteor.settings.admin.ADM_EMAIL)
+//{
+return Meteor.user().emails[0].address;//.emails[0].address==Meteor.settings.admin.ADM_EMAIL)  
+},
 
 //    exampleMapOptions: function() {
 //     if (GoogleMaps.loaded()) {

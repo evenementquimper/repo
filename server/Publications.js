@@ -33,3 +33,12 @@ Meteor.publish('mailings', function () {
 Meteor.publish('communes', function () {
     return Communes.find({});
 });
+Meteor.publish('private', function() {
+  if (!this.userId) {
+    return this.ready();
+  }
+
+  return Meteor.user({
+    userId: this.userId
+  });
+});

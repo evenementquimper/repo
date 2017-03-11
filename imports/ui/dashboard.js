@@ -57,16 +57,9 @@ Template.dashboard.onRendered(function() {
                   console.log("Transaction creation bad");
                   throw new Meteor.Error('transaction-creation-failed');
                 } else {
-                  console.log("Transaction creation ok");
-//                   console.log("Retour ?: ", transactionResult);
-// console.log("Retour success?: ", transactionResult.success);
-// console.log("Retour succes transaction¿: "+transactionResult.transaction);
-
-// console.log("Retour status: "+transactionResult.transaction.status);
-
- //FlowRouter.go('/book/'+FlowRouter.getParam("reservation_id"));
-      //book/v3SKd6px3nDvJzsRZ
-                  //alert('Thank you for your payment! Reload page to access our premium items!');
+       alert("Retrouver toutes les informations concernant votre réservation dans l'onglet réservations");
+           
+ FlowRouter.go('/');
                 }
               });
             }

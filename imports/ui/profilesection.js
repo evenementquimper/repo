@@ -12,7 +12,6 @@ import './profilesection.html';
  Template.profilesection.onCreated(function() {
     this.autorun(() => {
     this.subscribe('Images');
-    //this.subscribe('usersdata');
   });
   this.currentUpload = new ReactiveVar(false);
 
@@ -63,24 +62,11 @@ return CampingCars.find({userid: Meteor.userId()}).fetch();
     return Images.find();
 },
 userdata:function(){
-  if(Meteor.userId())
-  {
-    if(UsersData.find({_id:Meteor.userId()}))
-    {
 return UsersData.find({_id:Meteor.userId()}).fetch()[0];
-    }
-    else
-    {
-      return false
-    }
-    //console.log("User ID: "+UsersData.find({_id:Meteor.userId()}).fetch()[0].firstname);
-    
-  }
-  else
-  {
-    return false;
-  }
-}
+},
+// persodata:function(){
+// return Meteor.User();
+// }
 
 
 });
@@ -122,11 +108,8 @@ var js = JSON.parse(dig);
   },
 
 'dp.change .datetimepicker': function(event, instance){
- event.preventDefault();
-console.log("datepick chage"+$('.datetimepicker').data().date);
-
-      var dig = '{"birthdate":"'+$('.datetimepicker').data().date+'"}';
-console.log("DIG: "+dig);
+    event.preventDefault();
+    var dig = '{"birthdate":"'+$('.datetimepicker').data().date+'"}';
 
 var js = JSON.parse(dig);
         UsersData.update({
@@ -139,15 +122,10 @@ var js = JSON.parse(dig);
 },
 
   'input .datatext-item': function (event, template) {
-event.preventDefault(); 
-console.log("event text area: "+event.type);
-//
-//var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value.replace(/\n|\r|\0|\t/g,'')+'"}';
-var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value+'"}';
+    event.preventDefault(); 
+    var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value+'"}';
 
-console.log("value length: "+event.currentTarget.value);
-console.log("DIG: "+dig);
-var js = JSON.parse(dig);
+    var js = JSON.parse(dig);
         UsersData.update({
             _id: Meteor.userId()
         }, {
@@ -210,9 +188,8 @@ console.log("click license-uploader-button");
         } else {
           alert('File "' + fileObj.name + '" successfully uploaded');
                         var sup = fileObj.path.split('../../../../../public');
-              console.log("Split 1: "+sup[0]);
-              console.log("Split 2: "+sup[1]);
-          alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
+              
+          //alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
 //sauvegarde de id de l'image ds la bdd du camping car
 //$addToSet
 
@@ -253,7 +230,6 @@ CampingCars.update({
   },
 
     'change #licenseImage': function (e, template) {
-    console.log("click upload button");
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case 
       // multiple files were selected
@@ -274,14 +250,12 @@ CampingCars.update({
         } else {
           alert('File "' + fileObj.name + '" successfully uploaded');
                                   var sup = fileObj.path.split('../../../../../public');
-              console.log("Split 1: "+sup[0]);
-              console.log("Split 2: "+sup[1]);
-          alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
+           
+          //alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
 //sauvegarde de id de l'image ds la bdd du camping car
 
 
 var dig = '{"licenseimages":"'+sup[1]+'"}';
-console.log("DIG: "+dig);
 
 var js = JSON.parse(dig);
         UsersData.update({
@@ -299,7 +273,6 @@ var js = JSON.parse(dig);
     }
     else
     {
-      console.log("ELSE");
     }
   }
 
