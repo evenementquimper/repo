@@ -43,12 +43,12 @@ margin: 0 -15px 15px;">
 <div>Créer le : {{reservation.createdAt}}</div>
 {{#if reservation.advance}}
 {{#if reservation.solde}}
-<div>Solde à régler : <strong style="color:red;">{{reservation.solde.prize}}</strong></div>
+<div>Solde à régler : <strong style="color:red;">{{reservation.solde.prize}} €</strong></div>
 {{else}}
-<div>Acompte à régler : <strong style="color:red;">{{reservation.advance.prize}}</strong></div>
+<div>Acompte à régler : <strong style="color:red;">{{reservation.advance.prize}} €</strong></div>
 {{/if}}
 {{else}}
-<div>Prix total : <strong style="color:red;">{{reservation.brutprize}}</strong></div>  
+<div>Prix total : <strong style="color:red;">{{reservation.brutprize}} €</strong></div>  
 {{/if}}
 {{else}}
 {{/if}}

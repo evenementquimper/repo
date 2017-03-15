@@ -351,29 +351,29 @@ alert("Réservation Impossible durant cette période");
 
 if(Meteor.userId() && error==false)
 {
-alert("Réservation Ok");
+alert("Paiement de la Réservation");
 
-//      Reservations.insert({"user_id":Meteor.userId(),
-//                           "resource_id":FlowRouter.getParam('_id'),
-//                           "status":"newbooking",
-//                           "people": instance.prizes.get('peoplenbr'),
-//                           "start_time": instance.dtime.get('startdatepicker'), 
-//                           "end_time": instance.dtime.get('enddatepicker'),
-//                           "addons_id":Session.get("addonstab"),
-//                           "addonsprize": instance.prizes.get('addonsprize'),
-//                           "netprize": instance.prizes.get('netprize'),
-//                           //"email":Meteor.user().emails[0].address,
-//                         createdAt: new Date()}, function( error, result) { 
-//      if ( error ) console.log ( error ); //info about what went wrong
-//      if ( result )
-//  {
-//   //FlowRouter.go('dashboard', { reservation_id: result });
-//  }
-// });
+     Reservations.insert({"user_id":Meteor.userId(),
+                          "resource_id":FlowRouter.getParam('_id'),
+                          "status":"newbooking",
+                          "people": instance.prizes.get('peoplenbr'),
+                          "start_time": instance.dtime.get('startdatepicker'), 
+                          "end_time": instance.dtime.get('enddatepicker'),
+                          "addons_id":Session.get("addonstab"),
+                          "addonsprize": instance.prizes.get('addonsprize'),
+                          "netprize": instance.prizes.get('netprize'),
+                          //"email":Meteor.user().emails[0].address,
+                        createdAt: new Date()}, function( error, result) { 
+     if ( error ) console.log ( error ); //info about what went wrong
+     if ( result )
+ {
+  FlowRouter.go('dashboard', { reservation_id: result });
+ }
+});
 }
 else
 {
-  //FlowRouter.go('authentication');
+  FlowRouter.go('authentication');
 }
 
 }

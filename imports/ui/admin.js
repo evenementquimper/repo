@@ -28,7 +28,6 @@ var place = {loc:null};
     //this.subscribe('reservations');
 
    const reservationssubs = this.subscribe('reservations');
-console.log("Role ? "+Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP))
     if(reservationssubs.ready() && Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP)!=false)
     {
 gantt.config.start_date = moment("2017-01-01", 'YYYY-MM-DD');
@@ -89,7 +88,7 @@ var montant = 0;
                 montant = reservations[i].brutprize.prize;
 
 gantt.addTask({id:"p_"+i,
-               text:reservations[i]._id+"Montant: "+montant,
+               text:reservations[i]._id+" Montant: "+montant,
                color:color,
                start_date:start_time.format('DD-MM-YYYY'),
                duration:end_time.diff(start_time, 'days')});
@@ -215,6 +214,23 @@ var autocomplete;
 //gantt.config.autosize_min_width = 500;
 //gantt.config.autofit = true;
 
+// gantt.templates.tooltip_text = function(start,end,task){
+//     return "<b>Task:</b> "+task.text+"<br/><b>Duration:</b> " + task.duration;
+// };
+
+// gantt.attachEvent("onTaskClick", function(id,e){
+//     console.log("task clic");
+//     return true;
+// });
+
+// gantt.attachEvent("onTaskSelected", function(id,item){
+//     console.log("task select");
+// });
+
+gantt.attachEvent("onLinkClick", function(id,e){
+    //any custom logic here
+    console.log("link clic");
+});
 
 this.$('.datetimepicker').datetimepicker({
         useCurrent:true,
@@ -444,6 +460,72 @@ var datedata = {
 
 // }
  Template.admin.helpers({
+
+adminrole: function(){
+return Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP);
+},
+
+bookingsstat: function(){
+   var nwbook = 0;
+    var ownervalidnbr= 0;
+    var ownercancelnbr= 0;
+    var comptantnbr = 0;
+    var comptantcost = 0;
+    var advancenbr = 0;
+    var advancecost = 0;
+    var soldenbr = 0;
+    var soldecost = 0;
+    //var bookingsstat = bookingsstat = {totalbook:totalbook, nwbook:nwbook, ownervalidnbr:ownervalidnbr, ownnercancelnbr:ownnercancelnbr, comptantnbr:comptantnbr,comptantcost:comptantcost, advancenbr:advancenbr, advancecost:advancecost, soldenbr:soldenbr, soldecost:soldecost};
+   
+    var bookingsbdd = Reservations.find({}).fetch();
+
+    for (var i = 0;  bookingsbdd.length > i; i++) {
+        totalbook = 1+i;
+console.log("Réservation id :"+bookingsbdd[i]._id);
+
+if(bookingsbdd[i].status!="owner_cancel")
+{
+        if(bookingsbdd[i].status=="newbooking")
+        {
+            //comptantcost = comptantcost+bookingsbdd[i].brutprize.prize
+            nwbook++;
+        }
+        if(bookingsbdd[i].status=="owner_valid")
+        {
+            //comptantcost = comptantcost+bookingsbdd[i].brutprize.prize
+            ownervalidnbr++;
+        }
+
+        if(bookingsbdd[i].advance!=true && bookingsbdd[i].brutprize && bookingsbdd[i].brutprize.payment && bookingsbdd[i].brutprize.prize)
+        {
+            comptantcost = comptantcost+bookingsbdd[i].brutprize.prize;
+            comptantnbr++;
+        }
+        if(bookingsbdd[i].advance && bookingsbdd[i].advance.payment)
+        {
+            advancecost = advancecost+bookingsbdd[i].advance.prize;
+            advancenbr++;
+        }
+         if(bookingsbdd[i].solde && bookingsbdd[i].solde.payment)
+        {
+            soldecost = soldecost+bookingsbdd[i].solde.prize;
+            soldenbr++;
+        }
+        else
+        {
+
+        }
+    }
+    else
+    {
+        ownercancelnbr++;
+    }
+    }
+
+
+    
+return {totalbook:totalbook, nwbook:nwbook, ownervalidnbr:ownervalidnbr, ownnercancelnbr:ownnercancelnbr, comptantnbr:comptantnbr,comptantcost:comptantcost, advancenbr:advancenbr, advancecost:advancecost, soldenbr:soldenbr, soldecost:soldecost};
+},
 
 userinfo: function(){
 //if(Meteor.user() && Meteor.user().emails[0].address==Meteor.settings.admin.ADM_EMAIL)
@@ -725,6 +807,154 @@ return CampingCars.find({},{limit:5}).fetch();
   }
 });
   Template.admin.events({
+
+'click .gantt_task_content': function(event, template){
+console.log("click gant task");
+console.log("click current html: "+event.currentTarget.innerHTML);
+ var delbook30 = template.find('.delbook30');
+delbook30.style.display = "none";
+var delbook5050 = template.find('.delbook5050');
+delbook5050.style.display = "none";
+ var delbook100 = template.find('.delbook100');
+delbook100.style.display = "none";
+var payowner = template.find('.payowner');
+payowner.style.display = "none";
+var booksp = event.currentTarget.innerHTML.split(" ");
+
+var bookid = booksp[0];
+
+console.log("Book id: "+bookid);
+
+var book = Reservations.find({_id:bookid}).fetch()[0];
+var echea = moment(book.start_time,'YYYY-MM-DD').add(1, 'days').diff(moment(), 'days'); // 1
+console.log("Echeance "+echea+" jours");
+if(book.status=="newbooking")
+{
+//actions possibles : 
+
+}
+if(book.status=="owner_valid")
+{
+
+}
+        if(!book.advance && book.brutprize && book.brutprize.payment && book.brutprize.prize)
+        {
+            //paiement brut réaliser donc remboursement 100% - frais financiers 2%
+
+        }
+        if(book.advance && book.advance.payment)
+        {
+        }
+        if(book.solde && book.solde.payment){
+
+         }
+        if(moment(book.start_time,'YYYY-MM-DD').subtract(1, 'months').isAfter(moment().add(1, 'days'))){
+            console.log("Réservation dans 1 mois");
+            //réservation dans plus d'un mois
+            delbook30.style.display = "block";
+         }
+        if(moment(book.start_time,'YYYY-MM-DD').add(1, 'days').isBetween(moment().add(8, 'days'), moment().add(1, 'months'))){
+            //reservation entre 8 j et 1 mois
+            delbook5050.style.display = "block";
+
+        }
+
+        if(moment(book.start_time,'YYYY-MM-DD').add(1, 'days').isBefore(moment().add(8, 'days'))){
+            //reservation dans moins de 8 jour
+            delbook100.style.display = "block";
+        }
+
+        if(moment(book.start_time,'YYYY-MM-DD').add(3, 'days').isBefore(moment())){
+            //reservation début + 2 jours
+            payowner.style.display = "block";
+        }
+
+        if(moment().add(2, 'days').isAfter(moment(book.start_time,'YYYY-MM-DD'))){
+            console.log("Réservation en cour depuis + de 2 jours");
+            //pas de remboursement
+         }
+        if(moment(book.start_time,'YYYY-MM-DD').subtract(8, 'days').isAfter(moment())){
+            console.log("Réservation dans 8 jours");
+            //pas de remboursement
+            //var delbook100 = template.find('.delbook100');
+            //delbook30.style.display = "block";
+         }
+
+
+        if(moment(book.start_time,'YYYY-MM-DD').subtract(2, 'months').isAfter(moment())){
+            console.log("Réservation dans 2 mois");
+            //pas de remboursement
+         }
+
+        if(moment(book.start_time,'YYYY-MM-DD').subtract(3, 'months').isAfter(moment())){
+            console.log("Réservation dans 3 mois");
+            //pas de remboursement
+         }
+//console.log("click current text: "+event.currentTarget.text);
+//console.log("click current id: "+event.currentTarget.id);
+
+    var peopleid = template.find('#people'); 
+var bookselectaction = template.find('#bookselectaction');
+var outpoupselect = template.find('#outpoupselect');
+var echeance = template.find('.echeance');
+echeance.innerHTML = "Echéance :"+echea+" jours";
+outpoupselect.style.display = "inline-block";
+
+//bookselectaction.id = bookid;
+bookselectaction.style.display = "inline-block";
+//peopleselect.style.top = event.pageY+'px';
+//peopleselect.style.left = event.pageX+'px';
+
+bookselectaction.style.top = event.clientY+'px';
+bookselectaction.style.left = event.clientX+'px';
+},
+
+'click .peoplenbr': function(event, template){
+      event.preventDefault();
+      //console.log("people nbr: "+event.currentTarget.innerHTML);
+Template.instance().prizes.set('peoplenbr', event.currentTarget.innerHTML);
+        var outpoupselect = template.find('#outpoupselect');
+        outpoupselect.style.display = 'none';
+        var transmissionselect = template.find('#peopleselect');
+          transmissionselect.style.display = 'none';
+      
+},
+
+'click #outpoupselect': function(event, template){
+      event.preventDefault();
+    var bookselectaction = template.find('#bookselectaction');
+var popupselect = template.find('.popupselect');
+
+
+if(bookselectaction.style.display == 'inline-block')
+{ 
+  //console.log("fueltypeselect :"+fueltypeselect.style.display);
+  bookselectaction.style.display = 'none';
+  event.currentTarget.style.display = 'none';
+  //appcont.style.overflowY = 'scroll';
+}
+else
+{
+
+}
+
+},
+
+'click #people': function(event, template){
+    event.preventDefault();
+    var peopleid = template.find('#people'); 
+var peopleselect = template.find('#peopleselect');
+var outpoupselect = template.find('#outpoupselect');
+outpoupselect.style.display = "inline-block";
+
+peopleselect.style.display = "inline-block";
+console.log("people top: "+peopleid.offsetTop);
+//peopleselect.style.top = event.pageY+'px';
+//peopleselect.style.left = event.pageX+'px';
+
+peopleselect.style.top = event.clientY+'px';
+peopleselect.style.left = event.clientX+'px';
+},
 
   'input textarea': function(event, template){
     event.preventDefault();

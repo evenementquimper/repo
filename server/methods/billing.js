@@ -84,6 +84,52 @@ else
   console.log("Deja un customerid: "+user.customerid);
 }
   },
+
+  submitForSettlement : function(transactionid, bookingid){
+
+  gateway.transaction.find(transactionid, function (err, transaction) {
+    if(transaction.status)
+    {
+    console.log("Recherche transaction ok status :"+transaction.status);  
+  gateway.transaction.submitForSettlement(transaction.id, function (err, result) {
+  if (result.success) {
+    var settledTransaction = result.transaction;
+    console.log("submitForSettlement ok"+result.transaction.id);
+  } else {
+    console.log(result.errors);
+  }
+});
+    }else{
+    console.log(err);  
+    }
+});
+
+
+  },
+
+  refundTransaction: function(transactionid){
+    gateway.transaction.find(transactionid, function (err, transaction) {
+    if(transaction.status)
+    {
+    console.log("Recherche transaction ok status :"+transaction.status);  
+  gateway.transaction.void(transaction.id, function (err, result) {
+    if(result.success){
+      console.log("refundTransaction ok"+result.transaction.id);
+      console.log("refundTransaction type"+result.transaction.type);
+      console.log("refundTransaction amount"+result.transaction.amount);
+    }
+else
+{
+      console.log("erreur "+err); 
+}
+});
+      }else{
+    console.log(err);  
+    }
+});
+  },
+
+
   createTransaction: function(nonceFromTheClient, bookingid) {
     var user = Meteor.user();
     var booking = Reservations.find({_id:bookingid}).fetch()[0];
@@ -110,39 +156,7 @@ if(booking.brutprize)
         amount = booking.advance.prize.toString();
         var soldeprize = booking.brutprize-booking.advance.prize;
         console.log("Booking advance price:"+amount);
-                Reservations.update({
-            _id: bookingid
-        }, {
-            $set: {advance:{prize:advance.prize,payment:true,createdAt:new Date()},solde:{prize:soldeprize,payment:false}}
-        }, {
-          upsert: true
-        });
 
-      }
-      //si avance payer et solde non payer
-      if(booking.advance.payment!=false && booking.solde.payment==false)
-      {
-        var sold = booking.solde.prize;
-        amount = sold.toString();
-        console.log("Booking solde price:"+amount);
-                        Reservations.update({
-            _id: bookingid
-        }, {
-            $set: {brutprize:{prize:booking.brutprize,payment:true},solde:{prize:booking.solde.prize,payment:true,createdAt:new Date()}}
-        }, {
-          upsert: true
-        });
-      }
-      else
-      {
-
-      }
-    }
-    else
-    {
-   //pas d'avance donc payer 100%
-      amount = booking.brutprize;
-      console.log("Payement 100% :"+amount.toString());
 
     // Let's create transaction.
     gateway.transaction.sale({
@@ -150,7 +164,7 @@ if(booking.brutprize)
       paymentMethodNonce: nonceFromTheClient, // Generated nonce passed from client
       customerId: user.customerId,
       options: {
-        submitForSettlement: true, // Payment is submitted for settlement immediatelly
+        //submitForSettlement: true, // Payment is submitted for settlement immediatelly
         storeInVaultOnSuccess: true // Store customer in Braintree's Vault
       }
     }, function (err, transactionResult) {
@@ -159,7 +173,7 @@ if(booking.brutprize)
           Reservations.update({
             _id: bookingid
         }, {
-            $set: {brutprize:{prize:booking.brutprize,payment:err,createdAt:new Date()}}
+            $set: {status:"newbooking",advance:{prize:amount,payment:err,createdAt:new Date()}}
         }, {
           upsert: true
         });
@@ -178,7 +192,116 @@ if(booking.brutprize)
           Reservations.update({
             _id: bookingid
         }, {
-            $set: {brutprize:{prize:booking.brutprize,payment:transactionResult.transaction.id,createdAt:new Date()}}
+            $set: {status:"newbooking",advance:{prize:amount,payment:transactionResult.transaction.id,createdAt:new Date()},solde:{prize:soldeprize,payment:false,createdAt:new Date()}}
+        }, {
+          upsert: true
+        });
+
+
+      }
+
+    });
+
+      }
+      //si avance payer et solde non payer
+      if(booking.advance.payment!=false && booking.solde.payment==false)
+      {
+        var sold = booking.solde.prize;
+        amount = sold.toString();
+        console.log("Booking solde price:"+amount);
+
+
+
+    // Let's create transaction.
+    gateway.transaction.sale({
+      amount: amount.toString(),//totalprice,'fake-valid-visa-nonce',//
+      paymentMethodNonce: nonceFromTheClient, // Generated nonce passed from client
+      customerId: user.customerId,
+      options: {
+        submitForSettlement: true, // Payment is submitted for settlement immediatelly
+        storeInVaultOnSuccess: true // Store customer in Braintree's Vault
+      }
+    }, function (err, transactionResult) {
+      if (err) { 
+        console.log(err);
+          Reservations.update({
+            _id: bookingid
+        }, {
+            $set: {solde:{prize:amount,payment:err,createdAt:new Date()}}
+        }, {
+          upsert: true
+        });
+      } else {
+
+        console.log("Method transaction Id :"+transactionResult.transaction.id);
+//console.log("Method transaction succes ? :"+transactionResult.success);
+// true
+
+//console.log("Transaction type :"+transactionResult.transaction.type);
+// "credit"
+
+//console.log("Method transaction status :"+transactionResult.transaction.status);
+// "submitted_for_settlement"
+
+          Reservations.update({
+            _id: bookingid
+        }, {
+            $set: {brutprize:{prize:booking.brutprize,payment:true},solde:{prize:amount,payment:transactionResult.transaction.id,createdAt:new Date()}}
+        }, {
+          upsert: true
+        });
+
+
+      }
+
+    });
+      }
+      else
+      {
+
+      }
+    }
+    else
+    {
+   //pas d'avance donc payer 100%
+      amount = booking.brutprize;
+      console.log("Payement 100% :"+amount.toString());
+
+    // Let's create transaction.
+    gateway.transaction.sale({
+      amount: amount.toString(),//totalprice,'fake-valid-visa-nonce',//
+      paymentMethodNonce: nonceFromTheClient, // Generated nonce passed from client
+      customerId: user.customerId,
+      options: {
+        //submitForSettlement: true, // Payment is submitted for settlement immediatelly
+        storeInVaultOnSuccess: true // Store customer in Braintree's Vault
+      }
+    }, function (err, transactionResult) {
+      if (err) { 
+        console.log(err);
+          Reservations.update({
+            _id: bookingid
+        }, {
+            $set: {status:"newbooking",brutprize:{prize:booking.brutprize,payment:err,createdAt:new Date()}}
+        }, {
+          upsert: true
+        });
+      } else {
+
+        console.log("Method transaction Id :"+transactionResult.transaction.id);
+//console.log("Method transaction succes ? :"+transactionResult.success);
+// true
+
+//console.log("Transaction type :"+transactionResult.transaction.type);
+// "credit"
+
+//console.log("Method transaction status :"+transactionResult.transaction.status);
+// "submitted_for_settlement"
+
+          Reservations.update({
+            _id: bookingid
+        }, {
+            $set: {status:"newbooking",brutprize:{prize:booking.brutprize,payment:transactionResult.transaction.id,createdAt:new Date()}}
         }, {
           upsert: true
         });

@@ -22,14 +22,29 @@ return Meteor.users.update({
   SendMail: function(datetosend, to, subject, text, header, attachments, mailcomposer, resa_id){
 
  var delta = datetosend-moment();
+ var userdesti = "";
 
+ //recherche une adresse mail dans user
+
+if(to.services && to.services.facebook && to.services.facebook.email)
+{
+  userdesti= to.services.facebook.email;
+}
+
+if(to.emails && to.emails[0].address)
+{
+  userdesti = to.emails[0].address;
     //check([to, subject, text], [String]);
     // Let other method calls from the same client start running,
     // without waiting for the email sending to complete.
     //this.unblock();
+}
+
+console.log("Send mail to: "+userdesti);
+
     Meteor.setTimeout(function(){
       Email.send({from:"leboncampingcar@leboncampingcar.fr",
-          to:to,
+          to:userdesti,
           bcc:"contact@leboncampingcar.fr",
           subject:subject,
           html:text,
@@ -43,7 +58,7 @@ console.log("result send mail: "+result);
 
       }
       else{
-
+console.log("Error send mail: "+error);
       }
     });
   //Meteor.call('SendMail', Template.instance().mailling.get('adres'), 'subjecttest', Template.instance().mailling.get('tempt'), null, null, null);

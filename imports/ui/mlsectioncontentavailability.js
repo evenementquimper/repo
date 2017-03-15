@@ -52,7 +52,7 @@ Template.mlsectioncontentavailability.helpers({
 
         var bddcampingcar = CampingCars.find({_id: FlowRouter.getParam('_id')}).fetch()[0];
         var bddreservations = Reservations.find({resource_id:FlowRouter.getParam("_id"),status:{ $in: [ "newbooking", "owner_valid" ] }}).fetch();
-      
+     
         var evttab = [];
         var tabnoresa = [];
         var tabfull = bddcampingcar.daysfull;
@@ -77,6 +77,7 @@ Template.mlsectioncontentavailability.helpers({
 
                   if(UsersData.find({_id:loueurid}).fetch()[0])
                       {
+                        console.log("Resa find"+bddreservations.length); 
                         var ttprix = bddreservations[i].brutprize;
 
                         if(bddreservations[i].brutprize.prize)
@@ -85,7 +86,7 @@ Template.mlsectioncontentavailability.helpers({
                   var tt = UsersData.find({_id:loueurid}).fetch()[0].firstname+", "+UsersData.find({_id:loueurid}).fetch()[0].lastname+", Montant: "+ttprix;
                         
                         var status = bddreservations[i].status;
-                        //console.log("booking _id: "+bddreservations[i]._id);
+                          console.log("booking _id: "+bddreservations[i]._id);
                         //console.log("resa end time: "+bddreservations[i].end_time);
                         //ajout d'un jour a la fin pour visualiser le dernier jour
                         var lastday = moment(bddreservations[i].end_time, 'YYYY-MM-DD').add(1, 'day');
@@ -164,7 +165,7 @@ Template.mlsectioncontentavailability.helpers({
                               $('.fc').fullCalendar('updateEvent', calEvent);
                               var dig = '{"status":"owner_valid","mailstatus":"notsend"}';
                               var js = JSON.parse(dig);
-        
+
                                   Reservations.update({
                                       _id: calEvent.id
                                         }, {

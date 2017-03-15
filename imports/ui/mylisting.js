@@ -24,10 +24,19 @@ console.log("Star mylisting.js");
 
 
  campingcars(){
+  
+  if(Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP))
+  {
+return CampingCars.find({});
+  }
+  else
+  {
+return CampingCars.find({"userid": Meteor.userId()});
+  }
     //const instance = Template.instance();
     //console.log("helper route id : "+FlowRouter.getParam("_id")); "userid": Meteor.userId()
     //console.log("campingcar find! vue nombre: "+CampingCars.find({}).count());
-return CampingCars.find({"userid": Meteor.userId()});
+
   },
 
 

@@ -28,7 +28,7 @@
           <tbody><tr>
             <td style="font-size:12px;color:#323232;padding-left:10px; padding-right:20px;" valign="top">
               <p style="text-align:left;font-weight:bold;">
-                <br>Réservation N° {{bookingid}}
+                <br>Réservation N° {{reservation.book_id}}
               </p>
               <p style="text-align:right;">
                 Quimper, le {{datemailcreated}}
@@ -37,9 +37,14 @@
               
                 Nous avons le plaisir de vous informer que votre demande de réservation a bien été valider par le propriétaire du camping-car.<br><br>
 
+                D'un montant de {{#if reservation.brutprize}}{{#if reservation.brutprize.prize}}{{reservation.brutprize.prize}} €{{else}}{{reservation.brutprize}}{{/if}}{{else}}{{/if}} pour un séjour entre le {{reservation.start_time}} et le {{reservation.end_time}}.<br><br>
+
                 Afin d'organiser au mieux votre voyage merci de prendre contact avec le propriétaire quelques jours avant votre départ.<br><br>
+
+                
+
               <table width="100%" height="80" cellspacing="0" cellpadding="0" border="0"><tbody><tr>
-                <td style="font-size:12px;color:#323232;" width="45%"><p>Retrouvez les coordonnées du propriétaire et toutes les informations sur votre réservation en cliquant ici:</p></td>
+                <td style="font-size:12px;color:#323232;" width="45%"><p>Retrouvez les coordonnées du propriétaire et toutes les informations sur votre réservation en cliquant <a href="http://leboncampingcar.fr/userbooking">ici:</a></p></td>
                 <td width="55%">
 
                   

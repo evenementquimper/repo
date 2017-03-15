@@ -160,7 +160,7 @@ var js = JSON.parse(dig);
   inp.click();
 },
 
-'click .license-upload-button': function(e, template){
+'click .license-upload': function(e, template){
 console.log("click license-uploader-button");
   e.preventDefault();
   var inp = template.find('#licenseImage');

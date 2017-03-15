@@ -37,6 +37,10 @@ Template.mlsectioncontentbasics.onRendered(function() {
          FlowRouter.go("index");
          return true;
       }
+      // if(Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP))
+      // {
+      //   return CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch()[0];
+      // }
       else
       {
           metanbr++;

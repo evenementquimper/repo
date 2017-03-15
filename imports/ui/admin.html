@@ -1,36 +1,54 @@
 
 <template name="admin">
-<!--          <div class="left-nav left-nav-medium">
-{{> leftnavuser}}
-    </div> -->
-<!-- {{#if connections}}
-{{#each connections}}
-<p>{{this._id}}</p>
-{{/each}}
-{{else}}
-{{/if}}
-{{canvas}} -->
-
-<!-- <div>dates</div>
-{{#if calendaroptions}}
-{{#each}}
-<p>id: {{this.eventSources[0].events.title}}</p>
-{{/each}}
-{{/if}} -->
 <button id="calendar">Calendar</button>
-{{#if calendaroptions}}
+<!-- {{#if calendaroptions}}
 {{> fullcalendar calendaroptions}}
-{{/if}}
+{{/if}} -->
 
+{{#if adminrole}}
 <div id="gantt" style='width: 100%; height: 100%;margin:5px;
         padding:0px;overflow:scroll;'></div>
-        {{#if userinfo}}
-        {{userinfo}}
+{{#if bookingsstat}}
+        <div><h3>Statistiques</h3>
+         <table>
+  <tr>
+    <th>Nombre totale de réservations</th>
+    <th>création</th>
+    <th>owner valid</th>
+    <th>owner cancel</th>
+    <th>Comptant</th>
+    <th>Advance</th>
+    <th>Solde</th>
+  </tr>
+    <tr>
+    <th>{{bookingsstat.totalbook}}</th>
+    <th>{{bookingsstat.nwbook}}</th>
+    <th>{{bookingsstat.ownervalidnbr}}</th>
+    <th>{{bookingsstat.ownercancelnbr}}</th>
+    <th>{{bookingsstat.comptantnbr}}</th>
+    <th>{{bookingsstat.advancenbr}}</th>
+        <th>{{bookingsstat.soldenbr}}</th>
+    </tr>
+        <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>{{bookingsstat.comptantcost}}</th>
+    <th>{{bookingsstat.advancecost}}</th>
+    <th>{{bookingsstat.soldecost}}</th>
+    </tr>
+</table> 
+        </div>
         {{else}}
         {{/if}}
+        {{else}}
+        {{/if}}
+
+        {{#if adminrole}}
 {{#if reservations}}
 
-{{#each reservations}}
+<!-- {{#each reservations}}
 <div><p>Réservations {{this._id}}</p>
 <p>Réservations status: {{this.status}}</p>
 <select class="selectstatus" id="{{this._id}}">Status
@@ -43,20 +61,21 @@
   <option>close</option></select>
 <button class="removebook" id="{{this._id}}">Remove booking</button>
 </div>
-{{/each}}
+{{/each}} -->
 {{else}}
 {{/if}}
+{{/if}}
 
-{{#if mailings}}
+<!-- {{#if mailings}}
 
 {{#each mailings}}
 <div><p>Mailings Id {{this._id}}</p>
 <p>Timeout {{this.timeout}}</p>
-<!-- <textarea id="textarea_{{this._id}}">{{this.template}}</textarea> -->
+<textarea id="textarea_{{this._id}}">{{this.template}}</textarea> 
 {{{this.template}}}
 </div>
 <button class="removemailing" id="{{this._id}}">Remove</button>
-<!-- <button class="updatemailing" id="{{this._id}}">Update</button> -->
+<button class="updatemailing" id="{{this._id}}">Update</button>
 {{/each}}
 {{else}}
 {{/if}}
@@ -67,501 +86,76 @@
 <input type="email" id="adres">
 <input class="datetimepicker" value="" type="date">
 <button id="sendmail">Send Mail</button>
-</div>
+</div> -->
 
 <canvas id="myChart" width="600" height="600"></canvas>
-
-
-<!-- <div class="hero" style="background-image:;" itemprop="image">
-<div class="hero-inner">
-<div class="hero-copy">
-<h1 class="hero-copy-title">Begin Your Journey
-</h1>
-<p class="hero-copy-content">Rent directly from motorhome owners.
-</p>
-</div>
- <div class="map-container" style="width:800px;max-width:100%;height:400px;visibility:hidden;">
-    {{> googleMap name="exampleMap" options=exampleMapOptions}}
-  </div>
-
-<div class="homepage-search">
-<form class="listings-search">
-<div class="flex-grid">
-<div style="width: 25%;" class="flex-grid-item">
-<div class="input-with-icon">
-
-
-
-
-<div class="input">
-<div style="font-size:16px;line-height:24px;width:100%;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-
-    
-<input placeholder="Enter a destination" name="autocomplete" value="" id="autocomplete" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(255, 255, 255, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" type="text">
-<div>
-<hr style="border:none;border-bottom:solid 1px;border-color:rgba(255, 255, 255, 0.54);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;">
-<hr style="border-width: medium medium 2px; border-style: none none solid; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; border-color: rgb(36, 97, 130); bottom: 8px; box-sizing: content-box; margin: 0px; position: absolute; width: 100%; transform: scaleX(0); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-</div>
-</div>
-</div>
-
-
-</div>
-</div>
-<div style="width: 25%;" class="flex-grid-item">
-
-<div class="input-with-icon">
-<div>
-
-</div>
-<div class="input" data-reactid=".0.0.1.$page.0.0.1.0.0.$1/=11.0.1">
-<div data-reactid=".0.0.1.$page.0.0.1.0.0.$1/=11.0.1.0">
-<div style="font-size:16px;line-height:24px;width:100%;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".0.0.1.$page.0.0.1.0.0.$1/=11.0.1.0.0">
-<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:perspective(1px) scale(0.75) translate3d(2px, -28px, 0);transform-origin:left top;pointer-events:none;user-select:none;color:rgba(255,255,255,0.5);" data-reactid=".0.0.1.$page.0.0.1.0.0.$1/=11.0.1.0.0.0" for="mui-id-444">Pick Up
-</label>
-<div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;" data-reactid=".0.0.1.$page.0.0.1.0.0.$1/=11.0.1.0.0.1">Start Date
-</div>
-<input class="datetimepickerstart" value="" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(255, 255, 255, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" id="mui-id-444" type="text">
-<div>
-<hr style="border:none;border-bottom:solid 1px;border-color:rgba(255, 255, 255, 0.54);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;" data-reactid=".0.0.1.$page.0.0.1.0.0.$1/=11.0.1.0.0.3.0">
-<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div style="width: 25%;" class="flex-grid-item" data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12">
-<div class="input-with-icon" data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0">
-<div data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0.0">
-
-</div>
-<div class="input" data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0.1">
-<div data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0.1.0">
-<div style="font-size:16px;line-height:24px;width:100%;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0.1.0.0">
-<label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:perspective(1px) scale(0.75) translate3d(2px, -28px, 0);transform-origin:left top;pointer-events:none;user-select:none;color:rgba(255,255,255,0.5);" data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0.1.0.0.0" for="mui-id-445">Drop Off
-</label>
-<div style="position:absolute;opacity:0;color:rgba(0,0,0,0.3);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;bottom:12px;" data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0.1.0.0.1">End Date
-</div>
-<input class="datetimepickerend" value="3rd Nov 16" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(255, 255, 255, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0.1.0.0.2" id="mui-id-445" type="text">
-<div data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0.1.0.0.3">
-<hr style="border:none;border-bottom:solid 1px;border-color:rgba(255, 255, 255, 0.54);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;" data-reactid=".0.0.1.$page.0.0.1.0.0.$2/=12.0.1.0.0.3.0">
-<hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div style="width: 25%;" class="flex-grid-item">
-<div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;margin-top:28px;">
-
-         <button id="search-button" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;background-color:#ef4136;" tabindex="0" type="button">
-         <div>
-         <div style="transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; top: 0px;">
-         <span style="position:relative;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;">Search
-         </span>
-         </div>
-         </div>
-         </button>
-
-
-
-         </div>
-         </div>
-         </div>
-         </form>
-         </div>
-         </div>
-         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         <section class="featured-vehicles section">
-         <div class="section-container">
-
-         
-         <div class="featured-vehicles-carousel" data-reactid=".0.0.1.$page.1.0.0">
-
-
-         <div class="section-intro" data-reactid=".0.0.1.$page.1.0.0.0">
-         <h1 class="section-intro-title" data-reactid=".0.0.1.$page.1.0.0.0.0">Check out some of these featured listings
-         </h1>
-         <h3 class="section-intro-subtitle" data-reactid=".0.0.1.$page.1.0.0.0.1">
-         </h3>
-         </div>
-
-
-         <div class="carousel" data-reactid=".0.0.1.$page.1.0.0.1">
-<div class="owl-carousel owl-theme owl-loaded">
-
-{{#each campingcars}}
-            <div class="owl-item">
-<p>{{this._id}}</p>
-<div class="slick-slide featured-vehicles-card" data-index="-3" style="width: 400px;">
-         <div class="public-listing">
-         <a class="" href="/listings/{{this._id}}">
-         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.12);border-radius:2px;overflow:hidden;z-index:1;">
-         <div style="padding-bottom:0;">
-         <div>
-         <div style="position:relative;">
-
-         <div style="width:320px;height:200px;">
-         <img src="{{this.images.[0]}}" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;" alt="error image" itemprop="image">
-         </div>
-
-
-         <div style="position:absolute;top:0;bottom:0;right:0;left:0;">
-         <div style="height:100%;position:relative;">
-         <div style="position:absolute;bottom:0;right:0;left:0;padding-top:8px;background:rgba(0, 0, 0, 0.54);">
-         <div style="padding:0 20px 10px;position:relative;" title="Vehicle price from:">
-         <span style="font-size:16px;color:rgba(255, 255, 255, 0.87);display:block;line-height:26px;font-weight:300;">Vehicle price from:
-         </span>
-         <span style="font-size:14px;color:rgba(255, 255, 255, 0.54);display:block;">$220 per day...
-         </span>
-         </div>
-         </div>
-         </div>
-         </div>
-         </div>
-         <div title="Madi" style="height:72px;padding:16px;font-weight:500;box-sizing:border-box;position:relative;">
-         <div style="height:45px;width:45px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:45px;font-size:26.5px;color:#ffffff;margin-right:16px;">
-         <svg fill="#FFFFFF" height="100%" viewBox="0 0 24 24" width="100%">
-         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z">
-         </path>
-         <path d="M0 0h24v24H0z" fill="none">
-         </path>
-         </svg>
-         </div>
-         <div style="display:inline-block;vertical-align:top;max-width:200px;">
-         <span style="color:rgba(0, 0, 0, 0.87);display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;margin-left:8px;">{{this.name}}
-         </span>
-         <span style="color:rgba(0, 0, 0, 0.54);display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;margin-left:8px;">Sleeps {{this.maxGuests}}
-         </span>
-         </div>
-         </div>
-
-         </div>
-         </div>
-         </div>
-         </a>
-         </div>
-         </div>
-
-            </div>
-{{/each}}
-
-
-</div>
-         </div>
-         </div>
-         </div>
-         </section>
-
-
-
-
-
-
-
-
-
-         <section class="intro section" data-reactid=".0.0.1.$page.2">
-         <div class="section-container" data-reactid=".0.0.1.$page.2.0">
-         <div class="section-intro" data-reactid=".0.0.1.$page.2.0.0">
-         <h1 class="section-intro-title" data-reactid=".0.0.1.$page.2.0.0.0">Whatever your journey may be
-         </h1>
-         <h3 class="section-intro-subtitle" data-reactid=".0.0.1.$page.2.0.0.1">Discover the beauty of New Zealand without bounds.
-         </h3>
-         </div>
-         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;" data-reactid=".0.0.1.$page.2.0.1">
-         <div class="section-row" data-reactid=".0.0.1.$page.2.0.1.0">
-         <div class="content-block" data-reactid=".0.0.1.$page.2.0.1.0.0">
-         <p class="intro-content" data-reactid=".0.0.1.$page.2.0.1.0.0.0">Choose your own road in a vehicle you’ll love by renting directly from motorhome owners. With 24/7 support, local knowledge, guest feedback and hassle-free booking, there’s never been a better way to get out of town. Whatever your style and wherever you’re headed, let your journey unfold with Mighway.
-         </p>
-         </div>
-         <div class="content-block" data-reactid=".0.0.1.$page.2.0.1.0.1">
-         <img class="intro-image" src="images/stamps/icon-road.png" data-reactid=".0.0.1.$page.2.0.1.0.1.0">
-         </div>
-         </div>
-         </div>
-         <div class="explore" data-reactid=".0.0.1.$page.2.0.2">
-         <div class="explore-region content-block" data-reactid=".0.0.1.$page.2.0.2.$0">
-         <a class="" href="/discover/auckland?destination=hawkesbay" data-reactid=".0.0.1.$page.2.0.2.$0.0">
-         <div class="explore-region-content" data-reactid=".0.0.1.$page.2.0.2.$0.0.0">
-         <p data-reactid=".0.0.1.$page.2.0.2.$0.0.0.0">Relax and Indulge
-         </p>
-         <h3 data-reactid=".0.0.1.$page.2.0.2.$0.0.0.1">Hawke’s Bay
-         </h3>
-         </div>
-         <img src="images/locations/hawkesbay-small.jpg" data-reactid=".0.0.1.$page.2.0.2.$0.0.1">
-         </a>
-         </div>
-         <div class="explore-region content-block" data-reactid=".0.0.1.$page.2.0.2.$1">
-         <a class="" href="/discover/auckland?destination=coromandel" data-reactid=".0.0.1.$page.2.0.2.$1.0">
-         <div class="explore-region-content" data-reactid=".0.0.1.$page.2.0.2.$1.0.0">
-         <p data-reactid=".0.0.1.$page.2.0.2.$1.0.0.0">Chill out in the
-         </p>
-         <h3 data-reactid=".0.0.1.$page.2.0.2.$1.0.0.1">Coromandel
-         </h3>
-         </div>
-         <img src="images/locations/coromandel-small.jpg" data-reactid=".0.0.1.$page.2.0.2.$1.0.1">
-         </a>
-         </div>
-         <div class="explore-region content-block" data-reactid=".0.0.1.$page.2.0.2.$2">
-         <a class="" href="/discover/auckland?destination=northland" data-reactid=".0.0.1.$page.2.0.2.$2.0">
-         <div class="explore-region-content" data-reactid=".0.0.1.$page.2.0.2.$2.0.0">
-         <p data-reactid=".0.0.1.$page.2.0.2.$2.0.0.0">Explore Stunning
-         </p>
-         <h3 data-reactid=".0.0.1.$page.2.0.2.$2.0.0.1">Northland
-         </h3>
-         </div>
-         <img src="images/locations/northland-small.jpg" data-reactid=".0.0.1.$page.2.0.2.$2.0.1">
-         </a>
-         </div>
-         </div>
-         </div>
-         </section>
-         <section class="section" data-reactid=".0.0.1.$page.3">
-         <div class="section-intro" data-reactid=".0.0.1.$page.3.0">
-         <h1 class="section-intro-title" data-reactid=".0.0.1.$page.3.0.0">Events and Experiences
-         </h1>
-         <h3 class="section-intro-subtitle" data-reactid=".0.0.1.$page.3.0.1">Be inspired and amazed by some awesome Events and Experiences.
-         </h3>
-         </div>
-         <div class="explore" data-reactid=".0.0.1.$page.3.1">
-         <div class="explore-event content-block" data-reactid=".0.0.1.$page.3.1.$0">
-         <a class="" href="/events/wmg2017" data-reactid=".0.0.1.$page.3.1.$0.0">
-         <div class="explore-event-content" data-reactid=".0.0.1.$page.3.1.$0.0.0">
-         <p data-reactid=".0.0.1.$page.3.1.$0.0.0.0">Proud Partner of
-         </p>
-         <h3 data-reactid=".0.0.1.$page.3.1.$0.0.0.1">World Masters Games 2017
-         </h3>
-         </div>
-         <img src="images/locations/wmg2017-v2-small.jpg" data-reactid=".0.0.1.$page.3.1.$0.0.1">
-         </a>
-         </div>
-         </div>
-         </section>
-         <section class="section" data-reactid=".0.0.1.$page.4">
-         <a name="howitworks" data-reactid=".0.0.1.$page.4.0">
-         </a>
-         <div class="section-intro" data-reactid=".0.0.1.$page.4.1">
-         <h1 class="section-intro-title" data-reactid=".0.0.1.$page.4.1.0">Want to rent? Here's how it works
-         </h1>
-         <h3 class="section-intro-subtitle" data-reactid=".0.0.1.$page.4.1.1">
-         </h3>
-         </div>
-         <iframe src="https://www.youtube.com/embed/3xL9OKOkf6k?modestbranding=1;autohide=1&amp;showinfo=0&amp;controls=0;" allowfullscreen="" data-reactid=".0.0.1.$page.4.2" width="100%" height="561" frameborder="0">
-         </iframe>
-         <div class="section-row" data-reactid=".0.0.1.$page.4.3">
-         <div class="content-block" data-reactid=".0.0.1.$page.4.3.0">
-         <div class="renter-benefits" style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;" data-reactid=".0.0.1.$page.4.3.0.0">
-         <img class="renter-benefits-image" src="images/symbols/300x300_Itinerary.png" data-reactid=".0.0.1.$page.4.3.0.0.0">
-         <h3 data-reactid=".0.0.1.$page.4.3.0.0.1">Plan
-         </h3>
-         <p data-reactid=".0.0.1.$page.4.3.0.0.2">Wherever you are you’re ready to go. Simply key in your location to view available vehicles, refine by date and click to book your next adventure.
-         </p>
-         </div>
-         </div>
-         <div class="content-block" data-reactid=".0.0.1.$page.4.3.1">
-         <div class="renter-benefits" style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;" data-reactid=".0.0.1.$page.4.3.1.0">
-         <img class="renter-benefits-image" src="images/symbols/300x300_Key.png" data-reactid=".0.0.1.$page.4.3.1.0.0">
-         <h3 data-reactid=".0.0.1.$page.4.3.1.0.1">Book
-         </h3>
-         <p data-reactid=".0.0.1.$page.4.3.1.0.2">All Mighway transactions are safe as houses. Our owners are verified and all payments are processed via our secure payment system.
-         </p>
-         </div>
-         </div>
-         <div class="content-block" data-reactid=".0.0.1.$page.4.3.2">
-         <div class="renter-benefits" style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;" data-reactid=".0.0.1.$page.4.3.2.0">
-         <img class="renter-benefits-image" src="images/symbols/300x300_Marker.png" data-reactid=".0.0.1.$page.4.3.2.0.0">
-         <h3 data-reactid=".0.0.1.$page.4.3.2.0.1">Explore
-         </h3>
-         <p data-reactid=".0.0.1.$page.4.3.2.0.2">Carefree is the way to be. We provide 24/7 on-road support, assistance, insurance and tips so you can leave worries behind you.
-         </p>
-         </div>
-         </div>
-         </div>
-         <div class="section-row" style="justify-content:center;padding:2em;" data-reactid=".0.0.1.$page.4.4">
-         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;" data-reactid=".0.0.1.$page.4.4.0">
-         <button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;background-color:#ef4136;" tabindex="0" type="button" data-reactid=".0.0.1.$page.4.4.0.0">
-         <div data-reactid=".0.0.1.$page.4.4.0.0.0">
-         <div style="transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;top:0;" data-reactid=".0.0.1.$page.4.4.0.0.0.1">
-         <span style="position:relative;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;" data-reactid=".0.0.1.$page.4.4.0.0.0.1.0">View Listings
-         </span>
-         </div>
-         </div>
-         </button>
-         </div>
-         </div>
-         </section>
-         <section class="section" data-reactid=".0.0.1.$page.5">
-         <div class="section-intro" data-reactid=".0.0.1.$page.5.0">
-         <h1 class="section-intro-title" data-reactid=".0.0.1.$page.5.0.0">Own a motorhome? Collect cash, not dust.
-         </h1>
-         <h3 class="section-intro-subtitle" data-reactid=".0.0.1.$page.5.0.1">
-         </h3>
-         </div>
-         <iframe src="https://www.youtube.com/embed/p-fWx8t7kGU?modestbranding=1;autohide=1&amp;showinfo=0&amp;controls=0;" allowfullscreen="" data-reactid=".0.0.1.$page.5.1" width="100%" height="560" frameborder="0">
-         </iframe>
-         </section>
-         <section class="owner section" data-reactid=".0.0.1.$page.6">
-         <div class="section-container" data-reactid=".0.0.1.$page.6.0">
-         <div class="section-row" data-reactid=".0.0.1.$page.6.0.0">
-         <div class="content-block" data-reactid=".0.0.1.$page.6.0.0.0">
-         <p data-reactid=".0.0.1.$page.6.0.0.0.0">Offset the costs of your motorhome when you’re not on the road by renting to like-minded travellers. At Mighway, simply choose your level of service and we take good care of the rest. That means comprehensive insurance cover, customer vetting, security deposits, payment processing and round the clock support to ensure safe and worry-free renting.
-         </p>
-         </div>
-         <div class="owner-buttons content-block" data-reactid=".0.0.1.$page.6.0.0.1">
-         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;" data-reactid=".0.0.1.$page.6.0.0.1.0">
-         <button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;background-color:#ef4136;" tabindex="0" type="button" data-reactid=".0.0.1.$page.6.0.0.1.0.0">
-         <div data-reactid=".0.0.1.$page.6.0.0.1.0.0.0">
-         <div style="transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;top:0;" data-reactid=".0.0.1.$page.6.0.0.1.0.0.0.1">
-         <span style="position:relative;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;" data-reactid=".0.0.1.$page.6.0.0.1.0.0.0.1.0">List Your Motorhome
-         </span>
-         </div>
-         </div>
-         </button>
-         </div>
-         <a href="https://mighway.freshdesk.com/support/home" style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);vertical-align:middle;color:#ef4136;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;border-radius:2px;user-select:none;position:relative;overflow:hidden;background-color:rgba(0, 0, 0, 0);line-height:36px;min-width:88px;padding:0;margin:0;" tabindex="0" type="button" data-reactid=".0.0.1.$page.6.0.0.1.1">
-         <div data-reactid=".0.0.1.$page.6.0.0.1.1.0">
-         <span style="position:relative;padding-left:16px;padding-right:16px;" data-reactid=".0.0.1.$page.6.0.0.1.1.0.1">Learn More
-         </span>
-         </div>
-         </a>
-         </div>
-         </div>
-         <div class="section-row" data-reactid=".0.0.1.$page.6.0.1">
-         <div class="content-block" data-reactid=".0.0.1.$page.6.0.1.0">
-         <div class="owner-benefits" data-reactid=".0.0.1.$page.6.0.1.0.0">
-         <img src="images/symbols/verification.png" data-reactid=".0.0.1.$page.6.0.1.0.0.0">
-         <h4 data-reactid=".0.0.1.$page.6.0.1.0.0.1">Renter verification
-         </h4>
-         <p data-reactid=".0.0.1.$page.6.0.1.0.0.2">All Mighway guests must register and verify their memberships. Because they’re verified, you can trust your motorhome’s in good hands and you get the final say on every booking.
-         </p>
-         </div>
-         </div>
-         <div class="content-block" data-reactid=".0.0.1.$page.6.0.1.1">
-         <div class="owner-benefits" data-reactid=".0.0.1.$page.6.0.1.1.0">
-         <img src="images/symbols/payment.png" data-reactid=".0.0.1.$page.6.0.1.1.0.0">
-         <h4 data-reactid=".0.0.1.$page.6.0.1.1.0.1">Secure payment
-         </h4>
-         <p data-reactid=".0.0.1.$page.6.0.1.1.0.2">All payments are processed through our secure payment system and earnings are deposited directly into your bank account. There’s no need to handle cash or chase down payments.
-         </p>
-         </div>
-         </div>
-         <div class="content-block" data-reactid=".0.0.1.$page.6.0.1.2">
-         <div class="owner-benefits" data-reactid=".0.0.1.$page.6.0.1.2.0">
-         <img src="images/symbols/cash.png" data-reactid=".0.0.1.$page.6.0.1.2.0.0">
-         <h4 data-reactid=".0.0.1.$page.6.0.1.2.0.1">Easy earnings
-         </h4>
-         <p data-reactid=".0.0.1.$page.6.0.1.2.0.2">Renting out your motorhome out when you’re not on the road is a great way to offset your costs. We’ll help you manage your pricing to attract the best renters and maximise returns.
-         </p>
-         </div>
-         </div>
-         </div>
-         <div class="section-row" data-reactid=".0.0.1.$page.6.0.2">
-         <div class="content-block" data-reactid=".0.0.1.$page.6.0.2.0">
-         <div class="owner-benefits" data-reactid=".0.0.1.$page.6.0.2.0.0">
-         <img src="images/symbols/insurance.png" data-reactid=".0.0.1.$page.6.0.2.0.0.0">
-         <h4 data-reactid=".0.0.1.$page.6.0.2.0.0.1">Comprehensive insurance
-         </h4>
-         <p data-reactid=".0.0.1.$page.6.0.2.0.0.2">
-         <span data-reactid=".0.0.1.$page.6.0.2.0.0.2.0">Mighway’s comprehensive insurance gives you peace of mind. Rest easy in the knowledge that incidents will be covered and all renters are fully insured. You can see our full policy details 
-         </span>
-         <a href="/insurance" data-reactid=".0.0.1.$page.6.0.2.0.0.2.1">here
-         </a>
-         <span data-reactid=".0.0.1.$page.6.0.2.0.0.2.2">.
-         </span>
-         </p>
-         </div>
-         </div>
-         <div class="content-block" data-reactid=".0.0.1.$page.6.0.2.1">
-         <div class="owner-benefits" data-reactid=".0.0.1.$page.6.0.2.1.0">
-         <img src="images/symbols/securitydeposits.png" data-reactid=".0.0.1.$page.6.0.2.1.0.0">
-         <h4 data-reactid=".0.0.1.$page.6.0.2.1.0.1">Security deposits
-         </h4>
-         <p data-reactid=".0.0.1.$page.6.0.2.1.0.2">All renters authorise a bond to Mighway to cover any minor damage or insurance excess. Insurance is compulsory for all renters and covered by Camper Care.
-         </p>
-         </div>
-         </div>
-         <div class="content-block" data-reactid=".0.0.1.$page.6.0.2.2">
-         <div class="owner-benefits" data-reactid=".0.0.1.$page.6.0.2.2.0">
-         <img src="images/symbols/toolstemplates.png" data-reactid=".0.0.1.$page.6.0.2.2.0.0">
-         <h4 data-reactid=".0.0.1.$page.6.0.2.2.0.1">Tips, tools and support
-         </h4>
-         <p data-reactid=".0.0.1.$page.6.0.2.2.0.2">Mighway resources make it easy to market your motorhome, share tips and provide advice. As well as your tips, renters have our full support with 24/7 roadside assistance.
-         </p>
-         </div>
-         </div>
-         </div>
-         </div>
-         </section>
-         <div class="newsletter" data-reactid=".0.0.1.$page.7">
-         <form class="newsletter" data-reactid=".0.0.1.$page.7.0">
-         <h3 class="newsletter-title" data-reactid=".0.0.1.$page.7.0.0">Signup to the Mighway Newsletter
-         </h3>
-         <h4 class="newsletter-subtitle" data-reactid=".0.0.1.$page.7.0.1">For special offers, news, and latest blog posts.
-         </h4>
-         <div class="newsletter-form" data-reactid=".0.0.1.$page.7.0.2">
-         <div style="font-size:16px;line-height:24px;width:256px;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;margin:15px;vertical-align:top;" data-reactid=".0.0.1.$page.7.0.2.0">
-         <label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);" data-reactid=".0.0.1.$page.7.0.2.0.0" for="mui-id-446">Name
-         </label>
-         <input name="Name" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" data-reactid=".0.0.1.$page.7.0.2.0.2" id="mui-id-446" type="text">
-         <div data-reactid=".0.0.1.$page.7.0.2.0.3">
-         <hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;" data-reactid=".0.0.1.$page.7.0.2.0.3.0">
-         <hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".0.0.1.$page.7.0.2.0.3.1">
-         </div>
-         </div>
-         <div style="font-size:16px;line-height:24px;width:256px;height:72px;display:inline-block;position:relative;background-color:transparent;font-family:Roboto, sans-serif;transition:height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;margin:15px;vertical-align:top;" data-reactid=".0.0.1.$page.7.0.2.1">
-         <label style="position:absolute;line-height:22px;top:38px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;z-index:1;cursor:text;transform:scale(1) translate3d(0, 0, 0);transform-origin:left top;pointer-events:auto;user-select:none;color:rgba(0,0,0,0.3);" data-reactid=".0.0.1.$page.7.0.2.1.0" for="mui-id-447">Email
-         </label>
-         <input name="Email" style="tap-highlight-color:rgba(0,0,0,0);padding:0;position:relative;width:100%;height:100%;border:none;outline:none;background-color:transparent;color:rgba(86, 90, 92, 0.87);font:inherit;box-sizing:border-box;margin-top:14px;" data-reactid=".0.0.1.$page.7.0.2.1.2" id="mui-id-447" type="text">
-         <div data-reactid=".0.0.1.$page.7.0.2.1.3">
-         <hr style="border:none;border-bottom:solid 1px;border-color:rgba(0,0,0,0.3);bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;" data-reactid=".0.0.1.$page.7.0.2.1.3.0">
-         <hr style="border:none;border-bottom:solid 2px;border-color:#246182;bottom:8px;box-sizing:content-box;margin:0;position:absolute;width:100%;transform:scaleX(0);transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;" data-reactid=".0.0.1.$page.7.0.2.1.3.1">
-         </div>
-         </div>
-         <div class="newsletter-form-action" data-reactid=".0.0.1.$page.7.0.2.2">
-         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
-         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;display:inline-block;min-width:88px;height:36px;margin-top:2.5em;margin-left:1em;" data-reactid=".0.0.1.$page.7.0.2.2.0">
-         <button style="border:10px;background:none;box-sizing:border-box;display:inline-block;font:inherit;font-family:Roboto, sans-serif;tap-highlight-color:rgba(0, 0, 0, 0);appearance:button;cursor:pointer;text-decoration:none;outline:none;transform:translate3d(0, 0, 0);position:relative;height:100%;width:100%;padding:0;overflow:hidden;border-radius:2px;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;background-color:#ef4136;" tabindex="0" type="submit" data-reactid=".0.0.1.$page.7.0.2.2.0.0">
-         <div data-reactid=".0.0.1.$page.7.0.2.2.0.0.0">
-         <div style="transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;top:0;" data-reactid=".0.0.1.$page.7.0.2.2.0.0.0.1">
-         <span style="position:relative;opacity:1;font-size:14px;letter-spacing:0;text-transform:uppercase;font-weight:500;margin:0;user-select:none;padding-left:16px;padding-right:16px;line-height:36px;color:#ffffff;" data-reactid=".0.0.1.$page.7.0.2.2.0.0.0.1.0">SIGN UP
-         </span>
-         </div>
-         </div>
-         </button>
-         </div>
-         </div>
-         <noscript data-reactid=".0.0.1.$page.7.0.2.3:$dialogSuccess">
-         </noscript>
-         <noscript data-reactid=".0.0.1.$page.7.0.2.3:$dialogError">
-         </noscript>
-         </div>
-         </form>
-         </div> -->
        
+       <div id="outpoupselect" style="display:none; position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; z-index: 2000;">
+
+
+<div class="popupselect" id="bookselectaction" style="display:none;background-color: rgb(255, 255, 255); transition: transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; opacity: 1; transform: scaleY(1); transform-origin: left top 0px; position: fixed; z-index: 2100; max-height: 448px; width: 256px; top: 247.3px; left: 247px;">
+<div style="z-index: 1000; top: 0px; right: 0px; transform: scaleX(1); transform-origin: right center 0px; width: 450px;">
+<div style="background-color: rgb(255, 255, 255); box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; transform: scaleY(1); transform-origin: center top 0px; opacity: 1; max-height: 500px; overflow-y: auto;">
+<div style="background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; border-radius: 2px; padding: 16px 0px; display: table-cell; width: 450px;">
+
+<div style="opacity: 1;">
+<h3 style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: block; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative;" class="echeance"></h3>
+
+<span class="maildemandvalid" tabindex="0" type="button" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: none; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">
+<div>
+<div style="margin-left: 0px; padding: 0px 24px; position: relative;">
+<div>Envoi mail au propriétaire de demande de validation</div>
+</div>
+</div>
+</span>
+
+<span class="mailsolde" tabindex="0" type="button" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: block; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">
+<div>
+<div style="margin-left: 0px; padding: 0px 24px; position: relative;">
+<div>Envoi mail de rappel pour solde</div>
+</div>
+</div>
+</span>
+
+<span class="delbook30" tabindex="0" type="button" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: none; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">
+<div>
+<div style="margin-left: 0px; padding: 0px 24px; position: relative;">
+<div>Annuler réservation : 30% au propriétaire</div>
+</div>
+</div>
+</span>
+
+<span class="delbook5050" tabindex="0" type="button" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: none; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">
+<div>
+<div style="margin-left: 0px; padding: 0px 24px; position: relative;">
+<div>Annuler réservation : 50% propriétaire - 50% locataire</div>
+</div>
+</div>
+</span>
+
+<span class="delbook100" tabindex="0" type="button" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: none; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">
+<div>
+<div style="margin-left: 0px; padding: 0px 24px; position: relative;">
+<div>Annuler réservation : 100% propriétaire - 0% locataire</div>
+</div>
+</div>
+</span>
+
+<span class="payowner" tabindex="0" type="button" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: none; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; cursor: pointer; text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">
+<div>
+<div style="margin-left: 0px; padding: 0px 24px; position: relative;">
+<div>Paiement du proprietaire</div>
+</div>
+</div>
+</span>
+</div>
+
+
+</div>
+</div></div></div>
+
+
+
+
+</div>
          </template>

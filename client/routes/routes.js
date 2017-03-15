@@ -194,59 +194,42 @@ FlowRouter.route('/book/:_id', {
   }
 });
 
-var adminRoutes = FlowRouter.group({
-  prefix: '/admin'
-  //triggersEnter: [trackRouteEntry],
-  //triggersExit: [trackRouteEntry]
-});
-
-function trackRouteEntry(context) {
-  // context is the output of `FlowRouter.current()`
-
-  console.log("admin route enter");
-
-}
-
-function trackRouteClose(context) {
- console.log("admin route enter");
-  //Mixpanel.track("move-from-home", context.queryParams);
-}
-
-
-
-// handling /admin route
-adminRoutes.route('/', {
-  action: function() {
-
+FlowRouter.route('/statistiques', {
+  name:'statistiques',
+  action: function(){
     BlazeLayout.render("mainLayout", {nav:"nav",homepage:"admin"});
-  // }
-  // else
-  // {
-  //   FlowRouter.go('/');
-  // }
-  },
-
-  // triggersEnter: [(context, redirect) => {
-  //   if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
-  //     redirect('/dont-go-there');
-  //   }
-  // }],
-
-  //triggersEnter: [function(context, redirect) {
-    //console.log('running /admin trigger');
-    //console.log("user ? "+Meteor.userId());
-    //console.log("roles ? "+Roles.getAllRoles());
-    //var rl = Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP);
-    //console.log("role user ? "+rl);
-      //console.log("visit-to-home", context.queryParams);
-        //redirect('/');
-          //Meteor.users.find(this.userId);
-        //console.log("gmap ? "+Meteor.settings.public.G_MAP_KEY); 
-        //console.log("admin id ? "+Meteor.settings.admin.ADM_ID); 
-        //if(Meteor.settings.admin.ADM_ID!=Meteor.userId())
-        //FlowRouter.go('/');
-  //}]
+  }
 });
+
+// var adminRoutes = FlowRouter.group({
+//   prefix: '/admin'
+//   //triggersEnter: [trackRouteEntry],
+//   //triggersExit: [trackRouteEntry]
+// });
+
+// function trackRouteEntry(context) {
+//   // context is the output of `FlowRouter.current()`
+
+//   console.log("admin route enter");
+
+// }
+
+// function trackRouteClose(context) {
+//  console.log("admin route enter");
+//   //Mixpanel.track("move-from-home", context.queryParams);
+// }
+
+
+
+// // handling /admin route
+// adminRoutes.route('/', {
+//   action: function() {
+
+//     BlazeLayout.render("mainLayout", {nav:"nav",homepage:"admin"});
+
+//   },
+
+// });
 
 FlowRouter.route('/admin2', {
   name:'admin2',
@@ -262,11 +245,11 @@ FlowRouter.route('/admin2', {
 
 
   },
-  //   triggersEnter: [(context, redirect) => {
-  //   if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
-  //     redirect('/dont-go-there');
-  //   }
-  // }],
+    triggersEnter: [(context, redirect) => {
+    if (!Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP)) {
+      redirect('/dont-go-there');
+    }
+  }],
 });
 
 FlowRouter.notFound = {

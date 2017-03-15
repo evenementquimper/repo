@@ -304,9 +304,12 @@ for (var i = 0; i < bdd.daysfull.length; i++) {
 if(error!=false)
 alert("Réservation Impossible durant cette période");
 
-if(Meteor.userId() && error==false)
+if(!UsersData.find({_id:Meteor.userId()}).fetch()[0])
+alert("Merci de compléter votre profil")
+
+if(Meteor.userId() && UsersData.find({_id:Meteor.userId()}).fetch()[0] && error==false)
 {
-alert("Réservation Ok");
+alert("Paiement de la Réservation");
 var advance = false;
 console.log("Différence entre auj et start: "+moment(instance.dtime.get('startdatepicker'),"YYYY-MM-DD").diff(moment(), 'months'));
 
@@ -322,10 +325,12 @@ console.log("adv prize: "+js.prize);
 }
 else
 {}
+var book_id = Reservations.find({}).fetch().length+"-"+moment().format('YY-DDD');
 var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
-     Reservations.insert({"user_id":Meteor.userId(),
+     Reservations.insert({"book_id":book_id,
+                          "user_id":Meteor.userId(),
                           "resource_id":bdd._id,
-                          "status":"newbooking",
+                          "status":"zero",
                           "mailstatus":"notsend",
                           "people": instance.prizes.get('peoplenbr'),
                           "start_time": instance.dtime.get('startdatepicker'), 
