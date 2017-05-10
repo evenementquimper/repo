@@ -5,28 +5,17 @@ import { AddOns } from '../../imports/api/addons.js';
 import { Reservations } from '../../imports/api/reservations.js';
 import { Mailings } from '../../imports/api/mailings.js';
 import { Communes } from '../../imports/api/communes.js';
-
+import { UsersData } from '../../imports/api/usersdata.js';
 
 Meteor.startup(function () {
 
-// const output = FS.createWriteStream('./stdout.log');
-// const errorOutput = FS.createWriteStream('./stderr.log');
-// const myConsole = new console.Console(output, errorOutput);
 
-// myConsole.log('hello world');
-// // Prints: hello world, to out
-// myConsole.log('hello %s', 'world');
-// // Prints: hello world, to out
-// myConsole.error(new Error('Whoops, something bad happened'));
-// // Prints: [Error: Whoops, something bad happened], to err
-
-// const name = 'Will Robinson';
-// myConsole.warn(`Danger ${name}! Danger!`);
-
-  //observation de la base de donnée réservations
+  //observation de la base de donnée Images
 
 var count = 0;
 var query = Reservations.find({});
+var usersquery = UsersData.find({});
+
 var reservation =null;
 var campingcardata = null;
 //propriétaire du camping-car
@@ -35,6 +24,44 @@ var owner= null;
 var user = null;
 
 var options = false;
+
+var handleusers = usersquery.observeChanges({
+  addedBefore: function (id, fields, before) {
+    count++;
+
+    if(before==null){
+    //attention lors du relancement de meteor car relecture des réservations déja sauvegarder
+// reservation = Reservations.find({_id:id}).fetch()[0];
+// campingcardata = CampingCars.find({_id:reservation.resource_id}).fetch()[0];
+// //propriétaire du camping-car
+// owner= Meteor.users.find({_id: campingcardata.userid}).fetch()[0];
+// //locataire du camping-car
+// user = Meteor.users.find({_id: reservation.user_id}).fetch()[0];
+
+
+
+    if(fields.images)
+    console.log("Add new image: "+count+" UserId: "+id + " réserve le camping car Id " + fields.images);
+  //clear les nouvelles réservations qui date de la veille (non payer)
+
+//Date du début de  et date de la création de la réservation
+
+//si la date du nouveau status est  
+
+
+}
+else
+{
+}
+
+  },
+    changed(id, fields){
+          if(fields.images)
+    console.log("Add new image: "+count+" UserId: "+id + " réserve le camping car Id " + fields.images);
+ 
+
+    },
+});
 
 var handle = query.observeChanges({
   addedBefore: function (id, fields, before) {
@@ -69,11 +96,8 @@ else
   },
   changed(id, fields){
 
-console.log("Id du user: "+reservation.user_id);
-console.log("Status: "+fields.status);
-
 reservation = Reservations.find({_id:id}).fetch()[0];
-console.log("Mail Status: "+reservation.mailstatus);
+
 campingcardata = CampingCars.find({_id:reservation.resource_id}).fetch()[0];
 //propriétaire du camping-car
 owner= Meteor.users.find({_id: campingcardata.userid}).fetch()[0];
@@ -81,6 +105,11 @@ owner= Meteor.users.find({_id: campingcardata.userid}).fetch()[0];
 user = Meteor.users.find({_id: reservation.user_id}).fetch()[0];
 //Date du début de  et date de la création de la réservation
 
+//changement format de date 
+var st = moment(reservation.start_time, 'YYYY-MM-DD');
+reservation.start_time = st.format('DD MMMM YYYY', 'fr');
+var et = moment(reservation.end_time, 'YYYY-MM-DD');
+reservation.end_time = et.format('DD MMMM YYYY', 'fr');
 //si la date du nouveau status est  
 
 
@@ -90,7 +119,7 @@ user = Meteor.users.find({_id: reservation.user_id}).fetch()[0];
     //console.log("Options 1: "+options[0].name);
     }
 
-        if(fields.status == "newbooking")
+    if(fields.status == "newbooking")
     {
       console.log("Nouvelle réservations de créer");
       //envoyer un mail au propriétaire pour valider la réservation
@@ -137,8 +166,8 @@ user = Meteor.users.find({_id: reservation.user_id}).fetch()[0];
 
       }
 
-      Meteor.call('submitForSettlement', transactionid, reservation.id, function(result, error){
-        if(!error){
+      // Meteor.call('submitForSettlement', transactionid, reservation.id, function(result, error){
+      //   if(!error){
       //envoyer un mail au locataire pour l'informer de la validation par le propriétaire
       var tempmail_bookconf = Handlebars.templates['user_bookvalidmail']({bookingid:"id",datemailcreated:moment().format('DD-MM-YYYY'), campingcar:campingcardata, options:options, reservation:reservation, owner:owner});
       Meteor.call('SendMail', 0, user, 'Validation Réservation', tempmail_bookconf, null, null, null, reservation._id, function(result, error){
@@ -152,11 +181,11 @@ user = Meteor.users.find({_id: reservation.user_id}).fetch()[0];
     Reservations.update({_id:id},{$set:{mailstatus:error}},{upsert:true});
   }
           });
-        }
-        else{
+      //   }
+      //   else{
 
-        }
-      });
+      //   }
+      // });
 
     }
 
@@ -178,9 +207,9 @@ user = Meteor.users.find({_id: reservation.user_id}).fetch()[0];
 
       }
 
-      Meteor.call('refundTransaction', transactionid,  function(result, error){
-        if(!error){
-          console.log("result refundTransaction :"+result);
+      // Meteor.call('refundTransaction', transactionid,  function(result, error){
+      //   if(!error){
+      //     console.log("result refundTransaction :"+result);
       //envoyer un mail au locataire pour l'informer de l'annulation par le propriétaire
       var tempmail_bookconf = Handlebars.templates['user_bookdeman_ownercancel']({bookingid:"id",datemailcreated:moment().format('DD-MM-YYYY'), campingcar:campingcardata, options:options, reservation:reservation, owner:owner});
       Meteor.call('SendMail', 0, user, 'Annulation Réservation', tempmail_bookconf, null, null, null, reservation._id, function(result, error){
@@ -195,11 +224,11 @@ user = Meteor.users.find({_id: reservation.user_id}).fetch()[0];
   }
           });
 
-        }
-        else{
+      //   }
+      //   else{
 
-        }
-      });
+      //   }
+      // });
     }
 
     if(fields.status == "user_cancel" && fields.mailstatus == "notsend")

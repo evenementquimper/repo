@@ -2,7 +2,7 @@
 
     <nav class="top-nav top-nav--functional">
     <div class="logo">
-    <a href="/listings/{{reservation._id}}"><img src="/images/lbcclogo02.png" alt="Logo Image"></a></div>
+    <a href="/"><img src="/images/lbcclogo02.png" alt="Logo Image"></a></div>
 
     </nav>
 
@@ -16,8 +16,8 @@
     <div class="glyphicon glyphicon-chevron-left"><a href="/listings/{{reservation._id}}">Camping-car</a></div>
 </div>
 <div class="col-md-6 col-xs-4 col-sm-4" style="border-left: 1px solid #dcdcdc;">
-    {{#if showForm}}
-    <h2 style="margin-bottom: 15px;"><strong>Paiement par carte bancaire ou Paypal</strong></h2>
+<!--     {{#if showForm}}
+    <h2 style="margin-bottom: 15px;"><strong>Paiement par carte bancaire</strong></h2>
       <form role="form">
         <div class="row">
           <div class="col-md-12 col-xs-12">
@@ -26,7 +26,18 @@
           </div>
         </div>
       </form>
-{{/if}} 
+{{/if}}  -->
+{{#if wallet}}
+<p>Wallet ok</p>
+{{#if wallet.d.WALLET}}
+<h2 style="margin-bottom: 15px;"><strong>Paiement par carte bancaire</strong></h2>
+<button id="lemonway" type="submit" class="btn btn-success">Payer</button>
+{{/if}}
+{{/if}}
+{{#if error}}
+<p>Erreur: {{error.d.E.Msg}}</p>
+{{/if}}
+
 </div>
 <div class="col-md-4 col-xs-6" style="position: relative;
 padding: 45px 15px 15px;

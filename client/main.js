@@ -4,6 +4,8 @@ import { DDP } from 'meteor/ddp-client';
 
 //import './main.html';
 import '../imports/ui/footer.html';
+import '../imports/ui/mentionslegales.html';
+import '../imports/ui/cgv.html';
 import '../imports/ui/pagetitle.html';
 import '../imports/ui/body.js';
 import '../imports/ui/nav.js';
@@ -30,6 +32,7 @@ import '../imports/ui/reservationslisting.js';
 import '../imports/ui/login.js';
 import '../imports/ui/dashboard.js';
 import '../imports/ui/dashboard.html';
+import '../imports/ui/lemonway2.html';
 
 import '../imports/ui/topnavmylisting.js';
 
@@ -64,6 +67,10 @@ import '../imports/ui/loginLayout.js';
 import '../imports/ui/campingcarsLayout.js';
 import '../imports/ui/campingcar.js';
 import '../imports/ui/campingcarbooking.js';
+
+import '../imports/ui/validpay.js';
+import '../imports/ui/cancelpay.js';
+import '../imports/ui/errorpay.js';
 
 if (Meteor.isClient) {
   Meteor.startup(function () {

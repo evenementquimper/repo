@@ -3,15 +3,76 @@ import { Meteor } from 'meteor/meteor';
 //import { IPGeocoder } from 'meteor/thebakery:ipgeocoder';
 import { Accounts } from 'meteor/accounts-base';
 import { Connections } from '../imports/api/connections.js';
+import { UsersData } from '../imports/api/usersdata.js';
 
   var nbrconn = 0;
 Meteor.startup(() => {
  
+ moment.locale('fr', {
+    months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
+    monthsShort : 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
+    monthsParseExact : true,
+    weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
+    weekdaysShort : 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
+    weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
+    weekdaysParseExact : true,
+    longDateFormat : {
+        LT : 'HH:mm',
+        LTS : 'HH:mm:ss',
+        L : 'DD/MM/YYYY',
+        LL : 'D MMMM YYYY',
+        LLL : 'D MMMM YYYY HH:mm',
+        LLLL : 'dddd D MMMM YYYY HH:mm'
+    },
+    calendar : {
+        sameDay : '[Aujourd’hui à] LT',
+        nextDay : '[Demain à] LT',
+        nextWeek : 'dddd [à] LT',
+        lastDay : '[Hier à] LT',
+        lastWeek : 'dddd [dernier à] LT',
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : 'dans %s',
+        past : 'il y a %s',
+        s : 'quelques secondes',
+        m : 'une minute',
+        mm : '%d minutes',
+        h : 'une heure',
+        hh : '%d heures',
+        d : 'un jour',
+        dd : '%d jours',
+        M : 'un mois',
+        MM : '%d mois',
+        y : 'un an',
+        yy : '%d ans'
+    },
+    dayOfMonthOrdinalParse : /\d{1,2}(er|e)/,
+    ordinal : function (number) {
+        return number + (number === 1 ? 'er' : 'e');
+    },
+    meridiemParse : /PD|MD/,
+    isPM : function (input) {
+        return input.charAt(0) === 'M';
+    },
+    // In case the meridiem units are not separated around 12, then implement
+    // this function (look at locale/id.js for an example).
+    // meridiemHour : function (hour, meridiem) {
+    //     return /* 0-23 hour, given meridiem token and hour 1-12 */ ;
+    // },
+    meridiem : function (hours, minutes, isLower) {
+        return hours < 12 ? 'PD' : 'MD';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
+    }
+});
 
-// Give Antoine the 'admin' role 'b3HDiL9jY9TNf6sMh'
 
 Roles.addUsersToRoles(Meteor.settings.admin.ADM_ID, 'admin', Roles.GLOBAL_GROUP);
-
+//Roles.addUsersToRoles("tbGqSYj2CncNDo8Fn", 'admin', Roles.GLOBAL_GROUP);
+//Roles.addUsersToRoles("tbGqSYj2CncNDo8Fn", 'admin', Roles.GLOBAL_GROUP);
   // Return early if URL isn't HTTPS (or if it isn't set).
   // var isHttps = parse(Meteor.settings.private.cdnPrefix).protocol === 'https:';
   // if (!isHttps)
@@ -31,7 +92,7 @@ Meteor.absoluteUrl(['http://leboncampingcar.fr']);
  //console.log("email template: "+Accounts.emailTemplates.verifyEmail.subject);
  Accounts.emailTemplates.verifyEmail = {
   subject() {
-    return "LeBonCampingCar Verify Your Email Address";
+    return "Le Bon Camping Car Verification Email";
   },
   text( user, url ) {
     let emailAddress   = user.emails[0].address,
@@ -43,8 +104,31 @@ Meteor.absoluteUrl(['http://leboncampingcar.fr']);
   }
 };
  Accounts.emailTemplates.enrollAccount.subject = function (user) {
-     return "Welcome to LeBonCampingCar, " + user.profile.name;
+     return "Bienvenue chez Le Bon CampingCar, " + user.profile.name;
  };
+
+ // Validate username, sending a specific error message on failure. +JSON.stringify(user)+JSON.stringify(attempt)
+Accounts.validateNewUser((attempt) => {
+  // if (attempt.services.facebook){
+  // }
+    console.log("attempt user:"+JSON.stringify(attempt));
+  if (attempt.emails[0].address == "contact.amopok@gmail.com" || attempt.emails[0].address == "lclavijo@lemonway.com") {
+
+    return true;
+  } else {
+    throw new Meteor.Error(403, 'Acces interdit: ');
+  }
+
+});
+
+// Accounts.validateLoginAttempt((attempt) => {
+//   if (attempt.username && attempt.username.length >= 3) {
+//     console.log("user connection: "+JSON.stringify(attempt));
+//     return true;
+//   } else {
+//     throw new Meteor.Error(403, 'Login Attemp User: ');
+//   }
+// });
 
 });
 

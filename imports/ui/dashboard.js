@@ -1,4 +1,5 @@
 import { Template } from 'meteor/templating';
+import { ReactiveDict } from 'meteor/reactive-dict';
 import { CampingCars } from '../api/campingcars.js';
 import { Reservations } from '../api/reservations.js';
 import { AddOns } from '../api/addons.js';
@@ -7,7 +8,8 @@ import  './recappay.html';
 
 
 Template.dashboard.onCreated(function() {
-
+     this.wallet = new ReactiveDict();
+     this.error = new ReactiveDict();
 //souscription a la base de donnée
     Tracker.autorun(function () {
     Meteor.subscribe("campingcars");
@@ -17,63 +19,68 @@ Template.dashboard.onCreated(function() {
 });
 
 Template.dashboard.onRendered(function() {
-  Meteor.call('getClientToken', function(error, clientToken) {
-    if (error) {
-      console.log(error);
-    } else {
-      //console.log("client token: "+clientToken);
-      //dropin ou custom
+var template = Template.instance();
+if(Meteor.user() && Meteor.user().wallet){
 
-      
-      braintree.setup(clientToken, "dropin", {
-        onError:function(type, message){
-          //console.log("type erreur: "+type);
-          //console.log("erreur message: "+message);
-        },
-          onReady: function (deviceData) {
-    //console.log("Ready devicedata: "+JSON.stringify(deviceData));
-        },
-        container: "payment-form", // Injecting into <div id="payment-form"></div>
-        onPaymentMethodReceived: function (response) {
-          // When we submit the payment form,
-          // we'll receive a response that includes
-          // payment method nonce:
-          //console.log("braintree nonce: "+response.nonce); 
-          var nonce = response.nonce;
-          //var nonce2 = payload.nonce;
-          // Check the nonce printed in console after submitting the form.
-          //console.log("braintree nonce: "+nonce2); 
+  Meteor.call('GetWalletDetails', Meteor.user().wallet,function(error, result){
+          if (!error){
+console.log("result Details: "+JSON.stringify(result.data));
+template.wallet.set('wallet', result.data);
+if(result.data.d.WALLET.DOCS.length==0){
+  //console.log("tableau de docs vide: "+result.data.d.WALLET.DOCS.length);
+  
+}
+if(result.data.d.E){
+  template.error.set('error', result.data);
+  //console.log("GetWalletDetails error: "+result.data.d.E.Error);
 
-            Meteor.call('btCreateCustomer', function(error, success) {
-            if (error) {
-              console.log("custumer creation bad");
-              throw new Meteor.Error('customer-creation-failed');
-            } else {
-              console.log("custumer creation ok");
-              // ... and when the customer is successfuly created,
-              // call method for creating a transaction (finally!)
-              Meteor.call('createTransaction', nonce, FlowRouter.getParam('reservation_id'), function(error, transactionResult) {
-                if (error) {
-                  console.log("Transaction creation bad");
-                  throw new Meteor.Error('transaction-creation-failed');
-                } else {
-       alert("Retrouver toutes les informations concernant votre réservation dans l'onglet réservations");
-           
- FlowRouter.go('/');
-                }
-              });
-            }
+}
+}
+else
+{
+  console.log("error Details: "+JSON.stringify(error));
+}
 });
-        }
-      });
+}
+else
+{
+  Meteor.call('RegisterWallet', "", function(error, result){
+  if(!error){
+console.log("RegisterWallet result: "+JSON.stringify(result.data));
+    if(!result.data.d.E){
+
     }
-  });
+    else
+    {
+      template.error.set('error', result.data);
+      //console.log("RegisterWallet error: "+result.data.d.E.Error);
+    }
+  }
+  else{
+    //console.log("RegisterWallet error : "+error);
+  }
+
+});
+}
 });
 
 Template.dashboard.helpers({
   // items: function(){
   //   return Items.find();
   // },
+  settings: function(){
+    return Meteor.settings.public.LEMON_URL;
+  },
+
+  wallet: function(){
+    //return true; 
+    //return Meteor.call('GetWalletDetails', "XLpoqyFPsvazMWFZZZ"
+      //,function(error, result){   
+//console.log("wallet Details: "+JSON.stringify(result.data));
+return Template.instance().wallet.get('wallet');
+//}
+//);
+  },
   campingcar: function(){
 if(Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0])
 {
@@ -121,6 +128,33 @@ return false;
 
     showForm: function() {
     var userId = Meteor.userId();
-    return true;//Roles.userIsInRole(userId, 'paid') ? false : true; 
+    return true;//Roles.userIsInRole(userId, 'paid') ? false : true; +"&p=https://leboncampingcar.fr/css/lemonway.css"
+}
+});
+
+  Template.dashboard.events({
+
+'click #lemonway': function(event, template){
+
+ Meteor.call('MoneyInWebInit', FlowRouter.getParam("reservation_id"), function(error, result){
+           if (!error){
+            console.log("result Details: "+JSON.stringify(result.data));
+ if(result.data.d.MONEYINWEB.TOKEN && result.data.d.MONEYINWEB.ID){
+
+        Reservations.update({
+            _id: FlowRouter.getParam('reservation_id')
+        }, {
+            $addToSet: {"trans_id":result.data.d.MONEYINWEB.ID}
+        }, {
+          upsert: true
+        });
+
+ window.location.replace("https://sandbox-webkit.lemonway.fr/demo/dev/?moneyInToken="+result.data.d.MONEYINWEB.TOKEN+"&lang=fr&p=https://leboncampingcar.fr/css/lemonway.css"); 
+ }
+   }
+           else{
+            console.log("result Details: "+JSON.stringify(error));
+           }
+         });
 }
 });

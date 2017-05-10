@@ -6,9 +6,14 @@
 {{/if}} -->
 
 {{#if adminrole}}
+
+
+
 <div id="gantt" style='width: 100%; height: 100%;margin:5px;
         padding:0px;overflow:scroll;'></div>
-{{#if bookingsstat}}
+<button id="lemonway">lemonway</button>
+<a href="https://sandbox-webkit.lemonway.fr/demo/dev/result/?moneyInToken=133689856ATsjncVfWAvfawE8NwUFYwSfFyn">lien pay</a>
+<button id="google">google</button>
         <div><h3>Statistiques</h3>
          <table>
   <tr>
@@ -40,8 +45,17 @@
     </tr>
 </table> 
         </div>
+
+        <div>
+        {{#if agregate}}
+        <h3>Agregate</h3>
+        {{#each agregate}}
+        <h2>Status: {{this._id}}</h2>
+        <h2>Montant total: {{this.montanttotal}}</h2>
+        {{/each}}
         {{else}}
         {{/if}}
+        </div>
         {{else}}
         {{/if}}
 
@@ -64,8 +78,23 @@
 {{/each}} -->
 {{else}}
 {{/if}}
+
 {{/if}}
 
+{{#if users}}
+{{#each users}}
+        <h2>Id: {{this._id}}</h2>
+        {{#if this.services}}
+        {{#if this.services.facebook}}
+        <h2>Facebook name:{{this.services.facebook.name}}</h2>
+        {{else}}
+        {{/if}}
+        {{else}}
+        {{/if}}
+        
+{{/each}}
+{{else}}
+{{/if}}
 <!-- {{#if mailings}}
 
 {{#each mailings}}
@@ -87,6 +116,7 @@
 <input class="datetimepicker" value="" type="date">
 <button id="sendmail">Send Mail</button>
 </div> -->
+
 
 <canvas id="myChart" width="600" height="600"></canvas>
        

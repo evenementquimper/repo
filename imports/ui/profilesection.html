@@ -18,10 +18,11 @@
          <div style="position:relative;">
             <div>
             {{#if userdata}}
-               <img src="{{userdata.images}}" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;">
+               <img id="profileimg" src="{{userdata.images}}" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;">
                {{else}}
                     <img src="" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;">
                {{/if}}
+
             </div>
          <div style="position:absolute;top:0;bottom:0;right:0;left:0;">
          <div style="height:100%;position:relative;">
@@ -38,6 +39,9 @@
          <button class="avatar-upload-button" type="button"></button>
 
          </div>
+
+ <canvas id="idcanvas" style="display:none;vertical-align:top;max-width:100%;min-width:100%;width:100px"></canvas>
+
          <div>{{_ "profilepicturetex"}}</div></div></div>
 
 
@@ -160,7 +164,7 @@
          <h3 style="line-height: 210%;">{{_ "driverlicense"}}</h3>
 
          <div class="profile-avatar">
-         <input id="licenseImage" name="licenseImage" style="display:none;" type="file">
+         <input id="licenseImage" name="licence_carte" style="display:none;" type="file">
          <div class="license-upload" style="min-width: 150px;">
 
          <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
@@ -169,7 +173,7 @@
          <div style="position:relative;">
             <div>
             {{#if userdata.licenseimages}}
-               <img src="{{userdata.licenseimages}}" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;">
+               <img id="licenseimg" src="{{userdata.licenseimages}}" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;">
                {{else}}
                    <div style="height:100px;width:100px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:100px;font-size:54px;color:#ffffff;">
 <span class="glyphicon glyphicon-file"></span>
@@ -177,6 +181,19 @@
 </div>
                {{/if}}
             </div>
+
+<!--             <div>
+            {{#if images}}
+            <p>images.name</p>
+               <img src="{{images.path}}" style="vertical-align:top;max-width:100%;min-width:100%;width:100%;">
+               {{else}}
+                   <div style="height:100px;width:100px;user-select:none;border-radius:50%;display:inline-block;background-color:#bdbdbd;text-align:center;line-height:100px;font-size:54px;color:#ffffff;">
+<span class="glyphicon glyphicon-file">Pas de images</span>
+
+</div>
+               {{/if}}
+            </div> -->
+
          <div style="position:absolute;top:0;bottom:0;right:0;left:0;">
          <div style="height:100%;position:relative;">
          <div style="position:absolute;bottom:0;right:0;left:0;padding-top:0px;background:rgba(0, 0, 0, 0.54);">

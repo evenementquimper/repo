@@ -15,6 +15,20 @@ else
  }
 });
 
+FlowRouter.route('/mentionslegales', {
+  name:'mentionslegales',
+  action:function() {
+    BlazeLayout.render("mainLayout", {nav:"nav",homepage:"mentionslegales"});
+  }
+});
+
+FlowRouter.route('/cgv', {
+  name:'cgv',
+  action:function() {
+    BlazeLayout.render("mainLayout", {nav:"nav",homepage:"cgv"});
+  }
+});
+
 // FlowRouter.route('/', {
 //   name:'index',
 //   action() {
@@ -56,6 +70,35 @@ FlowRouter.route('/dashboard/:reservation_id', {
   name:'dashboard',
   action(params, queryParams) {
     BlazeLayout.render("dashboard");
+ }
+});
+
+FlowRouter.route('/lemonway2', {
+  name:'lemonway2',
+  action: function(params, queryParams) {
+    BlazeLayout.render("lemonway2");
+ }
+});
+
+FlowRouter.route('/validpay/:reservation_id/:amount', {
+  name:'validpay',
+  action: function(params, queryParams) {
+    BlazeLayout.render("validpay");
+ }
+});
+
+FlowRouter.route('/cancelpay/:reservation_id/:amount', {
+  name:'cancelpay',
+  action(params, queryParams) {
+
+    BlazeLayout.render("cancelpay");
+ }
+});
+
+FlowRouter.route('/errorpay/:reservation_id/:amount', {
+  name:'errorpay',
+  action(params, queryParams) {
+    BlazeLayout.render("errorpay");
  }
 });
 

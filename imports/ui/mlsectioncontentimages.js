@@ -10,17 +10,17 @@ import { FilesCollection } from 'meteor/ostrio:files';
 import './mlsectioncontentimages.html';
  //Collection
 this.Images = new Meteor.Files({  collectionName: 'Images'
-//   allowClientCode: false, // Disallow remove files from Client
-//   //public: true,
-//   storagePath: '../../../../../public/images/'+FlowRouter.getParam("_id"),
-//   onBeforeUpload: function (file) {
-//     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
-//     if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.extension)) {
-//       return true;
-//     } else {
-//       return 'Please upload image, with size equal or less than 10MB';
-//     }
-//   }
+  //allowClientCode: false, // Disallow remove files from Client
+  //public: true,
+  //storagePath: '../../../../../public/images/'+FlowRouter.getParam("_id"),
+  //onBeforeUpload: function (file) {
+    // Allow upload files under 10MB, and only in png/jpg/jpeg formats
+    //if (file.size <= 4985760 && /png|jpg|jpeg/i.test(file.extension)) {
+      //return true;
+    //} else {
+      //return 'Please upload image, with size equal or less than 4MB';
+    //}
+  //}
 });
 
 

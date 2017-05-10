@@ -1,0 +1,112 @@
+#Lemonway_payment_button a {
+	padding: 10px;
+	background-color: #FBFBFB;
+}
+
+#Lemonway_payment_button a:hover {
+	background-color: #f6f6f6;
+}
+
+#Lemonway_payment_button a:after {
+	display: block;
+	content: "\f054";
+	position: absolute;
+	right: 15px;
+	margin-top: -11px;
+	top: 50%;
+	font-family: "FontAwesome";
+	font-size: 25px;
+	height: 22px;
+	width: 14px;
+	color: #777777;
+}
+
+#Lemonway_payment_button a svg {
+	vertical-align:middle;
+	margin-right:10px;
+}
+
+#Lemonway_payment_form #Lemonway_payment_form_container {
+	background-color: #FBFBFB;
+	display: block;
+    border: 1px solid #d6d4d4;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 17px;
+    line-height: 23px;
+    color: #333;
+    font-weight: bold;
+    padding: 33px 40px 34px 99px;
+    letter-spacing: -1px;
+    position: relative; 
+}
+
+#content .tab-pane:first-child .panel {
+	border-top-left-radius: 0;
+}
+
+.Lemonway-header .text-branded,
+.Lemonway-content .text-branded {
+	color: #00aff0;
+}
+
+.Lemonway-header h4,
+.Lemonway-content h4,
+.Lemonway-content h5 {
+	margin: 2px 0;
+	color: #00aff0;
+	font-size: 1.8em;
+}
+
+.Lemonway-header h4 {
+	margin-top: 5px;
+}
+
+.Lemonway-header .col-md-6 {
+	margin-top: 18px;
+}
+
+.Lemonway-content h4 {
+	margin-bottom: 10px;
+}
+
+.Lemonway-content h5 {
+	font-size: 1.4em;
+	margin-bottom: 10px;
+}
+
+.Lemonway-content h6 {
+	font-size: 1.3em;
+	margin: 1px 0 4px 0;
+}
+
+.Lemonway-header > .col-md-4 {
+	height: 65px;
+	vertical-align: middle;
+	border-left: 1px solid #ddd;
+}
+
+.Lemonway-header > .col-md-4:first-child {
+	border-left: none;
+}
+
+.Lemonway-header #create-account-btn {
+	margin-top: 14px;
+}
+
+.Lemonway-content dd + dt {
+	margin-top: 5px;
+}
+
+.Lemonway-content ul {
+	padding-left: 15px;
+}
+
+.Lemonway-content .ul-spaced li {
+	margin-bottom: 5px;
+}
+
+.icon-AdminLemonway:before {
+	content: "\f094";
+}

@@ -465,6 +465,17 @@ adminrole: function(){
 return Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP);
 },
 
+agregate: function(){
+
+    // var agr = Reservations.aggregate([{$match:{status:"newbooking"}},
+    //                                        {$group:{_id:"$book_id", brutprize:{$sum:"$brutprize"}}},
+    //                                        {$sort:{brutprize:-1}}]);
+    //console.log("agregate: "+agr.length);
+//var agr = Reservations.aggregate([{$group:{_id:"$status", montanttotal:{$sum:"$brutprize"}}}]);
+//console.log("agr :"+agr.fetch()[0].montanttotal);
+    return false;
+},
+
 bookingsstat: function(){
    var nwbook = 0;
     var ownervalidnbr= 0;
@@ -479,52 +490,66 @@ bookingsstat: function(){
    
     var bookingsbdd = Reservations.find({}).fetch();
 
-    for (var i = 0;  bookingsbdd.length > i; i++) {
-        totalbook = 1+i;
-console.log("Réservation id :"+bookingsbdd[i]._id);
+return {totalbook:Reservations.find({}).fetch().length,
+        nwbook: Reservations.find({status:"newbooking"}).fetch().length,
+        ownervalidnbr:Reservations.find({status:"owner_valid"}).fetch().length,
+        ownnercancelnbr:Reservations.find({status:"owner_cancel"}).fetch().length,
+        //comptantnbr:Reservations.find({status:"owner_cancel"}).fetch().length,
+        //comptantcost:Reservations.find({status:"owner_cancel"}).fetch().length,
+        //advancenbr:Reservations.find({status:"owner_cancel"}).fetch().length,
+        //advancecost:Reservations.find({status:"owner_cancel"}).fetch().length,
+        //soldenbr:Reservations.find({status:"owner_cancel"}).fetch().length,
 
-if(bookingsbdd[i].status!="owner_cancel")
-{
-        if(bookingsbdd[i].status=="newbooking")
-        {
-            //comptantcost = comptantcost+bookingsbdd[i].brutprize.prize
-            nwbook++;
-        }
-        if(bookingsbdd[i].status=="owner_valid")
-        {
-            //comptantcost = comptantcost+bookingsbdd[i].brutprize.prize
-            ownervalidnbr++;
-        }
+    };
 
-        if(bookingsbdd[i].advance!=true && bookingsbdd[i].brutprize && bookingsbdd[i].brutprize.payment && bookingsbdd[i].brutprize.prize)
-        {
-            comptantcost = comptantcost+bookingsbdd[i].brutprize.prize;
-            comptantnbr++;
-        }
-        if(bookingsbdd[i].advance && bookingsbdd[i].advance.payment)
-        {
-            advancecost = advancecost+bookingsbdd[i].advance.prize;
-            advancenbr++;
-        }
-         if(bookingsbdd[i].solde && bookingsbdd[i].solde.payment)
-        {
-            soldecost = soldecost+bookingsbdd[i].solde.prize;
-            soldenbr++;
-        }
-        else
-        {
 
-        }
-    }
-    else
-    {
-        ownercancelnbr++;
-    }
-    }
+    //for (var i = 0;  bookingsbdd.length > i; i++) {
+        //totalbook = 1+i;
+
+//console.log("Réservation id :"+bookingsbdd[i]._id);
+
+// if(bookingsbdd[i].status!="owner_cancel")
+// {
+        // if(bookingsbdd[i].status=="newbooking")
+        // {
+        //     //comptantcost = comptantcost+bookingsbdd[i].brutprize.prize
+        //     nwbook++;
+        // }
+        // if(bookingsbdd[i].status=="owner_valid")
+        // {
+        //     //comptantcost = comptantcost+bookingsbdd[i].brutprize.prize
+        //     ownervalidnbr++;
+        // }
+
+        // if(bookingsbdd[i].advance!=true && bookingsbdd[i].brutprize && bookingsbdd[i].brutprize.payment && bookingsbdd[i].brutprize.prize)
+        // {
+        //     comptantcost = comptantcost+bookingsbdd[i].brutprize.prize;
+        //     comptantnbr++;
+        // }
+        // if(bookingsbdd[i].advance && bookingsbdd[i].advance.payment)
+        // {
+        //     advancecost = advancecost+bookingsbdd[i].advance.prize;
+        //     advancenbr++;
+        // }
+        //  if(bookingsbdd[i].solde && bookingsbdd[i].solde.payment)
+        // {
+        //     soldecost = soldecost+bookingsbdd[i].solde.prize;
+        //     soldenbr++;
+        // }
+        // else
+        // {
+
+        // }
+    //}
+    //else
+    //{
+      //  ownercancelnbr++;
+    //}
+    //}
 
 
     
-return {totalbook:totalbook, nwbook:nwbook, ownervalidnbr:ownervalidnbr, ownnercancelnbr:ownnercancelnbr, comptantnbr:comptantnbr,comptantcost:comptantcost, advancenbr:advancenbr, advancecost:advancecost, soldenbr:soldenbr, soldecost:soldecost};
+//return {totalbook:totalbook, nwbook:nwbook, ownervalidnbr:ownervalidnbr, ownnercancelnbr:ownnercancelnbr, comptantnbr:comptantnbr,comptantcost:comptantcost, advancenbr:advancenbr, advancecost:advancecost, soldenbr:soldenbr, soldecost:soldecost};
 },
 
 userinfo: function(){
@@ -807,6 +832,131 @@ return CampingCars.find({},{limit:5}).fetch();
   }
 });
   Template.admin.events({
+'click #google':function(event, template){
+    console.log("google clik");
+//FlowRouter.url("http://google.fr");
+     //console.log("google clik"+FlowRouter.url("http://google.fr"));
+      window.location.replace("https://sandbox-webkit.lemonway.fr/demo/dev/?moneyInToken=133693523MsrQOlP6mp34PRqMl6HxLQPhMF3");
+},
+
+
+'click #lemonway': function(event, template){
+
+//       var cursor = Images.findOne({_id:sup[1]});
+//       console.log("onafterload file link?: "+cursor.link());
+//       console.log("onafterload file fetch?: "+cursor.fetch());
+
+// Meteor.call('UploadFile', "identite.jpeg",  "0", cursor.fetch() ,function(error, result){
+//            if (!error){
+//              console.log("result upload: "+JSON.stringify(result));
+//            }
+//            else{
+//  console.log("result upload error: "+JSON.stringify(error));
+//            }
+//          });
+
+var postData = {
+  "p": {
+    "wlLogin":  "society",
+    "wlPass":   "123456",
+    "language": "en",
+    "version":  "1.9",
+    "walletIp": "1.1.1.1",
+    "walletUa": "Node.js Tutorial",
+    "wallet":   "TEST123456"
+  }
+};
+
+var myLemon = {
+      "p": {
+    "wlLogin":  "society",
+    "wlPass":   "123456",
+    "language": "en",
+    "version":  "1.9",
+    "walletIp": "1.1.1.1",
+    "walletUa": "Node.js Tutorial",
+    "wallet":   "1490286583tz5wvoe7"
+  }
+    
+};
+
+    var options = {headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Access-Control-Allow-Origin": "*"
+    },
+data: postData};
+
+//console.log("random: "+Random.id());
+//   Meteor.call('GetWalletDetails', options, function(error, result){
+//           if (!error){
+// console.log("result http: "+result.statusCode+"WALLET: "+result.data.d.WALLET.ID);
+//           }
+//           else{
+
+//           }
+//         }
+
+//     );
+
+// Generate a 16 character alpha-numeric token:
+ //var token = "1234567891234567";//RandToken.generate(16);
+
+// Use it as a replacement for uid:
+//const token = RandToken.uid(16);
+// var payerWallet = token;
+// var postd={"p":{
+//         "wlLogin":  "society",
+//         "wlPass":   "123456",
+//         "language": "en",
+//         "version":  "1.9",                     result Details: {"d":{"__type":"WonderLib.MoneyInWebInitResult","MONEYINWEB":{"TOKEN":"133689856ATsjncVfWAvfawE8NwUFYwSfFyn","ID":"35999","CARD":null,"redirectURL":null},"E":null}}
+//         "walletIp": "1.1.1.1",
+//         "walletUa": "Node.js Tutorial",
+//         "wallet":           payerWallet,
+//         "clientMail":       payerWallet + "@lemonway.com",
+//         "clientFirstName":  "Payer",
+//         "clientLastName":   "Payer"}
+// };
+
+//     var options = {headers: {
+//       "Content-Type": "application/json; charset=utf-8"
+//     },
+// data: postd};
+Meteor.call('GetMoneyInTransDetails', function(error, result){
+          if (!error){
+//console.log("result RegisterWallet: "+result.statusCode+"WALLET: "+result.data.d.WALLET.ID);
+console.log("result Details: "+JSON.stringify(result.data));
+//var params = {moneyInToken: result.data.MONEYINWEB.TOKEN};
+//var queryParams = {};
+//window.location.href = "https://sandbox-webkit.lemonway.fr/demo/dev/result/?moneyInToken="+result.data.MONEYINWEB.TOKEN;
+ //window.location.replace("https://sandbox-webkit.lemonway.fr/demo/dev/?moneyInToken="+result.data.d.MONEYINWEB.TOKEN);
+//FlowRouter.url("https://sandbox-webkit.lemonway.fr/demo/dev/result/", params, queryParams);
+          }
+          else{
+console.log("error Details: "+error);
+          }
+        });
+
+// Meteor.call('GetWalletDetails', options, function(error, result){
+//           if (!error){
+// console.log("result GetWalletDetails: "+result.statusCode+"WALLET: "+result.data.d.WALLET.ID);
+//           }
+//           else{
+// console.log("error GetWalletDetails: "+error);
+//           }
+//         }
+
+//     );
+
+// HTTP.post("https://sandbox-api.lemonway.fr/mb/demo/dev/directkitjson2/Service.asmx/GetWalletDetails", options, function(error, result){
+//            if (!error){
+// console.log("result RegisterWallet: "+result.statusCode+"WALLET: "+result.data.d.WALLET.ID);
+//           }
+//          else{
+//  console.log("error RegisterWallet: "+error);
+//           }
+// });
+
+},
 
 'click .gantt_task_content': function(event, template){
 console.log("click gant task");

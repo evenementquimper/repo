@@ -1,0 +1,150 @@
+<template name="lemonway2">
+
+
+    <nav class="top-nav top-nav--functional">
+    <div class="logo">
+    <a href="/listings/{{reservation._id}}"><img src="/images/lbcclogo02.png" alt="Logo Image"></a></div>
+
+    </nav>
+
+  <div class="template-dashboard">
+   
+    <div class="page-header">
+     <h1>Antoine, finalisez et payez votre commande en 1 clic :</h1>
+    </div>
+<div class="row">
+<div class="col-md-2 col-xs-2 col-sm-2">
+    <div class="glyphicon glyphicon-chevron-left"><a href="/listings/{{reservation._id}}">Camping-car</a></div>
+</div>
+<div class="col-md-6 col-xs-4 col-sm-4" style="border-left: 1px solid #dcdcdc;">
+
+<!--     {{#if showForm}}
+    <h2 style="margin-bottom: 15px;"><strong>Paiement par carte bancaire ou Paypal</strong></h2>
+      <form role="form">
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
+            <div id="payment-form"></div>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </form>
+{{/if}}  -->
+
+
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+<div class="payment_module" id="Lemonway_payment_form">
+	<div id="Lemonway_payment_form_container">
+		<img src="/images/paiement-mode.jpg" width="500px" class="img-responsive"  alt="image" id="payment-lemonway-logo" />
+    	<form action="" method="POST" >
+			if $customer_has_card == 0
+				<div class="checkbox">
+					<label for="lw_register_card">
+						<input id="lw_register_card"  value="register_card"  type="checkbox" name="lw_oneclic" />
+						l s='Save your card data for a next buy.' mod='lemonway'
+					</label>				
+					
+				</div>
+			else
+				<div>
+					<div class="radio">
+						<label for="lw_use_card">
+							<input id="lw_use_card" value="use_card" checked="checked" type="radio" name="lw_oneclic"/>
+							l s='Use my recorded card' mod='lemonway'
+						</label>
+					</div>
+				</div>
+				<div class="">
+					<label>l s='Actual card' mod='lemonway' : <span>$card_num|escape:'html':'UTF-8'</span></label>			
+				</div>
+				if $card_exp != ''
+					<div class="">
+						<label>l s='Expiration date' mod='lemonway' : $card_exp|escape:'html':'UTF-8'</label>
+					</div>
+				/if
+				<div>
+					<div class="radio">
+						<label for="lw_register_card">
+							<input id="lw_register_card"  value="register_card"  type="radio" name="lw_oneclic" />
+							l s='Save new card data' mod='lemonway'
+						</label>								
+					</div>
+				</div>
+				<div>
+					<div class="radio">
+						<label  for="lw_no_use_card">
+							<input id="lw_no_use_card"  type="radio" name="lw_oneclic" value="no_use_card"  />
+							l s='Not use recorded card data' mod='lemonway'
+						</label>
+					</div>
+				</div>
+			    <br />
+			/if
+			<button type="submit" name="lwPay" class="button btn btn-default standard-checkout button-medium">
+				<span>
+					l s='Place order' mod='lemonway'
+					<i class="icon-chevron-right right"></i>
+				</span>
+			</button>
+		</form>
+	</div>
+</div>
+	{else}
+		<p class="payment_module" id="Lemonway_payment_button">
+				<a href="{$link->getModuleLink('lemonway', 'redirect', array(), true)|escape:'htmlall':'UTF-8'}" title="{l s='Pay with Lemonway' mod='lemonway'}">
+					<img src="{$module_dir|escape:'html':'UTF-8'}views/img/paiement-mode.jpg" class="img-responsive" alt="{l s='Pay with Lemonway' mod='lemonway'}" width="500px" id="payment-lemonway-logo" />
+					{l s='Pay with Lemonway' mod='lemonway'}
+				</a>
+
+		</p>
+    {/if}
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+<!--                                                                      -->
+
+</div>
+<div class="col-md-4 col-xs-6" style="position: relative;
+padding: 45px 15px 15px;
+margin: 0 -15px 15px;">
+ <h2 style="margin-bottom: 15px;"><strong>Détails</strong></h2>
+ {{#if campingcar}}
+<div>Nom du camping car : {{campingcar.name}}</div>
+{{else}}
+{{/if}}
+{{#if reservation}}
+<div>Nombre de personnes : {{reservation.people}}</div>
+<div>Début : {{reservation.start_time}}</div>
+<div>Fin : {{reservation.end_time}}</div>
+<div>Créer le : {{reservation.createdAt}}</div>
+{{#if reservation.advance}}
+{{#if reservation.solde}}
+<div>Solde à régler : <strong style="color:red;">{{reservation.solde.prize}} €</strong></div>
+{{else}}
+<div>Acompte à régler : <strong style="color:red;">{{reservation.advance.prize}} €</strong></div>
+{{/if}}
+{{else}}
+<div>Prix total : <strong style="color:red;">{{reservation.brutprize}} €</strong></div>  
+{{/if}}
+{{else}}
+{{/if}}
+</div>
+</div>
+<!--   {{> recappay}}
+    <ul class="list-group">
+    </ul> -->
+
+  </div>
+
+
+
+
+         </template>

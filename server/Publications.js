@@ -21,9 +21,12 @@ Meteor.publish('reservations', function () {
 Meteor.publish('addons', function () {
     return AddOns.find({});
 });
-Meteor.publish('images', function () {
-    return Images.find({});
-});
+// Meteor.publish('images', function () {
+//     return Images.find({});
+// });
+// Meteor.publish('imagesprivate', function () {
+//     return ImagesPrivate.find({});
+// });
 Meteor.publish('connections', function () {
     return Connections.find({});
 });

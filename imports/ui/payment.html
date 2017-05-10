@@ -1,0 +1,226 @@
+<template name="payment">
+<div id="main" class="mainOP content">
+        <div class="opInit opInitPH opInitBig">
+            
+
+
+	
+<div class="bdShadow">
+	<table class="opRecap">
+		<tbody>
+			
+			<tr>
+				<th>Vos achats</th>
+				<td>72,99 €</td>
+			</tr>
+			
+			<tr>
+				<th>Frais de livraison</th>
+				<td>0,00 €</td>
+			</tr>
+			
+			
+
+			
+			<tr>
+				<th><strong>Total de votre commande</strong></th>
+				<td><strong>72,99 €</strong></td>
+			</tr>
+
+			
+
+		</tbody>
+	</table>
+	 
+	   
+	
+
+</div>  
+
+            
+
+            
+
+
+
+<h2>
+    Paiement sécurisé
+    par carte bancaire
+
+    <div class="opImgPay opImgPayCb"></div>
+</h2>
+
+<div class="bdShadow opInitCartes">
+    
+
+<p>
+    Vous avez 1 carte de paiement enregistrée :
+        
+        <br>
+</p>
+
+
+
+<div class="jsSavedPaymentSelection">
+    
+            <label class="opCardItem opSavedPaymentSelect opSelect">
+                <div class="opSavedPaymentInput">
+                    <input id="storedCard0" value="fd83ed03a32341ceb5a1a0f29fc4f409" name="storedCard" checked="checked" type="radio">
+                    <input id="Hidden1_" name="buttonId_0" value="0" type="hidden">
+                </div>
+                <div class="opSavedCard">
+                    <div id="cphMainArea_ctl01_StoredCreditCardTable_StoredCardListView_Div1__0" class="opSavedCardType">
+                        <div class="opImgPay opImgPayCb2"></div>
+                        <span>CB</span>
+                    </div>
+                    
+                    
+                    <div class="opSavedCardName">Antoine Donniou</div>
+                    <div class="opSavedCardNumber">****-****-****-6599</div>
+                    <div class="opSavedCardDate">10 / 2018</div>
+                </div>
+            </label>
+        
+
+    
+    <div>Je valide et je paie</div>
+    <input name="ctl00$cphMainArea$ctl01$StoredCreditCardTable$ValidateStoredCardButton" value="Valider" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cphMainArea$ctl01$StoredCreditCardTable$ValidateStoredCardButton&quot;, &quot;&quot;, true, &quot;StoredCardValidationGroup&quot;, &quot;&quot;, false, false))" id="cphMainArea_ctl01_StoredCreditCardTable_ValidateStoredCardButton" class="sbt btGreen" type="submit">
+</div>
+
+
+    
+
+
+    <fieldset>
+        <div class="fm">
+            
+        </div>
+    </fieldset>
+    <h2 class="flDepli jsSniper active">
+        <span class="txtDefault">Ou utiliser une nouvelle carte :</span>
+        
+    </h2>
+    <div class="jsTarget">
+
+        <!-- Formulaire de nouvelle carte -->
+        <div id="cphMainArea_ctl01_InputClassicFormCB">
+	
+            <fieldset id="Fieldset1">
+                <div class="fm">
+
+                    <!-- Card owner -->
+                    <div class="fmLine">
+
+                        
+                            <label id="cardOwnerLabel" for="cphMainArea_ctl01_txtCardOwner" class="no767">
+                                <abbr class="rq" title="obligatoire">*</abbr>Titulaire de la carte&nbsp;:</label>
+                            <div class="fmIpt">
+                                <input name="ctl00$cphMainArea$ctl01$txtCardOwner" value="Antoine Donniou" maxlength="30" id="cphMainArea_ctl01_txtCardOwner" class="ctl01_txtCardOwner" data-cdnt="true" autocomplete="off" placeholder="Titulaire de la carte" type="text">
+                            </div>
+                        
+
+                        <span id="cphMainArea_ctl01_CardOwnerValidator" class="field-validation-error" style="display:none;">Veuillez saisir le titulaire de la carte</span>
+
+                    </div>
+
+                    <!-- Card owner -->
+                    <div class="fmLine">
+
+                        <label for="cphMainArea_ctl01_txtCardNumber" class="no767">
+                            <abbr class="rq" title="obligatoire">*</abbr>Numéro de carte&nbsp;:</label>
+                        <div class="fmIpt">
+                            <input name="ctl00$cphMainArea$ctl01$txtCardNumber" maxlength="16" id="cphMainArea_ctl01_txtCardNumber" class="ctl01_txtCardNumber" onkeypress="CheckValidNum(this)" autocomplete="off" data-cdnt="true" placeholder="Numéro de carte" type="tel">
+                        </div>
+
+                        <span id="cphMainArea_ctl01_CardNumberValidator" tabindex="2" class="field-validation-error" style="display:none;">Le numéro de carte bancaire doit comporter 16 chiffres et doit être valide</span>
+
+                    </div>
+
+                    <!-- Expiration date -->
+
+                    <div class="fmLine">
+
+                        <label for="cphMainArea_ctl01_ddlMonth" class="no767">
+                            <abbr class="rq" title="obligatoire">*</abbr>Date d'expiration&nbsp;:</label>
+                        <div class="biSel fmIpt">
+                            <select name="ctl00$cphMainArea$ctl01$ddlMonth" id="cphMainArea_ctl01_ddlMonth" data-cdnt="true" minmonth="3" minday="23">
+		<option value="1">01</option>
+		<option value="2">02</option>
+		<option selected="selected" value="3">03</option>
+		<option value="4">04</option>
+		<option value="5">05</option>
+		<option value="6">06</option>
+		<option value="7">07</option>
+		<option value="8">08</option>
+		<option value="9">09</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+
+	</select>
+                        </div>
+                        <div class="biSel fmIpt">
+                            <select name="ctl00$cphMainArea$ctl01$ddlYear" id="cphMainArea_ctl01_ddlYear" data-cdnt="true" minyear="2017">
+		<option value="2017">2017</option>
+		<option value="2018">2018</option>
+		<option value="2019">2019</option>
+		<option value="2020">2020</option>
+		<option value="2021">2021</option>
+		<option value="2022">2022</option>
+		<option value="2023">2023</option>
+		<option value="2024">2024</option>
+		<option value="2025">2025</option>
+		<option value="2026">2026</option>
+
+	</select>
+                        </div>
+
+                            <span id="cphMainArea_ctl01_ExpirationDateValidator" tabindex="3" class="field-validation-error" style="display:none;">La date d'expiration de votre carte est atteinte</span>
+
+                            <br>
+                    </div>
+
+                    <!-- Security number-->
+
+                    <div class="fmLine">
+
+                        <label for="cphMainArea_ctl01_txtSecurityNumber" class="no767">
+                            <abbr class="rq" title="obligatoire">*</abbr>Cryptogramme visuel&nbsp;:</label>
+                        <div class="fmIpt crypto">
+                            <input name="ctl00$cphMainArea$ctl01$txtSecurityNumber" maxlength="3" id="cphMainArea_ctl01_txtSecurityNumber" onkeypress="CheckValidNum(this)" autocomplete="off" data-cdnt="true" placeholder="Cryptogramme visuel" type="tel">
+                        </div>
+                        <span class="tip inputTip">3 derniers chiffres au dos de votre carte, à droite de la signature</span>
+
+                        <span id="cphMainArea_ctl01_CustomValidator1" tabindex="4" class="field-validation-error clear" style="display:none;">Veuillez saisir le cryptogramme</span>
+
+                    </div>
+
+                    
+
+                    <div class="clear center">
+                        <div>Je valide et je paie</div>
+                        <input name="ctl00$cphMainArea$ctl01$ValidateNewCardButton" value="Ajouter et Valider" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cphMainArea$ctl01$ValidateNewCardButton&quot;, &quot;&quot;, true, &quot;CardValidationGroup&quot;, &quot;&quot;, false, false))" id="cphMainArea_ctl01_ValidateNewCardButton" class="sbt btGreen" type="submit">
+                    </div>
+                </div>
+            </fieldset>
+        
+</div>
+
+        <!-- Formulaire(cognia DSI-2011-01) -->
+        <div id="CogniaFormBloc">
+            
+        </div>
+
+    </div>
+</div>
+<div class="fm">
+    <div class="chgP">
+        <a href="https://order.cdiscount.com/OrderProcessPayment.mvc/SelectAnotherPaymentOption" visible="True" title="Changer de mode de paiement">Changer de mode de paiement</a>
+        
+    </div>
+</div>
+<br>
+ 
+        </div>
+    </div>
+    </template>

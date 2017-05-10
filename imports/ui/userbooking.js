@@ -23,7 +23,18 @@ import './userbooking.html';
  Template.userbooking.helpers({
 
  reservations(){
-return Reservations.find({"user_id": Meteor.userId(),"status" : { $in: ["newbooking", "owner_valid"] }});
+  var reservations = Reservations.find({"user_id": Meteor.userId(),"status" : { $in: ["newbooking", "owner_valid"] }});
+  //console.log("length: "+reservations.fetch().length);
+var reservations_nf =[];
+reservations.forEach(function (book) {
+  var st = moment(book.start_time, 'YYYY-MM-DD');
+  var et = moment(book.end_time, 'YYYY-MM-DD');
+  book.start_time = st.format('DD MMMM YYYY', 'fr');
+  book.end_time = et.format('DD MMMM YYYY', 'fr');
+reservations_nf.push(book);
+});
+
+return reservations_nf;
   },
 
  campingcars(){
