@@ -90,7 +90,7 @@ var Images = new FilesCollection({
   storagePath: '../../../../../public/images',
   onBeforeUpload: function (file) {
     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
-    if (file.size <= 4885760 && /png|jpg|jpeg/i.test(file.extension)) {
+    if (file.size <= 4885760 && /png|jpg|jpeg|bmp|gif/i.test(file.extension)) {
       console.log("size: "+file.size);
       //console.log("fetch: "+JSON.stringify(file.link()));
       
@@ -107,14 +107,14 @@ var Images = new FilesCollection({
         if(fileRef.name == "licence_carte"){
       //console.log("Asset file path"+Assets.absoluteFilePath('casque-chantier.jpg'));
 //var binaryImage = Assets.getBinary('casque-chantier.jpg');
-Meteor.call('UploadFile', "identite.jpeg",  "0", fileRef.fetch() ,function(error, result){
-           if (!error){
-             console.log("result upload: "+JSON.stringify(result));
-           }
-           else{
- console.log("result upload error: "+JSON.stringify(error));
-           }
-         });
+// Meteor.call('UploadFile', "identite.jpeg",  "0", fileRef.fetch() ,function(error, result){
+//            if (!error){
+//              console.log("result upload: "+JSON.stringify(result));
+//            }
+//            else{
+//  console.log("result upload error: "+JSON.stringify(error));
+//            }
+//          });
 //var dataURI = 'data:image/png;base64,'+Base64.encode(binaryImage);
 //console.log("asset dataURI: "+dataURI); 
     }

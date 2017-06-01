@@ -1,6 +1,8 @@
 // Define gateway variable 
+import { request } from "meteor/froatsnook:request";
 import { Reservations } from '../../imports/api/reservations.js';
 import { UsersData } from '../../imports/api/usersdata.js';
+import { EJSON } from 'meteor/ejson';
 var gateway;
 
 Meteor.startup(function () {
@@ -98,6 +100,7 @@ console.log("Facebook lastname : "+ userdata.lastname);
 
   GetWalletDetails: function(wallet){
         var headers = JSON.stringify(this.connection.httpHeaders);
+        console.log("headers: "+headers);
     var headers2 = headers.replace('x-real-ip','xrealip');
     var headers3 = headers2.replace('x-forwarded-for','xforwardedfor');
     var headers4 = headers3.replace('x-forwarded-proto','xforwardedproto');
@@ -143,7 +146,7 @@ data: postData};
 //       "Content-Type": "application/json; charset=utf-8"
 //     },
 // data: postData};
-        return HTTP.post(Meteor.settings.public.LEMON_URL+"GetWalletDetails", post
+        return HTTP.post(Meteor.settings.private.LEMON_URL+"GetWalletDetails", post
 //           , function(error, result, body){
 //           if (!error){
 // console.log("result http: "+result.statusCode+"body message: "+result.data.d.WALLET.ID);
@@ -156,8 +159,6 @@ data: postData};
   },
 
 RegisterWallet: function(options) {
-      console.log("connection: "+this.connection.clientAddress);
-    console.log("userid: "+this.userId);
 
         var headers = JSON.stringify(this.connection.httpHeaders);
     var headers2 = headers.replace('x-real-ip','xrealip');
@@ -174,8 +175,6 @@ RegisterWallet: function(options) {
 
 if(user.services.facebook!=null)
     {
-      console.log("Facebook info id : "+user.services.facebook.id);
-
       userdata.email = user.services.facebook.email;
       userdata.firstName = user.services.facebook.first_name;
       userdata.lastName = user.services.facebook.last_name;
@@ -249,7 +248,7 @@ data: postData};
 //     "clientMail":     payerWallet + "@lemonway.com",
 //     "clientFirstName":  "Payer",
 // "clientLastName": "Payer"
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"RegisterWallet", post);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"RegisterWallet", post);
 },
 
 MoneyInWebInit: function(bookid){
@@ -267,7 +266,7 @@ MoneyInWebInit: function(bookid){
 
     var userdata = UsersData.find({_id:Meteor.userId()}).fetch()[0];
 
-if(user.services.facebook!=null)
+if(user.services && user.services.facebook!=null)
     {
       console.log("Facebook info id : "+user.services.facebook.id);
 
@@ -335,14 +334,14 @@ var tok = Random.id();
     "mobileNumber":""
   }
 };
-console.log("postdata: "+JSON.stringify(postData));
+console.log("postdata MoneyInWebInit: "+JSON.stringify(postData));
      var post = {headers: {
       "Content-Type": "application/json; charset=utf-8",
       //"Access-Control-Allow-Origin": "*"
     },
 data: postData};
 
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"MoneyInWebInit", post);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"MoneyInWebInit", post);
 
 },
 
@@ -378,7 +377,7 @@ console.log("transactionMerchantToken: "+postData.p.transactionMerchantToken);
       //"Access-Control-Allow-Origin": "*"
     },
 data: postData};
-        return HTTP.post(Meteor.settings.public.LEMON_URL+"GetWalletTransHistory", post);
+        return HTTP.post(Meteor.settings.private.LEMON_URL+"GetWalletTransHistory", post);
 },
 
 GetMoneyInTransDetails: function(){
@@ -409,33 +408,88 @@ console.log("Amount: "+postData.p.amountTot);
     },
 data: postData};
 
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"GetMoneyInTransDetails", post);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"GetMoneyInTransDetails", post);
 },   
 
 UpdateWalletDetail: function(options) {
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"UpdateWalletDetail", options);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"UpdateWalletDetail", options);
 },
 
 RegisterCard: function(options) {
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"RegisterCard", options);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"RegisterCard", options);
 },
 
-UploadFile: function(fileName, type, imagedata){
+TestRequest: function(){
+  //return request.sync("http://google.com");
+try {
+    var res = request.sync("http://google.com");
+    if (res.response.statusCode == 200) {
+        console.log("request body"+res.body);
+        return res.response.statusCode;
+    }
+} catch (error) {
+   console.log("request error body"+error);
+   return error;
+    //See below for info on errors
+}
+},
 
-// function arrayBufferToBase64( buffer, callback ) {
-//     var blob = new Blob([buffer],{type:'application/octet-binary'});
-//     var reader = new FileReader();
-//     reader.onload = function(evt){
-//         var dataurl = evt.target.result;
-//         callback(dataurl.substr(dataurl.indexOf(',')+1));
-//     };
-//     reader.readAsDataURL(blob);
-// }
+  GetWalletDetailsreq: function(wallet){
+        var headers = JSON.stringify(this.connection.httpHeaders);
+    var headers2 = headers.replace('x-real-ip','xrealip');
+    var headers3 = headers2.replace('x-forwarded-for','xforwardedfor');
+    var headers4 = headers3.replace('x-forwarded-proto','xforwardedproto');
+    var headers5 = headers4.replace('user-agent','useragent');
+    var head = JSON.parse(headers5);
+    var userdata = UsersData.find({_id:Meteor.userId()}).fetch()[0];
+    var user = Meteor.user();
 
-//example:
-var buf = new Uint8Array([11,22,33]);
-//arrayBufferToBase64(imagedata.data, console.log.bind(console)); //"CxYh"
+    if(user.services.facebook!=null)
+    {
+      userdata.email = user.services.facebook.email;
+      userdata.firstName = user.services.facebook.first_name;
+      userdata.lastName = user.services.facebook.last_name;
+    }
+else
+{
+}
+    
+    if(user.wallet)
+        wallet = user.wallet;
 
+    var postData = {
+  "p": {
+    "wlLogin":  Meteor.settings.private.WLLOGIN,
+    "wlPass":   Meteor.settings.private.WLPASS,
+    "language": "en",
+    "version":  "1.9",
+    "walletIp": head.xrealip,
+    "walletUa": head.useragent,
+    "wallet":   wallet,
+    "email": userdata.email
+  }
+};
+
+     var post = {headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      //"Access-Control-Allow-Origin": "*"
+    },
+json: postData};
+//console.log("rank key: "+RandToken.generate(16));
+//     var options = {headers: {
+//       "Content-Type": "application/json; charset=utf-8"
+//     },
+// data: postData};
+
+request.post(Meteor.settings.private.LEMON_URL+"GetWalletDetails", post, function (error, response, body) {
+  console.log('error:', error); // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  console.log('body:', body); // Print the HTML for the Google homepage.
+});
+        //return HTTP.post(Meteor.settings.private.LEMON_URL+"GetWalletDetails", post);
+  },
+
+UploadLicense: function(filename, type, imagedata){
 
     var headers = JSON.stringify(this.connection.httpHeaders);
     var headers2 = headers.replace('x-real-ip','xrealip');
@@ -450,7 +504,7 @@ var buf = new Uint8Array([11,22,33]);
     var wallet = null;
 
     var userdata = UsersData.find({_id:Meteor.userId()}).fetch()[0];
-var buf = new Uint8Array([11,22,33]);
+//var buf = new Uint8Array([11,22,33]);
 if(user.services.facebook!=null)
     {
       console.log("Facebook info id : "+user.services.facebook.id);
@@ -465,7 +519,31 @@ else
 }
     if(user.wallet)
         wallet = user.wallet;
+ 
 
+     var post = {headers: {
+      "Content-Type": "application/json",
+      //"Access-Control-Allow-Origin": "*"
+    },
+json: true,
+      body: {
+        "p": {
+        "wlLogin":  Meteor.settings.private.WLLOGIN,
+        "wlPass":   Meteor.settings.private.WLPASS,
+        "language": "en",
+        "version":  "1.9",
+        "walletIp": head.xrealip,
+        "walletUa": head.useragent,
+        "wallet":   wallet,
+        "fileName":filename,
+        "type":type,
+        "buffer": imagedata.replace(/^data:image\/(png|jpg|gif|bmp|jpeg);base64,/,'')
+        //buffer.toString('base64')
+        //buffer.toString('base64')
+    //buffer.toString() imagedata.replace(/^data:image\/(png|jpg|gif|jpeg);base64,/,'')
+  }
+      }
+};
 
     var postData = {
   "p": {
@@ -476,22 +554,35 @@ else
     "walletIp": head.xrealip,
     "walletUa": head.useragent,
     "wallet":   wallet,
-    "fileName":fileName,
+    "fileName":filename,
     "type":type,
-    "buffer":imagedata,
+    "buffer": imagedata.replace(/^data:image\/(png|jpg|gif|bmp|jpeg);base64,/,'')
   }
 };
-
-     var post = {headers: {
+     var post2 = {headers: {
       "Content-Type": "application/json; charset=utf-8",
       //"Access-Control-Allow-Origin": "*"
     },
 data: postData};
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"UploadFile", post);
+
+return HTTP.post(Meteor.settings.private.LEMON_URL+'UploadFile', post2);
+
+// return request.post(Meteor.settings.private.LEMON_URL+'UploadFile', post, function (error, response, body) {
+//   if(!error){
+//       console.log('body:', body); // Print the HTML for the Google homepage.
+//     return body;
+//   }
+//   else
+//   {
+//       console.log('error:', error); // Print the error if one occurred
+//     return error;
+//   }
+// });
+
 },
 
 MoneyInWithCardId: function(options) {
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"MoneyInWithCardId", options);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"MoneyInWithCardId", options);
 },
 
 SendPayment: function(debitwallet, creditwallet, amount, message, scheduleddate, privatedata) {
@@ -524,11 +615,11 @@ console.log("Amount: "+postData.p.amountTot);
       //"Access-Control-Allow-Origin": "*"
     },
 data: postData};
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"SendPayment", post);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"SendPayment", post);
 },
 
 RefundMoneyIn: function(options){
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"RefundMoneyIn", options);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"RefundMoneyIn", options);
 },
 
 RegisterIBAN: function() {
@@ -585,10 +676,10 @@ else
     },
 data: postData};
 //return post;
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"RegisterIBAN", post);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"RegisterIBAN", post);
 },
 
 MoneyOut: function(options) {
-          return HTTP.post(Meteor.settings.public.LEMON_URL+"MoneyOut", options);
+          return HTTP.post(Meteor.settings.private.LEMON_URL+"MoneyOut", options);
 }
 });

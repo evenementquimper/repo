@@ -79,7 +79,8 @@ console.log("return Wallet info: "+result.data.d.WALLET.BAL);
                     }, {
                       upsert: true
                     });
-                  FlowRouter.go('/');
+                    alert("Réservation Payée");
+                  FlowRouter.go('/book/'+FlowRouter.getParam("reservation_id"));
                 }
 
                 else{}

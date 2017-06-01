@@ -290,9 +290,9 @@ var wallet = false;
 
 if(UsersData.find({_id:Meteor.userId()}).fetch()[0]){
 var userdata = UsersData.find({_id:Meteor.userId()}).fetch()[0];
-  if(!userdata.firstname || !userdata.lastname || !userdata.birthdate || !userdata.cellphone || !userdata.email){
+  if(!userdata.firstname || !userdata.lastname || !userdata.birthdate || !userdata.cellphone || !userdata.email || !userdata.cartidimages || !userdata.ibanimages){
     alert("Merci de compléter votre profil");
-    FlowRouter.go('user');
+    FlowRouter.go('/user');
     baduser = true;
   }
 }

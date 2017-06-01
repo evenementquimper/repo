@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { DDP } from 'meteor/ddp-client';
+import { request } from "meteor/froatsnook:request";
 
 //import './main.html';
 import '../imports/ui/footer.html';

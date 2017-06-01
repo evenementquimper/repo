@@ -127,6 +127,7 @@ Template.mlsectioncontentavailability.helpers({
         var rr = {
 
               eventClick: function(calEvent, jsEvent, view) {
+var sectcont = $('.ml-section-content');
 
                   if(calEvent.title==null)
                       {
@@ -146,14 +147,38 @@ Template.mlsectioncontentavailability.helpers({
                       }
                   if(calEvent.backgroundColor=='blue')
                       {
-
+        sectcont.css({'filter' : 'blur(0px)'});
+        sectcont.css({'opacity' : '.4'});
                           var bookselect = $('#bookselect');
                           var bookselecttitre = $('.bookselecttitre');
                           bookselecttitre.empty();
-                          bookselecttitre.prepend('<h3></h3>');
-                          bookselecttitre.prepend( '<h3>Valider cette réservation ?</h3><div>'+
-                                                   '<button class="cancel_book" name="owner_cancel" style="display:inline;">Refuser</button>'+
-                                                   '<button class="valid_book" name="owner_valid" style="display:inline;">Valider</button></div>');
+
+
+
+
+bookselecttitre.prepend('<div style="background-color: rgb(255, 255, 255); box-sizing: border-box; font-family: Roboto,sans-serif; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12); border-radius: 2px; transform: scaleY(1); transform-origin: center top 0px; opacity: 1; max-height: 500px; overflow-y: auto;">'+
+'<div style="background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto,sans-serif; border-radius: 2px; padding: 16px 0px; display: table-cell; width: 500px;">'+
+'<div style="opacity: 1;">'+
+'<div tabindex="0" style="border: 10px none; background-image: none; background-repeat: repeat; background-attachment: scroll; background-clip: border-box; background-origin: padding-box; background-position: 0% 0%; background-size: auto auto; box-sizing: border-box; display: block; font-family: Roboto,sans-serif; font-style: inherit; font-weight: inherit; font-size: 15px; line-height: 32px; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit;text-decoration: none; outline: medium none; transform: translate3d(0px, 0px, 0px); color: rgba(86, 90, 92, 0.87); position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; white-space: nowrap;">'+
+'<div>'+
+'<div style="margin-left: 0px; padding: 0px 24px; position: relative;">Demande de Réservation'+
+'<div class="valid_book" name="owner_valid" style="text-align: right;cursor: pointer;">Valider</div>'+
+'<div class="cancel_book" name="owner_cancel" style="text-align: right;cursor: pointer;">Refuser</div>'+
+'</div>'+
+'</div>'+
+'</div>'+
+'</div>'+
+'</div>'+
+'</div>');
+
+
+
+
+
+                          // bookselecttitre.prepend('<h3></h3>');
+                          // bookselecttitre.prepend( '<h3>Valider cette réservation ?</h3><div>'+
+                          //                          '<button class="cancel_book" name="owner_cancel" style="display:inline;">Refuser</button>'+
+                          //                          '<button class="valid_book" name="owner_valid" style="display:inline;">Valider</button></div>');
                           var outpoupselect = $('#outpoupselect');
                           outpoupselect.css({'display':'inline-block'});
                           bookselect.css({'display':'inline-block','top':jsEvent.clientY+'px', left:jsEvent.clientX+'px'});
@@ -192,7 +217,8 @@ Template.mlsectioncontentavailability.helpers({
                       }
                     if(calEvent.backgroundColor=='green')
                       {
-
+        sectcont.css({'filter' : 'blur(0px)'});
+        sectcont.css({'opacity' : '.4'});
                           var bookselect = $('#bookselect');
                           var bookselecttitre = $('.bookselecttitre');
                           bookselecttitre.empty();
@@ -223,7 +249,8 @@ Template.mlsectioncontentavailability.helpers({
                       }
                     if(calEvent.backgroundColor=='black')
                       {
-
+        sectcont.css({'filter' : 'blur(0px)'});
+        sectcont.css({'opacity' : '.4'});
                           var bookselect = $('#bookselect');
                           var bookselecttitre = $('.bookselecttitre');
                           bookselecttitre.empty();
@@ -426,7 +453,9 @@ return AddOns.find({campingcarId:FlowRouter.getParam("_id")});
       event.preventDefault();
     var bookselect = template.find('#bookselect');
 var popupselect = template.find('.popupselect');
-
+var sectcont = template.find('.ml-section-content');
+        sectcont.style.filter = null;
+        sectcont.style.opacity = null;
 
 if(bookselect.style.display == 'inline-block')
 { 

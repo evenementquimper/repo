@@ -8,7 +8,7 @@ import  './recappay.html';
 
 
 Template.dashboard.onCreated(function() {
-     this.wallet = new ReactiveDict();
+     this.wallet = new ReactiveDict(false);
      this.error = new ReactiveDict();
 //souscription a la base de donnée
     Tracker.autorun(function () {
@@ -19,67 +19,62 @@ Template.dashboard.onCreated(function() {
 });
 
 Template.dashboard.onRendered(function() {
-var template = Template.instance();
-if(Meteor.user() && Meteor.user().wallet){
-
-  Meteor.call('GetWalletDetails', Meteor.user().wallet,function(error, result){
+  var template = Template.instance();
+   Meteor.call('GetWalletDetails', ""
+  ,function(error, result){
           if (!error){
 console.log("result Details: "+JSON.stringify(result.data));
-template.wallet.set('wallet', result.data);
-if(result.data.d.WALLET.DOCS.length==0){
-  //console.log("tableau de docs vide: "+result.data.d.WALLET.DOCS.length);
-  
-}
-if(result.data.d.E){
-  template.error.set('error', result.data);
-  //console.log("GetWalletDetails error: "+result.data.d.E.Error);
+//return JSON.stringify(result.data);
 
-}
-}
-else
-{
-  console.log("error Details: "+JSON.stringify(error));
-}
-});
-}
-else
-{
-  Meteor.call('RegisterWallet', "", function(error, result){
+//if(result.data.d.WALLET.DOCS.length==0){
+  //console.log("tableau de docs vide: "+result.data.d.WALLET.DOCS.length);
+  //return result.data;
+//}
+if(result.data.d.E){
+      Meteor.call('RegisterWallet', "", function(error, result){
   if(!error){
 console.log("RegisterWallet result: "+JSON.stringify(result.data));
     if(!result.data.d.E){
-
+      //return result.data;
     }
     else
     {
-      template.error.set('error', result.data);
+      template.wallet.set('wallet',result.data);  
+      //return result.data;
+      //template.error.set('error', result.data);
       //console.log("RegisterWallet error: "+result.data.d.E.Error);
     }
   }
   else{
+    //return result.data;
     //console.log("RegisterWallet error : "+error);
   }
 
 });
 }
+else{
+template.wallet.set('wallet',result.data);  
+}
+}
+else
+{
+
+}
+}
+);
+
 });
 
 Template.dashboard.helpers({
-  // items: function(){
-  //   return Items.find();
-  // },
+
   settings: function(){
     return Meteor.settings.public.LEMON_URL;
   },
 
   wallet: function(){
-    //return true; 
-    //return Meteor.call('GetWalletDetails', "XLpoqyFPsvazMWFZZZ"
-      //,function(error, result){   
-//console.log("wallet Details: "+JSON.stringify(result.data));
+
 return Template.instance().wallet.get('wallet');
-//}
-//);
+
   },
   campingcar: function(){
 if(Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0])
@@ -135,11 +130,11 @@ return false;
   Template.dashboard.events({
 
 'click #lemonway': function(event, template){
-
+//console.log("private web: "+Meteor.settings.public.LEMON_WEBKIT);
  Meteor.call('MoneyInWebInit', FlowRouter.getParam("reservation_id"), function(error, result){
            if (!error){
             console.log("result Details: "+JSON.stringify(result.data));
- if(result.data.d.MONEYINWEB.TOKEN && result.data.d.MONEYINWEB.ID){
+ if(result.data.d.MONEYINWEB && result.data.d.MONEYINWEB.TOKEN && result.data.d.MONEYINWEB.ID){
 
         Reservations.update({
             _id: FlowRouter.getParam('reservation_id')
@@ -149,9 +144,13 @@ return false;
           upsert: true
         });
 
- window.location.replace("https://sandbox-webkit.lemonway.fr/demo/dev/?moneyInToken="+result.data.d.MONEYINWEB.TOKEN+"&lang=fr&p=https://leboncampingcar.fr/css/lemonway.css"); 
+ window.location.replace(Meteor.settings.public.LEMON_WEBKIT+"?moneyInToken="+result.data.d.MONEYINWEB.TOKEN+"&lang=fr&p=https://leboncampingcar.fr/css/lemonway.css"); 
  }
+ else
+ {
+
    }
+ }
            else{
             console.log("result Details: "+JSON.stringify(error));
            }

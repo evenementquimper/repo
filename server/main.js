@@ -71,6 +71,7 @@ Meteor.startup(() => {
 
 
 Roles.addUsersToRoles(Meteor.settings.admin.ADM_ID, 'admin', Roles.GLOBAL_GROUP);
+
 //Roles.addUsersToRoles("tbGqSYj2CncNDo8Fn", 'admin', Roles.GLOBAL_GROUP);
 //Roles.addUsersToRoles("tbGqSYj2CncNDo8Fn", 'admin', Roles.GLOBAL_GROUP);
   // Return early if URL isn't HTTPS (or if it isn't set).
@@ -112,7 +113,7 @@ Accounts.validateNewUser((attempt) => {
   // if (attempt.services.facebook){
   // }
     console.log("attempt user:"+JSON.stringify(attempt));
-  if (attempt.emails[0].address == "contact.amopok@gmail.com" || attempt.emails[0].address == "lclavijo@lemonway.com") {
+  if (attempt.emails[0].address == "ntahraoui@lemonway.com" || attempt.emails[0].address == "damien.leroi@gmail.com" || attempt.emails[0].address == "florian.dubois@gmail.com" || attempt.emails[0].address == "benoit.marchant@gmail.com" || attempt.emails[0].address == "julien.cali@gmail.com" || attempt.emails[0].address == "gwenn.donniou@gmail.com" || attempt.emails[0].address == "contact.amopok@gmail.com" || attempt.emails[0].address == "lclavijo@lemonway.com") {
 
     return true;
   } else {
@@ -133,6 +134,7 @@ Accounts.validateNewUser((attempt) => {
 });
 
 Meteor.onConnection(function(conn) {
+  console.log("Mongo Url: "+process.env.MONGO_URL);
     console.log("connection client address: "+conn.clientAddress);
     console.log("connection client id: "+conn.id);
 //nbrconn = nbrconn+1;
