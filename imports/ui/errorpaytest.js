@@ -4,26 +4,31 @@ import { UsersData } from '../api/usersdata.js';
 import { Reservations } from '../api/reservations.js';
 import { CampingCars } from '../api/campingcars.js';
 
-import './errorpay.html';
+import './errorpaytest.html';
  
 var contentviewtab = []; 
 
- Template.errorpay.onCreated(function() {
+ Template.errorpaytest.onCreated(function() {
 
 
   //titre de la page
-  DocHead.setTitle("Paiement Annuler|Le Bon Camping-car");
+  DocHead.setTitle("Validation de paiement|Le Bon Camping-car");
   
   this.autorun(() => {
     const reservationssubs = this.subscribe('reservations');
-    const usersdatasubs = this.subscribe('myusersdata');
+    const usersdatasubs = this.subscribe('usersdata');
+
+if(usersdatasubs.ready() && reservationssubs.ready()){
+  //var transactionMerchantToken = FlowRouter.getQueryParam("response_wkToken");
+
+  }
 
 });
 
 
 });
 
- Template.errorpay.onRendered(function(){
+ Template.errorpaytest.onRendered(function(){
 
           var infocase = this.find('#infocase');
           var roote = this.find('.root');
@@ -38,19 +43,17 @@ var contentviewtab = [];
           lemonselect.style.top = '35%';
           lemonselect.style.left = '28%';
 
-  infocase.innerHTML = "Paiement Annuler";
+infocase.innerHTML = "Paiement Annuler";
   cleaninfo.style.display = null;
-  outpoupselect.style.cursor = null;
-  cleaninfo.style.cursor = 'pointer';
 
 });
 
 
- Template.errorpay.helpers({
+ Template.errorpaytest.helpers({
 
 });
 
-  Template.errorpay.events({
+  Template.errorpaytest.events({
 
   'click #cleaninfo':function(e, template){
   e.preventDefault();

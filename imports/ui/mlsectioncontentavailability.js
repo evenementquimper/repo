@@ -34,8 +34,6 @@ this.$('.datetimepicker').datetimepicker({
             //              ]
     });
 
- //this.$('.fc').fullCalendar({});
- //console.log("les events : "+JSON.stringify(evtsourc[0])+" "+evtsourc[1]);
 
 });
 
@@ -77,7 +75,6 @@ Template.mlsectioncontentavailability.helpers({
 
                   if(UsersData.find({_id:loueurid}).fetch()[0])
                       {
-                        console.log("Resa find"+bddreservations.length); 
                         var ttprix = bddreservations[i].brutprize;
 
                         if(bddreservations[i].brutprize.prize)
@@ -86,14 +83,9 @@ Template.mlsectioncontentavailability.helpers({
                   var tt = UsersData.find({_id:loueurid}).fetch()[0].firstname+", "+UsersData.find({_id:loueurid}).fetch()[0].lastname+", Montant: "+ttprix;
                         
                         var status = bddreservations[i].status;
-                          console.log("booking _id: "+bddreservations[i]._id);
-                        //console.log("resa end time: "+bddreservations[i].end_time);
-                        //ajout d'un jour a la fin pour visualiser le dernier jour
                         var lastday = moment(bddreservations[i].end_time, 'YYYY-MM-DD').add(1, 'day');
 
                         var colorstatus = 'blue';
-
-                        //if(bddreservations[i].status=='newbooking')
 
                           if(status=='owner_cancel')
                             colorstatus = 'black';
@@ -387,68 +379,6 @@ return AddOns.find({campingcarId:FlowRouter.getParam("_id")});
 });
   Template.mlsectioncontentavailability.events({
 
-//   'click .fc-event-container':function( event, template ) { 
-//               //console.log("mouseover html: "+$(this).html());
-//                 console.log("mouseover event: ");
-//                  //var peopleid = template.find('#people'); 
-// var peopleselect = template.find('#peopleselect');
-// var outpoupselect = template.find('#outpoupselect');
-// outpoupselect.style.display = "inline-block";
-
-// peopleselect.style.display = "inline-block";
-
-// //peopleselect.style.top = event.pageY+'px'; mouseenter
-// //peopleselect.style.left = event.pageX+'px';
-
-// peopleselect.style.top = event.clientY+'px';
-// peopleselect.style.left = event.clientX+'px';
-//               //$(this).css('border-color', 'red');
-              
-//             },
-// 'click button ':function(event, template){
-//   console.log("id?: "+event.currentTarget.id);
-//   console.log("name?: "+event.currentTarget.name);
-//   event.preventDefault();
-//   var bookid = event.currentTarget.id;
-//   var dig = '{"status":"'+event.currentTarget.name+'"}';
-//   var js = JSON.parse(dig);
-//         Reservations.update({
-//             _id: bookid
-//         }, {
-//             $set: js
-//         }, {
-//           upsert: true
-//         });
-
-//                   var source = {id:'01',
-//                                 events: [{id:event.currentTarget.id,
-//                                      //title: 'Block',
-//                                        //start: date,
-//                                  //rendering:'background',
-//                            //backgroundColor:'red',
-//                                           }
-//                                          ],
-//                                 //color: 'red',     // an option!
-//                             //textColor: 'white'
-//                                 };
-
-//                var uevent = {id:event.currentTarget.id,
-//                                 //title: tt,
-//                                 //start: bddreservations[i].start_time,
-//                                 //end: bddreservations[i].end_time,
-//                                 //color:'red',
-//                                 //backgroundColor:colorstatus,
-//                                 //borderColor :'green', 
-//                                 //textColor :'white',
-//                                 //height: '35px',
-//                                 };
-
-//         //if(event.currentTarget.id=='owner_cancel')
-//         $('.fc').fullCalendar( 'removeEventSource', source )
-//   //$('.fc').fullCalendar('removeEvents', uevent);
-
-// },
-
 'click #outpoupselect': function(event, template){
       event.preventDefault();
     var bookselect = template.find('#bookselect');
@@ -459,10 +389,10 @@ var sectcont = template.find('.ml-section-content');
 
 if(bookselect.style.display == 'inline-block')
 { 
-  //console.log("fueltypeselect :"+fueltypeselect.style.display);
+
   bookselect.style.display = 'none';
   event.currentTarget.style.display = 'none';
-  //appcont.style.overflowY = 'scroll';
+
 }
 else
 {
@@ -483,7 +413,7 @@ else
 
 
   'click #addonplus': function(event, template) {
-
+    event.preventDefault();
     AddOns.insert({ 
               userid : Meteor.userId(),
               campingcarId:FlowRouter.getParam("_id"),
@@ -506,7 +436,7 @@ else
   },
 
 'click .addondisplay': function(event, template){
-//console.log("id?: "+event.currentTarget.id);
+
   event.preventDefault();
   var adid = event.currentTarget.id;
   var f = template.find(".addondetail"+adid);
@@ -539,11 +469,11 @@ else
 
 
 'click .text-item': function(event, template){
-//console.log("click current text-item label style width: "+event.currentTarget.children[0].style.position);
+      event.preventDefault();
 var lab = event.currentTarget.children[0];
 var inp = event.currentTarget.children[1];
 var hli = event.currentTarget.children[3];
-//console.log("Label: "+lab.innerHTML);
+
 inp.style.display = "inline-block";
 
 var nstyle = {"font-size":"","line-height" : "22px","z-index": "1", "transform-origin" :"left top 0px","transform":"perspective(1px) scale(0.75) translate3d(2px, -28px, 0px)"};
@@ -564,23 +494,21 @@ hli.style.transform = "scaleX(1)";
 },
 
 'click .select-item': function(event, template){
-//console.log("click current text-item label style width: "+event.currentTarget.children[0].style.position);
+      event.preventDefault();
 var lab = event.currentTarget.children[0];
 var inp = event.currentTarget.children[1];
 var hli = event.currentTarget.children[3];
-//console.log("Label: "+lab.innerHTML);
 inp.style.display = "inline-block";
 
 var nstyle = {"font-size":"","line-height" : "22px","z-index": "1", "transform-origin" :"left top 0px","transform":"perspective(1px) scale(0.75) translate3d(2px, -28px, 0px)"};
 lab.style = nstyle;
-//lab.style.;
+
 lab.style.top = "38px";
 lab.style.transition = "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms";
-//lab.style.;
+
 lab.style.cursor = "text";
-//lab.style.; 244, 67, 54
+
 lab.style.color ="rgba(86,90,92,0.5)";
-//lab.innerHTML = "Vehicle Model";
 
 var hrstyle = {"border-color":"rgb(36,97,130)" ,"bottom":"8px","box-sizing" : "content-bo","margin": "0px", "position" :"absolute","width":"100%","transform":"scaleX(1)","transition":"all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms","border-width":"medium medium 2px","border-style":"none none solid"};
 hli.style.transform = "scaleX(1)";
@@ -591,7 +519,7 @@ hli.style.transform = "scaleX(1)";
 
   'click .checkbox-item  ':function(event, template){
     event.preventDefault();
-    console.log("current target: "+event.currentTarget.id);
+
     var curid = event.currentTarget.id.split(':');
     var key = curid[1];
     
@@ -643,10 +571,8 @@ if (r == true) {
 
   'click .image-remove': function(e, template){
 e.preventDefault();
-//console.log("curent id: "+e.currentTarget.id);
-//{"images":{ $in:["hXZjsSk5oSzm759aN"]}}
+
 var dig = '{"images":"'+e.currentTarget.id+'"}';
-console.log("DIG: "+dig);
 
 var js = JSON.parse(dig);
 
@@ -661,8 +587,7 @@ var js = JSON.parse(dig);
 
 'click .image-up': function(e, template){
 e.preventDefault();
-//console.log("curent id: "+e.currentTarget.id);
-//{"images":{ $in:["hXZjsSk5oSzm759aN"]}}
+
 var dig = '{ images:{ $each: [], $sort: -1 }}';
 //console.log("DIG: "+dig);
 
@@ -677,7 +602,7 @@ var dig = '{ images:{ $each: [], $sort: -1 }}';
 },
 
 'click .image-upload': function(e, template){
-//console.log("click button");
+
   e.preventDefault();
   
   var inpt = template.find('.fileInputAddon');
@@ -686,7 +611,6 @@ var dig = '{ images:{ $each: [], $sort: -1 }}';
 },
   'change .fileInputAddon': function (e, template) {
 
-console.log("fileInputAddon Id :"+e.currentTarget.id);
 var addonId = e.currentTarget.id;
 
     if (e.currentTarget.files && e.currentTarget.files[0]) {
@@ -708,8 +632,8 @@ var addonId = e.currentTarget.id;
           alert('Error during upload: ' + error);
         } else {
                         var sup = fileObj.path.split('../../../../../public');
-              console.log("Split 1: "+sup[0]);
-              console.log("Split 2: "+sup[1]);
+              //console.log("Split 1: "+sup[0]);
+              //console.log("Split 2: "+sup[1]);
           alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
 //sauvegarde de id de l'image ds la bdd du camping car
 

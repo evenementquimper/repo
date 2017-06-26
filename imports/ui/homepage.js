@@ -5,6 +5,7 @@ import { CampingCars } from '../api/campingcars.js';
 import { ReactiveDict } from 'meteor/reactive-dict'; 
 
 import './homepage.html';
+
 var dayfull = [];//tableau de moment
 var startt = moment();
 var endt = moment();
@@ -12,11 +13,8 @@ var place = {loc:null};
 
 Template.homepage.onCreated(function() {
   
-
-
-  
-  Tracker.autorun(function () {
-  Meteor.subscribe("campingcars", {
+  this.autorun(() => {
+  this.subscribe("campingcars", {
     onError: function( error ) {
         //console.log("Meteor subscribe error: "+error);
         // if the subscribe terminates with an error
@@ -76,8 +74,9 @@ DocHead.setTitle("Le Bon Camping-car");
 
 GoogleMaps.load({key: Meteor.settings.public.G_MAP_KEY, libraries: 'places'});
 
-this.$('.datetimepickerstart').datetimepicker({
+ this.$('.datetimepickerend').datetimepicker({
         format: 'YYYY-MM-DD',
+        locale:'fr',
         minDate: moment(),
         //keepOpen: true,
         //inline: true,
@@ -89,20 +88,18 @@ this.$('.datetimepickerstart').datetimepicker({
             //moment().add(7, 'days'),
             //              ]
     });
- 
- this.$('.datetimepickerend').datetimepicker({
+
+ this.$('.datetimepickerstart').datetimepicker({
         format: 'YYYY-MM-DD',
-        minDate: moment(),
+        locale:'fr',
+        minDate: moment()
+        //showClose: true,
         //keepOpen: true,
-        //inline: true,
-        //focusOnShow:false,
-        //collapse:false,
-        //deactivation des dates ou le parking est completenabledDates()
-        //enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
-        //[moment().add(3, 'days')]            //[
-            //moment().add(7, 'days'),
-            //              ]
-    }); 
+        //debug: true
+
+    }).on('dp.change', function(e) {
+  $('.datetimepickerend').data("DateTimePicker").minDate(e.date)
+});
 
 
   this.$('.owl-carousel').owlCarousel({
@@ -119,11 +116,8 @@ this.$('.datetimepickerstart').datetimepicker({
 
  Template.homepage.helpers({
 
-   exampleMapOptions: function() {
+  exampleMapOptions: function() {
     // Make sure the maps API has loaded
-
-
-
     if (GoogleMaps.loaded()) {
       return {
         center: new google.maps.LatLng(-25.363, 131.044),
@@ -134,7 +128,7 @@ this.$('.datetimepickerstart').datetimepicker({
 },
 
 
-    campingcars: function(){
+  campingcars: function(){
 return CampingCars.find({publish : 'valid'}).fetch();
   },
 });

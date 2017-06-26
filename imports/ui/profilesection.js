@@ -7,18 +7,25 @@ import { UsersData } from '../api/usersdata.js';
 import { FilesCollection } from 'meteor/ostrio:files';
 
 import './profilesection.html';
-var usersdatasubs = null;
+//var usersdatasubs = null;
+
  Template.profilesection.onCreated(function() {
 
   this.autorun(() => {
-    const campingcarssubs = this.subscribe('campingcars');
-    if(campingcarssubs.ready()){
+    const usersdatasubs = this.subscribe('myusersdata', {
+  onStop : function (error){
+    //console.log("userdata onstop Error: "+error);
+    // console.log("userdata onstop Reason: "+e.reason);
+    // console.log("userdata onstop Details: "+e.details);
+  },
+  onReady :function(){
+    //console.log("userdata onready");
+  }
 
-    }
+});
+
+    const campingcarssubs = this.subscribe('campingcars');
     this.subscribe('Images');
-    usersdatasubs = this.subscribe('usersdata');
-    if(usersdatasubs.ready()){
-    }
   
 });
 
@@ -56,27 +63,24 @@ owner:function(){
 return CampingCars.find({userid: Meteor.userId()}).fetch();
 },
 
-  currentUpload: function () {
-    return Template.instance().currentUpload.get();
-  },
+currentUpload: function () {
+  return Template.instance().currentUpload.get();
+},
 
-  images: function(){
-    //return Images.find({ filename: 'chat.jpg' });
-    console.log("Collection images car find: "+Images.find().count);
-    return Images.find({}).fetch()[0];
-  },
-    uploadedFiles: function () {
-       console.log("Collection find count: "+Images.find().count);
-    return Images.find();
+images: function(){
+  return Images.find({}).fetch()[0];
+},
+uploadedFiles: function () {
+  return Images.find();
 },
 
 base64img: function(){
  return Template.instance().imagedata.get();
 },
-userdata:function(){
-return UsersData.find({_id:Meteor.userId()}).fetch()[0];
-},
 
+userdata:function(){
+return UsersData.find({}).fetch()[0];
+},
 
 
 });
@@ -232,99 +236,190 @@ else
   }
 },
 
+'click .licensepdf':function(event, template){
+  event.preventDefault();
+
+  var useraadd = UsersData.find({_id:Meteor.userId()}).fetch()[0];
+  
+  if(useraadd.licensebase64.pdf != null)
+  window.open(useraadd.licensebase64.pdf,"","");
+  
+},
+
+'click .ibanpdf':function(event, template){
+event.preventDefault();
+
+  var useriadd = UsersData.find({_id:Meteor.userId()}).fetch()[0];
+  
+  if(useriadd.ibanbase64.pdf != null)
+  window.open(useriadd.ibanbase64.pdf,"","");
+  
+},
+
+'click .cartidpdf':function(event, template){
+event.preventDefault();
+
+  var usericdd = UsersData.find({_id:Meteor.userId()}).fetch()[0];
+  
+  if(usericdd.cartidbase64.pdf != null)
+  window.open(usericdd.cartidbase64.pdf,"","");
+  
+},
+
 'click #outpoupselect': function(event, template){
       
-    event.preventDefault();
-     var outpoupselect= template.find('#outpoupselect');
-     var lemonselect = template.find('#lemonselect');
-    var section = template.find('.section-container');
-var lemonerror = template.find('#lemonerror');
+//     event.preventDefault();
+//      var outpoupselect= template.find('#outpoupselect');
+//      var lemonselect = template.find('#lemonselect');
+//     var section = template.find('.section-container');
+// var lemonerror = template.find('#lemonerror');
+//         section.style.filter = null;
+//         section.style.opacity = null;
+//       if(lemonselect.style.display == 'inline-block'|| lemonerror.style.display == 'inline-block')
+//         { 
+//           lemonerror.style.display = 'none'
+//           lemonselect.style.display = 'none';
+//           event.currentTarget.style.display = 'none';
+//         }
+//       else
+//         {
+//         }
+
+},
+'click #testwait':function(e, template){
+  e.preventDefault();
+  var outpoupselect= template.find('#outpoupselect');
+  var lemonselect = template.find('#lemonselect');
+  var section = template.find('.section-container');
+  var lemonerror = template.find('#lemonerror');
+  var testwait = template.find('#testwait');
+  var infocase = template.find('#infocase');
+  var cleaninfo = template.find('#cleaninfo');
+  infocase.innerHTML = 'Veuillez patienter';
+  e.currentTarget.style.display = 'none';
+  outpoupselect.style.cursor = 'wait';
+Meteor.setTimeout(fin, 10000);
+
+function fin()
+{
+   console.log("*** fin() ***");
+     testwait.style.cursor = 'pointer';
+  outpoupselect.style.cursor = 'pointer';
+  infocase.innerHTML = 'Demande de Validation du compte (2 à 3 jours de délai)';
+          section.style.filter = null;
+        section.style.opacity = null;
+        testwait.style.display = null;
+        testwait.style.textAlign = 'right';
+        cleaninfo.style.display = null;
+
+}
+
+},
+
+'click #cleaninfo':function(e, template){
+  e.preventDefault();
+  var outpoupselect= template.find('#outpoupselect');
+  var lemonselect = template.find('#lemonselect');
+  var section = template.find('.section-container');
+  var lemonerror = template.find('#lemonerror');
+  var infocase = template.find('#infocase');
+  e.currentTarget.style.display = 'none';
+
+        //outpoupselect.style.cursor = 'wait';
+
         section.style.filter = null;
         section.style.opacity = null;
       if(lemonselect.style.display == 'inline-block'|| lemonerror.style.display == 'inline-block')
         { 
           lemonerror.style.display = 'none'
           lemonselect.style.display = 'none';
-          event.currentTarget.style.display = 'none';
+          outpoupselect.style.display = 'none';
         }
       else
         {
         }
-
 },
 
-'click #registlemon':function(e, template){
+'click #registlemonbase64':function(e, template){
+  e.preventDefault();
+  var outpoupselect= template.find('#outpoupselect');
+  var lemonselect = template.find('#lemonselect');
+  var section = template.find('.section-container');
+  var lemonerror = template.find('#lemonerror');
+  var infocase = template.find('#infocase');
+  var cleaninfo = template.find('#cleaninfo');
+  infocase.innerHTML = 'Veuillez patienter...';
+  e.currentTarget.style.display = 'none';
+  outpoupselect.style.cursor = 'wait';
+  cleaninfo.style.display = 'none';
+        //outpoupselect.style.cursor = 'wait';
 
-var section = template.find('.section-container');
-var lemonerror = template.find('#lemonerror');
-var outpoupselect = template.find('#outpoupselect');
-var lemonerrortext = template.find('#lemonerrortext');
-var sendimg = template.find("#sendimgtolemon");
-outpoupselect.style.display = 'none';
-lemonerror.style.display = "none";
-        section.style.filter = null;
-        section.style.opacity = null;
-
-Meteor.call('GetWalletDetails', "", function(error, result){
+      //   section.style.filter = null;
+      //   section.style.opacity = null;
+      // if(lemonselect.style.display == 'inline-block'|| lemonerror.style.display == 'inline-block')
+      //   { 
+      //     lemonerror.style.display = 'none'
+      //     lemonselect.style.display = 'none';
+      //     outpoupselect.style.display = 'none';
+      //   }
+      // else
+      //   {
+      //   }
+        infocase.innerHTML = 'Vérification...';
+  Meteor.call('GetWalletDetails', "", function(error, result){
                       if(!error){
-                         console.log("Wallet result: "+JSON.stringify(result.data));
-                         if(result.data.d.WALLET == null)
+                        console.log("result getwallet: "+JSON.stringify(result.data.d));
+                         if(result.data.d.WALLET == null && result.data.d.E != null)
                          {
-                          //Pas de wallet
-                          Meteor.call('RegisterWallet', "", function(error, result){
-                              if(!error){
-                              if(result.data.d.WALLET){
+                           infocase.innerHTML = 'Création Compte...';
+                             Meteor.call('RegisterWallet', "", function(error, result){
+                              if(!error)
+                              {
+                                //console.log("result lemonway: "+JSON.stringify(result.data.d));
+                              if(result.data.d.WALLET && result.data.d.E == null){
+                               
+                          var userdt = UsersData.find({_id:Meteor.userId()}).fetch()[0];
 
-                          var userdat = UsersData.find({_id:Meteor.userId()}).fetch()[0];
-                          var docid = 0;
-                          //var doctosend = {cartid:{type:"0",tempid:"#cartid"}, iban:{type:"2",tempid:"#iban"}};
+                            if(userdt.cartidbase64){
+                                var typeimg = "pdf";
+                                var docsd= null;
+                              if(userdt.cartidbase64.img){
+                               
 
-                          if(userdat.lemondocid!=null)
-                            docid = userdat.lemondocid+1;
+                                  if(userdt.cartidbase64.img.search('data:image/jpeg')!=-1)
+                                      typeimg = "jpeg";
 
-                      
-  //for (var i = 0; doctosend.length > i; i++)  {
+                                  if(userdt.cartidbase64.img.search('data:image/png')!=-1)
+                                        typeimg = "png";
 
-  var idcanvas = template.find("#idcanvas");
-  var ctx = idcanvas.getContext('2d');
-  var idimg = template.find("#cartid");
-idcanvas.height = idimg.height;
-idcanvas.width = idimg.width;
-  ctx.drawImage(idimg, 0, 0);
-  //, 104, 124, 0, 0, idimg.width, idimg.height
+                                  if(userdt.cartidbase64.img.search('data:image/jpg')!=-1)
+                                        typeimg = "jpg";
 
-var typeimg = "png";
+                                  if(userdt.cartidbase64.img.search('data:image/gif')!=-1)
+                                        typeimg = "gif";
 
-if(idimg.src.search('.jpeg')!=-1)
-      typeimg = "jpeg";
+                                  if(userdt.cartidbase64.img.search('data:image/bmp')!=-1)
+                                        typeimg = "bmp";
 
-if(idimg.src.search('.png')!=-1)
-      typeimg = "png";
+                                      docsd = userdt.cartidbase64.img;
+                              }
+                              if(userdt.cartidbase64.pdf){
+                                docsd = userdt.cartidbase64.pdf.replace(/^data:application\/(pdf);base64,/,'');
+                              }
+                              else{
 
-
-if(idimg.src.search('.jpg')!=-1)
-      typeimg = "jpg";
-
-
-if(idimg.src.search('.gif')!=-1)
-      typeimg = "gif";
-
-
-if(idimg.src.search('.bmp')!=-1)
-      typeimg = "bmp";
-
- var myDataURL = template.find("#idcanvas").toDataURL("image/"+typeimg,1.0);
-
-                                Meteor.call('UploadLicense', "carteid."+typeimg, "0", myDataURL, function(error, result){
+                              }
+                 infocase.innerHTML = 'Chargement carte identité';
+   Meteor.call('UploadLicense', "carteidpdf."+typeimg, "0", docsd, function(error, result){
           if (!error){
-                        console.log("result upload: "+JSON.stringify(result.data.d.UPLOAD.ID));
             if(result.data.d.E)
             {
               //erreur de chargement
-              alert("Erreur de chargement de l'image");
+              //alert("Erreur de chargement de l'image");
+              infocase.innerHTML = 'Erreur Chargement carte identité '+result.data.d.E;
             }
            if(result.data.d.UPLOAD){
-        //       //chargement ok 
+        infocase.innerHTML = 'Chargement carte identité teminé';
                var dig = '{"cartidstatus":"upload","lemoncartid":'+result.data.d.UPLOAD.ID+'}';
                var js = JSON.parse(dig);
          UsersData.update({
@@ -335,56 +430,58 @@ if(idimg.src.search('.bmp')!=-1)
            upsert: true
          });
            }
-    //     section.style.filter = 'blur(2px)';
-    //     section.style.opacity = '.5';
-    // outpoupselect.style.display = "inline-block";
-    // lemonerrortext.innerHTML = "Compte créer";
-    // lemonerror.style.display = "inline-block";
-    // lemonerror.style.top = '35%';
-    // lemonerror.style.left = '28%';
           }
           else{
           }
         });
 
-  idcanvas = null;
-  idcanvas = template.find("#idcanvas");
-  ctx = null;
-  ctx = idcanvas.getContext('2d');
-idimg = template.find("#iban");
-idcanvas.height = idimg.height;
-idcanvas.width = idimg.width;
-  ctx.drawImage(idimg, 0, 0);
-
-typeimg = "png";
-if(idimg.src.search('.jpeg')!=-1)
-      typeimg = "jpeg";
-
-if(idimg.src.search('.png')!=-1)
-      typeimg = "png";
+                                        }
+                                      else
+                                      { 
+                                        }
 
 
-if(idimg.src.search('.jpg')!=-1)
-      typeimg = "jpg";
 
+                            if(userdt.ibanbase64){
+                                var ibandoctype = "pdf";
+                                var ibandoc= null;
+                              if(userdt.ibanbase64.img){
+                               
 
-if(idimg.src.search('.gif')!=-1)
-      typeimg = "gif";
+                                  if(userdt.ibanbase64.img.search('data:image/jpeg')!=-1)
+                                      ibandoctype = "jpeg";
 
+                                  if(userdt.ibanbase64.img.search('data:image/png')!=-1)
+                                        ibandoctype = "png";
 
-if(idimg.src.search('.bmp')!=-1)
-      typeimg = "bmp";
-myDataURL = template.find("#idcanvas").toDataURL("image/"+typeimg,1.0);
-//send iban
-                                Meteor.call('UploadLicense', "iban."+typeimg, "2", myDataURL, function(error, result){
+                                  if(userdt.ibanbase64.img.search('data:image/jpg')!=-1)
+                                        ibandoctype = "jpg";
+
+                                  if(userdt.ibanbase64.img.search('data:image/gif')!=-1)
+                                        ibandoctype = "gif";
+
+                                  if(userdt.ibanbase64.img.search('data:image/bmp')!=-1)
+                                        ibandoctype = "bmp";
+
+                                      ibandoc = userdt.ibanbase64.img;
+                              }
+                              if(userdt.ibanbase64.pdf){
+                                ibandoc = userdt.ibanbase64.pdf.replace(/^data:application\/(pdf);base64,/,'');
+                              }
+                              else{
+
+                              }
+                         infocase.innerHTML = 'Chargement R.I.B...';
+   Meteor.call('UploadLicense', "iban."+typeimg, "2", ibandoc, function(error, result){
           if (!error){
-                        console.log("result upload: "+JSON.stringify(result.data.d.UPLOAD.ID));
             if(result.data.d.E)
             {
               //erreur de chargement
-              alert("Erreur de chargement de l'image");
+              infocase.innerHTML = 'Erreur Chargement R.I.B '+result.data.d.E;
+              //alert("Erreur de chargement de l'image");
             }
            if(result.data.d.UPLOAD){
+             infocase.innerHTML = 'Chargement R.I.B Terminé';
         //       //chargement ok 
                var dig = '{"ibanstatus":"upload","lemonibanid":'+result.data.d.UPLOAD.ID+'}';
                var js = JSON.parse(dig);
@@ -396,105 +493,117 @@ myDataURL = template.find("#idcanvas").toDataURL("image/"+typeimg,1.0);
            upsert: true
          });
            }
-    //     section.style.filter = 'blur(2px)';
-    //     section.style.opacity = '.5';
-    // outpoupselect.style.display = "inline-block";
-    // lemonerrortext.innerHTML = "Compte créer";
-    // lemonerror.style.display = "inline-block";
-    // lemonerror.style.top = '35%';
-    // lemonerror.style.left = '28%';
           }
           else{
           }
         });
 
 
+                                        }
+                                      else
+                                      { 
+                                        }
 
+                              if(userdt.licensebase64){
+                                var licensedoctype = "pdf";
+                                var licensedoc= null;
+                              if(userdt.licensebase64.img){
+                               
 
-                                  }
-                              else{}
-                                  }
+                                  if(userdt.licensebase64.img.search('data:image/jpeg')!=-1)
+                                      licensedoctype = "jpeg";
+
+                                  if(userdt.licensebase64.img.search('data:image/png')!=-1)
+                                        licensedoctype = "png";
+
+                                  if(userdt.licensebase64.img.search('data:image/jpg')!=-1)
+                                        licensedoctype = "jpg";
+
+                                  if(userdt.licensebase64.img.search('data:image/gif')!=-1)
+                                        licensedoctype = "gif";
+
+                                  if(userdt.licensebase64.img.search('data:image/bmp')!=-1)
+                                        licensedoctype = "bmp";
+
+                                      licensedoc = userdt.licensebase64.img;
+                              }
+                              if(userdt.licensebase64.pdf){
+                                licensedoc = userdt.licensebase64.pdf.replace(/^data:application\/(pdf);base64,/,'');
+                              }
                               else{
 
-                                  }
-                                  });
-
-                         }
-                         if(result.data.d.WALLET!=null){
-                          console.log("sendimg.click");
-
-                         }
-}
-else{
-
-}
-});
-
-},
-
-'click #sendimgtolemon':function(e, template){
-
- var idcanvas = template.find("#idcanvas");
- var ctx = idcanvas.getContext('2d');
-  var idimg = template.find("#licenseimg");
-idcanvas.height = idimg.height;
-idcanvas.width = idimg.width;
-  ctx.drawImage(idimg, 0, 0);
-  //, 104, 124, 0, 0, idimg.width, idimg.height
-
-var typeimg = "png";
-
-if(idimg.src.search('.jpeg')!=-1)
-      typeimg = "jpeg";
-
-if(idimg.src.search('.png')!=-1)
-      typeimg = "png";
-
-
-if(idimg.src.search('.jpg')!=-1)
-      typeimg = "jpg";
-
-
-if(idimg.src.search('.gif')!=-1)
-      typeimg = "gif";
-
-
-if(idimg.src.search('.bmp')!=-1)
-      typeimg = "bmp";
-
- var myDataURL = template.find("#idcanvas").toDataURL("image/"+typeimg,1.0);
-console.log("myDataURL: "+myDataURL);
-Meteor.call('UploadLicense', "license."+typeimg, "14", myDataURL, function(error, result){
+                              }
+                                 infocase.innerHTML = 'Chargement Permis..';                      //send pdf test
+   Meteor.call('UploadLicense', "license."+licensedoctype, "14", licensedoc, function(error, result){
           if (!error){
-            if(result.d.E)
+            if(result.data.d.E)
             {
               //erreur de chargement
-              alert("Erreur de chargement de l'image");
+              //alert("Erreur de chargement de l'image");
+              infocase.innerHTML = 'Erreur Chargement Permis '+result.data.d.E;
             }
-            if(result.d.UPLOAD){
-              //chargement ok 
-              var dig = '{"cartidstatus":"upload","lemondocid":'+result.d.UPLOAD.ID+'}';
-              var js = JSON.parse(dig);
-        UsersData.update({
-            _id: Meteor.userId()
-        }, {
-            $set: js
-        }, {
-          upsert: true
-        });
-            }
-            console.log("result upload: "+JSON.stringify(result));
+           if(result.data.d.UPLOAD){
+        //       //chargement ok
+        infocase.innerHTML = 'Chargement Permis Terminé';
+        infocase.innerHTML = 'Création Compte Terminé';
+        outpoupselect.style.cursor = null;
+        cleaninfo.style.display = null;
+               var dig = '{"licensestatus":"upload","lemonlicenseid":'+result.data.d.UPLOAD.ID+'}';
+               var js = JSON.parse(dig);
+         UsersData.update({
+             _id: Meteor.userId()
+         }, {
+             $set: js
+         }, {
+           upsert: true
+         });
+           }
           }
           else{
-console.log("result upload error: "+JSON.stringify(error));
           }
         });
+
+                                        }
+                                      else
+                                      {
+                                        infocase.innerHTML = 'Création compte Annulé';
+                                        outpoupselect.style.cursor = null;
+                                        cleaninfo.style.display = null;
+                                      //console.log("error lemonway: "+error); 
+                                        }
+                               
+                              }
+                            }
+                            else{
+                              infocase.innerHTML = 'Création compte Annulé';
+                              outpoupselect.style.cursor = null;
+                              cleaninfo.style.display = null;
+                       //console.log("error lemonway: "+error);
+                            }
+                          });
+
+                         }
+                         else
+                         {
+                           infocase.innerHTML = 'Compte existant';
+                            outpoupselect.style.cursor = null;
+                            cleaninfo.style.display = null;
+                         }
+                       }
+                       else{
+                        infocase.innerHTML = 'Création compte Annulé';
+                        outpoupselect.style.cursor = null;
+                        cleaninfo.style.display = null;
+                       }
+                     });
+
 },
+
 
   'change #avatarImage3': function (e, template) {
    
     if (e.currentTarget.files && e.currentTarget.files[0]) {
- console.log("click upload button"+e.currentTarget.files.getAsDataURL());
+ //console.log("click upload button"+e.currentTarget.files.getAsDataURL());
 }
 },
 
@@ -513,6 +622,7 @@ console.log("result upload error: "+JSON.stringify(error));
 
 
       upload.on('start', function () {
+         e.currentTarget.style.cursor = 'wait';
         template.currentUpload.set(this);
       });
 
@@ -520,6 +630,7 @@ console.log("result upload error: "+JSON.stringify(error));
         if (error) {
           alert('Error during upload: ' + error);
         } else {
+           e.currentTarget.style.cursor = 'pointer';
           //ctx.drawImage(e.currentTarget.files[0],100,100);
           //console.log("file obj : "+JSON.stringify(fileObj));
           //var myDataURL = idcanvas.toDataURL('image/png/jpeg/jpg');
@@ -565,44 +676,61 @@ CampingCars.update({
   },
 
     'change #licenseImage': function (e, template) {
+                  e.preventDefault();
+  var outpoupselect= template.find('#outpoupselect');
+  var lemonselect = template.find('#lemonselect');
+  var section = template.find('.section-container');
+  var lemonerror = template.find('#lemonerror');
+  var infocase = template.find('#infocase');
+  var cleaninfo = template.find('#cleaninfo');
+  var section = template.find('.section-container');
+  var registlemonbase64 = template.find('#registlemonbase64');
+
+
+
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case 
       // multiple files were selected
-      console.log("currentTarget file: "+JSON.stringify(e.currentTarget.files));
-      var upload = Images.insert({
-        //campingcarid: FlowRouter.getParam("_id"),
-        file: e.currentTarget.files[0],
-        //file: 'base64str…',
-        //isBase64: true, // <— Mandatory
-        streams: 'dynamic',
-        chunkSize: 'dynamic'
-      }, false);
+  
+             // Select the very first file from list
+            var fileToLoad = e.currentTarget.files[0];
+            // FileReader function for read the file.
+            var fileReader = new FileReader();
+            var pdfbase64;
 
-      upload.on('start', function () {
-        template.currentUpload.set(this);
-      });
-      
-      // upload.on('uploaded', function (error, fileObj) {
-      //   if (!error) {
-      //     alert('File "' + fileObj.name + '" successfully uploaded');
-      //   }
-      // });
-      upload.on('end', function (error, fileObj) {
-        if (error) {
-          alert('Error during upload: ' + error);
-        } else {
-          //console.log("file obj : "+JSON.stringify(fileObj));
-          //var cursor = Images.findOne({_id: fileObj._id});
-          //console.log("cursor link : "+cursor.link());
-          alert('File "' + fileObj.name + '" successfully uploaded');
-                                  var sup = fileObj.path.split('../../../../../public');
-//       var idimg = template.find("#licenseImage");
-//           var idcanvas = template.find("#idcanvas");
-//           var ctx = idcanvas.getContext('2d');
+            fileReader.onloadstart = function(){
+        section.style.filter = 'blur(2px)';
+        section.style.opacity = '.5';
+    outpoupselect.style.display = "inline-block";
+    lemonselect.style.display = "inline-block";
+    lemonselect.style.top = '35%';
+    lemonselect.style.left = '28%';
+  infocase.innerHTML = 'Veuillez patienter...';
+  e.currentTarget.style.display = 'none';
+  outpoupselect.style.cursor = 'wait';
+  registlemonbase64.style.display = 'none';
+  cleaninfo.style.display = 'none';
+            };
 
-// ctx.drawImage(idimg, 0, 0);
+            fileReader.onerror = function(event){
+        outpoupselect.style.cursor = null;
+        infocase.innerHTML = 'Erreur '+event.target.error.code;
+        cleaninfo.style.display = null;
+            };
 
-var dig = '{"licenseimages":"'+sup[1]+'","licensestatus":"new"}';
+            fileReader.onload = function(fileLoadedEvent, filename) {
+  //e.currentTarget.style.cursor = 'wait';
+                pdfbase64 = fileLoadedEvent.target.result;
+
+var dig= null;
+
+if( /\.(jpe?g|png|jpg)$/i.test(fileToLoad.name)) 
+dig = '{"licensebase64":{"img":"'+pdfbase64+'"},"license64status":"none"}';
+
+
+if( /\.(pdf)$/i.test(fileToLoad.name)) 
+dig = '{"licensebase64":{"pdf":"'+pdfbase64+'"},"license64status":"none"}';
+
 
 var js = JSON.parse(dig);
         UsersData.update({
@@ -612,17 +740,33 @@ var js = JSON.parse(dig);
         }, {
           upsert: true
         });
+        Meteor.reconnect();
 
-        }
-        template.currentUpload.set(false);
-      });
 
-      upload.start();
+            };
+            
+            fileReader.onloadend = function(){
+              outpoupselect.style.cursor = null;
+              infocase.innerHTML = 'Chargement Terminé';
 
+              var userdat = UsersData.find({_id:Meteor.userId()}).fetch()[0];
+
+              if(userdat.ibanbase64 && userdat.lemonibanid == null && userdat.cartidbase64 && userdat.lemoncartid == null && userdat.licensebase64 && userdat.lemonlicenseid == null && userdat.firstname && userdat.lastname && userdat.birthdate && userdat.cellphone && userdat.email)
+                {
+                  infocase.innerHTML = 'Demande de Validation du compte (2 à 3 jours de délai)';
+                  registlemonbase64.style.display = null;
+                }
+              else{
+
+                  infocase.innerHTML = 'Chargement Terminé';
+                  cleaninfo.style.display = null;  
+                }
+            };
+       
+            fileReader.readAsDataURL(fileToLoad, fileToLoad.name);
     }
     else
     {
-console.log("change license img else: ");
     }
 
 
@@ -631,44 +775,59 @@ console.log("change license img else: ");
 
 
     'change #cartidImage': function (e, template) {
+
+              e.preventDefault();
+  var outpoupselect= template.find('#outpoupselect');
+  var lemonselect = template.find('#lemonselect');
+  var section = template.find('.section-container');
+  var lemonerror = template.find('#lemonerror');
+  var infocase = template.find('#infocase');
+  var cleaninfo = template.find('#cleaninfo');
+  var section = template.find('.section-container');
+  var registlemonbase64 = template.find('#registlemonbase64');
+
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case 
       // multiple files were selected
-      console.log("currentTarget file: "+JSON.stringify(e.currentTarget.files));
-      var upload = Images.insert({
-        //campingcarid: FlowRouter.getParam("_id"),
-        file: e.currentTarget.files[0],
-        //file: 'base64str…',
-        //isBase64: true, // <— Mandatory
-        streams: 'dynamic',
-        chunkSize: 'dynamic'
-      }, false);
+             // Select the very first file from list
+            var fileToLoad = e.currentTarget.files[0];
+            // FileReader function for read the file.
+            var fileReader = new FileReader();
+            var pdfbase64;
 
-      upload.on('start', function () {
-        template.currentUpload.set(this);
-      });
-      
-      // upload.on('uploaded', function (error, fileObj) {
-      //   if (!error) {
-      //     alert('File "' + fileObj.name + '" successfully uploaded');
-      //   }
-      // });
-      upload.on('end', function (error, fileObj) {
-        if (error) {
-          alert('Error during upload: ' + error);
-        } else {
-          //console.log("file obj : "+JSON.stringify(fileObj));
-          //var cursor = Images.findOne({_id: fileObj._id});
-          //console.log("cursor link : "+cursor.link());
-          alert('File "' + fileObj.name + '" successfully uploaded');
-                                  var sup = fileObj.path.split('../../../../../public');
-//       var idimg = template.find("#licenseImage");
-//           var idcanvas = template.find("#idcanvas");
-//           var ctx = idcanvas.getContext('2d');
+            fileReader.onloadstart = function(){
+              section.style.filter = 'blur(2px)';
+              section.style.opacity = '.5';
+              outpoupselect.style.display = "inline-block";
+              lemonselect.style.display = "inline-block";
+              lemonselect.style.top = '35%';
+              lemonselect.style.left = '28%';
+              infocase.innerHTML = 'Veuillez patienter...';
+              e.currentTarget.style.display = 'none';
+              outpoupselect.style.cursor = 'wait';
+              registlemonbase64.style.display = 'none';
+              cleaninfo.style.display = 'none';
+            };
 
-// ctx.drawImage(idimg, 0, 0);
+            fileReader.onerror = function(event){
+              outpoupselect.style.cursor = null;
+              infocase.innerHTML = 'Erreur '+event.target.error.code;
+              cleaninfo.style.display = null;
+            };
+            // Onload of file read the file content
+            fileReader.onload = function(fileLoadedEvent, filename) {
+                pdfbase64 = fileLoadedEvent.target.result;
+                         
 
-var dig = '{"cartidimages":"'+sup[1]+'","cartidstatus":"new"}';
+var dig= null;
+
+if( /\.(jpe?g|png|jpg)$/i.test(fileToLoad.name)) 
+dig = '{"cartidbase64":{"img":"'+pdfbase64+'"},"cartid64status":"none"}';
+
+
+if( /\.(pdf)$/i.test(fileToLoad.name)) 
+dig = '{"cartidbase64":{"pdf":"'+pdfbase64+'"},"cartid64status":"none"}';
+
 
 var js = JSON.parse(dig);
         UsersData.update({
@@ -678,12 +837,28 @@ var js = JSON.parse(dig);
         }, {
           upsert: true
         });
+        Meteor.reconnect();
 
-        }
-        template.currentUpload.set(false);
-      });
+            };
 
-      upload.start();
+            fileReader.onloadend = function(){
+              outpoupselect.style.cursor = null;
+              infocase.innerHTML = 'Chargement Terminé';
+
+          var userdat = UsersData.find({_id:Meteor.userId()}).fetch()[0];
+          
+    if(userdat.ibanbase64 && userdat.lemonibanid == null && userdat.cartidbase64 && userdat.lemoncartid == null && userdat.licensebase64 && userdat.lemonlicenseid == null && userdat.firstname && userdat.lastname && userdat.birthdate && userdat.cellphone && userdat.email)
+    {
+      infocase.innerHTML = 'Demande de Validation du compte (2 à 3 jours de délai)';
+      registlemonbase64.style.display = null;
+    }
+    else{
+
+      infocase.innerHTML = 'Chargement Terminé';
+      cleaninfo.style.display = null;  
+    }
+            };
+            fileReader.readAsDataURL(fileToLoad, fileToLoad.name);
 
     }
     else
@@ -695,44 +870,58 @@ var js = JSON.parse(dig);
   },
 
    'change #ibanImage': function (e, template) {
+                  e.preventDefault();
+  var outpoupselect= template.find('#outpoupselect');
+  var lemonselect = template.find('#lemonselect');
+  var section = template.find('.section-container');
+  var lemonerror = template.find('#lemonerror');
+  var infocase = template.find('#infocase');
+  var cleaninfo = template.find('#cleaninfo');
+  var section = template.find('.section-container');
+  var registlemonbase64 = template.find('#registlemonbase64');
+
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case 
       // multiple files were selected
-      console.log("currentTarget file: "+JSON.stringify(e.currentTarget.files));
-      var upload = Images.insert({
-        //campingcarid: FlowRouter.getParam("_id"),
-        file: e.currentTarget.files[0],
-        //file: 'base64str…',
-        //isBase64: true, // <— Mandatory
-        streams: 'dynamic',
-        chunkSize: 'dynamic'
-      }, false);
 
-      upload.on('start', function () {
-        template.currentUpload.set(this);
-      });
-      
-      // upload.on('uploaded', function (error, fileObj) {
-      //   if (!error) {
-      //     alert('File "' + fileObj.name + '" successfully uploaded');
-      //   }
-      // });
-      upload.on('end', function (error, fileObj) {
-        if (error) {
-          alert('Error during upload: ' + error);
-        } else {
-          //console.log("file obj : "+JSON.stringify(fileObj));
-          //var cursor = Images.findOne({_id: fileObj._id});
-          //console.log("cursor link : "+cursor.link());
-          alert('File "' + fileObj.name + '" successfully uploaded');
-                                  var sup = fileObj.path.split('../../../../../public');
-//       var idimg = template.find("#licenseImage");
-//           var idcanvas = template.find("#idcanvas");
-//           var ctx = idcanvas.getContext('2d');
+            var fileToLoad = e.currentTarget.files[0];
+            // FileReader function for read the file.
+            var fileReader = new FileReader();
+            var pdfbase64;
 
-// ctx.drawImage(idimg, 0, 0);
+            fileReader.onloadstart = function(){
+        section.style.filter = 'blur(2px)';
+        section.style.opacity = '.5';
+    outpoupselect.style.display = "inline-block";
+    lemonselect.style.display = "inline-block";
+    lemonselect.style.top = '35%';
+    lemonselect.style.left = '28%';
+  infocase.innerHTML = 'Veuillez patienter...';
+  e.currentTarget.style.display = 'none';
+  outpoupselect.style.cursor = 'wait';
+  registlemonbase64.style.display = 'none';
+  cleaninfo.style.display = 'none';
+            };
 
-var dig = '{"ibanimages":"'+sup[1]+'","ibanstatus":"new"}';
+            fileReader.onerror = function(event){
+        outpoupselect.style.cursor = null;
+        infocase.innerHTML = 'Erreur '+event.target.error.code;
+        cleaninfo.style.display = null;
+            };
+
+            // Onload of file read the file content
+            fileReader.onload = function(fileLoadedEvent, filename) {
+                pdfbase64 = fileLoadedEvent.target.result;
+
+var dig= null;
+
+if( /\.(jpe?g|png|jpg)$/i.test(fileToLoad.name)) 
+dig = '{"ibanbase64":{"img":"'+pdfbase64+'"},"iban64status":"none"}';
+
+
+if( /\.(pdf)$/i.test(fileToLoad.name)) 
+dig = '{"ibanbase64":{"pdf":"'+pdfbase64+'"},"iban64status":"none"}';
+
 
 var js = JSON.parse(dig);
         UsersData.update({
@@ -742,12 +931,30 @@ var js = JSON.parse(dig);
         }, {
           upsert: true
         });
+        Meteor.reconnect();
 
-        }
-        template.currentUpload.set(false);
-      });
+            };
 
-      upload.start();
+            fileReader.onloadend = function(){
+              outpoupselect.style.cursor = null;
+              infocase.innerHTML = 'Chargement Terminé';
+
+                   var userdat = UsersData.find({_id:Meteor.userId()}).fetch()[0];
+
+    if(userdat.ibanbase64 && userdat.lemonibanid == null && userdat.cartidbase64 && userdat.lemoncartid == null && userdat.licensebase64 && userdat.lemonlicenseid == null && userdat.firstname && userdat.lastname && userdat.birthdate && userdat.cellphone && userdat.email)
+    {
+      infocase.innerHTML = 'Chargement Terminé';
+      infocase.innerHTML = 'Demande de Validation du compte (2 à 3 jours de délai)';
+      registlemonbase64.style.display = null;
+}
+else{
+
+      infocase.innerHTML = 'Chargement Terminé';
+      cleaninfo.style.display = null;  
+}
+            };
+       
+            fileReader.readAsDataURL(fileToLoad, fileToLoad.name);
 
     }
     else
@@ -758,46 +965,78 @@ var js = JSON.parse(dig);
 
   },
 
-  'load img': function (event, template) {
-   
+'click .openinfobul': function(event, template){
+event.preventDefault();
 
-    event.preventDefault();
-    
-    console.log("event target text: "+event.target.id);
-    if(UsersData.find({_id:Meteor.userId()}).fetch()[0])
-    {
-      var userdat = UsersData.find({_id:Meteor.userId()}).fetch()[0];
-    if(event.target.id == "licenseimg" && userdat.licenseimages && userdat.licensestatus == "new" && userdat.firstname && userdat.lastname && userdat.birthdate && userdat.cellphone && userdat.email && userdat.cartidstatus == "upload")
-    {
-    //   console.log("event client X : "+event.clientY);
-    // console.log("event client Y : "+event.clientX);
-    // var section = template.find('.section-container');
-    // var lemonselect = template.find('#lemonselect');
-    // var outpoupselect = template.find('#outpoupselect');
-    // var lemonerrortext = template.find('#lemonerrortext');
-    //     section.style.filter = 'blur(2px)';
-    //     section.style.opacity = '.5';
-    // outpoupselect.style.display = "inline-block";
-    // lemonselect.style.display = "inline-block";
-    // lemonselect.style.top = '35%';
-    // lemonselect.style.left = '28%';
-}
-    if(event.target.id == "iban" && userdat.ibanimages && userdat.ibanstatus == "new" && userdat.cartidimages && userdat.cartidstatus == "new" && userdat.firstname && userdat.lastname && userdat.birthdate && userdat.cellphone && userdat.email)
-    {
-      console.log("event client X : "+event.clientY);
-    console.log("event client Y : "+event.clientX);
+  var lemonwayregister = template.find('.LemonwayRegister');
+  lemonwayregister.style.display = 'inline-block';
     var section = template.find('.section-container');
     var lemonselect = template.find('#lemonselect');
     var outpoupselect = template.find('#outpoupselect');
     var lemonerrortext = template.find('#lemonerrortext');
+    var registlemonbase64 = template.find('#registlemonbase64');
+    var infocase = template.find('#infocase');
+    infocase.innerHTML = 'Demande de Validation du compte (2 à 3 jours de délai)';
         section.style.filter = 'blur(2px)';
         section.style.opacity = '.5';
     outpoupselect.style.display = "inline-block";
     lemonselect.style.display = "inline-block";
+    registlemonbase64.style.display = null;
     lemonselect.style.top = '35%';
     lemonselect.style.left = '28%';
+
+},
+
+'click .TestLemonwayRequestHTTP': function(event, template){
+ event.currentTarget.style.cursor = 'wait';//wait copy
+Meteor.call('GetWalletDetails', "", function(error, result){
+  if(!error){
+        event.currentTarget.style.cursor = 'pointer';
+    console.log("TestLemonwayRequest result:"+JSON.stringify(result.data));
+  }
+  else{
+   console.log("TestLemonwayRequest error:"+JSON.stringify(error)); 
+  }
+});
+},
+
+'click .LemonwayRegister': function(event, template){
+  
+  event.preventDefault();
+  var outpoupselect= template.find('#outpoupselect');
+  var lemonselect = template.find('#lemonselect');
+  var section = template.find('.section-container');
+  var lemonerror = template.find('#lemonerror');
+  var infocase = template.find('#infocase');
+  var cleaninfo = template.find('#cleaninfo');
+  var lemonwayregister = template.find('.LemonwayRegister');
+  infocase.innerHTML = 'Veuillez patienter...';
+  cleaninfo.style.display = 'none';
+  lemonwayregister.style.display = 'none';
+  event.currentTarget.style.display = 'none';
+  outpoupselect.style.cursor = 'wait';
+
+
+Meteor.call('RegisterWallet', "", function(error, result){
+  if(!error){
+    console.log("LemonwayRegister result:"+JSON.stringify(result.data));
+    
+    if(result.data.d.WALLET == null || result.data.d.E){
+        outpoupselect.style.cursor = null;
+      infocase.innerHTML = 'Création de Compte Annulé';
+      cleaninfo.style.display = null;
+  }
+    else{
+      infocase.innerHTML = 'Création Compte Terminé';
+      outpoupselect.style.cursor = null;
+      cleaninfo.style.display = null;
+  }
 }
-}
-}
+  else{
+          //infocase.innerHTML = result.data.d.E.Msg; 
+  }
+    
+});
+},
 
    });

@@ -11,13 +11,26 @@ var contentviewtab = [];
 
  Template.maplistings.onCreated(function() {
 
-
   //titre de la page
   DocHead.setTitle("Localisation, carte, communes|Le Bon Camping-car");
   
-  Tracker.autorun(function () {
-  Meteor.subscribe("campingcars");
-  Meteor.subscribe("communes");
+
+  this.autorun(() => {
+  this.subscribe("campingcars");
+  
+  this.subscribe("onecommune", FlowRouter.getParam("name").toUpperCase(), {
+  onStop : function (error){
+    //console.log("onecommune onstop Error: "+error);
+    // console.log("userdata onstop Reason: "+e.reason);
+    // console.log("userdata onstop Details: "+e.details);
+  },
+  onReady :function(){
+    console.log("onecommune onready");
+    
+  }
+
+});
+
 });
 
  GoogleMaps.ready('MapListings', function(map){
@@ -108,7 +121,7 @@ var contentview = '<div class="listing-map-popover">'+
   };    
 //passez dans marker.html la vue de infowindows pour l'appeller dans le listener avec this.html
   var marker = new google.maps.Marker({
-    position: new google.maps.LatLng(CampingCars.find({}).fetch()[i].location.lat, CampingCars.find({}).fetch()[i].location.lng),
+    position: new google.maps.LatLng(campingcars[i].location.lat, campingcars[i].location.lng),
     map: map.instance,
     icon: campingcaricon,
     html: contentview,
@@ -227,12 +240,11 @@ return com;
  Template.maplistings.onRendered(function(){
 
 GoogleMaps.load({key: Meteor.settings.public.G_MAP_KEY, libraries: 'places'});
-
-this.$('.datetimepickerstart').datetimepicker({
-        format: 'DD/MM/YYYY',
+ 
+ this.$('.datetimepickerend').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale:'fr',
         minDate: moment(),
-        //collapse:false,
-        //disabledHours:true,
         //keepOpen: true,
         //inline: true,
         //focusOnShow:false,
@@ -243,20 +255,18 @@ this.$('.datetimepickerstart').datetimepicker({
             //moment().add(7, 'days'),
             //              ]
     });
- 
- this.$('.datetimepickerend').datetimepicker({
-        format: 'DD/MM/YYYY',
-        minDate: moment(),
+
+  this.$('.datetimepickerstart').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale:'fr',
+        minDate: moment()
+        //showClose: true,
         //keepOpen: true,
-        //inline: true,
-        //focusOnShow:false,
-        //collapse:false,
-        //deactivation des dates ou le parking est completenabledDates()
-        //enabledDates: [moment().add(3, 'days'),moment().add(4, 'days')]
-        //[moment().add(3, 'days')]            //[
-            //moment().add(7, 'days'),
-            //              ]
-    }); 
+        //debug: true
+
+    }).on('dp.change', function(e) {
+  $('.datetimepickerend').data("DateTimePicker").minDate(e.date)
+});
 
 
 
@@ -266,11 +276,6 @@ this.$('.datetimepickerstart').datetimepicker({
  Template.maplistings.helpers({
 
     campingcars: function(){
-
-    //const instance = Template.instance();
-    console.log("camping car find : "+CampingCars.find({publish : 'valid'}).count());
-    //console.log("campingcar find! vue nombre: "+CampingCars.find({_id:FlowRouter.getParam("_id")}).fetech()[0].daysfull[0]);
-
 
 return CampingCars.find({publish : 'valid'},{limit:32}).fetch();
   },

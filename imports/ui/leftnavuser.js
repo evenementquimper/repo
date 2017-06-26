@@ -10,6 +10,7 @@ import './leftnavuser.html';
   
     Tracker.autorun(function () {
     Meteor.subscribe("campingcars");
+    Meteor.subscribe('myusersdata');
 });
 
 });
@@ -18,15 +19,7 @@ import './leftnavuser.html';
  Template.leftnavuser.helpers({
 
   userdata:function(){
-  if(Meteor.userId() && UsersData.find({}))
-  {
-    //console.log("User ID: "+UsersData.find({_id:Meteor.userId()}).fetch()[0].firstname);
-    return UsersData.find({_id:Meteor.userId()}).fetch()[0];
-  }
-  else
-  {
-    return false;
-  }
+    return UsersData.find({}).fetch()[0];
 }
 
 });

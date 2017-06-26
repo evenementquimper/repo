@@ -84,6 +84,16 @@ FlowRouter.route('/validpay/:reservation_id/:amount', {
   name:'validpay',
   action: function(params, queryParams) {
     BlazeLayout.render("validpay");
+    //BlazeLayout.render("mainLayout", {nav:"nav",homepage:"validpay"});
+ }
+});
+
+FlowRouter.route('/validpay', {
+  name:'validpay',
+  action: function(params, queryParams) {
+    //BlazeLayout.render("validpay");
+    BlazeLayout.render("validpay");
+    //BlazeLayout.render("mainLayout", {nav:"nav",homepage:"validpaytest"});
  }
 });
 
@@ -96,6 +106,13 @@ FlowRouter.route('/cancelpay/:reservation_id/:amount', {
 });
 
 FlowRouter.route('/errorpay/:reservation_id/:amount', {
+  name:'errorpay',
+  action(params, queryParams) {
+    BlazeLayout.render("errorpay");
+ }
+});
+
+FlowRouter.route('/errorpay', {
   name:'errorpay',
   action(params, queryParams) {
     BlazeLayout.render("errorpay");

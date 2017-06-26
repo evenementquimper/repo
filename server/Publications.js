@@ -12,11 +12,31 @@ Meteor.publish('tasks', function () {
 Meteor.publish('campingcars', function () {
     return CampingCars.find({});
 });
+Meteor.publish('onecampingcar', function(city, make, model){
+    return CampingCars.find({city:city, make:make, model:model});
+});
 Meteor.publish('usersdata', function () {
     return UsersData.find({});
 });
+Meteor.publish('publicusersdata', function (id) {
+    //Do a synchronous http request:
+  try {
+    return UsersData.find({_id:id},{firstname:1,lastname:1});
+  }
+  catch (error) {
+    //We caught an exception; Let's add some detail:
+    throw new Meteor.Error(error, "UsersData call failed", '');
+  }
+});
+Meteor.publish('myusersdata', function myusersdataPublication() {
+  console.log("publish userid: "+this.userId);
+    return UsersData.find({_id:this.userId});
+});
 Meteor.publish('reservations', function () {
     return Reservations.find({});
+});
+Meteor.publish('campingcarreservations', function (campingcarid) {
+    return Reservations.find({resource_id:campingcarid});
 });
 Meteor.publish('addons', function () {
     return AddOns.find({});
@@ -35,6 +55,9 @@ Meteor.publish('mailings', function () {
 });
 Meteor.publish('communes', function () {
     return Communes.find({});
+});
+Meteor.publish('onecommune', function (city) {
+    return Communes.find({nom_commune:city});
 });
 Meteor.publish('private', function() {
   if (!this.userId) {

@@ -11,9 +11,17 @@ import './campingcar.html';
 var metanbr;
 
  Template.campingcar.onCreated(function() {
+      const campingcarssubs = this.subscribe('onecampingcar',FlowRouter.getParam('city') , FlowRouter.getParam('make'), FlowRouter.getParam('model'), {
+  onStop : function (error){
+  },
+  onReady :function(){
+    //console.log("onecampingcar onready");
+    
+  }
+      });
 
   this.autorun(() => {
-    const campingcarssubs = this.subscribe('campingcars');
+    //const campingcarssubs = this.subscribe('campingcars');
     if(campingcarssubs.ready()){
       var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
       DocHead.setTitle(bdd.city+"|"+bdd.make+"|"+bdd.model+"|"+bdd.name+"|Le Bon Camping-car");
@@ -21,17 +29,13 @@ var metanbr;
       DocHead.addMeta(metaInfo);
       var linkInfo = {rel: "icon", sizes:"16x16 32x32", href: "/favicon.ico?v=4"};
       DocHead.addLink(linkInfo);
-
-  // var campingcars = CampingCars.find().fetch();
-  //   _.each(campingcars, function(campingcar) {
-  //       if(campingcar.city && campingcar.make && campingcar.model)
-  //   out.push({
-  //     page: '/campingcar/'+campingcar.city+'/'+campingcar.make+'/'+campingcar.model,
-  //     lastmod: new Date(),
-  //     changefreq: 'daily', 
-  //     priority: 0.8
-  //   });
-  // });
+      this.subscribe('publicusersdata',bdd.userid, {
+        onStop : function (error){
+        },
+          onReady :function(){
+    //console.log("publicdata onready"); 
+  }
+      });
     }
 
     this.subscribe('addons');
@@ -39,7 +43,7 @@ var metanbr;
     if(reservationssubs.ready()){
     }
 
-    this.subscribe('usersdata');
+    
   });
 
 Session.set("addonstab", null);
@@ -103,6 +107,7 @@ calendaroptions: function() {
             center: 'title',
             right:  'next'
         },
+        locale: 'fr',
         height: 'auto',
         aspectRatio: 2,
         views: {

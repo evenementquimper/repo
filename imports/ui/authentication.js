@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
 import { EJSON } from 'meteor/ejson';
  
-import { CampingCars } from '../api/campingcars.js';
+//import { CampingCars } from '../api/campingcars.js';
  
 
 import './authentication.html';
@@ -13,12 +13,13 @@ import './authentication.html';
         //     }
         // });
 
-  Tracker.autorun(function () {
-    Meteor.subscribe("campingcars");
-});
+//   Tracker.autorun(function () {
+//     Meteor.subscribe("campingcars");
+// });
 
     //titre de la page
   DocHead.setTitle("Inscription, Connection|Le Bon Camping-car");
+
 
 });
 

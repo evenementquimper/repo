@@ -9,26 +9,47 @@ import { Reservations } from '../api/reservations.js';
 import { AddOns } from '../api/addons.js';
 import { Session } from 'meteor/session';
 
-//import './loc_confirm_resa_mail.html';
 import './campingcarbooking.html';
 
 
  Template.campingcarbooking.onCreated(function() {
-
-     this.dtime = new ReactiveDict();
-     this.prizes = new ReactiveDict();
+  this.dtime = new ReactiveDict();
+  this.prizes = new ReactiveDict();
 
   this.autorun(() => {
-    const campingcarssubs = this.subscribe('campingcars');
+    const campingcarssubs = this.subscribe('onecampingcar',FlowRouter.getParam('city') , FlowRouter.getParam('make'), FlowRouter.getParam('model'), {
+  onStop : function (error){
+  },
+  onReady :function(){   
+        var bddcampingcar = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
+       
+  }
+      });
+
     if(campingcarssubs.ready()){
       var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
- $('.startdatetimepicker').data("DateTimePicker").disabledDates(bdd.daysfull);
- $('.enddatetimepicker').data("DateTimePicker").disabledDates(bdd.daysfull);
+    console.log("resource_id: "+bdd._id);
+    this.subscribe('campingcarreservations', bdd._id, {
+    onStop : function (error){
+      console.log("campingcarreservations onStop");
+  },
+  onReady :function(){   
+      console.log("campingcarreservations onready"); 
+  }   
+    }); 
 
     }
     this.subscribe('Images');
     this.subscribe('addons');
-    this.subscribe('reservations');
+    
+
+  const usersdatasubs = this.subscribe('myusersdata', {
+  onStop : function (error){
+  },
+  onReady :function(){    
+  }
+
+});
 });
 
 
@@ -37,19 +58,23 @@ import './campingcarbooking.html';
 
  Template.campingcarbooking.onRendered(function() {
 
+function daysf(){
+      var bddcampingcar = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
+      // var reservations_cc = Reservations.find({});
+      //   console.log("bdd reservations_cc: "+reservations_cc[0]._id);
+      
+        console.log("bdd campingcar: "+bddcampingcar._id);
+        console.log("bdd dayf: "+bddcampingcar.daysfull[0]);
+          return bddcampingcar.daysfull;
+};
 
-this.$('.startdatetimepicker').datetimepicker({
-        format: 'YYYY-MM-DD',
-        minDate: moment()
-        //showClose: true,
-        //keepOpen: true,
-        //debug: true
 
-    });
 this.$('.enddatetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',
-        minDate: moment()
-        //disabledDates: []
+        locale:'fr',
+        minDate: moment(),
+        disabledDates:daysf() 
+
         //enableDates: [Template.instance().dtime.get('enabledates')],
         //keepOpen: true,
         //inline: true,
@@ -61,6 +86,20 @@ this.$('.enddatetimepicker').datetimepicker({
             //moment().add(7, 'days'),
             //              ]
     });
+
+this.$('.startdatetimepicker').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale:'fr',
+        minDate: moment(),
+        disabledDates:daysf() 
+        //showClose: true,
+        //keepOpen: true,
+        //debug: true
+
+    }).on('dp.change', function(e) {
+  $('.enddatetimepicker').data("DateTimePicker").minDate(e.date)
+});
+
 });
 
 Template.campingcarbooking.helpers({
@@ -78,7 +117,7 @@ return Template.instance().prizes.get('peoplenbr');
 },
 
 insuranceprize: function(){
-return Template.instance().dtime.get('deltadate')*14;
+return Template.instance().dtime.get('deltadate')*0;
 },
 
 campingcaraddonsselect:function(){
@@ -130,7 +169,7 @@ totalprize: function(){
   if(Template.instance().prizes.get('addonsprize'))
     addons = Template.instance().prizes.get('addonsprize');
 
-  var insurance = Template.instance().dtime.get('deltadate')*14;
+  var insurance = Template.instance().dtime.get('deltadate')*0;
   Template.instance().prizes.set('brutprize', net+addons+insurance);
   return net+addons+insurance;
 },
@@ -263,8 +302,8 @@ netprize = pday * Math.round(dif.asDays());
 'dp.change .startdatetimepicker': function(event, instance){
     
     event.preventDefault();
-    //var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
-    //var minday = parseInt(bdd.maxGuests);
+console.log("startdatepik change "+$('.startdatetimepicker').data().date);
+console.log("startdatepik moment "+moment($('.startdatetimepicker').data().date));
 
     if(moment($('.startdatetimepicker').data().date).isValid())
       instance.dtime.set('startdatepicker', $('.startdatetimepicker').data().date);
@@ -274,8 +313,10 @@ netprize = pday * Math.round(dif.asDays());
 'dp.change .enddatetimepicker': function(event, instance){
     
     event.preventDefault();
+
     if(moment($('.enddatetimepicker').data().date).isValid())
       instance.dtime.set('enddatepicker', $('.enddatetimepicker').data().date);
+
   
 },
 
@@ -284,13 +325,13 @@ netprize = pday * Math.round(dif.asDays());
 
 //vérifier que la durée de la réservation est supérieur à la durée minimum
 
-//vérifier que la période de réservation ne contiens pas des jours full
+//vérifier que la période de réservation ne contiens pas des jours full  
 var baduser = false;
 var wallet = false;
 
 if(UsersData.find({_id:Meteor.userId()}).fetch()[0]){
 var userdata = UsersData.find({_id:Meteor.userId()}).fetch()[0];
-  if(!userdata.firstname || !userdata.lastname || !userdata.birthdate || !userdata.cellphone || !userdata.email || !userdata.cartidimages || !userdata.ibanimages){
+  if(!userdata.firstname || !userdata.lastname || !userdata.birthdate || !userdata.cellphone || !userdata.email || !userdata.lemoncartid || !userdata.lemonibanid){
     alert("Merci de compléter votre profil");
     FlowRouter.go('/user');
     baduser = true;
@@ -315,11 +356,17 @@ for (var i = 0; i < bdd.daysfull.length; i++) {
 if(error!=false)
 alert("Réservation Impossible durant cette période");
 
+ console.log("userId: "+Meteor.userId());
+ console.log("userdata firstname: "+UsersData.find({_id:Meteor.userId()}).fetch()[0].firstname);
+ console.log("instance: "+instance.dtime.get('startdatepicker'));
+console.log("moment: "+moment.locale());
+
 if(Meteor.userId() && UsersData.find({_id:Meteor.userId()}).fetch()[0] && error==false && baduser==false)
 {
-//alert("Paiement de la Réservation");
+
 var advance = false;
-//console.log("Différence entre auj et start: "+moment(instance.dtime.get('startdatepicker'),"YYYY-MM-DD").diff(moment(), 'months'));
+
+
 
 //si la date du debut de la réservation est à dans plus 1 mois, un acompte de 30% est prélever  
 if(moment(instance.dtime.get('startdatepicker'),"YYYY-MM-DD").diff(moment(), 'months')!=0)
@@ -336,6 +383,7 @@ else
 
 var book_id = Reservations.find({}).fetch().length+"-"+moment().format('YY-DDD');
 var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
+
      Reservations.insert({"book_id":book_id,
                           "user_id":Meteor.userId(),
                           "resource_id":bdd._id,
@@ -361,7 +409,8 @@ var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.g
 }
 else
 {
-  FlowRouter.go('/');
+  console.log("erreur reservation: ");
+  //FlowRouter.go('/');
 }
 
 }

@@ -56,8 +56,9 @@ else
 
   },
     changed(id, fields){
-          if(fields.images)
-    console.log("Add new image: "+count+" UserId: "+id + " réserve le camping car Id " + fields.images);
+console.log("Change fields"+JSON.stringify(fields));
+      //    if(fields.images)
+    //console.log("Add new image: "+count+" UserId: "+id + " réserve le camping car Id " + fields.images);
  
 
     },

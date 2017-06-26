@@ -8,7 +8,7 @@ import './loginLayout.html';
 
     //titre de la page
   DocHead.setTitle("Inscription, Connection|Le Bon Camping-car");
-
+T9n.setLanguage("fr");
 });
 
 

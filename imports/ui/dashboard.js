@@ -130,6 +130,7 @@ return false;
   Template.dashboard.events({
 
 'click #lemonway': function(event, template){
+    event.currentTarget.style.cursor = 'wait';
 //console.log("private web: "+Meteor.settings.public.LEMON_WEBKIT);
  Meteor.call('MoneyInWebInit', FlowRouter.getParam("reservation_id"), function(error, result){
            if (!error){

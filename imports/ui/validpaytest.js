@@ -8,7 +8,7 @@ import './validpay.html';
  
 var contentviewtab = []; 
 
- Template.validpay.onCreated(function() {
+ Template.validpaytest.onCreated(function() {
 
 
   //titre de la page
@@ -16,14 +16,18 @@ var contentviewtab = [];
   
   this.autorun(() => {
     const reservationssubs = this.subscribe('reservations');
-    const usersdatasubs = this.subscribe('myusersdata');
+    const usersdatasubs = this.subscribe('usersdata');
+
+if(usersdatasubs.ready() && reservationssubs.ready()){
+
+  }
 
 });
 
 
 });
 
- Template.validpay.onRendered(function(){
+ Template.validpaytest.onRendered(function(){
 
 var userdata = UsersData.find({_id:Meteor.userId()}).fetch()[0];
 
@@ -50,8 +54,6 @@ var userdata = UsersData.find({_id:Meteor.userId()}).fetch()[0];
 if(FlowRouter.getQueryParam("response_wkToken")==null || FlowRouter.getParam("amount")==null || FlowRouter.getParam("reservation_id")==null){
   infocase.innerHTML = "Paiement Annuler";
   cleaninfo.style.display = null;
-  outpoupselect.style.cursor = null;
-  cleaninfo.style.cursor = 'pointer';
 }
 
 if(FlowRouter.getQueryParam("response_wkToken") && FlowRouter.getParam("amount") && FlowRouter.getParam("reservation_id")){
@@ -63,12 +65,15 @@ if(FlowRouter.getQueryParam("response_wkToken") && FlowRouter.getParam("amount")
           if (!error){
 
 var resa = Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0];
+//amount = resa.brutprize.prize;
+
 
               if(result.data.d.E == null && result.data.d.WALLET.BAL && result.data.d.WALLET.BAL!=="0" && result.data.d.WALLET.BAL >= realamount){
 
-       
+                //bal = result.data.d.WALLET.BAL;
 
                 if(resa.solde && resa.solde.prize && resa.solde.prize == amount){
+                    //console.log("case 1 : ");
 
                     Reservations.update({
                       _id: FlowRouter.getParam("reservation_id")
@@ -80,8 +85,6 @@ var resa = Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch(
                     infocase.innerHTML = "Paiement Terminé, voir le détail de la réservation: ";
 
                     gotoresa.style.display = null;
-                    outpoupselect.style.cursor = null;
-                    gotoresa.style.cursor = 'pointer';
                 }
 
                 if(resa.advance && resa.advance.prize && resa.advance.prize == amount){
@@ -96,12 +99,10 @@ var resa = Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch(
                     });
                   infocase.innerHTML = "Paiement Terminé, voir le détail de la réservation: ";
                   gotoresa.style.display = null;
-                  outpoupselect.style.cursor = null;
-                  gotoresa.style.cursor = 'pointer';
 
                 }
 
-                if(resa.brutprize && resa.brutprize == amount){
+                if(resa.brutprize && resa.brutprize.prize == amount){
 
                     Reservations.update({
                       _id: FlowRouter.getParam("reservation_id")
@@ -112,23 +113,17 @@ var resa = Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch(
                     });
                   infocase.innerHTML = "Paiement Terminé, voir le détail de la réservation: ";
                   gotoresa.style.display = null;
-                  outpoupselect.style.cursor = null;
-                  gotoresa.style.cursor = 'pointer';
                 }
 
                 else{
-                // infocase.innerHTML = "Erreur de paiement";
-                // cleaninfo.style.display = null;
-                // outpoupselect.style.cursor = null;
-                // cleaninfo.style.cursor = 'pointer';
+                infocase.innerHTML = "Erreur de paiement";
+                cleaninfo.style.display = null;
                 }
 
               }
               if(result.data.d.E){
                 infocase.innerHTML = result.data.d.E.Msg;
                 cleaninfo.style.display = null;
-                outpoupselect.style.cursor = null;
-                cleaninfo.style.cursor = 'pointer';
               }
               else{}
           }
@@ -143,7 +138,7 @@ var resa = Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch(
 });
 
 
- Template.validpay.helpers({
+ Template.validpaytest.helpers({
 
     resa: function(){
 return Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0];
@@ -151,10 +146,10 @@ return Reservations.find({_id:FlowRouter.getParam("reservation_id")}).fetch()[0]
 
 });
 
-  Template.validpay.events({
+  Template.validpaytest.events({
 
   'click .gotoresa':function(event, template){
-event.preventDefault();
+e.preventDefault();
  FlowRouter.go('book', { _id: event.currentTarget.id });
   },
 

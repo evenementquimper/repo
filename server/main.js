@@ -72,19 +72,25 @@ Meteor.startup(() => {
 
 Roles.addUsersToRoles(Meteor.settings.admin.ADM_ID, 'admin', Roles.GLOBAL_GROUP);
 
+moment.locale('fr');
+var m = moment(1316116057189);
+console.log("moment :"+m.fromNow());
+
+// il y a une heure
+
 //Roles.addUsersToRoles("tbGqSYj2CncNDo8Fn", 'admin', Roles.GLOBAL_GROUP);
 //Roles.addUsersToRoles("tbGqSYj2CncNDo8Fn", 'admin', Roles.GLOBAL_GROUP);
-  // Return early if URL isn't HTTPS (or if it isn't set).
+  //Return early if URL isn't HTTPS (or if it isn't set).
   // var isHttps = parse(Meteor.settings.private.cdnPrefix).protocol === 'https:';
   // if (!isHttps)
   //   return;
 
   // Add CDN awesomeness - this is the critical line.
-  //WebAppInternals.setBundledJsCssPrefix(Meteor.settings.private.cdnPrefix);
- //  // Trust the URL in our browser policy (if it's available).
-   //try {
-     //return BrowserPolicy.content.allowOriginForAll(Meteor.settings.private.cdnPrefix);
-   //} catch (undefined) {}
+  // WebAppInternals.setBundledJsCssPrefix(Meteor.settings.private.cdnPrefix);
+  // // Trust the URL in our browser policy (if it's available).
+  //  try {
+  //    return BrowserPolicy.content.allowOriginForAll(Meteor.settings.private.cdnPrefix);
+  //  } catch (undefined) {}
 
  //IPGeocoder.load();
 Meteor.absoluteUrl(['http://leboncampingcar.fr']);
@@ -112,8 +118,7 @@ Meteor.absoluteUrl(['http://leboncampingcar.fr']);
 Accounts.validateNewUser((attempt) => {
   // if (attempt.services.facebook){
   // }
-    console.log("attempt user:"+JSON.stringify(attempt));
-  if (attempt.emails[0].address == "ntahraoui@lemonway.com" || attempt.emails[0].address == "damien.leroi@gmail.com" || attempt.emails[0].address == "florian.dubois@gmail.com" || attempt.emails[0].address == "benoit.marchant@gmail.com" || attempt.emails[0].address == "julien.cali@gmail.com" || attempt.emails[0].address == "gwenn.donniou@gmail.com" || attempt.emails[0].address == "contact.amopok@gmail.com" || attempt.emails[0].address == "lclavijo@lemonway.com") {
+  if (attempt.emails[0].address == "test2@gmail.com" || attempt.emails[0].address == "test1@gmail.com" || attempt.emails[0].address == "anne.dupont@gmail.com" || attempt.emails[0].address == "celine.dubois@gmail.com" || attempt.emails[0].address == "valerie.dufoin@gmail.com" || attempt.emails[0].address == "claire.ken@gmail.com" || attempt.emails[0].address == "gaetan.berree@gmail.com" || attempt.emails[0].address == "donniougigi@gmail.com" || attempt.emails[0].address == "antoine.donniou@gmail.com" || attempt.emails[0].address == "bernard.silva@gmail.com" || attempt.emails[0].address == "helene.laville@gmail.com" || attempt.emails[0].address == "tony.lagare@gmail.com" || attempt.emails[0].address == "ntahraoui@lemonway.com" || attempt.emails[0].address == "damien.leroi@gmail.com" || attempt.emails[0].address == "florian.dubois@gmail.com" || attempt.emails[0].address == "benoit.marchant@gmail.com" || attempt.emails[0].address == "julien.cali@gmail.com" || attempt.emails[0].address == "gwenn.donniou@gmail.com" || attempt.emails[0].address == "contact.amopok@gmail.com" || attempt.emails[0].address == "lclavijo@lemonway.com") {
 
     return true;
   } else {
@@ -134,9 +139,6 @@ Accounts.validateNewUser((attempt) => {
 });
 
 Meteor.onConnection(function(conn) {
-  console.log("Mongo Url: "+process.env.MONGO_URL);
-    console.log("connection client address: "+conn.clientAddress);
-    console.log("connection client id: "+conn.id);
 //nbrconn = nbrconn+1;
 //console.log("nbr de client connect: "+nbrconn);
 //       Connections.insert({

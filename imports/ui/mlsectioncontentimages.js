@@ -53,17 +53,10 @@ this.Images = new Meteor.Files({  collectionName: 'Images'
   },
 
   images: function(){
-    //return Images.find({ filename: 'chat.jpg' });
-    console.log("Collection find: "+Images.find().cursor);
-    //console.log("Collection images car find: "+ImagesCar.find({}).fetch());
     return Images.collection.find({}).fetch();
   },
     uploadedFiles: function () {
       var filesCursor = Images.find();
-      //console.log("filecursor fetch: "+Images.find());
-      //console.log("filecursor fetch: "+filesCursor.fetch());
-      //console.log("filecursor get: "+filesCursor.get());
-      console.log("Collection find: "+JSON.stringify(Images.find({}).cursor));
     return Images.find({}).cursor;
 }
 
@@ -93,10 +86,9 @@ var js = JSON.parse(dig);
 
 'click .image-up': function(e, template){
 e.preventDefault();
-console.log("curent id: "+e.currentTarget.id);
-//{"images":{ $in:["hXZjsSk5oSzm759aN"]}}
+
 var dig = '{ images:{ $each: [], $sort: -1 }}';
-console.log("DIG: "+dig);
+
 
 //var js = JSON.parse(dig);
 

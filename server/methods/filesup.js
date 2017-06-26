@@ -95,7 +95,26 @@ var Images = new FilesCollection({
       //console.log("fetch: "+JSON.stringify(file.link()));
       
       return true;
-    } else {
+    } 
+    if(file.size <= 4885760 && /pdf/i.test(file.extension)){
+      console.log("Pdf file");
+            // Select the very first file from list
+            // var fileToLoad = file[0];
+            // // FileReader function for read the file.
+            // var fileReader = new FileReader();
+            // var base64;
+            // // Onload of file read the file content
+            // fileReader.onload = function(fileLoadedEvent) {
+            //     base64 = fileLoadedEvent.target.result;
+            //     // Print data in console
+            //     console.log("pdf to base64"+base64);
+            // };
+            // // Convert data to base64
+            // fileReader.readAsDataURL(fileToLoad);
+        return true;
+
+    }
+    else {
       return 'Please upload image, with size equal or less than 4MB';
     }
   },

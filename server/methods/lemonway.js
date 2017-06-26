@@ -131,7 +131,7 @@ else
     "version":  "1.9",
     "walletIp": head.xrealip,
     "walletUa": head.useragent,
-    "wallet":   wallet,
+    "wallet": wallet,
     "email": userdata.email
   }
 };
@@ -189,11 +189,11 @@ else
 var cellphoneparse = "";
 var payerOrBeneficiary = "1";//1 payeur, 2 bénéficiaire
 
-      if(userdata.cellphone && userdata.cellphone.startsWith("0"))
-  cellphoneparse = userdata.cellphone;
-  cellphoneparse = cellphoneparse.split(cellphoneparse[0]);
-  cellphoneparse = "33"+cellphoneparse[1];
-    console.log("cellphoneparse "+cellphoneparse);
+  //     if(userdata.cellphone && userdata.cellphone.startsWith("0"))
+  // cellphoneparse = userdata.cellphone;
+  // cellphoneparse = cellphoneparse.split(cellphoneparse[0]);
+  // cellphoneparse = "33"+cellphoneparse[1];
+  //   console.log("cellphoneparse "+cellphoneparse);
 
 var wallettoken = Random.id();
 
@@ -222,7 +222,7 @@ var postData = {
     "ctry":"",
     "birthdate":userdata.birthdate,
     "phoneNumber":"",
-    "mobileNumber":cellphoneparse,
+    "mobileNumber":"",
     "isCompany":"",
     "companyName":"",
     "companyWebsite":"",
@@ -327,7 +327,7 @@ var tok = Random.id();
     "useRegisteredCard":"",
     "wkToken":tok,
     "returnUrl":"https://leboncampingcar.fr/validpay/"+book._id+"/"+amount,
-    "cancelUrl":"https://leboncampingcar.fr/cancelpay/"+book._id+"/"+amount,
+    "cancelUrl":"https://leboncampingcar.fr/errorpay/"+book._id+"/"+amount,
     "errorUrl":"https://leboncampingcar.fr/errorpay/"+book._id+"/"+amount,
     "autoCommission":"0",
     "isPreAuth":"",
@@ -418,6 +418,13 @@ UpdateWalletDetail: function(options) {
 RegisterCard: function(options) {
           return HTTP.post(Meteor.settings.private.LEMON_URL+"RegisterCard", options);
 },
+
+TestRequestHTTP: function(){
+  //return request.sync("http://google.com"
+   return HTTP.get("http://google.com");
+    //See below for info on errors
+},
+
 
 TestRequest: function(){
   //return request.sync("http://google.com");
