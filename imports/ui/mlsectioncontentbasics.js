@@ -12,13 +12,13 @@ var metanbr;
  Template.mlsectioncontentbasics.onCreated(function() {
 
 
-  Tracker.autorun(function () {
-    Meteor.subscribe("campingcars");
-    Meteor.subscribe('Images');
-    Meteor.subscribe('addons');
-    Meteor.subscribe('reservations');
-    Meteor.subscribe('usersdata');
-});
+//   Tracker.autorun(function () {
+//     Meteor.subscribe("onecampingcar");
+//     Meteor.subscribe('Images');
+//     Meteor.subscribe('addons');
+//     Meteor.subscribe('reservations');
+//     Meteor.subscribe('myusersdata');
+// });
   this.currentUpload = new ReactiveVar(false);
 //TAPi18n.setLanguage("fr");
 });
@@ -113,6 +113,7 @@ var js = JSON.parse(dig);
         }, {
           upsert: true
         });
+              Meteor.reconnect();
         }
         template.currentUpload.set(false);
       });
@@ -170,6 +171,7 @@ var js = JSON.parse(dig);
         }, {
           upsert: true
         });
+              Meteor.reconnect();
         }
         template.currentUpload.set(false);
       });

@@ -45,12 +45,12 @@ Template.mlsectioncontentavailability.helpers({
   calendarsectionoptions: function() {
     
     var tabtest = [];
-    if(Reservations.find({resource_id:FlowRouter.getParam("_id")}).count() && FlowRouter.getParam("_id") && CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch())
-    {
+    //console.log("réservations nbr: "+Reservations.find({resource_id:FlowRouter.getParam("_id")}).count());
+    //if(Reservations.find({resource_id:FlowRouter.getParam("_id")}).count() && FlowRouter.getParam("_id") && CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch())
+    //{
 
         var bddcampingcar = CampingCars.find({_id: FlowRouter.getParam('_id')}).fetch()[0];
         var bddreservations = Reservations.find({resource_id:FlowRouter.getParam("_id"),status:{ $in: [ "newbooking", "owner_valid" ] }}).fetch();
-     
         var evttab = [];
         var tabnoresa = [];
         var tabfull = bddcampingcar.daysfull;
@@ -342,11 +342,11 @@ bookselecttitre.prepend('<div style="background-color: rgb(255, 255, 255); box-s
 
                 return rr;
 
-}
-else
-{
-  return {defaultDate: moment()};
-}
+// }
+// else
+// {
+//   return {defaultDate: moment()};
+// }
 
     },
 

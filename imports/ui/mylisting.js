@@ -12,7 +12,7 @@ import './mylisting.html';
  Template.mylisting.onCreated(function() {
     Tracker.autorun(function () {
     Meteor.subscribe("campingcars");
-    Meteor.subscribe('usersdata');
+    Meteor.subscribe('myusersdata');
 });
 
 });

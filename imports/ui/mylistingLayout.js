@@ -15,11 +15,10 @@ import './mylistingLayout.html';
   //this.getListId = () => FlowRouter.getParam('_id');
 //souscription a la base de donnée
   this.autorun(() => {
-    this.subscribe('tasks');
-    this.subscribe('campingcars');
+    this.subscribe('mycampingcar', FlowRouter.getParam("_id"));
     this.subscribe('Images');
     this.subscribe('addons');
-    this.subscribe('reservations');
+    this.subscribe('campingcarreservations', FlowRouter.getParam("_id"));
     this.subscribe('usersdata');
   });
 });

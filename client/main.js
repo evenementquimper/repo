@@ -4,6 +4,7 @@ import { DDP } from 'meteor/ddp-client';
 import { request } from "meteor/froatsnook:request";
 
 //import './main.html';
+//import '../imports/ui/google494f604454476dc2.html';
 import '../imports/ui/footer.html';
 import '../imports/ui/mentionslegales.html';
 import '../imports/ui/cgv.html';
@@ -77,6 +78,7 @@ import '../imports/ui/errorpay.js';
 
 if (Meteor.isClient) {
   Meteor.startup(function () {
+
     //Session.set("showLoadingIndicator", true);
 //DDP.connect('http://leboncampingcar.fr');
     TAPi18n.setLanguage("fr")

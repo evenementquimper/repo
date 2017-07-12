@@ -21,24 +21,22 @@ import './campingcarbooking.html';
   onStop : function (error){
   },
   onReady :function(){   
-        var bddcampingcar = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
-       
+        var bddcampingcar = CampingCars.find({}).fetch()[0];
+       Meteor.subscribe('campingcarreservations', bddcampingcar._id);
   }
       });
 
-    if(campingcarssubs.ready()){
-      var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
-    console.log("resource_id: "+bdd._id);
-    this.subscribe('campingcarreservations', bdd._id, {
-    onStop : function (error){
-      console.log("campingcarreservations onStop");
-  },
-  onReady :function(){   
-      console.log("campingcarreservations onready"); 
-  }   
-    }); 
+  //   if(campingcarssubs.ready()){
+  //     var bdd = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
 
-    }
+  //   this.subscribe('campingcarreservations', bdd._id, {
+  //   onStop : function (error){
+  // },
+  // onReady :function(){   
+  // }   
+  //   }); 
+
+  //   }
     this.subscribe('Images');
     this.subscribe('addons');
     
@@ -59,13 +57,41 @@ import './campingcarbooking.html';
  Template.campingcarbooking.onRendered(function() {
 
 function daysf(){
-      var bddcampingcar = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
-      // var reservations_cc = Reservations.find({});
-      //   console.log("bdd reservations_cc: "+reservations_cc[0]._id);
+
       
-        console.log("bdd campingcar: "+bddcampingcar._id);
-        console.log("bdd dayf: "+bddcampingcar.daysfull[0]);
-          return bddcampingcar.daysfull;
+    
+    var tabtest = [];
+    // if(FlowRouter.getParam("_id") && CampingCars.find({_id:FlowRouter.getParam("_id")}).fetch())
+    // {
+
+        var bddcampingcar = CampingCars.find({city:FlowRouter.getParam('city') , make:FlowRouter.getParam('make'), model:FlowRouter.getParam('model')}).fetch()[0];
+        var bddreservations = Reservations.find({resource_id:bddcampingcar._id,status:{ $in: [ "newbooking", "owner_valid" ] }}).fetch();
+        var evttab = [];
+        var tabnoresa = [];
+        var tabfull = bddcampingcar.daysfull;
+
+            for (var j = 0; tabfull.length > j; j++)  {
+
+                  var dd = moment(tabfull[j], 'YYYY-MM-DD');  
+                  tabtest.push(dd);
+              }
+
+            for (var i = 0;  bddreservations.length > i; i++) {
+
+                  //var loueurid = bddreservations[i].user_id;
+                  //var tt ="Loueur Id:"+loueurid+", Netprize :"+bddreservations[i].netprize+", Addonsprize: "+bddreservations[i].addonsprize;
+                  var sday = moment(bddreservations[i].start_time, 'YYYY-MM-DD');
+                  var fday = moment(bddreservations[i].end_time,'YYYY-MM-DD').add(0, 'day');
+                  
+                  while(sday.isBefore(fday)){
+                  tabtest.push(sday.format('YYYY-MM-DD'));
+                  sday = sday.add(1,'day');
+                  }
+
+                  tabtest.push(fday);
+              }
+
+          return tabtest;
 };
 
 
@@ -73,7 +99,7 @@ this.$('.enddatetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',
         locale:'fr',
         minDate: moment(),
-        disabledDates:daysf() 
+        disabledDates:daysf(), 
 
         //enableDates: [Template.instance().dtime.get('enabledates')],
         //keepOpen: true,
@@ -117,7 +143,7 @@ return Template.instance().prizes.get('peoplenbr');
 },
 
 insuranceprize: function(){
-return Template.instance().dtime.get('deltadate')*0;
+return Template.instance().dtime.get('deltadate')*15;
 },
 
 campingcaraddonsselect:function(){
@@ -169,7 +195,7 @@ totalprize: function(){
   if(Template.instance().prizes.get('addonsprize'))
     addons = Template.instance().prizes.get('addonsprize');
 
-  var insurance = Template.instance().dtime.get('deltadate')*0;
+  var insurance = Template.instance().dtime.get('deltadate')*15;
   Template.instance().prizes.set('brutprize', net+addons+insurance);
   return net+addons+insurance;
 },
@@ -302,8 +328,6 @@ netprize = pday * Math.round(dif.asDays());
 'dp.change .startdatetimepicker': function(event, instance){
     
     event.preventDefault();
-console.log("startdatepik change "+$('.startdatetimepicker').data().date);
-console.log("startdatepik moment "+moment($('.startdatetimepicker').data().date));
 
     if(moment($('.startdatetimepicker').data().date).isValid())
       instance.dtime.set('startdatepicker', $('.startdatetimepicker').data().date);

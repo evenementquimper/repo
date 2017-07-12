@@ -12,15 +12,6 @@ import { Session } from 'meteor/session';
 import './campingcarsLayout.html';
  
  Template.campingcarsLayout.onCreated(function() {
-//souscription a la base de donnée
-//   Tracker.autorun(function () {
-//     Meteor.subscribe("campingcars");
-//     Meteor.subscribe('addons');
-//     Meteor.subscribe('reservations');
-//     Meteor.subscribe('usersdata');
-// });
-
- // this.addons = new ReactiveDict();
 });
 
   Template.campingcarsLayout.events({

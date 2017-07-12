@@ -13,7 +13,14 @@ Meteor.publish('campingcars', function () {
     return CampingCars.find({});
 });
 Meteor.publish('onecampingcar', function(city, make, model){
+   console.log("publish onecampingcar: ");
+   console.log("city: "+city);
+   console.log("make: "+make);
+   console.log("model: "+model);
     return CampingCars.find({city:city, make:make, model:model});
+});
+Meteor.publish('mycampingcar', function(id){
+    return CampingCars.find({_id:id});
 });
 Meteor.publish('usersdata', function () {
     return UsersData.find({});

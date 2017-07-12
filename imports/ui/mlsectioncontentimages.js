@@ -126,9 +126,8 @@ var dig = '{ images:{ $each: [], $sort: -1 }}';
           alert('Error during upload: ' + error);
         } else {
                         var sup = fileObj.path.split('../../../../../public');
-              console.log("Split 1: "+sup[0]);
-              console.log("Split 2: "+sup[1]);
-          alert('Split 01:"' + sup[0] + '" & sup 02:"' + sup[1] + '" successfully uploaded');
+
+          alert(sup[0] + ' successfully uploaded');
 //sauvegarde de id de l'image ds la bdd du camping car
 
 

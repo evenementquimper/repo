@@ -1,4 +1,7 @@
 node_modules/
 settings.json
+settingsdev.json
+settingsprod.json
+imports/ui/google*.html
 public/
 private/

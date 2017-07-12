@@ -73,8 +73,6 @@ Meteor.startup(() => {
 Roles.addUsersToRoles(Meteor.settings.admin.ADM_ID, 'admin', Roles.GLOBAL_GROUP);
 
 moment.locale('fr');
-var m = moment(1316116057189);
-console.log("moment :"+m.fromNow());
 
 // il y a une heure
 
@@ -94,8 +92,8 @@ console.log("moment :"+m.fromNow());
 
  //IPGeocoder.load();
 Meteor.absoluteUrl(['http://leboncampingcar.fr']);
-  Accounts.emailTemplates.siteName = "LeBonCampingCar";
- Accounts.emailTemplates.from = "LeBonCampingCar <leboncampingcar@gmail.com>";
+  Accounts.emailTemplates.siteName = "leboncampingcar.fr";
+ Accounts.emailTemplates.from = "LeBonCampingCar <leboncampingcar@leboncampingcar.fr>";
  //console.log("email template: "+Accounts.emailTemplates.verifyEmail.subject);
  Accounts.emailTemplates.verifyEmail = {
   subject() {
@@ -103,38 +101,62 @@ Meteor.absoluteUrl(['http://leboncampingcar.fr']);
   },
   text( user, url ) {
     let emailAddress   = user.emails[0].address,
-        urlWithoutHash = url.replace( 'http://localhost:4444/#/', 'http://leboncampingcar.fr' ),
-        supportEmail   = "leboncampingcar@gmail.com",
-        emailBody      = `To verify your email address (${emailAddress}) visit the following link:\n\n${urlWithoutHash}\n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: ${supportEmail}.`;
+        urlWithoutHash = url.replace( 'http://leboncampingcar.fr/#/', 'http://leboncampingcar.fr/authentication/#/' ),
+        supportEmail   = "contact@leboncampingcar.fr",
+        emailBody      = `Ce mail vous a été envoyer afin de vérifier votre email: (${emailAddress}) cliquer sur ce lien:\n\n${url}\n\n Si vous n'êtes pas inscrits sur le site leboncampingcar.fr, merci d'ignorer ce mail. Si vous avez un problème technique, merci d'écrire au support: ${supportEmail}.`;
 
     return emailBody;
   }
 };
+
+ Accounts.emailTemplates.resetPassword = {
+  subject() {
+    return "Le Bon Camping Car Nouveau Mot de Passe";
+  },
+  text( user, url ) {
+    let emailAddress   = user.emails[0].address,
+        //urlWithoutHash = url.replace( 'http://leboncampingcar.fr/#/', 'http://leboncampingcar.fr/authentication/#/' ),
+        supportEmail   = "contact@leboncampingcar.fr",
+        emailBody      = `Ce mail vous a été envoyer afin de changer votre mot de passe: cliquer sur ce lien pour vous définir un nouveau mot de passe :\n\n${url}\n\n Si vous n'êtes pas inscrits sur le site leboncampingcar.fr, merci d'ignorer ce mail. Si vous avez un problème technique, merci d'écrire au support: ${supportEmail}.`;
+
+    return emailBody;
+  }
+};
+
  Accounts.emailTemplates.enrollAccount.subject = function (user) {
      return "Bienvenue chez Le Bon CampingCar, " + user.profile.name;
  };
 
  // Validate username, sending a specific error message on failure. +JSON.stringify(user)+JSON.stringify(attempt)
 Accounts.validateNewUser((attempt) => {
-  // if (attempt.services.facebook){
+  // if (attempt.services && attempt.services.facebook && attempt.services.facebook.email == "uxvhoewvlw_1498664278@tfbnw.net"){
+  //   console.log("new facebook user attempt: "+JSON.stringify(attempt));
+  //   return true;
   // }
-  if (attempt.emails[0].address == "test2@gmail.com" || attempt.emails[0].address == "test1@gmail.com" || attempt.emails[0].address == "anne.dupont@gmail.com" || attempt.emails[0].address == "celine.dubois@gmail.com" || attempt.emails[0].address == "valerie.dufoin@gmail.com" || attempt.emails[0].address == "claire.ken@gmail.com" || attempt.emails[0].address == "gaetan.berree@gmail.com" || attempt.emails[0].address == "donniougigi@gmail.com" || attempt.emails[0].address == "antoine.donniou@gmail.com" || attempt.emails[0].address == "bernard.silva@gmail.com" || attempt.emails[0].address == "helene.laville@gmail.com" || attempt.emails[0].address == "tony.lagare@gmail.com" || attempt.emails[0].address == "ntahraoui@lemonway.com" || attempt.emails[0].address == "damien.leroi@gmail.com" || attempt.emails[0].address == "florian.dubois@gmail.com" || attempt.emails[0].address == "benoit.marchant@gmail.com" || attempt.emails[0].address == "julien.cali@gmail.com" || attempt.emails[0].address == "gwenn.donniou@gmail.com" || attempt.emails[0].address == "contact.amopok@gmail.com" || attempt.emails[0].address == "lclavijo@lemonway.com") {
+  // if (attempt.emails[0].address == "ftpokerdeal@gmail.com" || attempt.emails[0].address == "test2@gmail.com" || attempt.emails[0].address == "test1@gmail.com" || attempt.emails[0].address == "anne.dupont@gmail.com" || attempt.emails[0].address == "celine.dubois@gmail.com" || attempt.emails[0].address == "valerie.dufoin@gmail.com" || attempt.emails[0].address == "claire.ken@gmail.com" || attempt.emails[0].address == "gaetan.berree@gmail.com" || attempt.emails[0].address == "donniougigi@gmail.com" || attempt.emails[0].address == "antoine.donniou@gmail.com" || attempt.emails[0].address == "bernard.silva@gmail.com" || attempt.emails[0].address == "helene.laville@gmail.com" || attempt.emails[0].address == "tony.lagare@gmail.com" || attempt.emails[0].address == "ntahraoui@lemonway.com" || attempt.emails[0].address == "damien.leroi@gmail.com" || attempt.emails[0].address == "florian.dubois@gmail.com" || attempt.emails[0].address == "benoit.marchant@gmail.com" || attempt.emails[0].address == "julien.cali@gmail.com" || attempt.emails[0].address == "gwenn.donniou@gmail.com" || attempt.emails[0].address == "contact.amopok@gmail.com" || attempt.emails[0].address == "lclavijo@lemonway.com") {
 
     return true;
-  } else {
-    throw new Meteor.Error(403, 'Acces interdit: ');
-  }
+  // } else {
+  //   throw new Meteor.Error(403, 'Acces interdit: ');
+  // }
 
 });
+//.username && attempt.username.length >= 3
+// && attempt.user.services.facebook.email == "jckhpshcru_1483526647@tfbnw.net"  && attempt.user.services && attempt.user.services.facebook && attempt.user.services.facebook.email == "jckhpshcru_1483526647@tfbnw.net"
+Accounts.validateLoginAttempt((attempt) => {
 
-// Accounts.validateLoginAttempt((attempt) => {
-//   if (attempt.username && attempt.username.length >= 3) {
-//     console.log("user connection: "+JSON.stringify(attempt));
+//   if(attempt.type == "facebook"){
+// console.log("facebook welcome login attemp: "+JSON.stringify(attempt.user.services.facebook));
+
 //     return true;
-//   } else {
-//     throw new Meteor.Error(403, 'Login Attemp User: ');
 //   }
-// });
+//   if (attempt) {
+//     console.log("user connection: "+JSON.stringify(attempt));
+    return true;
+  // } else {
+  //   throw new Meteor.Error(403, 'Login Acces interdit: ');
+  // }
+});
 
 });
 

@@ -3,15 +3,7 @@
 FlowRouter.route('/', {
 	name:'index',
   action:function() {
-    if (Meteor.user())
-    {
     BlazeLayout.render("mainLayout", {nav:"nav",homepage:"homepage"});
-
-    }
-else
-{
-  BlazeLayout.render("mainLayout", {nav:"navcon",homepage:"inwork"});
-}
  }
 });
 
@@ -28,6 +20,13 @@ FlowRouter.route('/cgv', {
     BlazeLayout.render("mainLayout", {nav:"nav",homepage:"cgv"});
   }
 });
+
+// FlowRouter.route('/google494f604454476dc2.html', {
+//   name:'google494f604454476dc2',
+//   action:function() {
+//     BlazeLayout.render("google494f604454476dc2");
+//   }
+// });
 
 // FlowRouter.route('/', {
 //   name:'index',
