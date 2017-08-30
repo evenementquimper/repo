@@ -75,6 +75,7 @@ import '../imports/ui/cancelpay.js';
 import '../imports/ui/validpaytest.html';
 import '../imports/ui/validpaytest.js';
 import '../imports/ui/errorpay.js';
+import '../imports/ui/tutoowner.html';
 
 if (Meteor.isClient) {
   Meteor.startup(function () {

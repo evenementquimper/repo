@@ -1,0 +1,163 @@
+
+<template name="tutoowner">
+<div class="homepage" itemscope="" itemtype="http://schema.org/Organization">
+
+<section class="intro section">
+   <div class="section-container">
+      <div class="section-intro">
+         <h1 class="section-intro-title">Etape 1
+         </h1>
+         <h3 class="section-intro-subtitle">Inscription
+         </h3>
+         </div>
+         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
+         <div class="section-row">
+         {{#if currentUser}}
+               <div class="content-block content-block--left">
+         <p class="intro-content">Vous êtes déjà inscrit.
+         </p>
+         </div>
+         <div class="content-block content-block--right">
+         
+         <img class="intro-image" style="height:36px; width:25px" src="/images/pointvert.png" alt="Borne Image">
+         </div>
+        {{else}}
+          
+         <div class="content-block content-block--left">
+         <p class="intro-content">L'inscription est gratuite et sans engagement, vous pouvez vous inscrire via votre compte facebook ou simplement en rentrant votre adresse mail ainsi qu'un mot de passe. <a href="/authentication" rel="nofollow">{{_ "login"}}</a>
+         </p>
+         </div>
+         {{/if}}
+         </div>
+         </div>
+
+      <div class="section-intro">
+         <h1 class="section-intro-title">Etape 2
+         </h1>
+         <h3 class="section-intro-subtitle">Creation d'un compte
+         </h3>
+         </div>
+         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
+         <div class="section-row">
+               <div class="content-block content-block--left">
+         <p class="intro-content">Completer les différents champs et afin de vérifier votre identité nous vous demandons de nous transmettre copie de votre pièce d'identité et de votre permis de conduire, chargement des fichiers sous forme pdf ou image.{{#if currentUser}}<a href="/user" rel="nofollow">Votre Compte</a>{{else}}{{/if}}
+         </p>
+         </div>
+         <div class="content-block content-block--right">
+         
+         <img class="intro-image" src="/images/noprofil.jpg" alt="noprofil">
+         </div>
+   
+         </div>
+         </div>
+
+      <div class="section-intro">
+         <h1 class="section-intro-title">Etape 3
+         </h1>
+         <h3 class="section-intro-subtitle">Créer une annonce
+         </h3>
+         </div>
+         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
+         <div class="section-row">
+               <div class="content-block content-block--left">
+         <p class="intro-content">Chaque nouvelle annonce présente un nouveau camping-car, vous pouvez publier autant d'annonces que vous avez de camping-car. Décrivez votre camping-car avec le nombre de places et de lits... Pour des raisons de sécurité nous vous demandons de nous fournir les copies de la carte grise et de l'assurance du véhicule, chargement de fichiers au format pdf ou image.
+         {{#if currentUser}}<a href="/mylisting" rel="nofollow">Vos annonces</a>{{else}}{{/if}}
+         </p>
+         </div>
+         <div class="content-block content-block--right">
+         
+         <img class="intro-image" src="/images/campingcarlogo.svg" alt="noprofil">
+         </div>
+   
+         </div>
+         </div>
+      <div class="section-intro">
+         <h1 class="section-intro-title">
+         </h1>
+         <h3 class="section-intro-subtitle">
+         </h3>
+         </div>
+         <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
+         <div class="section-row">
+               <div class="content-block content-block--left">
+         <img class="intro-image" style="width:100%" src="/images/presentationcpc.png" alt="noprofil">
+         </div>
+         <div class="content-block content-block--right">
+         
+         <p class="intro-content">Description rapide du camping-car et chargement des fichiers</p>
+         </div>
+         </div>
+   
+         </div>
+     <div class="section-intro">
+         <h1 class="section-intro-title">
+         </h1>
+         <h3 class="section-intro-subtitle">
+         </h3>
+         </div>
+                  <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
+         <div class="section-row">
+               <div class="content-block content-block--left">
+         <p class="intro-content">Détails techniques</p>
+         </div>
+         <div class="content-block content-block--right">
+         <img class="intro-image" style="width:100%" src="/images/details1.png" alt="noprofil">
+         
+         </div>
+         </div>
+   
+         </div>
+
+              <div class="section-intro">
+         <h1 class="section-intro-title">
+         </h1>
+         <h3 class="section-intro-subtitle">
+         </h3>
+         </div>
+                  <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
+         <div class="section-row">
+               <div class="content-block">
+         <p class="intro-content">Photos et localisations</p>
+         <img class="intro-image" style="width:75%" src="/images/imageload.png" alt="noprofil">
+         
+         </div>
+         <div class="content-block">
+         <img class="intro-image" style="width:80%" src="/images/localisation.png" alt="noprofil">
+         
+         </div>
+         </div>
+   
+         </div>
+
+                       <div class="section-intro">
+         <h1 class="section-intro-title">Etape 4
+         </h1>
+         <h3 class="section-intro-subtitle">Publication
+         </h3>
+         </div>
+                  <div style="background-color:#ffffff;transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;box-sizing:border-box;font-family:Roboto, sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);box-shadow:0 1px 6px rgba(0,0,0,0.12),
+         0 1px 4px rgba(0,0,0,0.12);border-radius:2px;">
+         <div class="section-row">
+               <div class="content-block content-block--left">
+                        <img class="intro-image" style="width:120%" src="/images/publierannonce.png" alt="noprofil">
+         
+
+ 
+         </div>
+         <div class="content-block content-block--right">
+         <p class="intro-content">Après avoir définie les dates de disponibilitées vous pouvez publier votre annonce. L'ensemble des informations sont modifiables quant bon vous semble et vous pouvez dépublier/republier votre annonce a volonté.</p>
+         </div>
+         </div>
+   
+         </div>
+
+   </div>
+</section>
+         </div>
+         </template>

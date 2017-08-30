@@ -366,236 +366,236 @@ function fin()
       //   {
       //   }
         infocase.innerHTML = 'Vérification...';
-  Meteor.call('GetWalletDetails', "", function(error, result){
-                      if(!error){
-                        console.log("result getwallet: "+JSON.stringify(result.data.d));
-                         if(result.data.d.WALLET == null && result.data.d.E != null)
-                         {
-                           infocase.innerHTML = 'Création Compte...';
-                             Meteor.call('RegisterWallet', "", function(error, result){
-                              if(!error)
-                              {
+ // Meteor.call('GetWalletDetails', "", function(error, result){
+ //                   if(!error){
+ //                       console.log("result getwallet: "+JSON.stringify(result.data.d));
+ //                        if(result.data.d.WALLET == null && result.data.d.E != null)
+ //                        {
+ //                          infocase.innerHTML = 'Création Compte...';
+ //                            Meteor.call('RegisterWallet', "", function(error, result){
+ //                             if(!error)
+ //                             {
                                 //console.log("result lemonway: "+JSON.stringify(result.data.d));
-                              if(result.data.d.WALLET && result.data.d.E == null){
+ //                             if(result.data.d.WALLET && result.data.d.E == null){
                                
-                          var userdt = UsersData.find({_id:Meteor.userId()}).fetch()[0];
+//                          var userdt = UsersData.find({_id:Meteor.userId()}).fetch()[0];
 
-                            if(userdt.cartidbase64){
-                                var typeimg = "pdf";
-                                var docsd= null;
-                              if(userdt.cartidbase64.img){
+  //                          if(userdt.cartidbase64){
+  //                              var typeimg = "pdf";
+  //                              var docsd= null;
+  //                            if(userdt.cartidbase64.img){
                                
 
-                                  if(userdt.cartidbase64.img.search('data:image/jpeg')!=-1)
-                                      typeimg = "jpeg";
+                              //    if(userdt.cartidbase64.img.search('data:image/jpeg')!=-1)
+                                //      typeimg = "jpeg";
 
-                                  if(userdt.cartidbase64.img.search('data:image/png')!=-1)
-                                        typeimg = "png";
+                                 // if(userdt.cartidbase64.img.search('data:image/png')!=-1)
+                                 //       typeimg = "png";
 
-                                  if(userdt.cartidbase64.img.search('data:image/jpg')!=-1)
-                                        typeimg = "jpg";
+                                //  if(userdt.cartidbase64.img.search('data:image/jpg')!=-1)
+                                //        typeimg = "jpg";
 
-                                  if(userdt.cartidbase64.img.search('data:image/gif')!=-1)
-                                        typeimg = "gif";
+                                //  if(userdt.cartidbase64.img.search('data:image/gif')!=-1)
+                                  //      typeimg = "gif";
 
-                                  if(userdt.cartidbase64.img.search('data:image/bmp')!=-1)
-                                        typeimg = "bmp";
+                                 // if(userdt.cartidbase64.img.search('data:image/bmp')!=-1)
+                                 //       typeimg = "bmp";
 
-                                      docsd = userdt.cartidbase64.img;
-                              }
-                              if(userdt.cartidbase64.pdf){
-                                docsd = userdt.cartidbase64.pdf.replace(/^data:application\/(pdf);base64,/,'');
-                              }
-                              else{
+                                 //     docsd = userdt.cartidbase64.img;
+                             // }
+                             // if(userdt.cartidbase64.pdf){
+                               // docsd = userdt.cartidbase64.pdf.replace(/^data:application\/(pdf);base64,/,'');
+                              //}
+                             // else{
 
-                              }
-                 infocase.innerHTML = 'Chargement carte identité';
-   Meteor.call('UploadLicense', "carteidpdf."+typeimg, "0", docsd, function(error, result){
-          if (!error){
-            if(result.data.d.E)
-            {
+                             // }
+                // infocase.innerHTML = 'Chargement carte identité';
+  // Meteor.call('UploadLicense', "carteidpdf."+typeimg, "0", docsd, function(error, result){
+    //      if (!error){
+      //      if(result.data.d.E)
+        //    {
               //erreur de chargement
               //alert("Erreur de chargement de l'image");
-              infocase.innerHTML = 'Erreur Chargement carte identité '+result.data.d.E;
-            }
-           if(result.data.d.UPLOAD){
-        infocase.innerHTML = 'Chargement carte identité teminé';
-               var dig = '{"cartidstatus":"upload","lemoncartid":'+result.data.d.UPLOAD.ID+'}';
-               var js = JSON.parse(dig);
-         UsersData.update({
-             _id: Meteor.userId()
-         }, {
-             $set: js
-         }, {
-           upsert: true
-         });
-           }
-          }
-          else{
-          }
-        });
+          //    infocase.innerHTML = 'Erreur Chargement carte identité '+result.data.d.E;
+          //  }
+         //  if(result.data.d.UPLOAD){
+       // infocase.innerHTML = 'Chargement carte identité teminé';
+         //      var dig = '{"cartidstatus":"upload","lemoncartid":'+result.data.d.UPLOAD.ID+'}';
+           //    var js = JSON.parse(dig);
+     //    UsersData.update({
+       //      _id: Meteor.userId()
+        // }, {
+          //   $set: js
+      //   }, {
+        //   upsert: true
+     //    });
+     //      }
+     //     }
+    //      else{
+      //    }
+    //    });
+//
+  //                                      }
+    //                                  else
+      //                                { 
+        //                                }
 
-                                        }
-                                      else
-                                      { 
-                                        }
 
 
-
-                            if(userdt.ibanbase64){
-                                var ibandoctype = "pdf";
-                                var ibandoc= null;
-                              if(userdt.ibanbase64.img){
+          //                  if(userdt.ibanbase64){
+            //                    var ibandoctype = "pdf";
+              //                  var ibandoc= null;
+                //              if(userdt.ibanbase64.img){
                                
 
-                                  if(userdt.ibanbase64.img.search('data:image/jpeg')!=-1)
-                                      ibandoctype = "jpeg";
+                  //                if(userdt.ibanbase64.img.search('data:image/jpeg')!=-1)
+                    //                  ibandoctype = "jpeg";
 
-                                  if(userdt.ibanbase64.img.search('data:image/png')!=-1)
-                                        ibandoctype = "png";
+                      //            if(userdt.ibanbase64.img.search('data:image/png')!=-1)
+                        //                ibandoctype = "png";
 
-                                  if(userdt.ibanbase64.img.search('data:image/jpg')!=-1)
-                                        ibandoctype = "jpg";
+                          //        if(userdt.ibanbase64.img.search('data:image/jpg')!=-1)
+                            //            ibandoctype = "jpg";
 
-                                  if(userdt.ibanbase64.img.search('data:image/gif')!=-1)
-                                        ibandoctype = "gif";
+  //                                if(userdt.ibanbase64.img.search('data:image/gif')!=-1)
+    //                                    ibandoctype = "gif";
 
-                                  if(userdt.ibanbase64.img.search('data:image/bmp')!=-1)
-                                        ibandoctype = "bmp";
+      //                            if(userdt.ibanbase64.img.search('data:image/bmp')!=-1)
+        //                                ibandoctype = "bmp";
 
-                                      ibandoc = userdt.ibanbase64.img;
-                              }
-                              if(userdt.ibanbase64.pdf){
-                                ibandoc = userdt.ibanbase64.pdf.replace(/^data:application\/(pdf);base64,/,'');
-                              }
-                              else{
+          //                            ibandoc = userdt.ibanbase64.img;
+            //                  }
+              //                if(userdt.ibanbase64.pdf){
+                //                ibandoc = userdt.ibanbase64.pdf.replace(/^data:application\/(pdf);base64,/,'');
+                  //            }
+                    //          else{
 
-                              }
-                         infocase.innerHTML = 'Chargement R.I.B...';
-   Meteor.call('UploadLicense', "iban."+typeimg, "2", ibandoc, function(error, result){
-          if (!error){
-            if(result.data.d.E)
-            {
+                      //        }
+                        // infocase.innerHTML = 'Chargement R.I.B...';
+//   Meteor.call('UploadLicense', "iban."+typeimg, "2", ibandoc, function(error, result){
+//          if (!error){
+//            if(result.data.d.E)
+//            {
               //erreur de chargement
-              infocase.innerHTML = 'Erreur Chargement R.I.B '+result.data.d.E;
+  //            infocase.innerHTML = 'Erreur Chargement R.I.B '+result.data.d.E;
               //alert("Erreur de chargement de l'image");
-            }
-           if(result.data.d.UPLOAD){
-             infocase.innerHTML = 'Chargement R.I.B Terminé';
+    //        }
+      //     if(result.data.d.UPLOAD){
+        //     infocase.innerHTML = 'Chargement R.I.B Terminé';
         //       //chargement ok 
-               var dig = '{"ibanstatus":"upload","lemonibanid":'+result.data.d.UPLOAD.ID+'}';
-               var js = JSON.parse(dig);
-         UsersData.update({
-             _id: Meteor.userId()
-         }, {
-             $set: js
-         }, {
-           upsert: true
-         });
-           }
-          }
-          else{
-          }
-        });
+          //     var dig = '{"ibanstatus":"upload","lemonibanid":'+result.data.d.UPLOAD.ID+'}';
+            //   var js = JSON.parse(dig);
+//         UsersData.update({
+  //           _id: Meteor.userId()
+    //     }, {
+      //       $set: js
+//         }, {
+  //         upsert: true
+    //     });
+      //     }
+        //  }
+//          else{
+  //        }
+    //    });
 
 
-                                        }
-                                      else
-                                      { 
-                                        }
+      //                                  }
+        //                              else
+          //                            { 
+            //                            }
 
-                              if(userdt.licensebase64){
-                                var licensedoctype = "pdf";
-                                var licensedoc= null;
-                              if(userdt.licensebase64.img){
+              //                if(userdt.licensebase64){
+                //                var licensedoctype = "pdf";
+                  //              var licensedoc= null;
+                    //          if(userdt.licensebase64.img){
                                
 
-                                  if(userdt.licensebase64.img.search('data:image/jpeg')!=-1)
-                                      licensedoctype = "jpeg";
+                      //            if(userdt.licensebase64.img.search('data:image/jpeg')!=-1)
+                        //              licensedoctype = "jpeg";
 
-                                  if(userdt.licensebase64.img.search('data:image/png')!=-1)
-                                        licensedoctype = "png";
+                          //        if(userdt.licensebase64.img.search('data:image/png')!=-1)
+                            //            licensedoctype = "png";
 
-                                  if(userdt.licensebase64.img.search('data:image/jpg')!=-1)
-                                        licensedoctype = "jpg";
+                              //    if(userdt.licensebase64.img.search('data:image/jpg')!=-1)
+                                //        licensedoctype = "jpg";
 
-                                  if(userdt.licensebase64.img.search('data:image/gif')!=-1)
-                                        licensedoctype = "gif";
+                                 // if(userdt.licensebase64.img.search('data:image/gif')!=-1)
+                                   //     licensedoctype = "gif";
 
-                                  if(userdt.licensebase64.img.search('data:image/bmp')!=-1)
-                                        licensedoctype = "bmp";
+//                                  if(userdt.licensebase64.img.search('data:image/bmp')!=-1)
+  //                                      licensedoctype = "bmp";
 
-                                      licensedoc = userdt.licensebase64.img;
-                              }
-                              if(userdt.licensebase64.pdf){
-                                licensedoc = userdt.licensebase64.pdf.replace(/^data:application\/(pdf);base64,/,'');
-                              }
-                              else{
+    //                                  licensedoc = userdt.licensebase64.img;
+      //                        }
+        //                      if(userdt.licensebase64.pdf){
+          //                      licensedoc = userdt.licensebase64.pdf.replace(/^data:application\/(pdf);base64,/,'');
+            //                  }
+              //                else{
 
-                              }
-                                 infocase.innerHTML = 'Chargement Permis..';                      //send pdf test
-   Meteor.call('UploadLicense', "license."+licensedoctype, "14", licensedoc, function(error, result){
-          if (!error){
-            if(result.data.d.E)
-            {
+                //              }
+                  //               infocase.innerHTML = 'Chargement Permis..';                      //send pdf test
+//   Meteor.call('UploadLicense', "license."+licensedoctype, "14", licensedoc, function(error, result){
+  //        if (!error){
+    //        if(result.data.d.E)
+      //      {
               //erreur de chargement
               //alert("Erreur de chargement de l'image");
-              infocase.innerHTML = 'Erreur Chargement Permis '+result.data.d.E;
-            }
-           if(result.data.d.UPLOAD){
+        //      infocase.innerHTML = 'Erreur Chargement Permis '+result.data.d.E;
+          //  }
+        //   if(result.data.d.UPLOAD){
         //       //chargement ok
         infocase.innerHTML = 'Chargement Permis Terminé';
         infocase.innerHTML = 'Création Compte Terminé';
         outpoupselect.style.cursor = null;
         cleaninfo.style.display = null;
-               var dig = '{"licensestatus":"upload","lemonlicenseid":'+result.data.d.UPLOAD.ID+'}';
-               var js = JSON.parse(dig);
-         UsersData.update({
-             _id: Meteor.userId()
-         }, {
-             $set: js
-         }, {
-           upsert: true
-         });
-           }
-          }
-          else{
-          }
-        });
+      //         var dig = '{"licensestatus":"upload","lemonlicenseid":'+result.data.d.UPLOAD.ID+'}';
+        //       var js = JSON.parse(dig);
+       //  UsersData.update({
+         //    _id: Meteor.userId()
+        // }, {
+          //   $set: js
+        // }, {
+          // upsert: true
+        // });
+          // }
+         // }
+         // else{
+         // }
+       // });
 
-                                        }
-                                      else
-                                      {
-                                        infocase.innerHTML = 'Création compte Annulé';
-                                        outpoupselect.style.cursor = null;
-                                        cleaninfo.style.display = null;
+         //                               }
+           //                           else
+             //                         {
+               //                         infocase.innerHTML = 'Création compte Annulé';
+                 //                       outpoupselect.style.cursor = null;
+                   //                     cleaninfo.style.display = null;
                                       //console.log("error lemonway: "+error); 
-                                        }
+                     //                   }
                                
-                              }
-                            }
-                            else{
-                              infocase.innerHTML = 'Création compte Annulé';
-                              outpoupselect.style.cursor = null;
-                              cleaninfo.style.display = null;
+                       //       }
+                         //   }
+                           // else{
+                             // infocase.innerHTML = 'Création compte Annulé';
+                             // outpoupselect.style.cursor = null;
+                             // cleaninfo.style.display = null;
                        //console.log("error lemonway: "+error);
-                            }
-                          });
+                           // }
+                         // });
 
-                         }
-                         else
-                         {
-                           infocase.innerHTML = 'Compte existant';
-                            outpoupselect.style.cursor = null;
-                            cleaninfo.style.display = null;
-                         }
-                       }
-                       else{
-                        infocase.innerHTML = 'Création compte Annulé';
-                        outpoupselect.style.cursor = null;
-                        cleaninfo.style.display = null;
-                       }
-                     });
+                        // }
+                        // else
+                        // {
+                          // infocase.innerHTML = 'Compte existant';
+                           // outpoupselect.style.cursor = null;
+                           // cleaninfo.style.display = null;
+                        // }
+                      // }
+                      // else{
+                       // infocase.innerHTML = 'Création compte Annulé';
+                       // outpoupselect.style.cursor = null;
+                       // cleaninfo.style.display = null;
+                      // }
+                    // });
 
 },
 
