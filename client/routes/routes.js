@@ -7,6 +7,13 @@ FlowRouter.route('/', {
  }
 });
 
+FlowRouter.route('/tutoowner', {
+  name:'tutoowner',
+  action:function() {
+    BlazeLayout.render("mainLayout", {nav:"nav",homepage:"tutoowner"});
+ }
+});
+
 FlowRouter.route('/mentionslegales', {
   name:'mentionslegales',
   action:function() {

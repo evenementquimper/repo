@@ -9,6 +9,7 @@
     "bcrypt": "^0.8.7",
     "file-type": "^4.3.0",
     "fs-extra": "^3.0.1",
-    "meteor-node-stubs": "~0.2.0"
+    "meteor-node-stubs": "~0.2.0",
+    "node-mailjet": "^3.2.1"
   }
 }

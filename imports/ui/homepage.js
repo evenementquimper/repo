@@ -13,7 +13,31 @@ var place = {loc:null};
 
 Template.homepage.onCreated(function() {
   
+
   this.autorun(() => {
+
+var metaInfo1 = {name: "description", content: "Louez une caravane ou un camping-car pour vos vacances avec Le Bon Camping Car ! Van, caravane ou camping-car luxueux - Réservez en ligne avec Le bon camping car."};
+var metaInfo2 = {property: "og:title", content: "Location de camping-car et caravane en france leboncampingcar.fr"};
+var metaInfo3 = {property: "og:url", content: "https://leboncampingcar.fr/"};
+var metaInfo4 = {property: "og:type", content: "website"};
+var metaInfo5 = {property: "og:image", content: "https://leboncampingcar.fr/images/lbcclogo02.png"};
+var metaInfo6 = {property: "og:image:width", content: "1325"};
+var metaInfo7 = {property: "og:image:height", content: "200"};
+var metaInfo8 = {property: "og:description", content: "Louez un camping-car pour vos vacances avec Le Bon Camping Car ! Van, caravane ou camping-car luxueux - Réservez en ligne avec Le bon camping car."};
+var metaInfo9 = {property: "og:site_name", content: "Le bon camping-car."};
+var metaInfo10 = {property: "og:locale", content: "fr_FR"};
+          
+      DocHead.addMeta(metaInfo1);
+      DocHead.addMeta(metaInfo2);
+      DocHead.addMeta(metaInfo3);
+      DocHead.addMeta(metaInfo4);
+      DocHead.addMeta(metaInfo5);
+      DocHead.addMeta(metaInfo6);
+      DocHead.addMeta(metaInfo7);
+      DocHead.addMeta(metaInfo8);
+      DocHead.addMeta(metaInfo9);
+      DocHead.addMeta(metaInfo10);
+      
   this.subscribe("campingcars", {
     onError: function( error ) {
         //console.log("Meteor subscribe error: "+error);

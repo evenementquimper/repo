@@ -69,3 +69,4 @@ akasha:fs-extra
 dynamic-import@0.1.1
 softwarerero:accounts-t9n
 npm-bcrypt@0.9.3
+devian:mailjet

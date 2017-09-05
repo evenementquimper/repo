@@ -6,6 +6,13 @@ import { AddOns } from '../imports/api/addons.js';
 import { Connections } from '../imports/api/connections.js';
 import { Mailings } from '../imports/api/mailings.js';
 import { Communes } from '../imports/api/communes.js';
+import { Prospects } from '../imports/api/prospects.js';
+
+
+Meteor.publish('myprospects', function(){
+    return Prospects.find({});
+});
+
 Meteor.publish('tasks', function () {
     return Tasks.find({});
 });

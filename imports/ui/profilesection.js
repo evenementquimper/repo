@@ -5,13 +5,38 @@ import { Tasks } from '../api/tasks.js';
 import { CampingCars } from '../api/campingcars.js';
 import { UsersData } from '../api/usersdata.js';
 import { FilesCollection } from 'meteor/ostrio:files';
-
+import { Prospects } from '../api/prospects.js';
 import './profilesection.html';
 //var usersdatasubs = null;
 
+//import mailjet from 'node-mailjet';
+//const mailjet = require('node-mailjet');
+//.connect('3e4d41d6ab9a78cfdf67d712246de406', '9183f5619d85dd800011f5f1eaf7474d');
+
+ //var mailjet = require('node-mailjet').connect('3e4d41d6ab9a78cfdf67d712246de406', '9183f5619d85dd800011f5f1eaf7474d')
+
+//.connect('3e4d41d6ab9a78cfdf67d712246de406', '9183f5619d85dd800011f5f1eaf7474d');
+//Mailjet.connect('3e4d41d6ab9a78cfdf67d712246de406', '9183f5619d85dd800011f5f1eaf7474d');
+
+
  Template.profilesection.onCreated(function() {
+//Mailjet.connect('3e4d41d6ab9a78cfdf67d712246de406', '9183f5619d85dd800011f5f1eaf7474d');
 
   this.autorun(() => {
+     //var mailjet = Mailjet.connect('3e4d41d6ab9a78cfdf67d712246de406', '9183f5619d85dd800011f5f1eaf7474d');
+
+    const prospectsdatasubs = this.subscribe('myprospects', {
+  onStop : function (error){
+    console.log("prospect onstop Error: "+error);
+    // console.log("userdata onstop Reason: "+e.reason);
+    // console.log("userdata onstop Details: "+e.details);
+  },
+  onReady :function(){
+    console.log("prospect onready");
+  }
+
+});
+
     const usersdatasubs = this.subscribe('myusersdata', {
   onStop : function (error){
     //console.log("userdata onstop Error: "+error);
@@ -82,6 +107,9 @@ userdata:function(){
 return UsersData.find({}).fetch()[0];
 },
 
+prospects:function(){
+return Prospects.find({}).fetch();
+}
 
 });
   Template.profilesection.events({
@@ -268,22 +296,22 @@ event.preventDefault();
 
 'click #outpoupselect': function(event, template){
       
-//     event.preventDefault();
-//      var outpoupselect= template.find('#outpoupselect');
-//      var lemonselect = template.find('#lemonselect');
-//     var section = template.find('.section-container');
-// var lemonerror = template.find('#lemonerror');
-//         section.style.filter = null;
-//         section.style.opacity = null;
-//       if(lemonselect.style.display == 'inline-block'|| lemonerror.style.display == 'inline-block')
-//         { 
-//           lemonerror.style.display = 'none'
-//           lemonselect.style.display = 'none';
-//           event.currentTarget.style.display = 'none';
-//         }
-//       else
-//         {
-//         }
+    event.preventDefault();
+     var outpoupselect= template.find('#outpoupselect');
+     var lemonselect = template.find('#lemonselect');
+    var section = template.find('.section-container');
+var lemonerror = template.find('#lemonerror');
+        section.style.filter = null;
+        section.style.opacity = null;
+      if(lemonselect.style.display == 'inline-block'|| lemonerror.style.display == 'inline-block')
+        { 
+          lemonerror.style.display = 'none'
+          lemonselect.style.display = 'none';
+          event.currentTarget.style.display = 'none';
+        }
+      else
+        {
+        }
 
 },
 'click #testwait':function(e, template){
@@ -964,6 +992,155 @@ else{
 
 
   },
+
+'click .parrainckb': function(event, template){
+  var parrainsection = template.find('.parrainsection');
+  console.log("click parrain "+parrainsection.style.display);
+  if(parrainsection.style.display == 'none')
+  {
+   parrainsection.style.display = null;
+  }
+  else
+  {
+   parrainsection.style.display = 'none'; 
+  }
+  //ScrollToBottom();
+  //window.scrollTo(0, 500);
+},
+
+'click .newprospect': function(event, template){
+     event.preventDefault();
+               //var outpoupselect= template.find('#outpoupselect');
+  //var lemonselect = template.find('#lemonselect');
+  var section = template.find('.section-container');
+  //var lemonerror = template.find('#lemonerror');
+  //var infocase = template.find('#infocase');
+  //var cleaninfo = template.find('#cleaninfo');
+
+  // console.log("section container: "+section.style.filter);
+  //       section.style.filter = 'blur(2px)';
+  //       section.style.opacity = '.5';
+  //       console.log("section container: "+section.style.filter);
+  
+    //outpoupselect.style.display = "inline-block";
+    //lemonselect.style.display = "inline-block";
+    //lemonselect.style.top = '35%';
+    //lemonselect.style.left = '28%';
+
+
+  //infocase.innerHTML = 'Veuillez patienter...';
+  //cleaninfo.style.display = 'none';
+  //lemonwayregister.style.display = 'none';
+  //event.currentTarget.style.display = 'none';
+  
+  //outpoupselect.style.cursor = 'wait';
+
+   // var newprospectemail = template.find('#newprospectemail');
+// console.log("info mail: "+UsersData.find({}).fetch()[0].newprospectemail);
+// console.log("info mail: "+UsersData.find({}).fetch()[0].newprospectlastname);
+// //var dig = '{"'+event.currentTarget.name+'":"'+event.currentTarget.value+'"}';
+// var mailjetcontactid = null;
+// var mailjetcontactemail = UsersData.find({}).fetch()[0].newprospectemail;
+// var mailjetcontactfirstname = UsersData.find({}).fetch()[0].newprospectfirstname;
+// var mailjetcontactlastname = UsersData.find({}).fetch()[0].newprospectlastname;
+
+// Meteor.call('mailjetaddcontact', UsersData.find({}).fetch()[0].newprospectemail, UsersData.find({}).fetch()[0].newprospectlastname, function(error, result){
+//            if (!error){
+//              console.log("result: "+JSON.stringify(result));
+
+
+
+
+//              if(result.response && result.response.statusCode == 400)
+//              {
+//               console.log("result statusCode: "+result.response.data.ErrorMessage);
+//               infocase.innerHTML = result.response.data.ErrorMessage;
+//   cleaninfo.style.display = null;
+//   //lemonwayregister.style.display = 'none';
+//   //event.currentTarget.style.display = 'none';
+//   outpoupselect.style.cursor = null;
+
+//              }
+//              if(result.statusCode && result.statusCode == 201)
+//              {
+//               console.log("result statusCode: "+result.statusCode);
+//               Prospects.insert({
+//              parrainid: Meteor.userId(),
+//              mailjetcontactid: result.data.Data[0].ID,
+//              email: mailjetcontactemail,
+//              contactfirstname: mailjetcontactfirstname,
+//              contactlastname: mailjetcontactlastname});
+             
+// infocase.innerHTML = result.statusCode;
+//   cleaninfo.style.display = null;
+//   //lemonwayregister.style.display = 'none';
+//   //event.currentTarget.style.display = 'none';
+//   outpoupselect.style.cursor = null;
+
+//              }
+//              else
+//              {
+
+//              }
+//            }
+//            else
+//            {
+
+//            }
+//  });
+
+        // Prospects.insert({
+        //     parrainid: Meteor.userId(),
+        //     email:"antoine.donniou@gmail.com"});
+
+ Meteor.call('mailjetsendprospectmail', function(error, result){
+          if (!error){
+            console.log("result: "+JSON.stringify(result));
+          }
+          else
+          {
+             console.log("erreur: "+JSON.stringify(error));
+          }
+});
+// HTTP.call('GET', 'https://api.mailjet.com/v3/REST/contact/antoine.donniou@gmail.com', {
+//   auth:"3e4d41d6ab9a78cfdf67d712246de406:9183f5619d85dd800011f5f1eaf7474d"
+//   //data: { some: 'json', stuff: 1 }
+// }, (error, result) => {
+//   if (!error) {
+//     console.log("result: "+result);
+//     //Session.set('twizzled', true);
+//   }
+//   else
+//   {
+//    console.log("erreur: "+error);
+     
+//   }
+// });
+
+  //console.log("click newprospect "+Mailjet.contact('antoine.donniou@gmail.com'));
+//read contactlist
+//Mailjet.connect('3e4d41d6ab9a78cfdf67d712246de406', '9183f5619d85dd800011f5f1eaf7474d');
+
+//connect('3e4d41d6ab9a78cfdf67d712246de406', '9183f5619d85dd800011f5f1eaf7474d');
+
+// const request = mailjet
+//     .get("contact")
+//     .request({
+//       "ContactsList":"9928"
+//     })
+// request
+//   .then(result => {
+//     console.log(result.body)
+//   })
+//   .catch(error => {
+//     console.log(error.statusCode)
+//   })
+},
+
+'click .prospectsendmail': function(event, template){
+event.preventDefault();
+console.log("id :"+event.currentTarget.id);
+},
 
 'click .openinfobul': function(event, template){
 event.preventDefault();
