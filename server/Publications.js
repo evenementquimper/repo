@@ -10,7 +10,7 @@ import { Prospects } from '../imports/api/prospects.js';
 
 
 Meteor.publish('myprospects', function(){
-    return Prospects.find({});
+    return Prospects.find({parrainid:this.userId});
 });
 
 Meteor.publish('tasks', function () {

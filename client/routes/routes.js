@@ -28,12 +28,12 @@ FlowRouter.route('/cgv', {
   }
 });
 
-// FlowRouter.route('/google494f604454476dc2.html', {
-//   name:'google494f604454476dc2',
-//   action:function() {
-//     BlazeLayout.render("google494f604454476dc2");
-//   }
-// });
+FlowRouter.route('/parrainage', {
+  name:'parrainage',
+  action:function() {
+    BlazeLayout.render("mainLayout", {nav:"nav",homepage:"parrainage"});
+  }
+});
 
 // FlowRouter.route('/', {
 //   name:'index',

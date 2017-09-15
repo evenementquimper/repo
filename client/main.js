@@ -8,6 +8,7 @@ import { request } from "meteor/froatsnook:request";
 import '../imports/ui/footer.html';
 import '../imports/ui/mentionslegales.html';
 import '../imports/ui/cgv.html';
+import '../imports/ui/parrainage.html';
 import '../imports/ui/pagetitle.html';
 import '../imports/ui/body.js';
 import '../imports/ui/nav.js';

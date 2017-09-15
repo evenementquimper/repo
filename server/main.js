@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Connections } from '../imports/api/connections.js';
 import { UsersData } from '../imports/api/usersdata.js';
+import { Spiderable } from 'meteor/jazeee:spiderable-longer-timeout';
 
   var nbrconn = 0;
 Meteor.startup(() => {
@@ -71,6 +72,13 @@ Meteor.startup(() => {
 
 
 Roles.addUsersToRoles(Meteor.settings.admin.ADM_ID, 'admin', Roles.GLOBAL_GROUP);
+//utilisateurs autorisés a utiliser le systeme de parrainage
+//Roles.addUsersToRoles( "Qce26bnPvy92JFZzj", ['testeuralpha', 'testeubeta'] ); //contactleboncampingcar@gmail.com
+Roles.addUsersToRoles( "P3jdqiPZ3rnBJ2EdA", ['testeuralpha', 'testeubeta'] ); //antoine.donniou@gmail.com
+Roles.addUsersToRoles( "Heo4kap8cQwcw4FWD", ['testeuralpha', 'testeubeta'] ); //gaetan.berree@gmail.com
+
+Roles.addUsersToRoles( "iPkhs5TrDPzD3DtHC", ['testeuralpha', 'testeubeta'] ); //donniougigi@gmail.com
+
 
 moment.locale('fr');
 
@@ -159,69 +167,3 @@ Accounts.validateLoginAttempt((attempt) => {
 });
 
 });
-
-Meteor.onConnection(function(conn) {
-//nbrconn = nbrconn+1;
-//console.log("nbr de client connect: "+nbrconn);
-//       Connections.insert({
-//               connection_id: conn.id,
-//               clientaddress: conn.clientAddress,
-//               totalconnections: nbrconn,
-//               createdAt: new Date()
-//           }, function( error, result) { 
-//      if ( error ) console.log ( error ); //info about what went wrong
-//      if ( result )
-//  {
-//   console.log("insert bdd connection ok: "+result);
-//  }
-if(conn.clientaddress=="127.0.0.1"){
-  //conn.close();
-//Meteor.disconnect();
-}
-
- });
-
-//if(conn.onClose)
-    //console.log("connection client onclose: "+conn.onClose);
-//     conn.onClose(function(){
-//       nbrconn = nbrconn-1;
-//                 //console.log("Close : ");
-//                 //console.log("nbr de client connect: "+nbrconn);
-//                       Connections.insert({
-//               totalconnections: nbrconn,
-//               createdAt: new Date()
-//           }, function( error, result) { 
-//      if ( error ) console.log ( error ); //info about what went wrong
-//      if ( result )
-//  {
-//   console.log("insert bdd connection ok: "+result);
-//  }
-// });
-//       });
-      //console.log("connection conn onclose: "+);
-
-       // },
-
-// IPGeocoder.geocode('82.124.236.10', function(error, result){
-//     if(!error){
-//         // good to go
-//     }
-//     else
-//     {
-//     	console.log("result ip: "+error.message);
-//     }
-// });
-
-
-    //var geoip = require('geoip-lite');
-
-//var ip = conn.clientAddress;
-//var geo = GeoIp.lookup(ip);
-
-//console.log("geolocation" ,geo);
-// { range: [ 3479299040, 3479299071 ],
-//   country: 'US',
-//   region: 'CA',
-//   city: 'San Francisco',
-//   ll: [37.7484, -122.4156] }
-//});

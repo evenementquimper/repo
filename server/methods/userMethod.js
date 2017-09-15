@@ -2,8 +2,8 @@ import { Reservations } from '../../imports/api/reservations.js';
 
 Meteor.startup(function () {
   //process.env.MAIL_URL = Meteor.settings.smtp.GMAIL_SMTP;
-  process.env.MAIL_URL = Meteor.settings.smtp.OVH_SMTP;
-//process.env.MAIL_URL = Meteor.settings.smtp.MAILJET_SMTP;
+  //process.env.MAIL_URL = Meteor.settings.smtp.OVH_SMTP;
+process.env.MAIL_URL = Meteor.settings.smtp.MAILJET_SMTP;
 });
 
 Meteor.methods({
