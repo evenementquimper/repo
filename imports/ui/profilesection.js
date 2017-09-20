@@ -748,7 +748,8 @@ var js = JSON.parse(dig);
               if(userdat.ibanbase64 && userdat.lemonibanid == null && userdat.cartidbase64 && userdat.lemoncartid == null && userdat.licensebase64 && userdat.lemonlicenseid == null && userdat.firstname && userdat.lastname && userdat.birthdate && userdat.cellphone && userdat.email)
                 {
                   infocase.innerHTML = 'Demande de Validation du compte (2 à 3 jours de délai)';
-                  registlemonbase64.style.display = null;
+                  //registlemonbase64.style.display = null;
+                                    cleaninfo.style.display = null;  
                 }
               else{
 
@@ -844,7 +845,8 @@ var js = JSON.parse(dig);
     if(userdat.ibanbase64 && userdat.lemonibanid == null && userdat.cartidbase64 && userdat.lemoncartid == null && userdat.licensebase64 && userdat.lemonlicenseid == null && userdat.firstname && userdat.lastname && userdat.birthdate && userdat.cellphone && userdat.email)
     {
       infocase.innerHTML = 'Demande de Validation du compte (2 à 3 jours de délai)';
-      registlemonbase64.style.display = null;
+      //registlemonbase64.style.display = null;
+            cleaninfo.style.display = null;  
     }
     else{
 
@@ -939,7 +941,8 @@ var js = JSON.parse(dig);
     {
       infocase.innerHTML = 'Chargement Terminé';
       infocase.innerHTML = 'Demande de Validation du compte (2 à 3 jours de délai)';
-      registlemonbase64.style.display = null;
+      //registlemonbase64.style.display = null;
+           cleaninfo.style.display = null; 
 }
 else{
 
