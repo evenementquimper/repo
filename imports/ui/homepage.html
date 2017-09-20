@@ -95,6 +95,36 @@
          </div>
          </div>
 
+
+<section class="section">
+<div class="section-container">
+<dir class="section-intro">
+         <h1 class="section-intro-title">Offre Spéciale Limitée
+         </h1>
+</dir>
+<div class="row" style="background-image: url('/images/parrainage.jpg');height: 350px;
+width: 600px;" itemprop="image">
+<div class="col align-self-start"><p class="intro-content" style="font-size: x-large;
+background: #ef4136;
+font-weight: bold;
+color: white;
+width: 430px;">Parrainez vos amis propriétaires</p></div>
+<div style="margin-top: 120px"><p class="intro-content" style="
+background: #ef4136;
+font-weight: bold;
+color: white;
+width: 260px;">Gagner 5% de Commission <a style="color:white;" href="/parrainage">(**)</a></p></div>
+{{#if currentUser}}
+<a href="/user#parrainsection"><button tabindex="0" type="button" style="border: 10px none; box-sizing: border-box; display: inline-block; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; margin: 0px; padding: 0px; outline: medium none; font-size: inherit; font-weight: inherit; transform: translate(0px, 0px); position: relative; height: 36px; line-height: 36px; width: 200px; border-radius: 2px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; background-color: rgb(36, 97, 130); text-align: center;color:white;margin: 20px;">Voir Votre Compte</button></a>
+{{else}}
+<a href="/authentication"><button tabindex="0" type="button" style="border: 10px none; box-sizing: border-box; display: inline-block; font-family: Roboto,sans-serif; cursor: pointer; text-decoration: none; margin: 0px; padding: 0px; outline: medium none; font-size: inherit; font-weight: inherit; transform: translate(0px, 0px); position: relative; height: 36px; line-height: 36px; width: 200px; border-radius: 2px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; background-color: rgb(36, 97, 130); text-align: center;color:white;margin: 20px;">Inscription</button></a>
+{{/if}}
+</div>
+</div>
+</section>
+
+
+{{#if campingcars}}
          <section class="featured-vehicles section">
          <div class="section-container">         
          <div class="featured-vehicles-carousel">
@@ -111,7 +141,7 @@
          <div class="carousel">
 <div class="owl-carousel owl-theme owl-loaded">
 
-{{#if campingcars}}
+
 {{#each campingcars}}
             <div class="owl-item">
 <div class="slick-slide featured-vehicles-card" data-index="-3" style="width: 400px;">
@@ -167,12 +197,6 @@
 
             </div>
 {{/each}}
-{{else}}
-<div><p class="intro-content">Ouverture du site</p></div>
-<div><p class="intro-content">Vous possédez un camping-car, l'inscription est gratuite et sans engagement</p></div>
-<div><p class="intro-content">Soyez les premiers à gagner de l'argent graçe à votre camping-car</p></div>
-{{/if}}
-
 </div>
          </div>
              {{else}}
@@ -182,6 +206,8 @@
          </div>
          </div>
          </section>
+{{else}}
+{{/if}}
          <section class="intro section">
          <div class="section-container">
          <div class="section-intro">
